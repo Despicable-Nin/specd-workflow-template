@@ -46,6 +46,27 @@
       "history": [
         {"timestamp": "[TIMESTAMP]", "action": "Drafted", "actor": "System"}
       ]
+    },
+    {
+      "id": "WORK-003",
+      "type": "Task",
+      "title": "Implement seven SDLC skills with commands and documentation",
+      "status": "done",
+      "priority": "critical",
+      "source": {
+        "type": "wf-commit",
+        "reference": "c792a43"
+      },
+      "context": "Implemented wf-bootstrap, wf-state, wf-reconcile, wf-task-code, wf-task-noncode, wf-review, wf-commit skills with .opencode/skills/ SKILL.md files and .opencode/commands/ wrappers. Added sdlc-skill-usage.md documentation. Updated all three AGENTS.md files.",
+      "next_action": "None — implementation complete and pushed to origin/main.",
+      "dependencies": ["WORK-001"],
+      "owner": "System",
+      "resolution": "Committed c792a43 and pushed to origin/main.",
+      "history": [
+        {"timestamp": "[TIMESTAMP]", "action": "Proposed", "actor": "System"},
+        {"timestamp": "[TIMESTAMP]", "action": "Committed c792a43", "actor": "System"},
+        {"timestamp": "[TIMESTAMP]", "action": "Pushed to origin/main", "actor": "System"}
+      ]
     }
   ]
 }
