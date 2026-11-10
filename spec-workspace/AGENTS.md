@@ -16,7 +16,7 @@ This workspace manages all reusable and project-specific specifications, ensurin
     *   `project-b/`: Complete spec for Project B
 
 ## 3. Key Process (Specification Lifecycle):
-The system must enforce the state machine: `Draft -> In_Review -> Approved -> Superseded`. The `specification-approve` skill acts as the final required gate linking the Spec to the Code/Task.
+The system must enforce the state machine: `Draft -> In_Review -> Approved -> Superseded`. The `wf-bootstrap` skill creates project specifications, and `wf-review` acts as the independent review gate before approval. Task specifications are created by `wf-task-code` and `wf-task-noncode`, each subject to `wf-review` approval before implementation.
 
 ## 4. Data Integrity (Binding):
 The `binding.yaml` file in a project's codebase directory must reference the stable ID and version of the specification collection residing here. This ensures the codebase is traceable to its required definition.

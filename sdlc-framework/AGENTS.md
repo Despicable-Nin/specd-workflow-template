@@ -9,8 +9,10 @@ The Framework Agents define the *system* roles (Orchestrator, Implementer). They
 ## 2. Core Components:
 *   **Policies:** [policies/]: Defines reusable governance rules (e.g., `policy_specification_gate.md`).
 *   **Workflows:** [workflows/]: High-level sequences (e.g., `workflow_new_feature.md`).
-*   **Skills:** [skills/]: The atomic, callable procedures (e.g., `skill-project-assess.py`).
+*   **Skills:** [.opencode/skills/]: Atomic, callable procedures (e.g., `wf-bootstrap`, `wf-task-code`, `wf-review`, `wf-commit`). Each skill has its own `SKILL.md`.
+*   **Commands:** [.opencode/commands/]: OpenCode command wrappers (e.g., `@wf-bootstrap`, `@wf-review`) that delegate to the corresponding skill.
 *   **Schemas:** [schemas/]: Defines the structured data for artifacts (e.g., `work_ledger_schema.json`).
+*   **Documentation:** [documentation/sdlc-skill-usage.md]: Usage guide for all SDLC skills and commands.
 
 ## 3. Component Interaction:
 The Orchestrator uses a Skill hook to call functions/blueprints, enforcing the correct Agent roles for the execution context.

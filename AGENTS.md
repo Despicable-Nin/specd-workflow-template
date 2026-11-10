@@ -15,7 +15,19 @@ This space enforces global constraints (e.g., Specification Before Implementatio
 ## 3. Tool Integration Overview:
 Custom tools are limited to what OpenCode provides or what is defined in the [sdlc-framework/tools/].
 
-## 4. Instruction Precedence Policy:
+## 4. SDLC Skills & Commands:
+The seven SDLC skills live in `sdlc-framework/.opencode/skills/<skill-id>/SKILL.md` and are exposed as `@wf-` commands in `sdlc-framework/.opencode/commands/`:
+- `wf-bootstrap` — project foundation from a natural-language description
+- `wf-state` — read-only project state discovery
+- `wf-reconcile` — specification consistency evaluation
+- `wf-task-code` — coding task specification with test scenarios
+- `wf-task-noncode` — non-coding task specification (docs, config, infra)
+- `wf-review` — independent evidence-based review
+- `wf-commit` — authorized commits and remote synchronization
+
+Usage documentation: [sdlc-framework/documentation/sdlc-skill-usage.md](sdlc-framework/documentation/sdlc-skill-usage.md)
+
+## 5. Instruction Precedence Policy:
 1. Protected Framework Invariants (Highest)
 2. Explicit User Instructions (Highest override)
 3. [project-specific AGENTS.md]
