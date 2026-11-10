@@ -1,0 +1,51 @@
+# --- Work Ledger Initialization ---
+# This file represents the persistent, local source of truth.
+# In a live system, this file would be managed by the [project-reconcile] skill.
+
+{
+  "metadata": {
+    "last_updated": "2026-11-10T[TIMESTAMP]",
+    "current_project_context": "Initial Framework Setup (Placeholder)",
+    "version": "1.0.0-draft"
+  },
+  "ledger": [
+    {
+      "id": "WORK-001",
+      "type": "Decision",
+      "title": "Framework Architectural Pattern Selection",
+      "status": "done",
+      "priority": "critical",
+      "source": {
+        "type": "system-setup",
+        "reference": "Master Prompt Section 21"
+      },
+      "context": "Confirmed the adoption of a highly modular, decoupled system-of-record model to separate framework, specifications, and codelines, ensuring maintainability.",
+      "next_action": "Proceed to Phase 2 Blueprinting and Implementation Planning.",
+      "dependencies": [],
+      "owner": "System Architect",
+      "resolution": "Approved: Proceed to Phase 2.",
+      "history": [
+        {"timestamp": "[TIMESTAMP]", "action": "Proposed", "actor": "System"}
+      ]
+    },
+    {
+      "id": "WORK-002",
+      "type": "Blocker",
+      "title": "Await User Approval for Framework Implementation Plan",
+      "status": "pending",
+      "priority": "critical",
+      "source": {
+        "type": "ProtectedInvariant",
+        "reference": "SDLC-FW-SPEC-FINAL-v1.0"
+      },
+      "context": "The framework design MUST receive explicit approval before any physical scaffolding (Phase 3) or implementation (Phase 4) can proceed.",
+      "next_action": "Obtain explicit user approval to proceed to Phase 3 scaffolding.",
+      "dependencies": ["WORK-001"],
+      "owner": "User",
+      "resolution": null,
+      "history": [
+        {"timestamp": "[TIMESTAMP]", "action": "Drafted", "actor": "System"}
+      ]
+    }
+  ]
+}
