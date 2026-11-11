@@ -1,5 +1,3 @@
-# sdlc-framework/schemas/work_ledger_schema.json
-
 {
   "schema_version": "1.0",
   "description": "Defines the structure for the persistent Work Ledger, the single source of truth for all project work.",

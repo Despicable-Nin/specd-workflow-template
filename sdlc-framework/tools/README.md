@@ -1,7 +1,9 @@
-# 🛠️ Tools Directory
+# Tools Directory
+
 This folder contains specialized, reusable programmatic utilities that support the workflow. Tools should encapsulate complex, repeatable operations that cannot be achieved purely through a single agent call or simple skill.
 
 ## Key Tools:
+
 - `worktree_manager.tool`: Handles the lifecycle of parallel worktrees (create, list, switch, safe removal).
 - `policy_checker.tool`: Programmatically verifies adherence to protected policies before executing critical state changes.
 - `git_state_analyzer.tool`: Gathers deep, canonical diff and history data at a specific point in time.

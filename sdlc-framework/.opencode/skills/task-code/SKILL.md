@@ -266,6 +266,7 @@ This summary is the user's confirmation that the task is fully planned and ready
 - Task-specific handoff file exists containing only this task's information, with detailed handoff AND suggested skill run
 - No existing work ledger items were modified or closed
 - No uncommitted work was discarded
+- No protected invariant was violated (approved parent spec, technology-agnostic task spec, evidence-based acceptance criteria)
 
 ## Handoff Requirements
 - Approved task ID and spec location

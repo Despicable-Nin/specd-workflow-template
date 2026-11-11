@@ -9,14 +9,14 @@ The system is composed of three physically/logically separate domains:
 3.  **Codebases:** (`generated-projects/project-a/`) - Contains the physical implementation bound to a specific specification.
 
 ## 🚀 Getting Started (The Core Workflow)
-**ALWAYS** start by executing the system's bootstrap sequence:
-1.  **Command:** `opcode skill-session-bootstrap`
+**ALWAYS** start by executing the system's state discovery sequence:
+1.  **Command:** `@wf-state`
 2.  **Expected Result:** The system reports the current status (e.g., "Idle," "Blocked," or "In Progress: [WORK-XXX]").
-3.  **If New Project:** The user MUST signal intent, triggering the `skill-project-init` sequence.
+3.  **If New Project:** The user MUST signal intent, triggering the `@wf-bootstrap` sequence.
 
 ## 📘 Chapter 1: The Specification Gate (The Core Invariant)
 *   **Rule:** No code writes until an approved specification exists.
-*   **Process:** The workflow *must* pause at the `skill-specification-approve` gate.
+*   **Process:** The workflow *must* pause at the specification approval gate (Gate 2 of `@wf-bootstrap`; Gate 3 of `@wf-task-code` / `@wf-task-noncode`).
 *   **Mandatory Artifact:** All features must be traceable back to an `Approved Specification ID` (e.g., `WORK-XXX: Specification Passed`).
 
 ## 📚 Chapter 2: Reusable Specification Library (Knowledge Management)
@@ -28,16 +28,16 @@ The system is composed of three physically/logically separate domains:
 | Role | Skill/Agent | Purpose |
 | :--- | :--- | :--- |
 | **Orchestrator** | N/A (The user/system) | Governs sequence; calls skills in order. |
-| **Planner Agent** | `skill-architecture-calibration` | Defines the logical shape (Monolith vs. Microservice) based on requirements. |
-| **Implementer Agent** | `skill-implement-tdd` | Executes code changes via the verified Red $\rightarrow$ Green $\rightarrow$ Refactor loop, always writing to the approved scope. |
-| **Reviewer Agent** | `skill-pr-review` | Independent, evidence-based review against every invariant. |
-| **State Management**| `skill-session-bootstrap` | **CRITICAL:** Must be run first on *every* session. |
+| **Planner Agent** | `@wf-bootstrap` (architecture calibration step) | Defines the logical shape (Monolith vs. Microservice) based on requirements. |
+| **Implementer Agent** | `@wf-task-code` / `@wf-task-noncode` (implementation) | Executes changes against the approved task spec and verification requirements, always writing to the approved scope. |
+| **Reviewer Agent** | `@wf-review` | Independent, evidence-based review against every invariant. |
+| **State Management** | `@wf-state` | **CRITICAL:** Must be run first on *every* session. |
 
 ## 📜 Comprehensive Workflow Flowcharts
-*(The documentation will contain detailed flow diagrams for all 13 workflows listed in the Master Prompt, showing the precise sequence of skill calls required.)*
+*(Detailed flow diagrams for the workflow blueprints in `workflows/` showing the precise sequence of skill calls required will be added to this chapter.)*
 
-**Recommendation:** Use the `opcode execute_skill(skill-name, {input: ...})` pattern to drive work, never simply thinking "I should..."
+**Recommendation:** Use the `@wf-<skill-id>` command pattern to drive work, never simply thinking "I should..."
 
 ***
 
-**FINAL STATUS:** The documentation package is complete. The OS is operational. **This completes the entire build.** You can now begin running the system against a real task using the provided documentation and workflows.
+**FINAL STATUS:** The documentation package is complete. The OS is operational. You can now begin running the system against a real task using the provided documentation and workflows.

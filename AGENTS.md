@@ -16,7 +16,7 @@ This space enforces global constraints (e.g., Specification Before Implementatio
 Custom tools are limited to what OpenCode provides or what is defined in the [sdlc-framework/tools/].
 
 ## 4. SDLC Skills & Commands:
-The seven SDLC skills live in `sdlc-framework/.opencode/skills/<skill-id>/SKILL.md` and are exposed as `@wf-` commands in `sdlc-framework/.opencode/commands/`:
+The eleven SDLC skills live in `sdlc-framework/.opencode/skills/<skill-id>/SKILL.md` and are exposed as `@wf-` commands in `sdlc-framework/.opencode/commands/`:
 - `wf-bootstrap` — project foundation from a natural-language description
 - `wf-state` — read-only project state discovery
 - `wf-reconcile` — specification consistency evaluation
@@ -24,6 +24,10 @@ The seven SDLC skills live in `sdlc-framework/.opencode/skills/<skill-id>/SKILL.
 - `wf-task-noncode` — non-coding task specification (docs, config, infra)
 - `wf-review` — independent evidence-based review
 - `wf-commit` — authorized commits and remote synchronization
+- `wf-constitution` — project constitution (governance principles)
+- `wf-plan` — implementation/technical plan from approved task spec
+- `wf-implement` — Red -> Green -> Refactor implementation
+- `wf-converge` — convergence verdict and loop completion
 
 Usage documentation: [sdlc-framework/documentation/sdlc-skill-usage.md](sdlc-framework/documentation/sdlc-skill-usage.md)
 
@@ -34,5 +38,5 @@ Usage documentation: [sdlc-framework/documentation/sdlc-skill-usage.md](sdlc-fra
 4. [sdlc-framework/AGENTS.md]
 5. Global Defaults (Lowest)
 
-## 5. Recommended Initial Action:
-Run: `opcode project-init` to begin building a new project from scratch.
+## 6. Recommended Initial Action:
+Run: `@wf-bootstrap` to begin building a new project from scratch.

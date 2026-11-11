@@ -1,18 +1,22 @@
 # SDLC Skill Usage Guide
 
-This document explains how to invoke the seven SDLC framework skills via OpenCode commands.
+This document explains how to invoke the eleven SDLC framework skills via OpenCode commands.
 
 ## Skill Inventory
 
 | # | Skill ID | Directory | Command | Purpose |
 |---|----------|-----------|---------|---------|
-| 01 | `wf-bootstrap` | `skills/bootstrap/` | `@wf-bootstrap` | Bootstrap a new project from a natural-language description |
-| 02 | `wf-state` | `skills/state/` | `@wf-state` | Discover the current state of a project (read-only) |
-| 03 | `wf-reconcile` | `skills/reconcile/` | `@wf-reconcile` | Evaluate specification consistency (duplicates, conflicts, overlaps) |
-| 04 | `wf-task-code` | `skills/task-code/` | `@wf-task-code` | Create a coding task specification with test scenarios |
-| 05 | `wf-task-noncode` | `skills/task-noncode/` | `@wf-task-noncode` | Create a non-coding task specification (docs, config, infra) |
-| 06 | `wf-review` | `skills/review/` | `@wf-review` | Perform independent, evidence-based review |
-| 07 | `wf-commit` | `skills/commit/` | `@wf-commit` | Authorized commits and remote synchronization |
+| 01 | `wf-bootstrap` | `.opencode/skills/bootstrap/` | `@wf-bootstrap` | Bootstrap a new project from a natural-language description |
+| 02 | `wf-state` | `.opencode/skills/state/` | `@wf-state` | Discover the current state of a project (read-only) |
+| 03 | `wf-reconcile` | `.opencode/skills/reconcile/` | `@wf-reconcile` | Evaluate specification consistency (duplicates, conflicts, overlaps) |
+| 04 | `wf-task-code` | `.opencode/skills/task-code/` | `@wf-task-code` | Create a coding task specification with test scenarios |
+| 05 | `wf-task-noncode` | `.opencode/skills/task-noncode/` | `@wf-task-noncode` | Create a non-coding task specification (docs, config, infra) |
+| 06 | `wf-review` | `.opencode/skills/review/` | `@wf-review` | Perform independent, evidence-based review |
+| 07 | `wf-commit` | `.opencode/skills/commit/` | `@wf-commit` | Authorized commits and remote synchronization |
+| 08 | `wf-constitution` | `.opencode/skills/constitution/` | `@wf-constitution` | Establish/update the project constitution |
+| 09 | `wf-plan` | `.opencode/skills/plan/` | `@wf-plan` | Create implementation/technical plan from approved task spec |
+| 10 | `wf-implement` | `.opencode/skills/implement/` | `@wf-implement` | Implement approved task spec via Red -> Green -> Refactor TDD |
+| 11 | `wf-converge` | `.opencode/skills/converge/` | `@wf-converge` | Run convergence loop and issue verdict |
 
 All skills live under:
 `sdlc-framework/.opencode/skills/<skill-id>/SKILL.md`
@@ -73,12 +77,12 @@ Requires explicit authorization for both commit and push. Never force-pushes by 
 
 ```
 @wf-bootstrap <project description>
-    ↓ (approved project spec + non-executable scaffold)
-@wf-task-code <project> <feature description>
-    ↓ (approved task spec + worktree + handoff with suggested skill run)
-[implementer writes code in worktree]
+    ↓ (approved project spec + constitution + non-executable scaffold)
+@wf-plan <project> <task spec ID>        |        @wf-task-code <project> <feature description>
+    ↓ (approved plan / approved task spec + worktree + handoff)
+@wf-implement <task>                     (Red -> Green -> Refactor in task worktree)
     ↓
-@wf-commit <project> <worktree> <task spec ID> [push yes/no]
+@wf-converge <task>                      (Converged? -> yes: @wf-commit)
     ↓ (commit SHA recorded, work ledger updated)
 ```
 
