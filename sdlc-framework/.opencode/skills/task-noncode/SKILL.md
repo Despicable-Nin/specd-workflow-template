@@ -1,7 +1,7 @@
 ---
 name: wf-task-noncode
 id: wf-task-noncode
-version: 1.2.0
+version: 1.2.1
 description: Create an implementation-ready specification for a non-coding task (documentation, configuration, infrastructure, process, data migration setup). Follows the plan-fix calibration pattern: six choices asked one at a time, answers recorded bindingly, no defaults assumed, finalized only on explicit confirmation. Worktree creation parameters are decided during calibration (choice 4). Requires explicit project-spec targeting (never assumed). No test scenarios (not applicable to non-coding work). Produces a task specification, a dedicated per-task worktree and branch, and a task-specific handoff file that includes a suggested skill run.
 category: task-specification
 status: active
@@ -162,7 +162,17 @@ Present the draft + review findings to the human. Obtain explicit approval:
 4. **Determine base branch**: Default to the repository's default branch (main/master). Allow user to specify a different base branch. Confirm it exists locally or can be fetched.
 5. **Check for conflicts**: Verify no existing worktree is already associated with this task spec ID. Check for branch name conflicts (a branch with the same name already exists). If conflict exists, ask user how to proceed (new name, reuse existing, or abort).
 6. **Create dedicated branch**: Branch name convention from calibration choice 4 (or project AGENTS.md convention if present, or default `task/WORK-<nnn>-<short-slug>`). Create from the base branch.
-7. **Create isolated worktree**: Create a linked worktree at the dedicated path from calibration choice 4 (or user-specified location). Check out the new branch in the worktree. Verify the worktree is properly linked.
+7. **Create isolated worktree**: Create a linked worktree at the dedicated path from calibration choice 4 (or user-specified location).
+
+   **CRITICAL GIT PATTERN**: When creating a worktree for a new task branch, use the combined Git command that creates the branch and links the worktree simultaneously:
+
+   ```bash
+   git worktree add <worktree-path> -b <new-branch-name> <base-branch>
+   ```
+
+   Do NOT attempt to `git worktree add <path> <existing-branch>` when that branch is already checked out in the primary worktree — Git will reject it with `invalid reference`. The `-b` flag creates a new branch from `<base-branch>` and immediately checks it out into the new worktree, which avoids this conflict entirely.
+
+   Verify the worktree is properly linked.
 8. **Associate worktree with specification**: Record the association in the work ledger (`WORK-XXX` item, type: Task, status: done, source: task spec ID) and in the task-specific handoff file.
 
 ### Step 16 — Task-specific handoff file (HARD RULE: detailed handoff + suggested skill run)
@@ -211,6 +221,7 @@ This summary is the user's confirmation that the task is fully planned and ready
 | Plan-fix calibration | Six choices asked one at a time; answers recorded bindingly; no defaults assumed |
 | Calibration finalization | No drafting until user explicitly confirms the calibration plan is final |
 | Worktree in calibration | Worktree/branch parameters decided in calibration choice 4; no separate worktree decision later |
+| Git worktree creation | When creating a worktree for a new task branch, use `git worktree add <path> -b <new-branch> <base-branch>`; never attempt to check out an already-active branch into a new worktree |
 | Explicit spec targeting | User selects project spec from presented options; never assumed |
 | Non-coding only | This skill is for non-coding tasks; test scenarios are not applicable |
 | One worktree per task | Each task spec gets its own dedicated worktree and branch; never share worktrees across tasks |
@@ -251,7 +262,7 @@ This summary is the user's confirmation that the task is fully planned and ready
 | Uncommitted changes present | Warn user; ask to stash, commit, or abort; never discard |
 | Branch already exists | Ask user: new name, reuse existing, or abort |
 | Worktree already exists for this task | Warn; do not duplicate; ask whether to reuse or abort |
-| Worktree creation fails | Record as Blocker in work ledger |
+| Worktree creation fails | Record as Blocker in work ledger. If failure is `invalid reference`, verify whether the base branch is already checked out in the primary worktree; if so, use the `-b` flag pattern (`git worktree add <path> -b <new-branch> <base-branch>`) rather than attempting to check out an existing branch name into a new worktree. |
 
 ## Validation
 - Calibration run file exists with all six answers recorded bindingly, including worktree plan from choice 4

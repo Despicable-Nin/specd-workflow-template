@@ -1,0 +1,8 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "skills": [
+    "sdlc-framework/.opencode/skills"
+  ],
+  "provider": "user_managed",
+  "default_agent": "general"
+}
