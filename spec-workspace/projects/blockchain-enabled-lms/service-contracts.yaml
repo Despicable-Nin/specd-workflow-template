@@ -5,49 +5,64 @@
 # pointer (spec-workspace/AGENTS.md Section 4); this file is the service
 # binding manifest.
 #
-# Source: the binding.yaml written by the concurrent authoring session on
-# 2026-11-13 (09:34:52), preserved verbatim. The srs_domain mapping is a
-# RECONCILIATION PROPOSAL, not an approved decision - the SRS names seven
-# service domains and three of these services do not map cleanly onto them.
-# See WORK-027 / WORK-030.
+# Authority: SRS_LMS_v1.0.md Section 3 defines the seven service domains and is
+# authoritative. This file records the RUNTIME BINDINGS between them, which are
+# an implementation concern. Where the two disagree, the SRS governs.
+#
+# The three service bindings below were authored by the concurrent authoring
+# session on 2026-11-13 (09:34:52) and preserved verbatim. The domain list is
+# reconciled against SRS Section 3.1 (finding R-14): all seven domains are now
+# declared, and the ones without a runtime binding yet are marked explicitly
+# rather than omitted.
 services:
   auth-service:
+    domain: IAM
     provides: user.profile
     requires: core-identity-module
-    srs_domain: IAM
-    srs_domain_status: proposed
+    binding_status: declared
 
   record-schema:
+    domain: LGS
     provides: blockchain.record
     requires: data-persistence-layer
-    srs_domain: LGS
-    srs_domain_status: proposed
+    binding_status: declared
 
   blockchain-gateway:
+    domain: unresolved
     provides: immutable-event-pointer
     requires: network-client-sdk
-    srs_domain: unresolved
-    srs_domain_status: unresolved
+    binding_status: declared
     note: >-
-      The SRS defines no gateway domain among its seven service domains.
-      Two candidate homes exist in the repository and neither is an SRS
-      domain: lms-platform/blockchain-proxy and lms-platform/web-api-gateway.
-      Requires a human decision.
+      The SRS defines no gateway domain among its seven. The gateway role is
+      distributed: LGS commits the proof and IAM authorizes the actor, so this
+      service's place in the domain model is not yet decided. Two candidate
+      directory names exist in the repository (lms-platform/blockchain-proxy,
+      lms-platform/web-api-gateway) and neither is an SRS domain. Requires a
+      human decision - see SRS Question Q-3 and ledger WORK-037.
 
-# The seven service domains declared by SRS_LMS_v1.0.md Section 2. Listed so
-# the coverage gap between this manifest and the specification is explicit.
-srs_service_domains:
-  - IAM
-  - ECS
-  - AMS
-  - FRAS
-  - ESS
-  - GRA-Service
-  - LGS
+# The seven service domains declared by SRS_LMS_v1.0.md Section 3.1.
+domains:
+  - domain: IAM
+    binding_status: declared
+  - domain: ECS
+    binding_status: not-yet-specified
+    note: Rule authority. No runtime binding specified yet.
+  - domain: AMS
+    binding_status: not-yet-specified
+    note: Course and program definitions. No runtime binding specified yet.
+  - domain: FRAS
+    binding_status: not-yet-specified
+    note: Instructional allocation, capacity and load. No runtime binding specified yet.
+  - domain: ESS
+    binding_status: not-yet-specified
+    note: Sections and enrollments. No runtime binding specified yet.
+  - domain: GRA-Service
+    binding_status: not-yet-specified
+    note: Grading and appeals. No runtime binding specified yet.
+  - domain: LGS
+    binding_status: declared
 
-unmapped_srs_domains:
-  - ECS
-  - AMS
-  - FRAS
-  - ESS
-  - GRA-Service
+# No domain is unmapped against the SRS - the gap is in the runtime bindings,
+# not in the domain model. Which domains need a runtime binding before the
+# first implementation slice is decided by the implementation plan.
+unmapped_srs_domains: []

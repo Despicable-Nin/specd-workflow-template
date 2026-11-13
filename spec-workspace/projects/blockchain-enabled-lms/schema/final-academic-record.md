@@ -107,16 +107,19 @@ They are listed as **open contract items** rather than invented here:
 
 ## 5. Audit linkage
 
-Every appeal or amendment creates a **new, appended, versioned** record. It never mutates the
-original. The new record carries:
+Every appeal or amendment creates a **new, appended, versioned** record. It never alters the
+original's content. The new record carries:
 
 - `parent_transaction_id` - the `recordId` / transaction identity of the record being amended.
 - `change_status` - the nature of the change.
 
+Per the parent specification (SRS Section 2.8), a finalized record leaves the `Finalized` state
+only by being marked `Superseded`, and **only after** the successor has been appended. The mark
+records which successor supersedes it; it never changes the superseded record's own content.
+
 The complete, approved state of the student's academic history is held in the operational
-database (non-blockchain), which is the system of record; the Ledger Service (LGS) hashes it and
-commits an immutable proof of grade finalization to the blockchain
-(SRS_LMS_v1.0.md Section 4.3, Section 2).
+record store, which is the system of record (SRS Section 3.6); the Ledger Service (LGS) commits an
+immutable proof over it (SRS Sections 2.7 and 3.6).
 
 ## 6. Versioning and compatibility
 
@@ -130,8 +133,8 @@ controlled manner by the LGS validator**, not silently coerced or partially appl
 acceptance criterion 5 and requires an integration test at implementation time.
 
 **Governance of the ruleset.** The formula that produces `cumulative_weighted_gpa` is selected by
-the ECS for the current `EducationalLevel` and `AcademicPeriod` (SRS_LMS_v1.0.md Sections 1.4,
-4.2). The version-specific formula is identified by `GoverningRuleSetID`.
+the ECS for the current `EducationalLevel` and `AcademicPeriod` (SRS Sections 3.2 and 3.3). The
+version-specific formula is identified by `GoverningRuleSetID`.
 
 ## 7. Acceptance criteria
 

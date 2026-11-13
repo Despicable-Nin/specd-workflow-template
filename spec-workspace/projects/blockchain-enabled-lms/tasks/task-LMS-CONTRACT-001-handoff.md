@@ -72,25 +72,31 @@ merged and retired. One worktree per task is a hard rule; this task needs its ow
 
 ## Suggested skill run (mandatory next step)
 
+**The parent specification comes first.** A task specification may not be `Approved` ahead of its
+parent, so this task's review gate cannot open until `SRS_LMS_v1.0.md` is approved.
+
 | # | Skill | Parameters | Why |
 |---|---|---|---|
-| 1 | `wf-review` | project `Blockchain-Enabled LMS`, artifact `tasks/task-LMS-CONTRACT-001-noncode.md` | The spec is `Draft`. `wf-review` is the independent evidence-based gate and is a hard requirement before any `Approved` status (ledger `WORK-009`). |
-| 2 | `wf-plan` | project `Blockchain-Enabled LMS`, task `WORK-LMS-CONTRACT-001` | Produces the implementation/technical plan from the approved task spec, with independent review and human approval before implementation. |
-| 3 | `wf-implement` | worktree (created at step 2), task `WORK-LMS-CONTRACT-001` | Executes the plan in the task worktree using Red -> Green -> Refactor. |
-| 4 | `wf-converge` | task `WORK-LMS-CONTRACT-001` | Verifies the implementation against the acceptance criteria with collected evidence. |
+| 1 | `wf-review` | project `Blockchain-Enabled LMS`, artifact `SRS_LMS_v1.0.md` | The parent spec was rewritten on 2026-11-13 to close 14 blocking findings. It needs a fresh independent verdict before it can be approved. |
+| 2 | *(human approval)* | parent spec `SRS-LMS-v1.0` | `wf-review` produces a verdict; only the human grants approval. The Decision is recorded in the work ledger. |
+| 3 | `wf-review` | project `Blockchain-Enabled LMS`, artifact `tasks/task-LMS-CONTRACT-001-noncode.md` | Seven blocking findings remain on this task spec (`WORK-062`, `WORK-064`…`WORK-069`) and can only be closed once the parent is approved. |
+| 4 | `wf-plan` | project `Blockchain-Enabled LMS`, task `WORK-LMS-CONTRACT-001` | Calibrates the plan, creates the task worktree from `main`/`master`, writes the plan file that `wf-implement` follows. |
+| 5 | `wf-implement` | worktree (created at step 4), task `WORK-LMS-CONTRACT-001` | Executes the plan in the task worktree using Red -> Green -> Refactor. |
+| 6 | `wf-converge` | task `WORK-LMS-CONTRACT-001` | Verifies the implementation against the acceptance criteria with collected evidence. |
 
 **Push flag:** No. Await explicit human confirmation before any push.
 
 ## Preconditions still unmet
 
-These block step 1 and are tracked in the work ledger:
+These block this task and are tracked in the work ledger:
 
 - `WORK-009` - no approval Decision recorded for this task.
+- `WORK-062` - the parent specification is not `Approved`. **This blocks everything below.**
 - `WORK-020` - the four adopted capabilities (`UserID`, `TimestampFormat`, `StatusEnums`,
   `SchemaVersionConstraint`) have no defining artifact anywhere in the repository. The task spec
   depends on them normatively.
 - `WORK-005` / `WORK-024` - the `GoverningRuleSetID` authority is unresolved, and the task's
-  in-scope boundary overlaps the ECS rule-definition domain owned by SRS Section 4.2.
+  in-scope boundary overlaps the ECS rule-definition domain owned by SRS Sections 3.2 and 3.3.
 
 ## Unresolved open questions
 
@@ -104,3 +110,5 @@ Carried forward (also recorded in the task specification frontmatter):
 | Phase | Skill | Date | Outcome |
 |---|---|---|---|
 | Reconciliation | `wf-reconcile` | 2026-11-13 | Task spec body restored; status corrected to `Draft`; handoff rewritten; contract consolidated under `schema/final-academic-record.md`; project collection relocated to the canonical root. |
+| Review | `wf-review` | 2026-11-13 | Two independent review sessions. Both returned NOT APPROVABLE - 22 blocking findings on the parent spec, 8 on this task spec. Recorded as `WORK-039`…`WORK-078`. |
+| Remediation | `wf-reconcile` | 2026-11-13 | Parent specification rewritten to the `wf-bootstrap` contract; all 14 of its blocking findings closed (`WORK-040`…`WORK-053`). This task spec's seven remaining blocking findings stay open until the parent is approved. |
