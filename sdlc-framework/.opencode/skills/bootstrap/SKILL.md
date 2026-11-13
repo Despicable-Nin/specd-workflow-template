@@ -21,6 +21,24 @@ Establish a new project's foundation from a natural-language project description
 
 This skill establishes the project as a whole, not individual implementation tasks. It must never ask about the technology stack (languages, frameworks, databases, ORMs, libraries, package managers, cloud providers, hosting platforms, testing frameworks).
 
+## Rule 0 — AGENTS.md binds this skill, always
+
+This skill is bound by the nearest applicable `AGENTS.md` — the repository root `AGENTS.md`, plus
+the `AGENTS.md` of any ancestor directory of every path this skill reads or writes. **Read them
+before the first action.**
+
+* **Silence is not permission.** A step in this skill that says nothing about a location, a name,
+  or a placement rule does not authorise improvising one. The `AGENTS.md` still governs.
+* **Conflict.** Protected Invariants > explicit user instruction > `AGENTS.md` > this skill. Where
+  this skill and an `AGENTS.md` disagree, follow the `AGENTS.md`, state the conflict, and record
+  it in the work ledger. Do not silently pick a side.
+* **Hard stop.** If an `AGENTS.md` rule cannot be satisfied — the canonical folder is missing, a
+  required `binding.yaml` is absent, the target path is ambiguous — stop, name the violated rule,
+  and record a `Blocker` in the work ledger under the Gate Failure Protocol. Never improvise a
+  location.
+* **Handoff.** Before acting, look for the task's handoff file at its canonical location and read it if it exists - it is the task's running state (purpose, status, action items, next step). A handoff file is **disposable**: when its status becomes `Done` it is deleted, not archived, and the durable history stays in the work ledger. A handoff belongs inside the directory of the work it describes.
+* **Code authority.** this skill creates a **non-executable scaffold** only — the project directory, its `AGENTS.md`, and its `binding.yaml` in `generated-projects/<project-name>/`. It never writes source files.
+
 ## Invocation Conditions
 Invoke when:
 - The user provides a natural-language project description (idea, objectives, major capabilities, workflows) and wants to start a new project under the SDLC framework.

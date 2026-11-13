@@ -1,0 +1,42 @@
+---
+# Binding: this project's specification collection -> code artifacts.
+# Contract: spec-workspace/AGENTS.md Section 4 (Data Integrity / Binding).
+# Decision D-4: binding.yaml carries ONLY the specification pointer.
+# Runtime service bindings live in service-contracts.yaml.
+spec_collection:
+  id: SPEC-LMS-v1.0
+  version: 1.0.0
+  title: Blockchain-Enabled LMS
+  status: Draft
+  root_spec: SRS_LMS_v1.0.md
+  path: spec-workspace/projects/blockchain-enabled-lms/
+
+spec_files:
+  - path: SRS_LMS_v1.0.md
+    id: SRS-LMS-v1.0
+    version: 1.0
+    status: Draft
+    role: Parent specification - service domain architecture, workflows, governance.
+  - path: schema/final-academic-record.md
+    id: SCHEMA-LMS-FAR-v1.0
+    version: 1.0.0
+    status: Draft
+    role: Normative rendering of the final_academic_record data contract.
+  - path: tasks/task-LMS-CONTRACT-001-noncode.md
+    id: WORK-LMS-CONTRACT-001
+    version: 1.1
+    status: Draft
+    role: Task specification - authoritative definition of the final_academic_record contract.
+
+# The authoritative source for the final_academic_record contract is the task
+# specification. The schema file above is a rendering of it and MUST NOT diverge.
+authoritative_contract:
+  id: WORK-LMS-CONTRACT-001
+  path: tasks/task-LMS-CONTRACT-001-noncode.md
+  rendered_by: schema/final-academic-record.md
+
+# The codebase directory for this project is not yet determined. When it is,
+# this file must be mirrored into it so the code is traceable to this spec
+# collection. See WORK-017 / WORK-030 (open item: lms-platform/ vs src/).
+codebase_dir: null
+codebase_dir_status: undetermined

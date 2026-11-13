@@ -4,7 +4,7 @@
 
 {
   "metadata": {
-    "last_updated": "2026-11-10T[TIMESTAMP]",
+    "last_updated": "2026-11-13T02:20:00Z",
     "current_project_context": "Initial Framework Setup (Placeholder)",
     "version": "1.0.0-draft"
   },
@@ -66,6 +66,1592 @@
         {"timestamp": "[TIMESTAMP]", "action": "Proposed", "actor": "System"},
         {"timestamp": "[TIMESTAMP]", "action": "Committed c792a43", "actor": "System"},
         {"timestamp": "[TIMESTAMP]", "action": "Pushed to origin/main", "actor": "System"}
+      ]
+    },
+    {
+      "id": "WORK-004",
+      "type": "Decision",
+      "title": "Resolve status contradiction between task spec (Draft) and handoff (Approved) for WORK-LMS-CONTRACT-001",
+      "status": "proposed",
+      "priority": "critical",
+      "source": {
+        "type": "wf-reconcile",
+        "reference": "F-SPEC-003 / C-1, C-3, R-1, R-2"
+      },
+      "context": "Task spec (src/spec-workspace/.../task-LMS-CONTRACT-001-noncode.md) status=Draft (line 4) but handoff file claims Task Status=Approved/Worktree Active (line 5). No reconciliation was ever performed between these documents. Human must choose: (A) advance task spec to Approved, (B) revert handoff to Draft, or (C) hold both for independent wf-review.",
+      "next_action": "Human selects option A, B, or C. If A, human then runs wf-review and advances status. If B, next step is resolution of unresolved questions (WORK-005). If C, run wf-review on the contract spec before proceeding.",
+      "dependencies": ["WORK-005"],
+      "owner": "User",
+      "resolution": null,
+      "history": [
+        {"timestamp": "[TIMESTAMP]", "action": "Proposed by wf-reconcile", "actor": "System"}
+      ]
+    },
+    {
+      "id": "WORK-005",
+      "type": "Task",
+      "title": "Capture unresolved questions from handoff into task spec (GoverningRuleSetID authority, parent_transaction_id format)",
+      "status": "proposed",
+      "priority": "warning",
+      "source": {
+        "type": "wf-reconcile",
+        "reference": "C-5, R-3"
+      },
+      "context": "Handoff (task-LMS-CONTRACT-001-noncode-handoff.md) lists two unresolved questions not captured in task spec: (1) Official authority for GoverningRuleSetID field, (2) Data format for parent_transaction_id across services. These should be documented in the task spec before status can advance to Approved.",
+      "next_action": "Update task-LMS-CONTRACT-001-noncode.md metadata to include unresolved questions section, or resolve them via conversation with ECS/GRA-Service domain experts.",
+      "dependencies": [],
+      "owner": "User",
+      "resolution": null,
+      "history": [
+        {"timestamp": "[TIMESTAMP]", "action": "Proposed by wf-reconcile", "actor": "System"}
+      ]
+    },
+    {
+      "id": "WORK-006",
+      "type": "Question",
+      "title": "Verify calibration_file reference for WORK-LMS-CONTRACT-001 — file does not exist",
+      "status": "proposed",
+      "priority": "warning",
+      "source": {
+        "type": "wf-reconcile",
+        "reference": "C-5 / R-4"
+      },
+      "context": "Task spec field 'calibration_file: task-LMS-CONTRACT-001-noncode-calibration.md' references a file that does not exist in the repo. May be a typo, an orphan reference, or a legitimate file that was never created.",
+      "next_action": "Confirm whether calibration file is needed. If yes, create it. If no, remove the field from the task spec YAML frontmatter.",
+      "dependencies": [],
+      "owner": "User",
+      "resolution": null,
+      "history": [
+        {"timestamp": "[TIMESTAMP]", "action": "Proposed by wf-reconcile", "actor": "System"}
+      ]
+    },
+    {
+      "id": "WORK-007",
+      "type": "Task",
+      "title": "Move SRS_LMS_v1.0.md from repo root to spec-workspace/projects/Blockchain-Enabled LMS/",
+      "status": "proposed",
+      "priority": "normal",
+      "source": {
+        "type": "wf-reconcile",
+        "reference": "F-SPEC-002 / R-5"
+      },
+      "context": "SRS_LMS_v1.0.md is a parent specification for the LMS project but lives at repo root instead of spec-workspace/projects/Blockchain-Enabled LMS/. This violates the spec storage contract in spec-workspace/AGENTS.md.",
+      "next_action": "Move the file to spec-workspace/projects/Blockchain-Enabled LMS/SRS_LMS_v1.0.md. Update all references (task spec parent_spec field, handoff parent spec field).",
+      "dependencies": [],
+      "owner": "User",
+      "resolution": null,
+      "history": [
+        {"timestamp": "[TIMESTAMP]", "action": "Proposed by wf-reconcile", "actor": "System"}
+      ]
+    },
+    {
+      "id": "WORK-008",
+      "type": "Task",
+      "title": "Restore deleted specification body of the WORK-LMS-CONTRACT-001 task spec",
+      "status": "proposed",
+      "priority": "critical",
+      "source": {
+        "type": "wf-state",
+        "reference": "git diff HEAD..worktree on src/spec-workspace/projects/Blockchain-Enabled LMS/tasks/task-LMS-CONTRACT-001-noncode.md (HEAD blob 58f2453 -> worktree e8e2a3c)"
+      },
+      "context": "The uncommitted working-tree edit rewrote the task spec from 52 lines to 15 lines, deleting the entire specification body (Sections 1-7: Task Summary, In-Scope, Out-of-Scope, Expected Behavior, Acceptance Criteria, Dependencies and Sources, Validation Requirements) while simultaneously setting status: Approved. The file now contains YAML frontmatter only, with no contract content. The only surviving copy of the body is git HEAD blob 58f2453; it is not present in any working tree (the linked worktree at D:/hobby/specd-worktree/final-record-schema has no src/ directory). An Approved spec with no specification content has nothing to implement against, and the File Emission Guardrail added to wf-task-code/wf-task-noncode v1.3.0 requires a HARD STOP on a missing or mismatched artifact. Recovery command: git show HEAD:'src/spec-workspace/projects/Blockchain-Enabled LMS/tasks/task-LMS-CONTRACT-001-noncode.md'. Note this item is the root cause that WORK-004/005/006 appear to have resolved; the ledger entries for those three were never closed and still describe the pre-edit state.",
+      "next_action": "Restore the Sections 1-7 body from HEAD blob 58f2453, then re-apply only the intended frontmatter deltas (status, open_questions, removal of the nonexistent calibration_file reference). Verify the restored file passes the wf-task-noncode artifact guardrail before any review or approval is recorded.",
+      "dependencies": ["WORK-004", "WORK-005", "WORK-006"],
+      "owner": "User",
+      "resolution": null,
+      "history": [
+        {"timestamp": "2026-11-12T23:58:16Z", "action": "Proposed by wf-state", "actor": "System"}
+      ]
+    },
+    {
+      "id": "WORK-009",
+      "type": "Blocker",
+      "title": "No approval evidence exists for the Approved status of task spec WORK-LMS-CONTRACT-001",
+      "status": "proposed",
+      "priority": "critical",
+      "source": {
+        "type": "wf-state",
+        "reference": "src/spec-workspace/projects/Blockchain-Enabled LMS/tasks/task-LMS-CONTRACT-001-noncode.md line 4 (status: Approved); sdlc-framework/.opencode/skills/task-noncode/SKILL.md Outputs table (Approved task spec -> Approval evidence recorded in work ledger)"
+      },
+      "context": "The task spec declares status: Approved in the working tree, but no Work Ledger item records a human approval Decision for WORK-LMS-CONTRACT-001, and no wf-review artifact exists. The only ledger entries touching this task are WORK-004 (a Decision about a status contradiction, status: proposed, resolution: null), WORK-005 and WORK-006 (both status: proposed). The task spec's own closing line at HEAD read 'This document is ready for independent review. It passes the planning gate.' - the review never happened. Protected Invariant I (Specification Before Implementation) and Approval Hierarchy Section IV require explicit authorization recorded as a Decision in the Work Ledger before an Approved state is honored.",
+      "next_action": "Restore the spec body (WORK-008), run wf-review on the restored task spec, and record the approval Decision (with evidence reference) as a new Work Ledger item before treating WORK-LMS-CONTRACT-001 as Approved.",
+      "dependencies": ["WORK-008"],
+      "owner": "User",
+      "resolution": null,
+      "history": [
+        {"timestamp": "2026-11-12T23:58:16Z", "action": "Proposed by wf-state", "actor": "System"}
+      ]
+    },
+    {
+      "id": "WORK-010",
+      "type": "Blocker",
+      "title": "No binding.yaml exists in any project codebase - spec-to-code traceability contract is unimplemented",
+      "status": "proposed",
+      "priority": "critical",
+      "source": {
+        "type": "wf-state",
+        "reference": "spec-workspace/AGENTS.md Section 4 (Data Integrity - Binding); repository-wide search for binding.yaml returned zero results; generated-projects/scaffold-project/ contains only AGENTS.md and .gitkeep"
+      },
+      "context": "spec-workspace/AGENTS.md Section 4 mandates that a binding.yaml in a project's codebase directory references the stable ID and version of the specification collection. A repository-wide search found no binding.yaml at any path. The only physical codebase, generated-projects/scaffold-project/, contains just AGENTS.md and .gitkeep, and has no binding to any spec. Separately, spec-workspace/FINAL_RECORD_SCHEMA_DEFINITION.md line 39 claims the scaffold contains a binding.yaml placeholder - this is a factual mismatch with disk state (see WORK-011).",
+      "next_action": "Decide the binding contract: create binding.yaml in generated-projects/scaffold-project/ referencing the framework spec collection ID and version, and define the equivalent binding target for the Blockchain-Enabled LMS codebase once it exists. Record the chosen spec ID/version in the ledger first, since no approved spec ID currently exists (see WORK-016).",
+      "dependencies": ["WORK-011", "WORK-016"],
+      "owner": "User",
+      "resolution": null,
+      "history": [
+        {"timestamp": "2026-11-12T23:58:16Z", "action": "Proposed by wf-state", "actor": "System"}
+      ]
+    },
+    {
+      "id": "WORK-011",
+      "type": "Task",
+      "title": "Physical scaffold contents do not match the manifest asserted in FINAL_RECORD_SCHEMA_DEFINITION.md",
+      "status": "proposed",
+      "priority": "high",
+      "source": {
+        "type": "wf-state",
+        "reference": "spec-workspace/FINAL_RECORD_SCHEMA_DEFINITION.md lines 34-42 vs generated-projects/scaffold-project/ (AGENTS.md, .gitkeep only)"
+      },
+      "context": "FINAL_RECORD_SCHEMA_DEFINITION.md Section 'Physical Manifestation' states the scaffold at generated-projects/scaffold-project/ contains binding.yaml, policies/, skills/, and documentation/. Actual disk state contains only AGENTS.md and .gitkeep - none of the four claimed sub-artifacts exist. The document also asserts 'COMPLETED AND COMMITTED (WORK-004)', but the ledger's WORK-004 is an unrelated Decision with status proposed. Protected Invariant III (Evidence-Based Completion) requires every completion claim to point to verifiable evidence; this document's own claims are not evidenced. The description appears to match a pre-802f0ab state: that commit deleted sdlc-framework/skills/skill-work_ledger_management.py and sdlc-framework/skills/skill_placeholders.txt and converted sdlc-framework/tools and sdlc-framework/workflows from files into directories holding README.md.",
+      "next_action": "Correct the document to describe the actual scaffold, or materialize the missing sub-artifacts. Either way the document must not claim completion without an evidence reference (file path or commit SHA). Also resolve the WORK-004 identifier collision in WORK-012.",
+      "dependencies": [],
+      "owner": "User",
+      "resolution": null,
+      "history": [
+        {"timestamp": "2026-11-12T23:58:16Z", "action": "Proposed by wf-state", "actor": "System"}
+      ]
+    },
+    {
+      "id": "WORK-012",
+      "type": "Task",
+      "title": "Work item identifier collision and stale statuses across ledger, scaffold AGENTS.md, and handoff",
+      "status": "proposed",
+      "priority": "high",
+      "source": {
+        "type": "wf-state",
+        "reference": "generated-projects/scaffold-project/AGENTS.md line 9 (WORK-002 RESOLVED); spec-workspace/FINAL_RECORD_SCHEMA_DEFINITION.md lines 3,13 (WORK-004); spec-workspace/tasks/task-scaffold-noncode-handoff.md line 4 (SPEC-FW-V1.0); spec-workspace/project-temp/work_ledger.yaml WORK-002 (status pending), WORK-004 (status proposed)"
+      },
+      "context": "Three different artifacts reference ledger IDs with meanings that do not match the ledger. (1) generated-projects/scaffold-project/AGENTS.md asserts 'Blocker: WORK-002 ... RESOLVED in this commit', but ledger WORK-002 (Await User Approval for Framework Implementation Plan) is still status pending with resolution null - the scaffold was in fact built and merged, so the ledger is stale, but the claim is unverified in the ledger. (2) FINAL_RECORD_SCHEMA_DEFINITION.md labels itself Document ID WORK-004-SCHEMA and 'COMPLETED AND COMMITTED (WORK-004)', but ledger WORK-004 is a Decision about a task-spec status contradiction - a different subject entirely. (3) The scaffold handoff cites parent spec 'SPEC-FW-V1.0 (Approved)' while the ledger WORK-002 cites 'SDLC-FW-SPEC-FINAL-v1.0'; neither spec ID corresponds to any artifact in the repository. Broken ID traceability directly undermines Evidence-Based Completion.",
+      "next_action": "Reconcile the identifier namespaces: assign the scaffold artifacts a distinct work-item ID (or a non-work-item document ID), correct the scaffold AGENTS.md to reference the true ledger entry, update ledger WORK-002 to reflect that the scaffold was merged via PR #1, and settle on one canonical framework spec ID. Note: ledger status changes require human authorization; wf-state does not modify existing items.",
+      "dependencies": [],
+      "owner": "User",
+      "resolution": null,
+      "history": [
+        {"timestamp": "2026-11-12T23:58:16Z", "action": "Proposed by wf-state", "actor": "System"}
+      ]
+    },
+    {
+      "id": "WORK-013",
+      "type": "Task",
+      "title": "LMS specification artifacts are stored outside the canonical paths defined by the wf-task-* skills",
+      "status": "proposed",
+      "priority": "high",
+      "source": {
+        "type": "wf-state",
+        "reference": "sdlc-framework/.opencode/skills/task-noncode/SKILL.md File Emission Guardrail (canonical paths); actual location src/spec-workspace/projects/Blockchain-Enabled LMS/tasks/"
+      },
+      "context": "The wf-task-code and wf-task-noncode v1.3.0 File Emission Guardrail defines the canonical task artifact location as spec-workspace/projects/<project-name>/tasks/task-<nnn>-noncode.md with the handoff at spec-workspace/projects/<project-name>/tasks/task-<nnn>-handoff.md. Actual artifacts live at src/spec-workspace/projects/Blockchain-Enabled LMS/tasks/task-LMS-CONTRACT-001-noncode.md and task-LMS-CONTRACT-001-noncode-handoff.md. Three deviations: (1) an extra 'src/' prefix that also conflicts with the root AGENTS.md instruction reserving src/ for application code; (2) filename pattern task-<task-id>-noncode.md instead of task-<nnn>-noncode.md; (3) handoff filename carries a '-noncode' suffix, contradicting the v1.3.0 rule that a task has one common handoff, not one per skill. The spec-workspace/ tree itself has no projects/ directory and no library/ directory, both of which spec-workspace/AGENTS.md Section 2 declares mandatory. The pre-existing spec-workspace/tasks/task-scaffold-noncode-handoff.md is likewise outside the canonical layout and uses the legacy per-skill suffix.",
+      "next_action": "Choose one canonical root: either move the LMS project collection to spec-workspace/projects/Blockchain-Enabled LMS/tasks/ with the canonical filenames, or amend the guardrail to declare src/spec-workspace/ canonical. Then add the missing library/ directory or amend spec-workspace/AGENTS.md Section 2.",
+      "dependencies": ["WORK-008"],
+      "owner": "User",
+      "resolution": null,
+      "history": [
+        {"timestamp": "2026-11-12T23:58:16Z", "action": "Proposed by wf-state", "actor": "System"}
+      ]
+    },
+    {
+      "id": "WORK-014",
+      "type": "Task",
+      "title": "LMS contract handoff mandates wf-task-code for a noncode task and omits the wf-plan stage",
+      "status": "proposed",
+      "priority": "high",
+      "source": {
+        "type": "wf-state",
+        "reference": "src/spec-workspace/projects/Blockchain-Enabled LMS/tasks/task-LMS-CONTRACT-001-noncode-handoff.md lines 22-32"
+      },
+      "context": "The handoff's 'MANDATORY NEXT STEP' names wf-task-code with a Push Flag of No, but the task spec declares task_type: noncode and its Section 3 Out-of-Scope explicitly excludes implementation code, data transformation, and migration scripts. wf-task-code states 'This skill is for coding work only'; wf-task-noncode states 'This skill is for non-coding work only'. The handoff therefore routes a noncode contract-definition task into the coding skill, which would in any case re-create a task spec rather than implement one. The handoff also predates the wf-plan skill: the framework now defines wf-plan (approved task spec -> plan artifact -> independent review -> human approval) as the bridge between task specification and wf-implement, and the handoff's suggested run skips it entirely.",
+      "next_action": "Rewrite the handoff's suggested skill run to the correct sequence for a noncode task (wf-review of the restored spec, then wf-plan, then wf-implement), and confirm the push policy explicitly.",
+      "dependencies": ["WORK-008", "WORK-009"],
+      "owner": "User",
+      "resolution": null,
+      "history": [
+        {"timestamp": "2026-11-12T23:58:16Z", "action": "Proposed by wf-state", "actor": "System"}
+      ]
+    },
+    {
+      "id": "WORK-015",
+      "type": "Task",
+      "title": "Work Ledger violates sdlc-framework/schemas/work_ledger_schema.json and stores no real audit timestamps",
+      "status": "proposed",
+      "priority": "medium",
+      "source": {
+        "type": "wf-state",
+        "reference": "sdlc-framework/schemas/work_ledger_schema.json lines 6-9; spec-workspace/project-temp/work_ledger.yaml metadata.last_updated and all history[].timestamp values"
+      },
+      "context": "Three conformance defects. (1) Priority enum violation: the schema permits low, medium, high, critical; the ledger uses 'warning' (WORK-005, WORK-006) and 'normal' (WORK-007). (2) Every history[].timestamp is the literal string '[TIMESTAMP]', and metadata.last_updated was '2026-11-10T[TIMESTAMP]' (malformed ISO 8601), so the audit trail cannot reconstruct when any item was proposed, actioned, or resolved - this undermines Approval Hierarchy Section IV and Evidence-Based Completion. (3) The schema defines a flat item shape, while the file uses an undocumented {metadata, ledger:[...]} wrapper, and the ledger sits in spec-workspace/project-temp/ rather than a per-project location, so there is no defined home for a second project's ledger. Type and status enum values across WORK-001..WORK-007 are all valid.",
+      "next_action": "Replace the placeholder timestamps with real ISO 8601 UTC values (at minimum from commit dates for historical entries), map 'warning' and 'normal' to schema-valid values, and extend the schema to document the {metadata, ledger} wrapper and a per-project ledger path convention.",
+      "dependencies": [],
+      "owner": "User",
+      "resolution": null,
+      "history": [
+        {"timestamp": "2026-11-12T23:58:16Z", "action": "Proposed by wf-state", "actor": "System"}
+      ]
+    },
+    {
+      "id": "WORK-016",
+      "type": "Task",
+      "title": "Parent spec SRS_LMS_v1.0.md lacks a stable ID, version, status, and approval evidence",
+      "status": "proposed",
+      "priority": "medium",
+      "source": {
+        "type": "wf-state",
+        "reference": "SRS_LMS_v1.0.md (repo root, no frontmatter, lines 1-86); referenced as parent_spec by src/spec-workspace/projects/Blockchain-Enabled LMS/tasks/task-LMS-CONTRACT-001-noncode.md line 6"
+      },
+      "context": "SRS_LMS_v1.0.md is the parent specification for the Blockchain-Enabled LMS project, but it carries no frontmatter, no document ID, no version field, no status field, and no approval evidence in the Work Ledger. It closes with 'This SRS v1.0 formally transitions the project from the Specification Phase to the Development/Implementation Phase. Design Complete.' - an approval claim with no ledger Decision behind it. Both task spec and handoff reference it by bare filename, and because the file sits at the repo root rather than beside the task artifacts, the parent_spec reference resolves only by convention. The task-noncode validation rule 'Parent spec ID references an Approved project specification' cannot currently be satisfied, and no binding.yaml can point at a spec with no stable ID (see WORK-010). The document also carries minor rendering artifacts: a stray LaTeX fragment at line 47 and a mixed-language token at line 52.",
+      "next_action": "Assign SRS_LMS_v1.0.md a stable ID, version, and status in frontmatter, record its approval as a ledger Decision, and relocate it to the canonical project spec path (coordinate with WORK-007, which proposes moving it to spec-workspace/projects/Blockchain-Enabled LMS/).",
+      "dependencies": ["WORK-007"],
+      "owner": "User",
+      "resolution": null,
+      "history": [
+        {"timestamp": "2026-11-12T23:58:16Z", "action": "Proposed by wf-state", "actor": "System"}
+      ]
+    },
+    {
+      "id": "WORK-017",
+      "type": "Task",
+      "title": "lms-platform/ service directories are empty, untracked by Git, and inconsistent with the SRS service decomposition",
+      "status": "proposed",
+      "priority": "medium",
+      "source": {
+        "type": "wf-state",
+        "reference": "lms-platform/ (blockchain-proxy, iam-service, lms-issuer-service, web-api-gateway - all empty); SRS_LMS_v1.0.md Section 2 service table (IAM, ECS, AMS, FRAS, ESS, GRA-Service, LGS)"
+      },
+      "context": "The repo root contains lms-platform/ with four subdirectories that are entirely empty. Because Git cannot track empty directories, these are invisible to version control: they appear in no commit, no branch, and no worktree, so they are invisible to any other agent or collaborator and would silently vanish on a clean clone. The four names also do not map onto the SRS Section 2 decomposition of seven service domains: blockchain-proxy and web-api-gateway are not SRS domains at all, and iam-service and lms-issuer-service cover only two of the seven (IAM and, implicitly, LGS). ECS, AMS, FRAS, ESS, and GRA-Service have no directory. No spec, task, or ledger item authorizes this layout, so it is untracked work relative to the specification set.",
+      "next_action": "Decide whether lms-platform/ is the intended future codebase root. If yes, create it as a wf-bootstrap scaffold with a binding.yaml and a spec-derived service mapping covering all seven domains; if it is exploratory, remove the empty directories or add a placeholder tracked by Git so the intent is visible.",
+      "dependencies": ["WORK-010"],
+      "owner": "User",
+      "resolution": null,
+      "history": [
+        {"timestamp": "2026-11-12T23:58:16Z", "action": "Proposed by wf-state", "actor": "System"}
+      ]
+    },
+    {
+      "id": "WORK-018",
+      "type": "Task",
+      "title": "Stale worktree feat/final-record-schema retained after merge and shared by two distinct tasks",
+      "status": "proposed",
+      "priority": "medium",
+      "source": {
+        "type": "wf-state",
+        "reference": "git worktree list (D:/hobby/specd-worktree/final-record-schema at 4cdafc5, branch feat/final-record-schema); PR #1 merged 2026-11-11T09:05:53Z; spec-workspace/tasks/task-scaffold-noncode-handoff.md line 5 vs src/spec-workspace/projects/Blockchain-Enabled LMS/tasks/task-LMS-CONTRACT-001-noncode-handoff.md lines 6-7"
+      },
+      "context": "The linked worktree at D:/hobby/specd-worktree/final-record-schema is still registered on branch feat/final-record-schema at 4cdafc5, which was already merged into main via PR #1 (merged_at 2026-11-11T09:05:53Z) and is in sync with origin/feat/final-record-schema. The same branch and worktree are claimed by two different tasks: the scaffold handoff (spec-workspace/tasks/task-scaffold-noncode-handoff.md line 5, Worktree: feat/final-record-schema) and the LMS contract handoff (lines 6-7). The wf-task-code and wf-task-noncode Decision Rules both require one worktree per task. The LMS handoff also cites 'Worktree Commit: e062913', which is two commits behind the actual worktree HEAD 4cdafc5.",
+      "next_action": "Remove the stale worktree with git worktree remove, and allocate a fresh dedicated branch and worktree for any live LMS contract work - one worktree per task.",
+      "dependencies": [],
+      "owner": "User",
+      "resolution": null,
+      "history": [
+        {"timestamp": "2026-11-12T23:58:16Z", "action": "Proposed by wf-state", "actor": "System"}
+      ]
+    },
+    {
+      "id": "WORK-019",
+      "type": "Task",
+      "title": "Framework documentation drift: stale skill inventory, incomplete end-to-end flow, placeholder READMEs",
+      "status": "proposed",
+      "priority": "low",
+      "source": {
+        "type": "wf-state",
+        "reference": "spec-workspace/FINAL_RECORD_SCHEMA_DEFINITION.md line 25 ('7 atomic, callable skills'); sdlc-framework/README.md end-to-end flow; spec-workspace/README.md line 3; generated-projects/README.md"
+      },
+      "context": "FINAL_RECORD_SCHEMA_DEFINITION.md states the system comprises 7 atomic skills and lists 6 in its bullets; the framework now ships 11 (bootstrap, commit, constitution, converge, implement, plan, reconcile, review, state, task-code, task-noncode), each with a matching .opencode/commands/ wrapper - a verified 1:1 mapping. The sdlc-framework/README.md end-to-end flow shows only bootstrap -> task-* -> implementer -> commit and omits wf-plan, wf-converge, and wf-constitution, which are active skills with command wrappers. spec-workspace/README.md and generated-projects/README.md are still one-line placeholders ('This structure will be populated with detailed content in subsequent steps'), so the two directories a new agent reads first describe nothing.",
+      "next_action": "Update FINAL_RECORD_SCHEMA_DEFINITION.md to the 11-skill inventory, extend the README end-to-end flow to include wf-plan, wf-converge, and wf-constitution, and replace the two placeholder READMEs with an accurate description of their directory contracts.",
+      "dependencies": [],
+      "owner": "User",
+      "resolution": null,
+      "history": [
+        {"timestamp": "2026-11-12T23:58:16Z", "action": "Proposed by wf-state", "actor": "System"}
+      ]
+    },
+    {
+      "id": "WORK-020",
+      "type": "Task",
+      "title": "Four adopted capabilities (UserID, TimestampFormat, StatusEnums, SchemaVersionConstraint) have no defining artifact anywhere in the repository",
+      "status": "proposed",
+      "priority": "critical",
+      "source": {
+        "type": "wf-reconcile",
+        "reference": "HEAD blob 58f2453 'src/spec-workspace/projects/Blockchain-Enabled LMS/tasks/task-LMS-CONTRACT-001-noncode.md' line 45; spec-workspace/AGENTS.md lines 10-13 (library/Capabilities)"
+      },
+      "context": "The task specification's Dependencies and Sources section states 'Adopted Capabilities: Standard UserID, TimestampFormat (ISO 8601), StatusEnums, SchemaVersionConstraint'. A repository-wide content search for each of those four names returns zero hits in any .md file - no capability specification defines them. spec-workspace/AGENTS.md lines 10-13 require a library/ directory containing Engineering/ and Capabilities/ subtrees, but library/ does not exist. The contract definition therefore depends on four undeclared normative artifacts, and the contract's own 'GoverningRuleSetID ... populated by the ECS' principle (HEAD task spec line 31) has no artifact to anchor the rule-set identity. This is a missing-relationship finding: the task spec cites capabilities that have no source of truth, so its acceptance criteria cannot be independently verified.",
+      "next_action": "Either author the four capability specifications under spec-workspace/library/Capabilities/ (with stable IDs, versions, and status per the Draft -> In_Review -> Approved -> Superseded state machine) or remove the 'Adopted Capabilities' clause and inline the normative definitions into the contract spec. Whichever is chosen, the task spec's Dependencies section must cite resolvable artifact paths.",
+      "dependencies": ["WORK-013", "WORK-016"],
+      "owner": "User",
+      "resolution": null,
+      "history": [
+        {"timestamp": "2026-11-13T01:43:32Z", "action": "Proposed by wf-reconcile", "actor": "System"}
+      ]
+    },
+    {
+      "id": "WORK-021",
+      "type": "Task",
+      "title": "wf-task-noncode rule 'No test scenarios present' contradicts the measurable acceptance criteria of a data-contract task specification",
+      "status": "proposed",
+      "priority": "high",
+      "source": {
+        "type": "wf-reconcile",
+        "reference": "sdlc-framework/.opencode/skills/task-noncode/SKILL.md line 289; HEAD blob 58f2453 task spec lines 34-40"
+      },
+      "context": "The wf-task-noncode validation list requires 'No test scenarios present (not applicable to non-coding)' (line 289). The canonical data-contract task specification that this skill produced contains exactly that: a section headed 'Acceptance Criteria (Measurable Tests - Revised)' (HEAD task spec line 34) with five measurable criteria, one of which states 'The contract requires integration tests confirming that attempting to submit a record with an unsupported schema_version results in a controlled rejection by the LGS validator' (line 40). The rule is stated absolutely, but the distinction the rule actually needs is between code-level test scenarios (correctly excluded from noncode work) and spec-level measurable acceptance criteria (required for any verifiable contract). As written, the rule would force the wf-review gate to reject the only artifact this skill has produced. The same absolute wording appears in the task-code/noncode pairing at line 17 ('This skill is for non-coding work only'), which excludes coding tasks but does not exclude measurable acceptance criteria.",
+      "next_action": "Revise the wf-task-noncode validation clause to distinguish code-level test scenarios from spec-level measurable acceptance criteria, e.g. 'No code-level test scenarios present; measurable acceptance criteria are required'. Re-check wf-task-code for the mirrored clause. Then re-validate the LMS task spec against the revised rule.",
+      "dependencies": [],
+      "owner": "User",
+      "resolution": null,
+      "history": [
+        {"timestamp": "2026-11-13T01:43:32Z", "action": "Proposed by wf-reconcile", "actor": "System"}
+      ]
+    },
+    {
+      "id": "WORK-022",
+      "type": "Task",
+      "title": "sdlc-framework tools/ and workflows/ READMEs name seven artifacts that do not exist",
+      "status": "proposed",
+      "priority": "high",
+      "source": {
+        "type": "wf-reconcile",
+        "reference": "sdlc-framework/tools/README.md lines 7-9; sdlc-framework/workflows/README.md lines 7-10; sdlc-framework/README.md component table (Tools and Workflows rows)"
+      },
+      "context": "sdlc-framework/tools/README.md enumerates 'worktree_manager.tool', 'policy_checker.tool', and 'git_state_analyzer.tool' as 'Key Tools'; sdlc-framework/workflows/README.md enumerates 'workflow_new_project.md', 'workflow_new_feature.md', 'workflow_bug_fix.md', and 'workflow_migration.md' as example blueprints. A filesystem existence check returns False for all seven. The sdlc-framework/README.md component table independently asserts that Tools provide 'Reusable programmatic utilities (worktree lifecycle, policy checks, git state analysis)' and that Workflows are 'High-level multi-step sequences (entry points for the user)'. Commit 802f0ab converted sdlc-framework/tools and sdlc-framework/workflows from files into directories holding only README.md, and deleted sdlc-framework/skills/skill-work_ledger_management.py and sdlc-framework/skills/skill_placeholders.txt, with no spec or ledger item referencing those deletions. The framework therefore advertises seven capabilities that were never built and two that were removed, while Protected Invariant III (Evidence-Based Completion) forbids unevidenced completion claims.",
+      "next_action": "Decide per artifact whether to implement it or remove it from the README manifest. For each of the seven, either create the artifact or strike it from the README, and record the decision as a Decision item. Separately record the 802f0ab deletions of skill-work_ledger_management.py and skill_placeholders.txt so the removal is not silent.",
+      "dependencies": [],
+      "owner": "User",
+      "resolution": null,
+      "history": [
+        {"timestamp": "2026-11-13T01:43:32Z", "action": "Proposed by wf-reconcile", "actor": "System"}
+      ]
+    },
+    {
+      "id": "WORK-023",
+      "type": "Task",
+      "title": "Prior reconciliation finding IDs (F-SPEC-002, F-SPEC-003, C-1..C-5, R-1..R-5) are orphaned - the report that defined them was never persisted",
+      "status": "proposed",
+      "priority": "medium",
+      "source": {
+        "type": "wf-reconcile",
+        "reference": "spec-workspace/project-temp/work_ledger.yaml lines 79, 98, 117, 136 (source.reference values); repository-wide search for 'F-SPEC-00' returns only those two ledger lines"
+      },
+      "context": "The four ledger items created by the previous wf-reconcile run cite finding identifiers that resolve to nothing: WORK-004 references 'F-SPEC-003 / C-1, C-3, R-1, R-2', WORK-005 references 'C-5, R-3', WORK-006 references 'C-5 / R-4', and WORK-007 references 'F-SPEC-002 / R-5'. A repository-wide search for the token F-SPEC-00 finds exactly two occurrences, both inside work_ledger.yaml itself (lines 79 and 136). No reconciliation report, findings table, or plan artifact exists on disk. The prior run's evidence, quoted text, and rationale are therefore unrecoverable: the four items cannot be independently re-verified, and the C-x/R-x numbering scheme is ambiguous because no document defines the difference between a Conflict (C) and a Recommendation (R). The reconciliation skill's Step 11 requires the report to be presented, but no step in that skill requires it to be persisted, which is the mechanism gap that caused this loss.",
+      "next_action": "Persist this run's reconciliation report as an artifact under the project's spec directory with a stable document ID, and adopt a rule that every reconciliation run writes its report to disk and that ledger source.reference values point to it. Then either re-derive C-1..C-5 / R-1..R-5 from that report or supersede those four ledger items' references with the new finding IDs.",
+      "dependencies": ["WORK-013"],
+      "owner": "User",
+      "resolution": null,
+      "history": [
+        {"timestamp": "2026-11-13T01:43:32Z", "action": "Proposed by wf-reconcile", "actor": "System"}
+      ]
+    },
+    {
+      "id": "WORK-024",
+      "type": "Task",
+      "title": "Task specification In-Scope overlaps the ECS rule-definition domain already owned by SRS Section 4.2",
+      "status": "proposed",
+      "priority": "medium",
+      "source": {
+        "type": "wf-reconcile",
+        "reference": "HEAD blob 58f2453 task spec lines 21 and 31; SRS_LMS_v1.0.md lines 24, 75, 76"
+      },
+      "context": "This is a Step-4 overlapping-requirement finding rather than a direct contradiction. The task specification claims in-scope 'Documenting the mandatory validation rules that must be applied by the Educational Context Service (ECS)' (HEAD task spec line 21) and requires that GoverningRuleSetID 'must be populated by the ECS' (line 31). The SRS assigns that same domain to ECS from a different direction: 'ECS must be the supreme authority that dictates how any given domain (AMS, ESS, GRA) must behave' (line 24), 'the ECS determines the governing formula for grading and the cycle for scheduling based on the Level' (line 75), and 'The ECS rules must be explicitly consulted by AMS, ESS, GRA-Service, and LGS every time a critical state change occurs' (line 76). As written the task would produce ECS validation-rule artifacts that overlap ECS's own specification domain, and the boundary is unresolved - the task's own open question asks for the 'Official authority for GoverningRuleSetID field (ECS/GRA-Service)' (ledger WORK-005). The overlap is legitimate in principle (the payload must carry a rule-set pointer), but ownership is not yet clear.",
+      "next_action": "Resolve ledger WORK-005 first, then narrow the task specification's In-Scope to defining the schema field, its type, and its cardinality, while explicitly excluding the authoring of ECS rule content, and cite the SRS section that owns ECS rules.",
+      "dependencies": ["WORK-005", "WORK-008"],
+      "owner": "User",
+      "resolution": null,
+      "history": [
+        {"timestamp": "2026-11-13T01:43:32Z", "action": "Proposed by wf-reconcile", "actor": "System"}
+      ]
+    },
+    {
+      "id": "WORK-025",
+      "type": "Task",
+      "title": "SRS_LMS_v1.0.md contains unresolved authoring artifacts - stray LaTeX token and a half-translated mixed-language term",
+      "status": "proposed",
+      "priority": "low",
+      "source": {
+        "type": "wf-reconcile",
+        "reference": "SRS_LMS_v1.0.md line 47 and line 52"
+      },
+      "context": "Line 47 ends mid-sentence with a stray LaTeX fragment: '...before allowing the process to continue $( \\text{Period Status} = \\text{Active} \\}$'. The closing brace is mismatched and the fragment renders as raw text in Markdown. Line 52 reads 'A high-权限 IAM-secured role (Dean/Principal)' - the term '权限' (CJK, authority/permission) is left untranslated inside an otherwise English sentence, confirmed by codepoint inspection (U+6743 U+9650). Both are presentational defects in the parent specification for the only live project, and the SRS header claims it is the 'final, comprehensive, and executable contract' (line 5) and 'Design Complete' (line 85), which these artifacts undercut. Neither defect affects the normative content of the seven service contracts.",
+      "next_action": "Repair both lines in the SRS during the same change that relocates and versions it under WORK-007 and WORK-016, and replace the stray LaTeX with a plain-language statement of the AcademicPeriod gatekeeping condition.",
+      "dependencies": ["WORK-007", "WORK-016"],
+      "owner": "User",
+      "resolution": null,
+      "history": [
+        {"timestamp": "2026-11-13T01:43:32Z", "action": "Proposed by wf-reconcile", "actor": "System"}
+      ]
+    },
+    {
+      "id": "WORK-026",
+      "type": "Decision",
+      "title": "'System of Record' carries two incompatible meanings in the same repository - SRS operational database vs framework specification layer",
+      "status": "proposed",
+      "priority": "low",
+      "source": {
+        "type": "wf-reconcile",
+        "reference": "SRS_LMS_v1.0.md line 79; spec-workspace/FINAL_RECORD_SCHEMA_DEFINITION.md lines 1 and 11; spec-workspace/project-temp/work_ledger.yaml line 2"
+      },
+      "context": "The SRS states 'The Operational Database (non-blockchain) is the System of Record' (line 79). The framework's own artifact declares itself the 'FINAL RECORD SCHEMA DEFINITION (System of Record)' (line 1) and describes 'the core System of Record (SOR) infrastructure' that 'records the entire history, design, and physical implementation' of the SDLC OS (line 11). The work ledger adds a third sense, calling itself 'the persistent, local source of truth' (line 2). These are not contradictory - they are three different scopes reusing one term - but a reader cannot resolve which artifact is authoritative from the term alone, and the framework's own 'System of Record' label is the same phrase the SRS reserves for a runtime database. This is a documentation-consolidation candidate, not a specification defect.",
+      "next_action": "Decide whether to disambiguate by renaming the framework's concept (for example 'Specification System of Record') and add one disambiguating sentence to the SRS Section 4.3, or to accept the collision as legitimate and record that decision here so it is not re-raised. No specification content change is required either way.",
+      "dependencies": [],
+      "owner": "User",
+      "resolution": null,
+      "history": [
+        {"timestamp": "2026-11-13T01:43:32Z", "action": "Proposed by wf-reconcile", "actor": "System"}
+      ]
+    },
+    {
+      "id": "WORK-027",
+      "type": "Task",
+      "title": "binding.yaml now exists but does not satisfy the binding contract - it binds services, not a specification ID and version",
+      "status": "proposed",
+      "priority": "critical",
+      "source": {
+        "type": "wf-reconcile",
+        "reference": "src/spec-workspace/projects/blockchain-enabled-lms/binding.yaml lines 1-15; spec-workspace/AGENTS.md line 22; refines WORK-010"
+      },
+      "context": "WORK-010 recorded that no binding.yaml existed anywhere in the repository. That finding is now partly superseded: an untracked file appeared at src/spec-workspace/projects/blockchain-enabled-lms/binding.yaml (created 2026-11-13 09:34:52 local, 348 bytes) during this reconciliation run, authored outside this session by a concurrent process. However it does not satisfy the contract it is named for. spec-workspace/AGENTS.md line 22 requires that 'The binding.yaml file in a project's codebase directory must reference the stable ID and version of the specification collection residing here.' The file contains no specification ID, no version, and no reference to any artifact in spec-workspace. Its content is a service-binding manifest instead: auth-service provides user.profile / requires core-identity-module, record-schema provides blockchain.record / requires data-persistence-layer, blockchain-gateway provides immutable-event-pointer / requires network-client-sdk. None of those five 'provides/requires' names correspond to the seven SRS service domains (IAM, ECS, AMS, FRAS, ESS, GRA-Service, LGS), and one of them - blockchain-gateway - matches neither the empty lms-platform directory 'blockchain-proxy' nor 'web-api-gateway'. The artifact therefore wears the canonical filename while carrying non-conforming content, which would silently satisfy a naive existence check for WORK-010.",
+      "next_action": "Decide what binding.yaml is for in this framework: a spec-to-code pointer (as AGENTS.md line 22 states) or a service-to-service dependency manifest. If the former, rewrite the file to carry the spec collection ID and version, and move the service bindings to a distinct artifact such as service-contracts.yaml. If the latter, amend spec-workspace/AGENTS.md Section 4 and the binding rule in the framework README. Do not leave one filename serving two contracts.",
+      "dependencies": ["WORK-010", "WORK-016", "WORK-029"],
+      "owner": "User",
+      "resolution": null,
+      "history": [
+        {"timestamp": "2026-11-13T01:45:17Z", "action": "Proposed by wf-reconcile", "actor": "System"}
+      ]
+    },
+    {
+      "id": "WORK-028",
+      "type": "Task",
+      "title": "New LMS record schema contradicts the task specification's mandatory schema_version principle and the SRS final_academic_record contract",
+      "status": "proposed",
+      "priority": "critical",
+      "source": {
+        "type": "wf-reconcile",
+        "reference": "src/spec-workspace/projects/blockchain-enabled-lms/FINAL_RECORD_SCHEMA_DEFINITION.md lines 4, 14-26, 30; HEAD blob 58f2453 task spec lines 32, 37, 39-40; SRS_LMS_v1.0.md lines 40, 79"
+      },
+      "context": "A second, untracked schema artifact appeared during this reconciliation run at src/spec-workspace/projects/blockchain-enabled-lms/FINAL_RECORD_SCHEMA_DEFINITION.md (created 2026-11-13 09:36:24 local, 1259 bytes). It declares itself the LMS 'System of Record Schema Definition (v1.0.0)' and 'the single source of truth for data contracts' (line 4). It defines a generic record envelope with required: [recordId, ownerId, createdAt, recordType, payload] (line 25) and a recordType enum of USER, COURSE, ENROLLMENT, CUSTOM (line 19). Three direct contradictions follow. (1) The task specification's Contract Integrity principle requires 'a top-level, mandatory field: schema_version: [MAJOR.MINOR.PATCH]' (HEAD task spec line 32) with the acceptance criterion that validation 'enforce the presence and correct formatting of the top-level schema_version string' (line 39); the new schema's required array omits schema_version entirely. (2) The task specification requires GoverningRuleSetID populated by the ECS (line 31) and a mandatory parent_transaction_id on every appeal record (line 38); the new schema contains neither field. (3) The SRS states the Ledger Service 'Requires a single, fully validated final_academic_record payload' (line 40) and that the operational database holds the complete academic history (line 79); the new schema has no final_academic_record type and no academic-record payload shape. The document is also an unfinished draft - line 8 reads 'Last Updated: YYYY-MM-DD' with the placeholder unfilled, and line 30 states that 'Specific schemas for USER, COURSE, and ENROLLMENT must be appended below as appendices'. Two artifacts now claim to be the single source of truth for LMS data contracts.",
+      "next_action": "Decide which artifact is authoritative for the final_academic_record contract. If the task specification is authoritative, extend the new schema document to be its normative rendering - adding schema_version, GoverningRuleSetID, and parent_transaction_id - and supersede the task spec's inline schema. If the new schema is authoritative, the task specification's Contract Integrity and Auditability principles must be reconciled into it and the SRS Section 2 contract table updated. Do not leave both in place as competing sources of truth.",
+      "dependencies": ["WORK-008", "WORK-024", "WORK-029"],
+      "owner": "User",
+      "resolution": null,
+      "history": [
+        {"timestamp": "2026-11-13T01:45:17Z", "action": "Proposed by wf-reconcile", "actor": "System"}
+      ]
+    },
+    {
+      "id": "WORK-029",
+      "type": "Task",
+      "title": "Three competing project-path and filename variants for the LMS specification collection",
+      "status": "proposed",
+      "priority": "high",
+      "source": {
+        "type": "wf-reconcile",
+        "reference": "spec-workspace/AGENTS.md lines 14-16; sdlc-framework/.opencode/skills/task-noncode/SKILL.md lines 85-87; src/spec-workspace/projects/Blockchain-Enabled LMS/ vs src/spec-workspace/projects/blockchain-enabled-lms/ vs spec-workspace/FINAL_RECORD_SCHEMA_DEFINITION.md"
+      },
+      "context": "The Blockchain-Enabled LMS specification collection now exists in three distinct shapes. (1) The canonical form declared by spec-workspace/AGENTS.md lines 14-16 and by the wf-task-* File Emission Guardrail (task-noncode SKILL.md lines 85-87): spec-workspace/projects/<project-name>/tasks/task-<nnn>-noncode.md - this path does not exist. (2) The existing collection at src/spec-workspace/projects/Blockchain-Enabled LMS/tasks/, using a project directory name with spaces and a task-<task-id> filename. (3) A newly created collection at src/spec-workspace/projects/blockchain-enabled-lms/ (lowercase, hyphenated), holding binding.yaml and FINAL_RECORD_SCHEMA_DEFINITION.md. Variants (2) and (3) are siblings under the same parent and disagree on project naming convention, so 'Blockchain-Enabled LMS' and 'blockchain-enabled-lms' are two directories claiming the same project. Compounding this, the filename FINAL_RECORD_SCHEMA_DEFINITION.md now denotes two documents with entirely different scopes and owners: spec-workspace/FINAL_RECORD_SCHEMA_DEFINITION.md, which is the framework's SDLC operating-system 'System of Record' (Document ID WORK-004-SCHEMA, and already carrying the WORK-004 identifier collision raised in WORK-012), and src/spec-workspace/projects/blockchain-enabled-lms/FINAL_RECORD_SCHEMA_DEFINITION.md, which is the LMS runtime record schema. Neither directory is at the canonical path, and the task spec is still in a different directory from the project schema it depends on.",
+      "next_action": "Choose one canonical project root and one naming convention, then migrate all three variants into it in a single deliberate change: spec-workspace/projects/blockchain-enabled-lms/ containing tasks/task-001-noncode.md, tasks/task-001-handoff.md, binding.yaml, and the LMS schema under a name that does not collide with the framework artifact - for example schema/final-academic-record.md. Rename the framework-level document to distinguish it, and update the task spec's parent_spec and every cross-reference.",
+      "dependencies": ["WORK-013", "WORK-020", "WORK-028"],
+      "owner": "User",
+      "resolution": null,
+      "history": [
+        {"timestamp": "2026-11-13T01:45:17Z", "action": "Proposed by wf-reconcile", "actor": "System"}
+      ]
+    },
+    {
+      "id": "WORK-030",
+      "type": "Task",
+      "title": "Restore the deleted specification body of WORK-LMS-CONTRACT-001 and correct its unsupported Approved status",
+      "status": "done",
+      "priority": "critical",
+      "source": {
+        "type": "wf-reconcile",
+        "reference": "git blob 58f2453 (HEAD) versus worktree blob e8e2a3c; src/spec-workspace/projects/Blockchain-Enabled LMS/tasks/task-LMS-CONTRACT-001-noncode.md"
+      },
+      "context": "The working-tree task specification had been reduced from 52 lines to 15 lines of frontmatter only, deleting Sections 1-7 entirely, while simultaneously setting status: Approved. An Approved specification with no specification content cannot be reviewed or implemented, and the only surviving copy of the body was git blob 58f2453.",
+      "next_action": "Run @wf-review against the restored task specification and record the approval Decision.",
+      "dependencies": ["WORK-009", "WORK-020"],
+      "owner": "User",
+      "resolution": "Restored 2026-11-13 from blob 58f2453 (58 lines, body byte-identical including emoji headings, verified by diff). Frontmatter changes: status demoted Approved to Draft because no approval Decision existed in the ledger; dead calibration_file reference to a never-created file removed; the two open_questions captured from the deleted worktree version retained; parent_spec made resolvable as ../SRS_LMS_v1.0.md with parent_spec_id SRS-LMS-v1.0; updated timestamp and a provenance note added. A backup of the pre-restore working copy was retained outside the repository.",
+      "history": [
+        {"timestamp": "2026-11-13T01:50:00Z", "action": "Restored from blob 58f2453", "actor": "System"},
+        {"timestamp": "2026-11-13T01:50:00Z", "action": "Status demoted to Draft pending review evidence", "actor": "System"}
+      ]
+    },
+    {
+      "id": "WORK-031",
+      "type": "Decision",
+      "title": "Reconciliation decisions D-1 canonical root, D-2 authoritative contract, D-4 binding.yaml semantics - human-selected and executed",
+      "status": "done",
+      "priority": "critical",
+      "source": {
+        "type": "wf-reconcile",
+        "reference": "Reconciliation report decisions D-1, D-2, D-4"
+      },
+      "context": "Three decisions gated the entire consolidation and could not be resolved from evidence alone. D-1: where the LMS specification collection lives, given three competing variants. D-2: which of two artifacts claiming to be the single source of truth for LMS data contracts is authoritative. D-4: what binding.yaml is for, given that it wore the canonical filename while carrying service-binding content that satisfied no contract.",
+      "next_action": "None - decided and executed.",
+      "dependencies": [],
+      "owner": "User",
+      "resolution": "D-1: spec-workspace/projects/blockchain-enabled-lms/ - the path mandated by spec-workspace/AGENTS.md Section 2 and the wf-task File Emission Guardrail. D-2: the task specification is authoritative; schema/final-academic-record.md is its normative rendering and yields to the task spec on any disagreement. D-4: binding.yaml carries only the specification pointer; runtime service bindings moved to service-contracts.yaml. Executed 2026-11-13.",
+      "history": [
+        {"timestamp": "2026-11-13T01:54:23Z", "action": "Decided by human and executed", "actor": "User"}
+      ]
+    },
+    {
+      "id": "WORK-032",
+      "type": "Task",
+      "title": "Approve SRS-LMS-v1.0 and WORK-LMS-CONTRACT-001 - both are Draft with no approval Decision recorded",
+      "status": "proposed",
+      "priority": "critical",
+      "source": {
+        "type": "wf-reconcile",
+        "reference": "spec-workspace/projects/blockchain-enabled-lms/SRS_LMS_v1.0.md line 4; spec-workspace/projects/blockchain-enabled-lms/tasks/task-LMS-CONTRACT-001-noncode.md line 4"
+      },
+      "context": "After the reconciliation, neither specification in the LMS collection is Approved. The SRS reads Design complete in prose but carries status: Draft, because no approval Decision exists in the ledger. The task spec was demoted from an unsupported Approved to Draft. Nothing downstream may proceed while the parent specification is unapproved, because the task spec depends on it and the wf-task-noncode validation rule requires the parent spec to be an Approved project specification.",
+      "next_action": "Run @wf-review on the parent specification, record the approval Decision in the work ledger, set status: Approved only after that evidence exists, then do the same for the task specification.",
+      "dependencies": ["WORK-009", "WORK-016", "WORK-020"],
+      "owner": "User",
+      "resolution": null,
+      "history": [
+        {"timestamp": "2026-11-13T01:54:23Z", "action": "Proposed by wf-reconcile", "actor": "System"}
+      ]
+    },
+    {
+      "id": "WORK-033",
+      "type": "Task",
+      "title": "Assign a work-item ID to the foundational scaffold task - it has no ledger entry and reuses WORK-004",
+      "status": "proposed",
+      "priority": "medium",
+      "source": {
+        "type": "wf-reconcile",
+        "reference": "spec-workspace/tasks/task-scaffold-handoff.md; spec-workspace/SDLC-SOR-v1.0.md line 3"
+      },
+      "context": "The foundational scaffold task has never had its own work-ledger entry. Its handoff and the framework's system-of-record document both referred to it as WORK-004, which is in fact a separate decision about a task-spec status contradiction. The handoff also cited a parent spec SPEC-FW-V1.0 that has never existed as an artifact; the real parent is FW-SOR-v1.0.",
+      "next_action": "Create a ledger entry for the scaffold task with its own id and status done, recording the PR #1 merge as the completion evidence, and point the handoff and SDLC-SOR-v1.0.md at it.",
+      "dependencies": [],
+      "owner": "User",
+      "resolution": null,
+      "history": [
+        {"timestamp": "2026-11-13T01:54:23Z", "action": "Proposed by wf-reconcile", "actor": "System"}
+      ]
+    },
+    {
+      "id": "WORK-034",
+      "type": "Task",
+      "title": "Amend wf-reconcile to persist its report as a durable artifact - the previous report was lost",
+      "status": "proposed",
+      "priority": "medium",
+      "source": {
+        "type": "wf-reconcile",
+        "reference": "sdlc-framework/.opencode/skills/reconcile/SKILL.md Step 11"
+      },
+      "context": "The reconcile skill Step 11 requires the report to be presented, but no step requires it to be written to disk. The previous run's findings therefore survived only as strings inside four ledger items (F-SPEC-002, F-SPEC-003, C-1 through C-5, R-1 through R-5), none of which resolves to an artifact. The evidence behind those four items cannot be re-verified, and the C versus R numbering is undefined. This is the mechanism gap that lost the report, not an oversight in a single run.",
+      "next_action": "Add a persistence step to wf-reconcile requiring the report to be written to the project spec directory with a stable document id before the ledger items are created, and require every new ledger item's source.reference to point at that document.",
+      "dependencies": [],
+      "owner": "User",
+      "resolution": null,
+      "history": [
+        {"timestamp": "2026-11-13T01:54:23Z", "action": "Proposed by wf-reconcile", "actor": "System"}
+      ]
+    },
+    {
+      "id": "WORK-035",
+      "type": "Task",
+      "title": "Determine the LMS codebase directory - two candidate roots exist and neither is an approved decision",
+      "status": "proposed",
+      "priority": "medium",
+      "source": {
+        "type": "wf-reconcile",
+        "reference": "lms-platform/ (four empty directories); src/identity/core-identity-module (empty, created 2026-11-13 09:41 by a concurrent session)"
+      },
+      "context": "Two candidate codebase locations exist for the LMS. lms-platform/ holds four empty directories named blockchain-proxy, iam-service, lms-issuer-service and web-api-gateway. src/identity/core-identity-module appeared during the reconciliation run, authored by a concurrent session, and matches the core-identity-module dependency named in the service binding manifest. Both are empty, so neither is tracked by Git and neither survives a clean clone. Neither maps onto the seven SRS service domains. Because the codebase directory is undetermined, the project binding.yaml currently lives in the specification collection instead of in a codebase directory.",
+      "next_action": "Choose the codebase root - generated-projects/blockchain-enabled-lms/ per the AGENTS.md contract is the canonical answer, and these two candidate directories should be either emptied into it or removed. Then create the codebase directory with its binding.yaml and mirror the project binding.yaml into it.",
+      "dependencies": ["WORK-017", "WORK-010"],
+      "owner": "User",
+      "resolution": null,
+      "history": [
+        {"timestamp": "2026-11-13T01:54:23Z", "action": "Proposed by wf-reconcile", "actor": "System"}
+      ]
+    },
+    {
+      "id": "WORK-036",
+      "type": "Task",
+      "title": "Apply work_ledger_schema.json conformance to existing ledger items under human authorization",
+      "status": "proposed",
+      "priority": "medium",
+      "source": {
+        "type": "wf-reconcile",
+        "reference": "sdlc-framework/schemas/work_ledger_schema.json lines 6-9; spec-workspace/project-temp/work_ledger.yaml"
+      },
+      "context": "Existing ledger items violate the schema the framework defines. The priority enum permits low, medium, high and critical, but WORK-005 and WORK-006 use warning and WORK-007 uses normal. Every history[].timestamp up to WORK-029 is the literal placeholder string [TIMESTAMP], so no work item can be dated, which undermines the approval hierarchy requirement that decisions be recorded with an auditable trail. The {metadata, ledger} wrapper used by the file is also undocumented in the schema, which describes a flat item shape. These items were deliberately not modified during the reconciliation because existing ledger items must not be silently edited.",
+      "next_action": "Authorize a single normalization pass: map warning to high and normal to medium, backfill timestamps from commit dates where derivable and mark the rest as unknown rather than inventing them, and extend work_ledger_schema.json to document the {metadata, ledger} wrapper. Record the pass as its own ledger entry.",
+      "dependencies": ["WORK-015"],
+      "owner": "User",
+      "resolution": null,
+      "history": [
+        {"timestamp": "2026-11-13T01:54:23Z", "action": "Proposed by wf-reconcile", "actor": "System"}
+      ]
+    },
+    {
+      "id": "WORK-037",
+      "type": "Task",
+      "title": "Resolve the unmapped service bindings against the SRS seven-domain model",
+      "status": "proposed",
+      "priority": "medium",
+      "source": {
+        "type": "wf-reconcile",
+        "reference": "spec-workspace/projects/blockchain-enabled-lms/service-contracts.yaml"
+      },
+      "context": "The service binding manifest names three services - auth-service, record-schema and blockchain-gateway - while the SRS Section 2 defines seven service domains: IAM, ECS, AMS, FRAS, ESS, GRA-Service and LGS. auth-service maps cleanly to IAM and record-schema plausibly to LGS, but blockchain-gateway has no SRS home: the SRS defines no gateway domain, and the two candidate directories blockchain-proxy and web-api-gateway are not SRS domains either. Five SRS domains have no manifest entry at all. The mappings recorded in the manifest are marked proposed and are not approved.",
+      "next_action": "Map blockchain-gateway to a specific SRS domain or amend the SRS to define one, and decide whether the five unmapped domains need manifest entries now or when their services are specified. Update service-contracts.yaml once decided.",
+      "dependencies": ["WORK-027"],
+      "owner": "User",
+      "resolution": null,
+      "history": [
+        {"timestamp": "2026-11-13T01:54:23Z", "action": "Proposed by wf-reconcile", "actor": "System"}
+      ]
+    },
+    {
+      "id": "WORK-038",
+      "type": "Task",
+      "title": "Introduce Rule 0 - AGENTS.md binds every skill, always - across the AGENTS.md tree and all eleven skills",
+      "status": "done",
+      "priority": "high",
+      "source": {
+        "type": "explicit-user-instruction",
+        "reference": "User instruction: teach AGENTS.md how to use this spec kit, where to generate folders per spec and where to generate codebase, and WHEN to code, as a guardrail; all skills must adhere to AGENTS.md ALWAYS as Rule 0"
+      },
+      "context": "The AGENTS.md files described the kit's philosophy but not its mechanics, so nothing told a skill where to create a specification folder, where to create a codebase, or when code may be written. Each of the eleven skills could therefore act without a placement contract, and the file emission guardrail added in the v1.3.0 skill updates was itself uncommitted and unenforced at the AGENTS.md level.",
+      "next_action": "None - implemented. The rule is now self-enforcing, since each skill carries the obligation in its own SKILL.md.",
+      "dependencies": [],
+      "owner": "User",
+      "resolution": "Implemented 2026-11-13. Root AGENTS.md rewritten as the operating contract with Rule 0 first: read-before-acting, no exemption for any skill, conflict resolution order, hard stop with a Blocker rather than silent deviation, and read-only unless the task covers the file. Sections added: the two trees, the exact specification folder layout, the exact codebase layout, the artifact placement table, the lifecycle, and the code-generation guardrail naming wf-implement as the only skill permitted to write implementation code, with wf-task-noncode explicitly never permitted and an escalation rule that routes newly-discovered code needs into a separate wf-task-code task against generated-projects/<project-name>/. Nested contracts added or rewritten: spec-workspace/AGENTS.md, generated-projects/AGENTS.md, sdlc-framework/AGENTS.md, the new project-level spec-workspace/projects/blockchain-enabled-lms/AGENTS.md, and generated-projects/scaffold-project/AGENTS.md. A matching Rule 0 block with a skill-specific code-authority clause was inserted into all eleven SKILL.md files so the obligation survives the skill being read out of context.",
+      "history": [
+        {"timestamp": "2026-11-13T01:56:54Z", "action": "Rule 0 introduced across AGENTS.md tree and all 11 skills", "actor": "System"}
+      ]
+    },
+    {
+      "id": "WORK-039",
+      "type": "Decision",
+      "title": "Approval gate on the LMS specifications returned NOT APPROVABLE - 22 blocking findings across both artifacts",
+      "status": "proposed",
+      "priority": "critical",
+      "source": {
+        "type": "wf-review",
+        "reference": "Independent review of spec-workspace/projects/blockchain-enabled-lms/SRS_LMS_v1.0.md and spec-workspace/projects/blockchain-enabled-lms/tasks/task-LMS-CONTRACT-001-noncode.md | sessions ses_e2d5a6438ffeL4CF0pJX43Pv5m and ses_e2d5a6438ffeL4CF0pJX43Pv5m"
+      },
+      "context": "The approval step was executed as two independent, read-only wf-review sessions - one per artifact - so the gate was not self-certified. Both returned NOT APPROVABLE. The parent specification produced 22 findings (R-01 to R-22), 14 of them blocking; the task specification produced 17 findings (F-01 to F-17), 8 of them blocking. The grounds are threefold and independent of each other: a GATE ground - the parent spec is Draft with no approval Decision, so the task spec cannot legitimately be Approved ahead of it; an EVIDENCE ground - the task spec marked all five acceptance criteria PASS with nothing to support the claim, and criteria 1 to 3 are written in terms no reviewer can check; and a CONTENT ground - the artifacts do not specify what they claim to specify, the parent specification violates Technology Agnosticism by naming JWT and HTTP paths with no authorising Decision, and the task specification adopts four capabilities that do not exist. No approval Decision was recorded and no status was changed to Approved. Five mechanical, unambiguous defects were corrected during the review session and are recorded as done: F-02, F-15, F-17, R-08 and the citation half of R-12.",
+      "next_action": "Clear the 22 blocking findings, then re-run wf-review on both artifacts. The parent specification is the gating item - F-01 cannot close until it is approved, and the approval itself cannot be granted until its own blocking findings are cleared. Sequence: fix R-01 to R-14 in the SRS, re-review the SRS, approve it, then fix F-03 to F-08 in the task spec, re-review, approve.",
+      "dependencies": [],
+      "owner": "User",
+      "resolution": null,
+      "history": [
+        {
+          "timestamp": "2026-11-13T02:20:00Z",
+          "action": "Approval gate executed - verdict NOT APPROVABLE",
+          "actor": "System"
+        }
+      ]
+    },
+    {
+      "id": "WORK-040",
+      "type": "ReviewFinding",
+      "title": "R-01 - Technology Agnosticism violated by JWT, HTTP POST/URL paths and the Operational Database",
+      "status": "proposed",
+      "priority": "critical",
+      "source": {
+        "type": "wf-review",
+        "reference": "spec-workspace/projects/blockchain-enabled-lms/SRS_LMS_v1.0.md:44,46,47,48,89 | ses_e2d5a6438ffeL4CF0pJX43Pv5m | finding R-01"
+      },
+      "context": "Technology Agnosticism violated by JWT, HTTP POST/URL paths and the Operational Database\n\nEvidence: JWT claims enforce all access.",
+      "next_action": "Replace the transport- and storage-specific wording with technology-neutral operations and abstract requirements; record a Decision if any transport-specific wording is intentionally retained.",
+      "dependencies": [],
+      "owner": "User",
+      "resolution": null,
+      "history": [
+        {
+          "timestamp": "2026-11-13T02:20:00Z",
+          "action": "Proposed by wf-review",
+          "actor": "System"
+        }
+      ]
+    },
+    {
+      "id": "WORK-041",
+      "type": "ReviewFinding",
+      "title": "R-02 - Appeal workflow contradicts the collection non-negotiable audit rule",
+      "status": "proposed",
+      "priority": "critical",
+      "source": {
+        "type": "wf-review",
+        "reference": "spec-workspace/projects/blockchain-enabled-lms/SRS_LMS_v1.0.md:66-71 | ses_e2d5a6438ffeL4CF0pJX43Pv5m | finding R-02"
+      },
+      "context": "Appeal workflow contradicts the collection non-negotiable audit rule\n\nEvidence: The grade remains marked UNDER_REVIEW until the final signatory approves the change",
+      "next_action": "State that the original grade is never mutated and that the appeal appends a new versioned record carrying parent_transaction_id.",
+      "dependencies": [],
+      "owner": "User",
+      "resolution": null,
+      "history": [
+        {
+          "timestamp": "2026-11-13T02:20:00Z",
+          "action": "Proposed by wf-review",
+          "actor": "System"
+        }
+      ]
+    },
+    {
+      "id": "WORK-042",
+      "type": "ReviewFinding",
+      "title": "R-03 - Six of seven services have no contract and the document defines zero field-level data contracts",
+      "status": "proposed",
+      "priority": "high",
+      "source": {
+        "type": "wf-review",
+        "reference": "spec-workspace/projects/blockchain-enabled-lms/SRS_LMS_v1.0.md:44-50 | ses_e2d5a6438ffeL4CF0pJX43Pv5m | finding R-03"
+      },
+      "context": "Six of seven services have no contract and the document defines zero field-level data contracts\n\nEvidence: It defines the purpose, boundaries, key workflows, and data contracts for seven interdependent microservices.",
+      "next_action": "Give each domain a technology-neutral operation contract, or link named child artifacts that hold them.",
+      "dependencies": [],
+      "owner": "User",
+      "resolution": null,
+      "history": [
+        {
+          "timestamp": "2026-11-13T02:20:00Z",
+          "action": "Proposed by wf-review",
+          "actor": "System"
+        }
+      ]
+    },
+    {
+      "id": "WORK-043",
+      "type": "ReviewFinding",
+      "title": "R-04 - Six of the nine body elements mandated by wf-bootstrap are absent",
+      "status": "proposed",
+      "priority": "high",
+      "source": {
+        "type": "wf-review",
+        "reference": "spec-workspace/projects/blockchain-enabled-lms/SRS_LMS_v1.0.md:19-96 | ses_e2d5a6438ffeL4CF0pJX43Pv5m | finding R-04"
+      },
+      "context": "Six of the nine body elements mandated by wf-bootstrap are absent\n\nEvidence: no stakeholder, non-goal, success criteria, quality expectation, topology or open-questions section",
+      "next_action": "Add the missing sections, stating quality expectations technology-neutrally.",
+      "dependencies": [],
+      "owner": "User",
+      "resolution": null,
+      "history": [
+        {
+          "timestamp": "2026-11-13T02:20:00Z",
+          "action": "Proposed by wf-review",
+          "actor": "System"
+        }
+      ]
+    },
+    {
+      "id": "WORK-044",
+      "type": "ReviewFinding",
+      "title": "R-05 - GRA-Service transient storage for Audit/Review Logs contradicts the Section 4.3 complete-history requirement",
+      "status": "proposed",
+      "priority": "high",
+      "source": {
+        "type": "wf-review",
+        "reference": "spec-workspace/projects/blockchain-enabled-lms/SRS_LMS_v1.0.md:49 | ses_e2d5a6438ffeL4CF0pJX43Pv5m | finding R-05"
+      },
+      "context": "GRA-Service transient storage for Audit/Review Logs contradicts the Section 4.3 complete-history requirement\n\nEvidence: Transient storage, stores Audit/Review Logs",
+      "next_action": "State that the authoritative operational record store holds grades, appeals, review logs and appeal status flags.",
+      "dependencies": [],
+      "owner": "User",
+      "resolution": null,
+      "history": [
+        {
+          "timestamp": "2026-11-13T02:20:00Z",
+          "action": "Proposed by wf-review",
+          "actor": "System"
+        }
+      ]
+    },
+    {
+      "id": "WORK-045",
+      "type": "ReviewFinding",
+      "title": "R-06 - The ECS-consumer set is defined three inconsistent ways and capacity-load validation is doubly assigned",
+      "status": "proposed",
+      "priority": "high",
+      "source": {
+        "type": "wf-review",
+        "reference": "spec-workspace/projects/blockchain-enabled-lms/SRS_LMS_v1.0.md:34,47,48,86 | ses_e2d5a6438ffeL4CF0pJX43Pv5m | finding R-06"
+      },
+      "context": "The ECS-consumer set is defined three inconsistent ways and capacity-load validation is doubly assigned\n\nEvidence: Manages human resources: who teaches what, when, and capacity-load validation.",
+      "next_action": "Define one closed ECS consumer set and assign capacity/load validation to exactly one owner.",
+      "dependencies": [],
+      "owner": "User",
+      "resolution": null,
+      "history": [
+        {
+          "timestamp": "2026-11-13T02:20:00Z",
+          "action": "Proposed by wf-review",
+          "actor": "System"
+        }
+      ]
+    },
+    {
+      "id": "WORK-046",
+      "type": "ReviewFinding",
+      "title": "R-07 - AcademicPeriod data ownership is claimed by both ECS and ESS",
+      "status": "proposed",
+      "priority": "high",
+      "source": {
+        "type": "wf-review",
+        "reference": "spec-workspace/projects/blockchain-enabled-lms/SRS_LMS_v1.0.md:45,48 | ses_e2d5a6438ffeL4CF0pJX43Pv5m | finding R-07"
+      },
+      "context": "AcademicPeriod data ownership is claimed by both ECS and ESS\n\nEvidence: ECS owns EducationalLevel, AcademicPeriod, CycleType, FormulaRules versus ESS owns Section, Enrollment, AcademicPeriod",
+      "next_action": "State the ownership split explicitly or remove the duplicate ownership claim.",
+      "dependencies": [],
+      "owner": "User",
+      "resolution": null,
+      "history": [
+        {
+          "timestamp": "2026-11-13T02:20:00Z",
+          "action": "Proposed by wf-review",
+          "actor": "System"
+        }
+      ]
+    },
+    {
+      "id": "WORK-047",
+      "type": "ReviewFinding",
+      "title": "R-08 - A third LaTeX authoring fragment survives; WORK-025 was scoped to only two of the three defects",
+      "status": "done",
+      "priority": "high",
+      "source": {
+        "type": "wf-review",
+        "reference": "spec-workspace/projects/blockchain-enabled-lms/SRS_LMS_v1.0.md:70 | ses_e2d5a6438ffeL4CF0pJX43Pv5m | finding R-08"
+      },
+      "context": "A third LaTeX authoring fragment survives; WORK-025 was scoped to only two of the three defects\n\nEvidence: approval chain (Faculty $\\to$ Chair $\\to$ Dean)\n\nCorrected 2026-11-13 - the fragment is now plain text (Faculty -> Chair -> Dean). WORK-025 still needs its scope widened to cover the third defect.",
+      "next_action": "Replace the fragment with plain text and update WORK-025 to record the third defect.",
+      "dependencies": [],
+      "owner": "User",
+      "resolution": "Corrected 2026-11-13 - the fragment is now plain text (Faculty -> Chair -> Dean). WORK-025 still needs its scope widened to cover the third defect.",
+      "history": [
+        {
+          "timestamp": "2026-11-13T02:20:00Z",
+          "action": "Proposed by wf-review",
+          "actor": "System"
+        }
+      ]
+    },
+    {
+      "id": "WORK-048",
+      "type": "ReviewFinding",
+      "title": "R-09 - Normative status literals and the grading formula are used with no defining artifact",
+      "status": "proposed",
+      "priority": "high",
+      "source": {
+        "type": "wf-review",
+        "reference": "spec-workspace/projects/blockchain-enabled-lms/SRS_LMS_v1.0.md:57,60,71 | ses_e2d5a6438ffeL4CF0pJX43Pv5m | finding R-09"
+      },
+      "context": "Normative status literals and the grading formula are used with no defining artifact\n\nEvidence: the period status must be Active",
+      "next_action": "Author the StatusEnums and SchemaVersionConstraint capabilities, or inline the normative enumerations and formula into the SRS.",
+      "dependencies": [],
+      "owner": "User",
+      "resolution": null,
+      "history": [
+        {
+          "timestamp": "2026-11-13T02:20:00Z",
+          "action": "Proposed by wf-review",
+          "actor": "System"
+        }
+      ]
+    },
+    {
+      "id": "WORK-049",
+      "type": "ReviewFinding",
+      "title": "R-10 - Section 3 is titled State Machines but contains none; Gateway is undefined; the grade-submission workflow is never specified",
+      "status": "proposed",
+      "priority": "high",
+      "source": {
+        "type": "wf-review",
+        "reference": "spec-workspace/projects/blockchain-enabled-lms/SRS_LMS_v1.0.md:54-71 | ses_e2d5a6438ffeL4CF0pJX43Pv5m | finding R-10"
+      },
+      "context": "Section 3 is titled State Machines but contains none; Gateway is undefined; the grade-submission workflow is never specified\n\nEvidence: Core Business Workflows & State Machines",
+      "next_action": "Define states and transitions or retitle the section; define Gateway; add the grade-submission and College-completion workflows or scope them out.",
+      "dependencies": [],
+      "owner": "User",
+      "resolution": null,
+      "history": [
+        {
+          "timestamp": "2026-11-13T02:20:00Z",
+          "action": "Proposed by wf-review",
+          "actor": "System"
+        }
+      ]
+    },
+    {
+      "id": "WORK-050",
+      "type": "ReviewFinding",
+      "title": "R-11 - The blockchain proof scope is specified two incompatible ways",
+      "status": "proposed",
+      "priority": "high",
+      "source": {
+        "type": "wf-review",
+        "reference": "spec-workspace/projects/blockchain-enabled-lms/SRS_LMS_v1.0.md:50,89 | ses_e2d5a6438ffeL4CF0pJX43Pv5m | finding R-11"
+      },
+      "context": "The blockchain proof scope is specified two incompatible ways\n\nEvidence: Requires a single, fully validated final_academic_record payload.",
+      "next_action": "State one proof unit explicitly - what is hashed, at what granularity, and how a verifier re-derives it.",
+      "dependencies": [],
+      "owner": "User",
+      "resolution": null,
+      "history": [
+        {
+          "timestamp": "2026-11-13T02:20:00Z",
+          "action": "Proposed by wf-review",
+          "actor": "System"
+        }
+      ]
+    },
+    {
+      "id": "WORK-051",
+      "type": "ReviewFinding",
+      "title": "R-12 - The sign-off block asserts a phase transition and Design complete on a Draft artifact and cites the wrong ledger item",
+      "status": "proposed",
+      "priority": "high",
+      "source": {
+        "type": "wf-review",
+        "reference": "spec-workspace/projects/blockchain-enabled-lms/SRS_LMS_v1.0.md:94-95 | ses_e2d5a6438ffeL4CF0pJX43Pv5m | finding R-12"
+      },
+      "context": "The sign-off block asserts a phase transition and Design complete on a Draft artifact and cites the wrong ledger item\n\nEvidence: no approval Decision is yet recorded in the work ledger (see WORK-016, WORK-030)\n\nPartially corrected 2026-11-13 - the citation now points at WORK-032. The Design complete and phase-transition claims remain and must be removed while the spec is Draft.",
+      "next_action": "Remove the transition and completion claims while Draft, and correct the citation to WORK-016 and WORK-032.",
+      "dependencies": [],
+      "owner": "User",
+      "resolution": null,
+      "history": [
+        {
+          "timestamp": "2026-11-13T02:20:00Z",
+          "action": "Proposed by wf-review",
+          "actor": "System"
+        }
+      ]
+    },
+    {
+      "id": "WORK-052",
+      "type": "ReviewFinding",
+      "title": "R-13 - Every ledger evidence pointer into the SRS is off by 10 lines and resolves to the wrong text after relocation",
+      "status": "proposed",
+      "priority": "high",
+      "source": {
+        "type": "wf-review",
+        "reference": "spec-workspace/project-temp/work_ledger.yaml:302,307,309,459,478 | ses_e2d5a6438ffeL4CF0pJX43Pv5m | finding R-13"
+      },
+      "context": "Every ledger evidence pointer into the SRS is off by 10 lines and resolves to the wrong text after relocation\n\nEvidence: SRS_LMS_v1.0.md (repo root, no frontmatter, lines 1-86)",
+      "next_action": "Re-anchor all SRS line citations to the relocated 96-line file and close or update WORK-007, WORK-016 and WORK-025.",
+      "dependencies": [],
+      "owner": "User",
+      "resolution": null,
+      "history": [
+        {
+          "timestamp": "2026-11-13T02:20:00Z",
+          "action": "Proposed by wf-review",
+          "actor": "System"
+        }
+      ]
+    },
+    {
+      "id": "WORK-053",
+      "type": "ReviewFinding",
+      "title": "R-14 - The parent specification references none of its own collection artifacts; five of seven SRS domains are unmapped in the service manifest",
+      "status": "proposed",
+      "priority": "high",
+      "source": {
+        "type": "wf-review",
+        "reference": "spec-workspace/projects/blockchain-enabled-lms/SRS_LMS_v1.0.md:50 | ses_e2d5a6438ffeL4CF0pJX43Pv5m | finding R-14"
+      },
+      "context": "The parent specification references none of its own collection artifacts; five of seven SRS domains are unmapped in the service manifest\n\nEvidence: unmapped_srs_domains: ECS, AMS, FRAS, ESS, GRA-Service",
+      "next_action": "Add a Related Artifacts section and reconcile the seven domains against the service manifest.",
+      "dependencies": [],
+      "owner": "User",
+      "resolution": null,
+      "history": [
+        {
+          "timestamp": "2026-11-13T02:20:00Z",
+          "action": "Proposed by wf-review",
+          "actor": "System"
+        }
+      ]
+    },
+    {
+      "id": "WORK-054",
+      "type": "ReviewFinding",
+      "title": "R-15 - GradeAppealRecord versus AppealRecord naming, and an Option A with no defined Option B or selecting Decision",
+      "status": "proposed",
+      "priority": "medium",
+      "source": {
+        "type": "wf-review",
+        "reference": "spec-workspace/projects/blockchain-enabled-lms/SRS_LMS_v1.0.md:68 | ses_e2d5a6438ffeL4CF0pJX43Pv5m | finding R-15"
+      },
+      "context": "GradeAppealRecord versus AppealRecord naming, and an Option A with no defined Option B or selecting Decision\n\nEvidence: A GradeAppealRecord is created (Surgical Fix - Option A).",
+      "next_action": "Reconcile the naming and either define the alternatives or record the Decision that selected Option A.",
+      "dependencies": [],
+      "owner": "User",
+      "resolution": null,
+      "history": [
+        {
+          "timestamp": "2026-11-13T02:20:00Z",
+          "action": "Proposed by wf-review",
+          "actor": "System"
+        }
+      ]
+    },
+    {
+      "id": "WORK-055",
+      "type": "ReviewFinding",
+      "title": "R-16 - The preamble references a non-existent Solutioning Partner Protocol, says Educational Management System where the project says Learning Management System, and promises a change-control rule set that does not exist",
+      "status": "proposed",
+      "priority": "medium",
+      "source": {
+        "type": "wf-review",
+        "reference": "spec-workspace/projects/blockchain-enabled-lms/SRS_LMS_v1.0.md:5 | ses_e2d5a6438ffeL4CF0pJX43Pv5m | finding R-16"
+      },
+      "context": "The preamble references a non-existent Solutioning Partner Protocol, says Educational Management System where the project says Learning Management System, and promises a change-control rule set that does not exist\n\nEvidence: This document serves as the final, comprehensive, and executable contract for the Architecture Design Phase",
+      "next_action": "Remove or correct the preamble claims, and either define the change-control rule set or drop the promise.",
+      "dependencies": [],
+      "owner": "User",
+      "resolution": null,
+      "history": [
+        {
+          "timestamp": "2026-11-13T02:20:00Z",
+          "action": "Proposed by wf-review",
+          "actor": "System"
+        }
+      ]
+    },
+    {
+      "id": "WORK-056",
+      "type": "ReviewFinding",
+      "title": "R-17 - The System of Record term is disambiguated only on the framework side",
+      "status": "proposed",
+      "priority": "medium",
+      "source": {
+        "type": "wf-review",
+        "reference": "spec-workspace/projects/blockchain-enabled-lms/SRS_LMS_v1.0.md:79 | ses_e2d5a6438ffeL4CF0pJX43Pv5m | finding R-17"
+      },
+      "context": "The System of Record term is disambiguated only on the framework side\n\nEvidence: The Operational Database (non-blockchain) is the System of Record.",
+      "next_action": "Add a one-line disambiguation in SRS Section 4.3 pointing at the framework's distinct use of the phrase.",
+      "dependencies": [],
+      "owner": "User",
+      "resolution": null,
+      "history": [
+        {
+          "timestamp": "2026-11-13T02:20:00Z",
+          "action": "Proposed by wf-review",
+          "actor": "System"
+        }
+      ]
+    },
+    {
+      "id": "WORK-057",
+      "type": "ReviewFinding",
+      "title": "R-18 - binding.yaml spec_collection id and version do not match the root spec",
+      "status": "proposed",
+      "priority": "medium",
+      "source": {
+        "type": "wf-review",
+        "reference": "spec-workspace/projects/blockchain-enabled-lms/binding.yaml | ses_e2d5a6438ffeL4CF0pJX43Pv5m | finding R-18"
+      },
+      "context": "binding.yaml spec_collection id and version do not match the root spec\n\nEvidence: SPEC-LMS-v1.0 and version 1.0.0 versus SRS-LMS-v1.0 and version 1.0",
+      "next_action": "Make the binding.yaml id and version agree with the root spec frontmatter.",
+      "dependencies": [],
+      "owner": "User",
+      "resolution": null,
+      "history": [
+        {
+          "timestamp": "2026-11-13T02:20:00Z",
+          "action": "Proposed by wf-review",
+          "actor": "System"
+        }
+      ]
+    },
+    {
+      "id": "WORK-058",
+      "type": "ReviewFinding",
+      "title": "R-19 - The SRS is untracked in Git, so the review has no commit SHA behind it",
+      "status": "proposed",
+      "priority": "medium",
+      "source": {
+        "type": "wf-review",
+        "reference": "spec-workspace/projects/blockchain-enabled-lms/SRS_LMS_v1.0.md | ses_e2d5a6438ffeL4CF0pJX43Pv5m | finding R-19"
+      },
+      "context": "The SRS is untracked in Git, so the review has no commit SHA behind it\n\nEvidence: artifact is untracked (?? spec-workspace/projects/...)",
+      "next_action": "Commit the collection so the specification has a verifiable SHA, as Protected Invariant III requires.",
+      "dependencies": [],
+      "owner": "User",
+      "resolution": null,
+      "history": [
+        {
+          "timestamp": "2026-11-13T02:20:00Z",
+          "action": "Proposed by wf-review",
+          "actor": "System"
+        }
+      ]
+    },
+    {
+      "id": "WORK-059",
+      "type": "ReviewFinding",
+      "title": "R-20 - Stray and duplicated horizontal rules",
+      "status": "proposed",
+      "priority": "low",
+      "source": {
+        "type": "wf-review",
+        "reference": "spec-workspace/projects/blockchain-enabled-lms/SRS_LMS_v1.0.md:13,91,92,96 | ses_e2d5a6438ffeL4CF0pJX43Pv5m | finding R-20"
+      },
+      "context": "Stray and duplicated horizontal rules\n\nEvidence: *** on lines 13, 91, 92, 96",
+      "next_action": "Remove the duplicated rules.",
+      "dependencies": [],
+      "owner": "User",
+      "resolution": null,
+      "history": [
+        {
+          "timestamp": "2026-11-13T02:20:00Z",
+          "action": "Proposed by wf-review",
+          "actor": "System"
+        }
+      ]
+    },
+    {
+      "id": "WORK-060",
+      "type": "ReviewFinding",
+      "title": "R-21 - Frontmatter uses id where wf-bootstrap prescribes spec_id",
+      "status": "proposed",
+      "priority": "low",
+      "source": {
+        "type": "wf-review",
+        "reference": "spec-workspace/projects/blockchain-enabled-lms/SRS_LMS_v1.0.md:2 | ses_e2d5a6438ffeL4CF0pJX43Pv5m | finding R-21"
+      },
+      "context": "Frontmatter uses id where wf-bootstrap prescribes spec_id\n\nEvidence: id: SRS-LMS-v1.0",
+      "next_action": "Align the frontmatter key with the wf-bootstrap contract, or amend that contract.",
+      "dependencies": [],
+      "owner": "User",
+      "resolution": null,
+      "history": [
+        {
+          "timestamp": "2026-11-13T02:20:00Z",
+          "action": "Proposed by wf-review",
+          "actor": "System"
+        }
+      ]
+    },
+    {
+      "id": "WORK-061",
+      "type": "ReviewFinding",
+      "title": "R-22 - The word record carries four distinct senses with no glossary",
+      "status": "proposed",
+      "priority": "low",
+      "source": {
+        "type": "wf-review",
+        "reference": "spec-workspace/projects/blockchain-enabled-lms/SRS_LMS_v1.0.md | ses_e2d5a6438ffeL4CF0pJX43Pv5m | finding R-22"
+      },
+      "context": "The word record carries four distinct senses with no glossary\n\nEvidence: System of Record, academic history, final_academic_record, blockchain proof",
+      "next_action": "Add a short glossary, or use distinct terms for the four senses.",
+      "dependencies": [],
+      "owner": "User",
+      "resolution": null,
+      "history": [
+        {
+          "timestamp": "2026-11-13T02:20:00Z",
+          "action": "Proposed by wf-review",
+          "actor": "System"
+        }
+      ]
+    },
+    {
+      "id": "WORK-062",
+      "type": "ReviewFinding",
+      "title": "F-01 - Parent specification is not Approved, so the task specification cannot be approved ahead of it",
+      "status": "proposed",
+      "priority": "critical",
+      "source": {
+        "type": "wf-review",
+        "reference": "spec-workspace/projects/blockchain-enabled-lms/tasks/task-LMS-CONTRACT-001-noncode.md:6 | ses_e2d5a6438ffeL4CF0pJX43Pv5m | finding F-01"
+      },
+      "context": "Parent specification is not Approved, so the task specification cannot be approved ahead of it\n\nEvidence: status: Draft - Approval is pending",
+      "next_action": "Approve the parent SRS first, record the approval Decision, then re-run this gate.",
+      "dependencies": [],
+      "owner": "User",
+      "resolution": null,
+      "history": [
+        {
+          "timestamp": "2026-11-13T02:20:00Z",
+          "action": "Proposed by wf-review",
+          "actor": "System"
+        }
+      ]
+    },
+    {
+      "id": "WORK-063",
+      "type": "ReviewFinding",
+      "title": "F-02 - All five acceptance criteria were pre-marked PASS with no evidence",
+      "status": "done",
+      "priority": "critical",
+      "source": {
+        "type": "wf-review",
+        "reference": "spec-workspace/projects/blockchain-enabled-lms/tasks/task-LMS-CONTRACT-001-noncode.md:43-47 | ses_e2d5a6438ffeL4CF0pJX43Pv5m | finding F-02"
+      },
+      "context": "All five acceptance criteria were pre-marked PASS with no evidence\n\nEvidence: [PASS] Basic Achievement (Primary School) fields populate correctly\n\nCorrected 2026-11-13 - all five PASS markers replaced with unchecked markers. No criterion is claimed as met.",
+      "next_action": "Remove the PASS markers and restate the criteria as conditions to be checked; cite evidence for anything genuinely verified.",
+      "dependencies": [],
+      "owner": "User",
+      "resolution": "Corrected 2026-11-13 - all five PASS markers replaced with unchecked markers. No criterion is claimed as met.",
+      "history": [
+        {
+          "timestamp": "2026-11-13T02:20:00Z",
+          "action": "Proposed by wf-review",
+          "actor": "System"
+        }
+      ]
+    },
+    {
+      "id": "WORK-064",
+      "type": "ReviewFinding",
+      "title": "F-03 - Criteria 1 to 3 use undefined terms and no target values and are not independently verifiable",
+      "status": "proposed",
+      "priority": "critical",
+      "source": {
+        "type": "wf-review",
+        "reference": "spec-workspace/projects/blockchain-enabled-lms/tasks/task-LMS-CONTRACT-001-noncode.md:43-45 | ses_e2d5a6438ffeL4CF0pJX43Pv5m | finding F-03"
+      },
+      "context": "Criteria 1 to 3 use undefined terms and no target values and are not independently verifiable\n\nEvidence: fields populate correctly with minimum progression metrics",
+      "next_action": "Rewrite criteria 1 to 3 as document-level, checkable properties of the schema deliverable, or move the runtime behaviour to a separately-owned task.",
+      "dependencies": [],
+      "owner": "User",
+      "resolution": null,
+      "history": [
+        {
+          "timestamp": "2026-11-13T02:20:00Z",
+          "action": "Proposed by wf-review",
+          "actor": "System"
+        }
+      ]
+    },
+    {
+      "id": "WORK-065",
+      "type": "ReviewFinding",
+      "title": "F-04 - No acceptance criterion covers the task own in-scope deliverables",
+      "status": "proposed",
+      "priority": "high",
+      "source": {
+        "type": "wf-review",
+        "reference": "spec-workspace/projects/blockchain-enabled-lms/tasks/task-LMS-CONTRACT-001-noncode.md:25-29 | ses_e2d5a6438ffeL4CF0pJX43Pv5m | finding F-04"
+      },
+      "context": "No acceptance criterion covers the task own in-scope deliverables\n\nEvidence: Defining all mandatory fields, data types, and nullability for the core academic record.",
+      "next_action": "Add one criterion per in-scope item, each phrased as a property of the delivered schema document and independently checkable by reading the artifact.",
+      "dependencies": [],
+      "owner": "User",
+      "resolution": null,
+      "history": [
+        {
+          "timestamp": "2026-11-13T02:20:00Z",
+          "action": "Proposed by wf-review",
+          "actor": "System"
+        }
+      ]
+    },
+    {
+      "id": "WORK-066",
+      "type": "ReviewFinding",
+      "title": "F-05 - In-scope authorises authoring ECS rule content, which the binding project AGENTS.md forbids",
+      "status": "proposed",
+      "priority": "high",
+      "source": {
+        "type": "wf-review",
+        "reference": "spec-workspace/projects/blockchain-enabled-lms/tasks/task-LMS-CONTRACT-001-noncode.md:28 | ses_e2d5a6438ffeL4CF0pJX43Pv5m | finding F-05"
+      },
+      "context": "In-scope authorises authoring ECS rule content, which the binding project AGENTS.md forbids\n\nEvidence: Documenting the mandatory validation rules that must be applied by the Educational Context Service (ECS).",
+      "next_action": "Narrow the in-scope item to the GoverningRuleSetID field, its type and cardinality, and citing SRS Section 4.2; add authoring ECS rule content to Out-of-Scope. Requires WORK-005 and WORK-024 first.",
+      "dependencies": [],
+      "owner": "User",
+      "resolution": null,
+      "history": [
+        {
+          "timestamp": "2026-11-13T02:20:00Z",
+          "action": "Proposed by wf-review",
+          "actor": "System"
+        }
+      ]
+    },
+    {
+      "id": "WORK-067",
+      "type": "ReviewFinding",
+      "title": "F-06 - Four normative capabilities are adopted with no defining artifact and no versions",
+      "status": "proposed",
+      "priority": "high",
+      "source": {
+        "type": "wf-review",
+        "reference": "spec-workspace/projects/blockchain-enabled-lms/tasks/task-LMS-CONTRACT-001-noncode.md:52 | ses_e2d5a6438ffeL4CF0pJX43Pv5m | finding F-06"
+      },
+      "context": "Four normative capabilities are adopted with no defining artifact and no versions\n\nEvidence: Adopted Capabilities: Standard UserID, TimestampFormat (ISO 8601), StatusEnums, SchemaVersionConstraint",
+      "next_action": "Author the four capability specifications under spec-workspace/library/Capabilities/ with stable id, version and status, or remove the clause and inline the definitions.",
+      "dependencies": [],
+      "owner": "User",
+      "resolution": null,
+      "history": [
+        {
+          "timestamp": "2026-11-13T02:20:00Z",
+          "action": "Proposed by wf-review",
+          "actor": "System"
+        }
+      ]
+    },
+    {
+      "id": "WORK-068",
+      "type": "ReviewFinding",
+      "title": "F-07 - No calibration record exists at the canonical path, so the File Emission Guardrail is unsatisfied",
+      "status": "proposed",
+      "priority": "high",
+      "source": {
+        "type": "wf-review",
+        "reference": "spec-workspace/projects/blockchain-enabled-lms/tasks/task-LMS-CONTRACT-001-noncode.md:1-16 | ses_e2d5a6438ffeL4CF0pJX43Pv5m | finding F-07"
+      },
+      "context": "No calibration record exists at the canonical path, so the File Emission Guardrail is unsatisfied\n\nEvidence: glob spec-workspace/**/* returns no task-LMS-CONTRACT-001-noncode-calibration.md",
+      "next_action": "Create the calibration record with all six answers bindingly, including the choice 4 worktree plan, and restore the calibration_file frontmatter reference.",
+      "dependencies": [],
+      "owner": "User",
+      "resolution": null,
+      "history": [
+        {
+          "timestamp": "2026-11-13T02:20:00Z",
+          "action": "Proposed by wf-review",
+          "actor": "System"
+        }
+      ]
+    },
+    {
+      "id": "WORK-069",
+      "type": "ReviewFinding",
+      "title": "F-08 - The normative rendering introduces requirements the task specification does not authorise",
+      "status": "proposed",
+      "priority": "high",
+      "source": {
+        "type": "wf-review",
+        "reference": "spec-workspace/projects/blockchain-enabled-lms/tasks/task-LMS-CONTRACT-001-noncode.md:22 | ses_e2d5a6438ffeL4CF0pJX43Pv5m | finding F-08"
+      },
+      "context": "The normative rendering introduces requirements the task specification does not authorise\n\nEvidence: It is the single source of truth governing the structure of all academic achievements committed to the blockchain.",
+      "next_action": "Move the enumerated contract content into the task specification so the rendering is genuinely a rendering, or record a Decision naming the rendering co-authoritative and fix the single-source-of-truth sentence.",
+      "dependencies": [],
+      "owner": "User",
+      "resolution": null,
+      "history": [
+        {
+          "timestamp": "2026-11-13T02:20:00Z",
+          "action": "Proposed by wf-review",
+          "actor": "System"
+        }
+      ]
+    },
+    {
+      "id": "WORK-070",
+      "type": "ReviewFinding",
+      "title": "F-09 - Parent-spec traceability is under-specified - no SRS section is cited in Expected Behavior and only Section 2 in Dependencies",
+      "status": "proposed",
+      "priority": "medium",
+      "source": {
+        "type": "wf-review",
+        "reference": "spec-workspace/projects/blockchain-enabled-lms/tasks/task-LMS-CONTRACT-001-noncode.md:36,50 | ses_e2d5a6438ffeL4CF0pJX43Pv5m | finding F-09"
+      },
+      "context": "Parent-spec traceability is under-specified - no SRS section is cited in Expected Behavior and only Section 2 in Dependencies\n\nEvidence: Parent Specification: SRS_LMS_v1.0.md (Section 2).",
+      "next_action": "Add explicit section-by-section citations - SRS 1.2, 1.4, 3.3, 4.2 and 4.3 - per wf-task-noncode Step 8.",
+      "dependencies": [],
+      "owner": "User",
+      "resolution": null,
+      "history": [
+        {
+          "timestamp": "2026-11-13T02:20:00Z",
+          "action": "Proposed by wf-review",
+          "actor": "System"
+        }
+      ]
+    },
+    {
+      "id": "WORK-071",
+      "type": "ReviewFinding",
+      "title": "F-10 - Name and state-model divergence from the parent spec, unreconciled",
+      "status": "proposed",
+      "priority": "medium",
+      "source": {
+        "type": "wf-review",
+        "reference": "spec-workspace/projects/blockchain-enabled-lms/tasks/task-LMS-CONTRACT-001-noncode.md:37,45 | ses_e2d5a6438ffeL4CF0pJX43Pv5m | finding F-10"
+      },
+      "context": "Name and state-model divergence from the parent spec, unreconciled\n\nEvidence: appends a full AppealRecord object",
+      "next_action": "Use the parent names GradeAppealRecord and UNDER_REVIEW, or record a Decision mapping the task vocabulary onto the SRS state model.",
+      "dependencies": [],
+      "owner": "User",
+      "resolution": null,
+      "history": [
+        {
+          "timestamp": "2026-11-13T02:20:00Z",
+          "action": "Proposed by wf-review",
+          "actor": "System"
+        }
+      ]
+    },
+    {
+      "id": "WORK-072",
+      "type": "ReviewFinding",
+      "title": "F-11 - Section 7 requires a validation pipeline that Section 3 excludes, and names no verification method or evidence",
+      "status": "proposed",
+      "priority": "medium",
+      "source": {
+        "type": "wf-review",
+        "reference": "spec-workspace/projects/blockchain-enabled-lms/tasks/task-LMS-CONTRACT-001-noncode.md:32,55 | ses_e2d5a6438ffeL4CF0pJX43Pv5m | finding F-11"
+      },
+      "context": "Section 7 requires a validation pipeline that Section 3 excludes, and names no verification method or evidence\n\nEvidence: The contract must be rigorously tested via a formal validation pipeline",
+      "next_action": "Rewrite Section 7 as document-level verification, or scope the validation pipeline to ECS and LGS per SRS Section 4.2 and reference it rather than mandating its construction.",
+      "dependencies": [],
+      "owner": "User",
+      "resolution": null,
+      "history": [
+        {
+          "timestamp": "2026-11-13T02:20:00Z",
+          "action": "Proposed by wf-review",
+          "actor": "System"
+        }
+      ]
+    },
+    {
+      "id": "WORK-073",
+      "type": "ReviewFinding",
+      "title": "F-12 - Out-of-scope is incomplete and Required Tools mislabels SRS service domains as tools",
+      "status": "proposed",
+      "priority": "medium",
+      "source": {
+        "type": "wf-review",
+        "reference": "spec-workspace/projects/blockchain-enabled-lms/tasks/task-LMS-CONTRACT-001-noncode.md:32-33,51 | ses_e2d5a6438ffeL4CF0pJX43Pv5m | finding F-12"
+      },
+      "context": "Out-of-scope is incomplete and Required Tools mislabels SRS service domains as tools\n\nEvidence: Required Tools: ECS, GRA-Service, LGS.",
+      "next_action": "Extend Out-of-Scope with the missing exclusions, rename Required Tools to Required Service Domains, point at service-contracts.yaml, and add the capability artifacts to Dependencies.",
+      "dependencies": [],
+      "owner": "User",
+      "resolution": null,
+      "history": [
+        {
+          "timestamp": "2026-11-13T02:20:00Z",
+          "action": "Proposed by wf-review",
+          "actor": "System"
+        }
+      ]
+    },
+    {
+      "id": "WORK-074",
+      "type": "ReviewFinding",
+      "title": "F-13 - Missing Consistency note, no back-link to the normative rendering, task_id resolves to no ledger item, project name did not match the collection directory",
+      "status": "proposed",
+      "priority": "medium",
+      "source": {
+        "type": "wf-review",
+        "reference": "spec-workspace/projects/blockchain-enabled-lms/tasks/task-LMS-CONTRACT-001-noncode.md:1-16 | ses_e2d5a6438ffeL4CF0pJX43Pv5m | finding F-13"
+      },
+      "context": "Missing Consistency note, no back-link to the normative rendering, task_id resolves to no ledger item, project name did not match the collection directory\n\nEvidence: task_id: WORK-LMS-CONTRACT-001 with ledger ids running WORK-001 to WORK-038\n\nPartially corrected 2026-11-13 - project is now blockchain-enabled-lms, matching the collection directory. The Consistency note, the rendered_by back-link and a ledger item matching task_id remain outstanding.",
+      "next_action": "Add the Consistency note and the rendered_by back-link, create a ledger item whose id matches task_id, and align the project name with the collection directory.",
+      "dependencies": [],
+      "owner": "User",
+      "resolution": null,
+      "history": [
+        {
+          "timestamp": "2026-11-13T02:20:00Z",
+          "action": "Proposed by wf-review",
+          "actor": "System"
+        }
+      ]
+    },
+    {
+      "id": "WORK-075",
+      "type": "ReviewFinding",
+      "title": "F-14 - Serialization format is ambiguous for a canonical contract - two alternatives named, neither designated",
+      "status": "proposed",
+      "priority": "low",
+      "source": {
+        "type": "wf-review",
+        "reference": "spec-workspace/projects/blockchain-enabled-lms/tasks/task-LMS-CONTRACT-001-noncode.md:36 | ses_e2d5a6438ffeL4CF0pJX43Pv5m | finding F-14"
+      },
+      "context": "Serialization format is ambiguous for a canonical contract - two alternatives named, neither designated\n\nEvidence: The final payload must be a JSON/YAML object",
+      "next_action": "Name one canonical representation, or state that the contract is representation-neutral and the JSON Schema is a non-normative convenience rendering.",
+      "dependencies": [],
+      "owner": "User",
+      "resolution": null,
+      "history": [
+        {
+          "timestamp": "2026-11-13T02:20:00Z",
+          "action": "Proposed by wf-review",
+          "actor": "System"
+        }
+      ]
+    },
+    {
+      "id": "WORK-076",
+      "type": "ReviewFinding",
+      "title": "F-15 - Section 7 heading was byte-level corrupted - literal ASCII escape text instead of the intended emoji",
+      "status": "done",
+      "priority": "low",
+      "source": {
+        "type": "wf-review",
+        "reference": "spec-workspace/projects/blockchain-enabled-lms/tasks/task-LMS-CONTRACT-001-noncode.md:54 | ses_e2d5a6438ffeL4CF0pJX43Pv5m | finding F-15"
+      },
+      "context": "Section 7 heading was byte-level corrupted - literal ASCII escape text instead of the intended emoji\n\nEvidence: ## <0xF0><0x9F><0x94><0x95> 7. Validation Requirements\n\nCorrected 2026-11-13 - the heading now renders as the intended emoji. The corruption was pre-existing in blob 58f2453, so the earlier restore carried it forward.",
+      "next_action": "Replace with the intended emoji heading.",
+      "dependencies": [],
+      "owner": "User",
+      "resolution": "Corrected 2026-11-13 - the heading now renders as the intended emoji. The corruption was pre-existing in blob 58f2453, so the earlier restore carried it forward.",
+      "history": [
+        {
+          "timestamp": "2026-11-13T02:20:00Z",
+          "action": "Proposed by wf-review",
+          "actor": "System"
+        }
+      ]
+    },
+    {
+      "id": "WORK-077",
+      "type": "ReviewFinding",
+      "title": "F-16 - Undocumented revision markers and an off-schema severity value",
+      "status": "proposed",
+      "priority": "low",
+      "source": {
+        "type": "wf-review",
+        "reference": "spec-workspace/projects/blockchain-enabled-lms/tasks/task-LMS-CONTRACT-001-noncode.md:11,24,35,41 | ses_e2d5a6438ffeL4CF0pJX43Pv5m | finding F-16"
+      },
+      "context": "Undocumented revision markers and an off-schema severity value\n\nEvidence: severity: Warning\n\nPartially corrected 2026-11-13 - the two severity values are now schema-valid (high). The (Revised) markers and the missing change history remain.",
+      "next_action": "Add a change-history section or drop the (Revised) suffixes, and use high, medium, low or critical for open-question severity.",
+      "dependencies": [],
+      "owner": "User",
+      "resolution": null,
+      "history": [
+        {
+          "timestamp": "2026-11-13T02:20:00Z",
+          "action": "Proposed by wf-review",
+          "actor": "System"
+        }
+      ]
+    },
+    {
+      "id": "WORK-078",
+      "type": "ReviewFinding",
+      "title": "F-17 - Unevidenced completion claim in the closing line",
+      "status": "done",
+      "priority": "low",
+      "source": {
+        "type": "wf-review",
+        "reference": "spec-workspace/projects/blockchain-enabled-lms/tasks/task-LMS-CONTRACT-001-noncode.md:59 | ses_e2d5a6438ffeL4CF0pJX43Pv5m | finding F-17"
+      },
+      "context": "Unevidenced completion claim in the closing line\n\nEvidence: It passes the planning gate.\n\nCorrected 2026-11-13 - the claim is gone; the line now reads only that the document is ready for independent review.",
+      "next_action": "Delete the claim or cite the ledger Decision that records the planning-gate pass - none exists, and WORK-009 records the opposite.",
+      "dependencies": [],
+      "owner": "User",
+      "resolution": "Corrected 2026-11-13 - the claim is gone; the line now reads only that the document is ready for independent review.",
+      "history": [
+        {
+          "timestamp": "2026-11-13T02:20:00Z",
+          "action": "Proposed by wf-review",
+          "actor": "System"
+        }
       ]
     }
   ]

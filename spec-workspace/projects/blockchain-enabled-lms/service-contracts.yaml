@@ -1,0 +1,53 @@
+---
+# Runtime service-to-service dependency manifest for Blockchain-Enabled LMS.
+#
+# Decision D-4: separated from binding.yaml. binding.yaml is the specification
+# pointer (spec-workspace/AGENTS.md Section 4); this file is the service
+# binding manifest.
+#
+# Source: the binding.yaml written by the concurrent authoring session on
+# 2026-11-13 (09:34:52), preserved verbatim. The srs_domain mapping is a
+# RECONCILIATION PROPOSAL, not an approved decision - the SRS names seven
+# service domains and three of these services do not map cleanly onto them.
+# See WORK-027 / WORK-030.
+services:
+  auth-service:
+    provides: user.profile
+    requires: core-identity-module
+    srs_domain: IAM
+    srs_domain_status: proposed
+
+  record-schema:
+    provides: blockchain.record
+    requires: data-persistence-layer
+    srs_domain: LGS
+    srs_domain_status: proposed
+
+  blockchain-gateway:
+    provides: immutable-event-pointer
+    requires: network-client-sdk
+    srs_domain: unresolved
+    srs_domain_status: unresolved
+    note: >-
+      The SRS defines no gateway domain among its seven service domains.
+      Two candidate homes exist in the repository and neither is an SRS
+      domain: lms-platform/blockchain-proxy and lms-platform/web-api-gateway.
+      Requires a human decision.
+
+# The seven service domains declared by SRS_LMS_v1.0.md Section 2. Listed so
+# the coverage gap between this manifest and the specification is explicit.
+srs_service_domains:
+  - IAM
+  - ECS
+  - AMS
+  - FRAS
+  - ESS
+  - GRA-Service
+  - LGS
+
+unmapped_srs_domains:
+  - ECS
+  - AMS
+  - FRAS
+  - ESS
+  - GRA-Service

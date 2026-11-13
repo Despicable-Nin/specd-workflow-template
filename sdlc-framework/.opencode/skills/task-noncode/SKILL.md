@@ -1,8 +1,8 @@
 ---
 name: wf-task-noncode
 id: wf-task-noncode
-version: 1.2.1
-description: Create an implementation-ready specification for a non-coding task (documentation, configuration, infrastructure, process, data migration setup). Follows the plan-fix calibration pattern: six choices asked one at a time, answers recorded bindingly, no defaults assumed, finalized only on explicit confirmation. Worktree creation parameters are decided during calibration (choice 4). Requires explicit project-spec targeting (never assumed). No test scenarios (not applicable to non-coding work). Produces a task specification, a dedicated per-task worktree and branch, and a task-specific handoff file that includes a suggested skill run.
+version: 1.3.0
+description: Create an implementation-ready specification for a non-coding task (documentation, configuration, infrastructure, process, data migration setup). Follows the plan-fix calibration pattern: six choices asked one at a time, answers recorded bindingly, no defaults assumed, finalized only on explicit confirmation. Worktree creation parameters are decided during calibration (choice 4). Requires explicit project-spec targeting (never assumed). No code-level test scenarios (not applicable to non-coding work); measurable acceptance criteria are still required. Produces a task specification, a dedicated per-task worktree and branch, and a task handoff file that includes a suggested skill run.
 category: task-specification
 status: active
 framework: sdlc-framework
@@ -12,9 +12,27 @@ repository: sdlc-framework
 # wf-task-noncode
 
 ## Purpose
-Create an implementation-ready specification for a **non-coding task** (documentation, configuration, infrastructure, process, data migration setup, etc.). Follows the `/plan-fix` calibration pattern: interactive choices asked one at a time, answers recorded bindingly, no defaults assumed, finalized only when you confirm. Worktree creation parameters (worktree needed, branch naming, worktree location) are decided during calibration choice 4. Produces a task specification with no test scenarios (not applicable to non-coding work), a dedicated per-task Git worktree and branch, and a task-specific handoff file that includes a **suggested skill run**.
+Create an implementation-ready specification for a **non-coding task** (documentation, configuration, infrastructure, process, data migration setup, etc.). Follows the `/plan-fix` calibration pattern: interactive choices asked one at a time, answers recorded bindingly, no defaults assumed, finalized only when you confirm. Worktree creation parameters (worktree needed, branch naming, worktree location) are decided during calibration choice 4. Produces a task specification with no code-level test scenarios but with measurable acceptance criteria, the worktree plan that `wf-plan` acts on, and a task handoff file that includes a **suggested skill run**.
 
 This skill is for non-coding work only. For coding work (features, bug fixes, refactors, test additions), use wf-task-code instead.
+
+## Rule 0 — AGENTS.md binds this skill, always
+
+This skill is bound by the nearest applicable `AGENTS.md` — the repository root `AGENTS.md`, plus
+the `AGENTS.md` of any ancestor directory of every path this skill reads or writes. **Read them
+before the first action.**
+
+* **Silence is not permission.** A step in this skill that says nothing about a location, a name,
+  or a placement rule does not authorise improvising one. The `AGENTS.md` still governs.
+* **Conflict.** Protected Invariants > explicit user instruction > `AGENTS.md` > this skill. Where
+  this skill and an `AGENTS.md` disagree, follow the `AGENTS.md`, state the conflict, and record
+  it in the work ledger. Do not silently pick a side.
+* **Hard stop.** If an `AGENTS.md` rule cannot be satisfied — the canonical folder is missing, a
+  required `binding.yaml` is absent, the target path is ambiguous — stop, name the violated rule,
+  and record a `Blocker` in the work ledger under the Gate Failure Protocol. Never improvise a
+  location.
+* **Handoff.** Before acting, look for the task's handoff file at its canonical location and read it if it exists - it is the task's running state (purpose, status, action items, next step). A handoff file is **disposable**: when its status becomes `Done` it is deleted, not archived, and the durable history stays in the work ledger. A handoff belongs inside the directory of the work it describes.
+* **Code authority.** this skill produces a **specification or a non-code artifact** only. It must **never** write implementation code — that is the defining constraint of a non-coding task. If the work turns out to require code, **stop**: raise a separate coding task via `wf-task-code` targeting `generated-projects/<project-name>/`, record the link in the work ledger and the handoff, and keep this task's deliverable a specification. Code never goes into `spec-workspace/`.
 
 ## Invocation Conditions
 Invoke when:
@@ -49,17 +67,15 @@ Do not invoke when:
 | Calibration run file | `spec-workspace/projects/<project-name>/tasks/task-<nnn>-noncode-calibration.md` | Binding record of the six calibration choices, including worktree plan from choice 4 |
 | Draft task spec | `spec-workspace/projects/<project-name>/tasks/task-<nnn>-noncode.md` | `status: Draft` |
 | Approved task spec | Same file, `status: Approved` | Approval evidence recorded in work ledger |
-| Dedicated Git branch | Branch named per task spec ID (from calibration choice 4) | Created from base branch |
-| Isolated Git worktree | Linked worktree at dedicated path (from calibration choice 4) | One per task only |
-| Task-specific handoff file | `spec-workspace/projects/<project-name>/tasks/task-<nnn>-noncode-handoff.md` | One per task only — includes detailed handoff + suggested skill run |
-| Worktree-spec association | Work ledger + handoff file | Branch and worktree path recorded |
+| Worktree plan | Calibration run file, choice 4 | Branch naming and placement **preferences** only. The worktree itself is created by `wf-plan`, from the `main`/`master` base branch. |
+| Task handoff file | `spec-workspace/projects/<project-name>/tasks/task-<nnn>-handoff.md` | One per task, not per skill; contributing skills append while status != Done; includes detailed handoff + suggested skill run |
 | Planned task summary | Console output + work ledger | Concise summary of the planned task: scope, acceptance criteria, worktree branch/path, suggested skill run |
 | Work ledger items | Task created, calibrated, reviewed, approved, worktree-associated | NEW items only; existing items never modified or closed |
 
 ## Agent Responsibilities
 - **Plan-fix calibration**: Ask six consumption choices one at a time (analogous to plan-fix's scan shape, visual aid, explanation budget, workflow, implementation chrome, teach or orient), adapted for non-coding work. Do not assume defaults. Wait for each answer before proceeding.
 - Record each answer in the calibration run file; each answer binds subsequent steps.
-- **Calibration choice 4 (workflow path)**: Capture worktree/branch parameters — whether a worktree is needed, branch naming preference, worktree placement preference. This is the worktree plan.
+- **Calibration choice 4 (workflow path)**: Capture worktree/branch *preferences* - whether a worktree is needed, branch naming preference, worktree placement preference. `wf-plan` creates the worktree from `main`/`master` and honours these preferences.
 - Present the full calibration plan for finalization. Proceed to drafting only when you explicitly confirm the plan is done.
 - **Explicit project-spec targeting**: Present all approved project specifications with ID/title/status/last-updated. User must select one. Never assume.
 - Identify reusable capabilities from `spec-workspace/library/`
@@ -67,14 +83,30 @@ Do not invoke when:
 - Define scope, exclusions, expected behavior, acceptance criteria (non-code deliverables)
 - Submit draft for independent review (wf-review)
 - Obtain explicit human approval before worktree creation or implementation
-- **Create a dedicated per-task worktree and branch** per the calibration plan (choice 4), after spec approval
-- Associate the worktree with the task specification in work ledger and handoff file
-- **Generate a detailed task-specific handoff file that includes a suggested skill run** (which skill to run next, with parameters)
+- **Do not create a worktree or branch.** Hand the worktree plan to `wf-plan`, which creates both from the `main`/`master` base branch.
+- Record the worktree plan (choice 4 preferences) in the work ledger and handoff file for `wf-plan` to act on
+- **Generate a detailed task handoff file that includes a suggested skill run** (which skill to run next, with parameters); this is the task's single common handoff file; contributing skills append while its status is not Done
 - **Present a summary of the planned task to the user** (scope, acceptance criteria, worktree branch/path, suggested skill run)
 - Never write implementation code during this skill
 - Never modify the approved project specification
 - Never discard uncommitted work
 - Never force-push by default
+
+## File Emission Guardrail (artifact persistence)
+
+Artifact-producing steps in this skill MUST persist files to the canonical paths below before any downstream step (draft review, approval, worktree association, handoff consumption) proceeds.
+
+| Artifact | Canonical path | Requirement |
+|----------|----------------|-------------|
+| Task spec | `spec-workspace/projects/<project-name>/tasks/task-<nnn}-noncode.md` | Written as `status: Draft`; later changed to `Approved` only via explicit approval |
+| Calibration run | `spec-workspace/projects/<project-name>/tasks/task-<nnn}-noncode-calibration.md` | All six answers recorded bindingly, incl. worktree plan from choice 4 |
+| Task handoff | `spec-workspace/projects/<project-name>/tasks/task-<nnn}-handoff.md` | Common per-task handoff file — one per task, not per skill; contributing skills append while status != Done; must contain detailed handoff + suggested skill run with exact parameters |
+
+Rules:
+- Presenting artifact content in chat or returning it inline is NOT sufficient; the file must exist on disk at the canonical path.
+- Create parent directories as needed; never write artifacts to ad-hoc locations.
+- After writing, verify the file exists at the canonical path and contains the expected frontmatter before continuing.
+- On write failure, missing file, or path mismatch: HARD STOP. Do not proceed to review/approval/next steps. Notify the user; record a `Blocker` in the work ledger (Gate Failure Protocol).
 
 ## Step-by-Step Procedure
 
@@ -112,8 +144,16 @@ Describe expected behavior in technology-agnostic terms. Reference the sections 
 ### Step 9 — Define measurable acceptance criteria
 Create measurable, testable criteria that determine when the task is complete. Focus on non-code deliverables (documents published, config applied, infra provisioned, process documented, sign-off obtained). Each criterion must be independently verifiable. No vague criteria.
 
-### Step 10 — Omitted: test scenarios
-Test scenarios are not applicable to non-coding work. This step is intentionally skipped for this skill.
+### Step 10 — Omitted: code-level test scenarios
+Code-level test scenarios (the Gherkin-style Given/When/Then scenarios required by `wf-task-code`)
+are not applicable to non-coding work, and this step is intentionally skipped for this skill.
+
+This does **not** mean the task specification has no verifiable criteria. Step 9's measurable
+acceptance criteria are required and must be independently verifiable. Where a non-code deliverable
+is itself a contract, schema, or document that mandates a future integration test — for example, a
+data contract that must state how an unsupported `schema_version` is rejected by a downstream
+validator — that requirement belongs in the acceptance criteria as part of the *deliverable*, not
+as an implementation task. See ledger `WORK-021`.
 
 ### Step 11 — Establish verification requirements
 Specify how the deliverable will be verified (review sign-off, config validation, infra smoke test, stakeholder demo, compliance check) and what evidence is required for completion.
@@ -153,45 +193,34 @@ Present the draft + review findings to the human. Obtain explicit approval:
 - On approval: change task spec frontmatter `status` to `Approved`; record approval as a Work Ledger `Decision` item with evidence (spec ID, version, approver, timestamp, file path)
 - On rejection or blocking findings: return to Step 12; address findings; re-draft and re-submit for review
 
-### Step 15 — Per-task worktree and branch creation (per calibration plan choice 4)
-**Gate 4**: Worktree creation authorization. Worktree parameters come from calibration choice 4 — this is not a new decision.
+### Step 15 — Hand the worktree plan to `wf-plan` (no worktree is created here)
+**Gate 4**: the worktree is **not** created by this skill. `wf-plan` creates it, always from the
+repository's `main`/`master` base branch, and creates or updates the task handoff file at the same
+time.
 
 1. **Validate specification identity and approval**: Confirm the task spec exists with `status: Approved`.
 2. **Inspect Git state (read-only)**: List branches (`git branch -a`), existing linked worktrees (`git worktree list`), current branch, and uncommitted changes (`git status`).
 3. **Check for uncommitted work**: If uncommitted changes exist, warn the user. Ask whether to stash, commit, or abort. Never discard uncommitted work.
-4. **Determine base branch**: Default to the repository's default branch (main/master). Allow user to specify a different base branch. Confirm it exists locally or can be fetched.
-5. **Check for conflicts**: Verify no existing worktree is already associated with this task spec ID. Check for branch name conflicts (a branch with the same name already exists). If conflict exists, ask user how to proceed (new name, reuse existing, or abort).
-6. **Create dedicated branch**: Branch name convention from calibration choice 4 (or project AGENTS.md convention if present, or default `task/WORK-<nnn>-<short-slug>`). Create from the base branch.
-7. **Create isolated worktree**: Create a linked worktree at the dedicated path from calibration choice 4 (or user-specified location).
+4. **Record the worktree plan**: Carry calibration choice 4 (branch naming preference, worktree placement preference) into the calibration run file and into the handoff as *preferences* for `wf-plan` to honour. The worktree itself does not exist yet.
+5. **Do not create a branch or worktree here.** If a worktree already exists for this task spec ID, note it in the handoff so `wf-plan` reuses it rather than creating a second.
 
-   **CRITICAL GIT PATTERN**: When creating a worktree for a new task branch, use the combined Git command that creates the branch and links the worktree simultaneously:
-
-   ```bash
-   git worktree add <worktree-path> -b <new-branch-name> <base-branch>
-   ```
-
-   Do NOT attempt to `git worktree add <path> <existing-branch>` when that branch is already checked out in the primary worktree — Git will reject it with `invalid reference`. The `-b` flag creates a new branch from `<base-branch>` and immediately checks it out into the new worktree, which avoids this conflict entirely.
-
-   Verify the worktree is properly linked.
-8. **Associate worktree with specification**: Record the association in the work ledger (`WORK-XXX` item, type: Task, status: done, source: task spec ID) and in the task-specific handoff file.
-
-### Step 16 — Task-specific handoff file (HARD RULE: detailed handoff + suggested skill run)
-Create `spec-workspace/projects/<project-name>/tasks/task-<nnn>-noncode-handoff.md` containing **only this task's information** and MUST include:
+### Step 16 — Task handoff file (HARD RULE: detailed handoff + suggested skill run)
+Create `spec-workspace/projects/<project-name>/tasks/task-<nnn>-handoff.md` containing **only this task's information** and MUST include:
 
 **Detailed handoff:**
 - Approved task ID and spec location
 - Parent project spec ID
 - Calibration run file location
-- Worktree branch name and worktree path
-- Base branch
+- Worktree plan from calibration choice 4 - branch naming and placement **preferences**. The worktree does not exist yet; `wf-plan` creates it from `main`/`master`.
+- **Purpose**, **status**, and **action items** - the three elements the root `AGENTS.md` handoff contract requires of every handoff file
 - Task scope summary (in-scope, out-of-scope)
 - Acceptance criteria summary
 - Verification requirements summary
 - Any unresolved open questions
 
 **Suggested skill run (MANDATORY):**
-- Which skill to run next (e.g., wf-commit after implementation, or wf-task-noncode for the next dependent task)
-- Exact parameters to pass (project name/path, task spec ID, worktree path/branch, push flag yes/no)
+- Which skill to run next - `wf-plan`. It creates the task worktree from `main`/`master`, calibrates the plan, and produces the plan file that `wf-implement` follows.
+- Exact parameters to pass (project name/path, task spec ID, plan file path)
 - Rationale for why this skill is the logical next step
 
 ### Step 17 — Record work ledger entries
@@ -199,7 +228,7 @@ Create new `WORK-XXX` items:
 - Task created (type: Task, status: done)
 - Task calibrated (type: Decision, status: done)
 - Task approved (type: Decision, status: done, with approval evidence)
-- Worktree associated (type: Task, status: done)
+- Worktree plan recorded for `wf-plan` to execute (type: Task, status: done)
 - Never modify or close existing items
 
 ### Step 18 — Present planned task summary
@@ -208,8 +237,8 @@ Present a concise summary of the planned task to the user:
 - Parent project spec ID
 - Scope summary (in-scope, out-of-scope)
 - Acceptance criteria summary (non-code deliverables)
-- Worktree branch name and worktree path
-- Base branch
+- Worktree plan from calibration choice 4 - branch naming and placement **preferences**. The worktree does not exist yet; `wf-plan` creates it from `main`/`master`.
+- **Purpose**, **status**, and **action items** - the three elements the root `AGENTS.md` handoff contract requires of every handoff file
 - Suggested skill run (which skill, exact parameters, rationale)
 - Any unresolved open questions
 
@@ -220,15 +249,15 @@ This summary is the user's confirmation that the task is fully planned and ready
 |------|-----------|
 | Plan-fix calibration | Six choices asked one at a time; answers recorded bindingly; no defaults assumed |
 | Calibration finalization | No drafting until user explicitly confirms the calibration plan is final |
-| Worktree in calibration | Worktree/branch parameters decided in calibration choice 4; no separate worktree decision later |
+| Worktree in calibration | Choice 4 captures branch/placement **preferences**; `wf-plan` creates the worktree from `main`/`master` |
 | Git worktree creation | When creating a worktree for a new task branch, use `git worktree add <path> -b <new-branch> <base-branch>`; never attempt to check out an already-active branch into a new worktree |
 | Explicit spec targeting | User selects project spec from presented options; never assumed |
-| Non-coding only | This skill is for non-coding tasks; test scenarios are not applicable |
-| One worktree per task | Each task spec gets its own dedicated worktree and branch; never share worktrees across tasks |
+| Non-coding only | This skill is for non-coding tasks; code-level test scenarios are not applicable, but measurable acceptance criteria are required |
+| One worktree per task | `wf-plan` creates exactly one worktree per task, from `main`/`master`. Never two; reuse or escalate. |
 | Approved spec only | Never create implementation worktrees for unsigned-off specifications |
 | No uncommitted work discard | Check for uncommitted changes; warn user before proceeding |
-| One handoff per task | Handoff file contains only this task's information |
-| HARD RULE: handoff includes suggested skill run | Every task-specific handoff file must include a detailed handoff AND a suggested skill run with parameters |
+| One handoff per task | One common handoff file per task (not per skill); handoff contains only this task's information |
+| HARD RULE: handoff includes suggested skill run | Every task handoff file must include a detailed handoff AND a suggested skill run with parameters |
 | Human owns approval | Explicit approval required before worktree creation and implementation |
 
 ## Delegation Strategy
@@ -263,16 +292,16 @@ This summary is the user's confirmation that the task is fully planned and ready
 | Branch already exists | Ask user: new name, reuse existing, or abort |
 | Worktree already exists for this task | Warn; do not duplicate; ask whether to reuse or abort |
 | Worktree creation fails | Record as Blocker in work ledger. If failure is `invalid reference`, verify whether the base branch is already checked out in the primary worktree; if so, use the `-b` flag pattern (`git worktree add <path> -b <new-branch> <base-branch>`) rather than attempting to check out an existing branch name into a new worktree. |
+| Artifact write missing/fails | HARD STOP; do not proceed to review/approval/next steps; notify user; record `Blocker` in work ledger (Gate Failure Protocol) |
 
 ## Validation
 - Calibration run file exists with all six answers recorded bindingly, including worktree plan from choice 4
+- Task spec file exists at `spec-workspace/projects/<project-name>/tasks/task-<nnn}-noncode.md` before submission to review
 - Task spec exists with `status: Approved` and `task_type: noncode`
 - Parent spec ID references an Approved project specification
-- No test scenarios present (not applicable to non-coding)
-- Dedicated branch exists, created from base branch per calibration choice 4
-- Isolated worktree exists at dedicated path per calibration choice 4, checked out on new branch
-- Worktree-spec association recorded in work ledger and handoff file
-- Task-specific handoff file exists containing only this task's information, with detailed handoff AND suggested skill run
+- No code-level test scenarios present (not applicable to non-coding); measurable acceptance criteria ARE present and independently verifiable
+- Worktree plan from calibration choice 4 recorded in the calibration run file and handed to `wf-plan`
+- Task handoff file exists at `spec-workspace/projects/<project-name>/tasks/task-<nnn}-handoff.md` containing only this task's information, with detailed handoff AND suggested skill run, before handing off to `wf-plan`
 - No existing work ledger items were modified or closed
 - No uncommitted work was discarded
 - No protected invariant was violated (approved parent spec, technology-agnostic task spec, evidence-based acceptance criteria)

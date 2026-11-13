@@ -1,3 +1,13 @@
+---
+id: SRS-LMS-v1.0
+version: 1.0
+status: Draft
+title: Software Requirements Specification - Blockchain-Enabled LMS
+project: Blockchain-Enabled LMS
+created: 2026-11-11T12:00:00Z
+updated: 2026-11-13T02:05:00Z
+---
+
 # Software Requirements Specification (SRS v1.0) - Blockchain-Enabled LMS
 
 ***
@@ -44,12 +54,12 @@ The system is decomposed into seven core microservices, each with a single, well
 ## 🛠️ Section 3: Core Business Workflows & State Machines
 
 ### 3.1 🔑 Gateway Workflow: The Academic Period Gatekeeping
-All primary creation and update processes (Enrollment, Grade Submission) must first call the ECS. The ECS verifies the `AcademicPeriod.Status` before allowing the process to continue $( \text{Period Status} = \text{Active} \}$.
+All primary creation and update processes (Enrollment, Grade Submission) must first call the ECS. The ECS verifies the `AcademicPeriod.Status` before allowing the process to continue; the period status must be `Active`.
 
 ### 3.2 🚀 Promotion Workflow (Primary/Secondary)
 This workflow is triggered when a student's ESS record reaches `COMPLETED` status.
 1. **Validation:** GRA-Service validates that the student meets the necessary credits/passing milestones defined by AMS/ECS.
-2. **Authority:** A high-权限 IAM-secured role (Dean/Principal) must manually approve the transition.
+2. **Authority:** A high-privilege IAM-secured role (Dean/Principal) must manually approve the transition.
 3. **Update:** The ESS updates the student's record with the next expected academic level and signals the successful transition.
 
 ### 3.3 🩹 Appeal and Remedial Workflows (The Surgical Fix Mechanism)
@@ -57,7 +67,7 @@ This pathway defines a manual, high-control loop:
 1. **Trigger:** A system or human administrative action triggers the need for correction.
 2. **Appeal Record:** A `GradeAppealRecord` is created (Surgical Fix - Option A).
 3. **Calculation:** The GRA-Service receives the appeal and calculates the grade delta (e.g., "+2 points").
-4. **Authorization:** The appeal must pass through a mandatory, documented approval chain (Faculty $\to$ Chair $\to$ Dean).
+4. **Authorization:** The appeal must pass through a mandatory, documented approval chain (Faculty -> Chair -> Dean).
 5. **Status:** The grade remains marked `UNDER_REVIEW` until the final signatory approves the change, making the appeal traceable and actionable.
 
 ---
@@ -81,6 +91,6 @@ The **Operational Database** (non-blockchain) is the System of Record. It must a
 ***
 ***
 
-**Sign-off:** This SRS v1.0 formally transitions the project from the Specification Phase to the Development/Implementation Phase.
-*Design Complete.*
+**Sign-off:** This SRS v1.0 is the architecture contract for the Blockchain-Enabled LMS and defines the design for the Development/Implementation Phase.
+*Design complete. Approval is pending: `status: Draft` because no approval Decision is yet recorded in the work ledger (see WORK-016, WORK-032).*
 ***

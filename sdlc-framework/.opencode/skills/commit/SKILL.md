@@ -14,6 +14,24 @@ repository: sdlc-framework
 ## Purpose
 Manage authorized commits and remote synchronization for work completed in a task worktree (created by wf-task-code or wf-task-noncode). Verifies approved specification linkage, inspects the complete diff, validates intended scope, checks tests and review findings, excludes unrelated files and secrets, prepares meaningful commit messages, creates authorized commits, pushes authorized branches, verifies synchronization, and updates the Work Ledger and task handoff.
 
+## Rule 0 — AGENTS.md binds this skill, always
+
+This skill is bound by the nearest applicable `AGENTS.md` — the repository root `AGENTS.md`, plus
+the `AGENTS.md` of any ancestor directory of every path this skill reads or writes. **Read them
+before the first action.**
+
+* **Silence is not permission.** A step in this skill that says nothing about a location, a name,
+  or a placement rule does not authorise improvising one. The `AGENTS.md` still governs.
+* **Conflict.** Protected Invariants > explicit user instruction > `AGENTS.md` > this skill. Where
+  this skill and an `AGENTS.md` disagree, follow the `AGENTS.md`, state the conflict, and record
+  it in the work ledger. Do not silently pick a side.
+* **Hard stop.** If an `AGENTS.md` rule cannot be satisfied — the canonical folder is missing, a
+  required `binding.yaml` is absent, the target path is ambiguous — stop, name the violated rule,
+  and record a `Blocker` in the work ledger under the Gate Failure Protocol. Never improvise a
+  location.
+* **Handoff.** Before acting, look for the task's handoff file at its canonical location and read it if it exists - it is the task's running state (purpose, status, action items, next step). A handoff file is **disposable**: when its status becomes `Done` it is deleted, not archived, and the durable history stays in the work ledger. A handoff belongs inside the directory of the work it describes.
+* **Code authority.** this skill writes **no implementation code**. It stages, commits, and pushes files that other skills produced, and it verifies the intended scope before doing so — it does not author them.
+
 ## Invocation Conditions
 Invoke when:
 - Implementation work is complete in a task worktree (created by wf-task-code/wf-task-noncode)
@@ -99,45 +117,52 @@ Do not invoke when:
 3. Exclude any unrelated files (build artifacts, node_modules, .gitkeep changes unrelated to the task, etc.).
 4. Stage only validated, task-related files.
 
-### Step 6 — Prepare commit message
+### Step 6 — Complete the task handoff and dispose of it
+1. Update the task handoff file with the branch name, the verification summary, and the push status
+   if it is already known.
+2. Set the handoff status to `Done`.
+3. Confirm every durable fact is recorded in the work ledger. The handoff is a working note, not a
+   record of record - anything that must survive the task belongs in the ledger or a specification.
+4. **Delete the handoff file.** A `Done` handoff is disposable and leaves no trace in the tree. The
+   deletion is staged with this commit.
+5. Never delete a handoff that is `Open`, `In Progress`, or `Blocked`.
+
+### Step 7 — Prepare commit message
 1. Format: `[WORK-<nnn>] <task summary>` or per project AGENTS.md convention if present.
 2. Reference the task spec ID in the commit body.
 3. Include a scope summary (what was changed and why).
 4. Present the proposed commit message to the user for approval.
 
-### Step 7 — Create authorized commit (Gate 1)
+### Step 8 — Create authorized commit (Gate 1)
 1. Obtain explicit user authorization before committing. Do not treat inferred approval as sufficient.
 2. Stage only the validated files.
 3. Create the commit with the approved message.
 4. Record the commit SHA.
 
-### Step 8 — Verify commit identifier
+### Step 9 — Verify commit identifier
 1. Confirm the commit was created successfully (`git log -1`).
 2. Record the commit SHA in the work ledger.
 3. Verify the commit is on the correct branch.
 
-### Step 9 — Inspect remote state
+### Step 10 — Inspect remote state
 1. Check the remote tracking branch (`git branch -vv`, `git remote -v`).
 2. Determine ahead/behind status relative to remote.
 3. Report remote state to the user.
 
-### Step 10 — Push authorized branch (Gate 2, if push requested)
+### Step 11 — Push authorized branch (Gate 2, if push requested)
 1. Obtain explicit user authorization before pushing.
 2. Never force-push by default. If the push would require force (diverged history), warn the user and ask how to proceed — do not force-push silently.
 3. Push the authorized branch to the remote.
 
-### Step 11 — Verify synchronization
+### Step 12 — Verify synchronization
 1. Confirm remote and local are in sync after push (`git status`, `git log`).
 2. Confirm the branch is tracking the remote correctly.
 3. Report synchronization status to the user.
 
-### Step 12 — Update Work Ledger and task handoff
+### Step 13 — Update Work Ledger
 1. Record the commit SHA in the work ledger (type: Task, status: done, source: task spec ID).
-2. Update the task-specific handoff file with:
-   - Commit SHA
-   - Branch name
-   - Push status (if applicable)
-   - Synchronization status
+2. Record the branch name, the push status if applicable, and the synchronization status in the
+   work ledger - the handoff that would have carried them has already been disposed of.
 3. Mark the task as ready for the next phase (e.g., next dependent task, or PR creation).
 
 ## Decision Rules
