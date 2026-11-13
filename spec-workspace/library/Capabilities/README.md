@@ -22,6 +22,7 @@ artifact is a missing relationship, not an implicit convention.
 
 ## Status
 
-**Empty by design.** The four capabilities that `WORK-LMS-CONTRACT-001` depends on
-(`UserID`, `TimestampFormat`, `StatusEnums`, `SchemaVersionConstraint`) still have no defining
-artifact. See `spec-workspace/library/README.md` and ledger `WORK-020`.
+**Partially populated.** `CAP-CANONICAL-FORM` is defined. The four capabilities that
+`WORK-LMS-CONTRACT-001` depends on (`UserID`, `TimestampFormat`, `StatusEnums`,
+`SchemaVersionConstraint`) still have no defining artifact. See `spec-workspace/library/README.md`
+and ledger `WORK-020`.

@@ -21,6 +21,7 @@ The parent specification is `SRS_LMS_v1.0.md` (`SRS-LMS-v1.0`, v1.0).
 | `tasks/task-LMS-CONTRACT-001-plan.md` | The implementation plan for that task. **Does not exist yet** — created by `wf-plan`. |
 | `tasks/task-LMS-CONTRACT-001-handoff.md` | The one handoff for that task. Disposable: deleted once its status is `Done`. |
 | `binding.yaml` | Pointer from this collection to the codebase. |
+| `spec-workspace/library/Capabilities/CAP-CANONICAL-FORM.md` | The capability the specification's proof guarantee depends on. |
 | `service-contracts.yaml` | Runtime service-to-service dependency manifest. |
 
 ## 3. Authority
@@ -40,6 +41,7 @@ everything beneath it: a task specification may not be `Approved` ahead of its p
 | `WORK-016`, `WORK-032`, `WORK-039` | The parent SRS has no approval Decision. It was rewritten on 2026-11-13 to conform to the `wf-bootstrap` specification contract — all 14 blocking review findings against it were addressed (`WORK-040`…`WORK-053`). It is awaiting independent re-review, then explicit approval. |
 | `WORK-009` | The task spec carries no approval Decision in the work ledger. It was once marked `Approved` with no body; the body was restored and the status corrected to `Draft`. |
 | `WORK-020` | The task depends on four capabilities (`UserID`, `TimestampFormat`, `StatusEnums`, `SchemaVersionConstraint`) that have **no defining artifact**. The SRS now defines the status vocabulary normatively for this project (Section 9) as an interim measure; the shared capability artifacts are still owed. |
+| `WORK-130` | The canonical-form rules that `CAP-CANONICAL-FORM` defines have no owning domain. SRS Question Q-5. |
 | `WORK-062`, `WORK-064`…`WORK-069` | Seven blocking findings remain on the task specification. They cannot be closed until the parent is `Approved`. |
 
 **The correct next action is `@wf-review` against `SRS_LMS_v1.0.md` — the parent, not the task.**
@@ -56,8 +58,8 @@ then review and approve the task. Not `@wf-task-code`, and not implementation.
   immutable proof over it (SRS Sections 2.7 and 3.6). This is *not* the framework's "System of
   Record" — see `spec-workspace/SDLC-SOR-v1.0.md`.
 * **Audit linkage is non-negotiable.** Every appeal or amendment appends a new versioned record
-  carrying a mandatory `parent_transaction_id`; originals are never mutated (SRS Section 2.3 and
-  the state transitions in Section 2.8).
+  carrying a mandatory `parent_transaction_id`; originals are never mutated (SRS Section 2.4 and
+  the state transitions in Section 2.9).
 
 ## 6. Code for this project
 

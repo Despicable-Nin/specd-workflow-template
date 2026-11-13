@@ -134,7 +134,7 @@ controlled manner by the LGS validator**, not silently coerced or partially appl
 acceptance criterion 5 and requires an integration test at implementation time.
 
 **Governance of the ruleset.** The formula that produces `cumulative_weighted_gpa` is selected by
-the ECS for the current `EducationalLevel` and `AcademicPeriod` (SRS Sections 3.2 and 3.3). The
+the ECS for the current `EducationalLevel` and `AcademicPeriod` (SRS Sections 2.3 and 5). The
 version-specific formula is identified by `GoverningRuleSetID`.
 
 ## 7. Acceptance criteria

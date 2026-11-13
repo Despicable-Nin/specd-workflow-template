@@ -38,7 +38,7 @@ services:
       service's place in the domain model is not yet decided. Two candidate
       directory names exist in the repository (lms-platform/blockchain-proxy,
       lms-platform/web-api-gateway) and neither is an SRS domain. Requires a
-      human decision - see SRS Question Q-3 and ledger WORK-037.
+      human decision - see SRS Question Q-6 and ledger WORK-037.
 
 # The seven service domains declared by SRS_LMS_v1.0.md Section 3.1.
 domains:
@@ -52,7 +52,7 @@ domains:
     note: Course and program definitions. No runtime binding specified yet.
   - domain: FRAS
     binding_status: not-yet-specified
-    note: Instructional allocation, capacity and load. No runtime binding specified yet.
+    note: Instructional allocation and instructor load. Capacity constraints are defined by ECS and enforced by ESS (SRS 3.3). No runtime binding specified yet.
   - domain: ESS
     binding_status: not-yet-specified
     note: Sections and enrollments. No runtime binding specified yet.

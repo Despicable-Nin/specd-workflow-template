@@ -96,7 +96,8 @@ phase contributions — is defined in the root `AGENTS.md` Section 5.
 
 Recorded in the work ledger, not worked around silently:
 
-* `library/Capabilities/` holds no capability specifications. `WORK-LMS-CONTRACT-001` depends on
-  four capabilities (`UserID`, `TimestampFormat`, `StatusEnums`, `SchemaVersionConstraint`) that
-  have no defining artifact — `WORK-020`.
+* `library/Capabilities/` holds `CAP-CANONICAL-FORM`, the canonical-form and digest constraint the
+  LMS proof guarantee depends on. The four capabilities `WORK-LMS-CONTRACT-001` depends on
+  (`UserID`, `TimestampFormat`, `StatusEnums`, `SchemaVersionConstraint`) still have no defining
+  artifact — `WORK-020`.
 * No specification in this tree is `Approved` — `WORK-009`, `WORK-016`.

@@ -2067,7 +2067,7 @@
       "next_action": "Resolved 2026-11-13 at 4796b98. The proof unit is the finalized student-period record and is stated once, in Section 2.8. Grade finalization no longer commits a proof (Section 2.3 says so explicitly), new workflow W-6 finalizes and proves the aggregate at period close, and W-3 commits the successor proof explicitly. The question of whether an appeal yields a second proof is answered: it does, over the re-finalized aggregate.",
       "dependencies": [],
       "owner": "User",
-      "resolution": "Resolved 2026-11-13 at 4796b98. The proof unit is the finalized student-period record and is stated once, in Section 2.8. Grade finalization no longer commits a proof (Section 2.3 says so explicitly), new workflow W-6 finalizes and proves the aggregate at period close, and W-3 commits the successor proof explicitly. The question of whether an appeal yields a second proof is answered: it does, over the re-finalized aggregate.",
+      "resolution": "Resolved 2026-11-13 at 4796b98. The proof unit is the finalized student-period record and is stated once, in Section 2.8. Grade finalization no longer commits a proof (Section 2.3 says so explicitly), new workflow W-6 finalizes and proves the aggregate at period close, and W-3 commits the successor proof explicitly. The question of whether an appeal yields a second proof is answered: it does, over the re-finalized aggregate.\n\nCORRECTION 2026-11-13 (third review): The first closure was overstated: the re-finalized wording in W-3 step 6 still contradicted sections 2.7 and 2.8, and section 2.9 had no producing transition for the successor. Re-verified and genuinely closed on 2026-11-13: W-3 now creates a NEW student-period record directly in state Finalized, W-6's rule admits finalization on an approved appeal, the appeal-versus-period-close temporal boundary is stated, and section 2.9 carries the producing row.",
       "history": [
         {
           "timestamp": "2026-11-13T03:50:00Z",
@@ -2077,6 +2077,11 @@
         {
           "timestamp": "2026-11-13T03:50:00Z",
           "action": "Remediated at 4796b98",
+          "actor": "System"
+        },
+        {
+          "timestamp": "2026-11-13T04:35:00Z",
+          "action": "Closure corrected - the third review found the first closure overstated",
           "actor": "System"
         }
       ]
@@ -2095,7 +2100,7 @@
       "next_action": "Resolved 2026-11-13 at 4796b98. Section 2.8 now states the five required properties of the canonical form - stable field set, volatile fields excluded, defined ordering, defined encoding, versioned - and cites the new CAP-CANONICAL-FORM capability artifact, which owns the detailed rules and is authored in this commit.",
       "dependencies": [],
       "owner": "User",
-      "resolution": "Resolved 2026-11-13 at 4796b98. Section 2.8 now states the five required properties of the canonical form - stable field set, volatile fields excluded, defined ordering, defined encoding, versioned - and cites the new CAP-CANONICAL-FORM capability artifact, which owns the detailed rules and is authored in this commit.",
+      "resolution": "Resolved 2026-11-13 at 4796b98. Section 2.8 now states the five required properties of the canonical form - stable field set, volatile fields excluded, defined ordering, defined encoding, versioned - and cites the new CAP-CANONICAL-FORM capability artifact, which owns the detailed rules and is authored in this commit.\n\nCORRECTION 2026-11-13 (third review): The first closure was overstated: the capability artifact stated no encoding and disclaimed the field list, so the dependency was not satisfiable. Re-verified and genuinely closed on 2026-11-13: the encoding is now stated in the artifact (canonical JSON text, UTF-8, declared order), property 1 was replaced by a declared-field-set rule that no longer collides with the exclusion rule, property 4 gates proof commitment until the encoding is recorded, and the field list is assigned to the record type's specification with the requirement surfaced on the LMS payload.",
       "history": [
         {
           "timestamp": "2026-11-13T03:50:00Z",
@@ -2105,6 +2110,11 @@
         {
           "timestamp": "2026-11-13T03:50:00Z",
           "action": "Remediated at 4796b98",
+          "actor": "System"
+        },
+        {
+          "timestamp": "2026-11-13T04:35:00Z",
+          "action": "Closure corrected - the third review found the first closure overstated",
           "actor": "System"
         }
       ]
@@ -2123,7 +2133,7 @@
       "next_action": "Resolved 2026-11-13 at 4796b98. Section 3.7 was added: the store is a named durable component that is deliberately not a domain, with exactly two operations - read a student's period history, and publish the canonical payload for verification - and a per-domain ownership model over its contents. Section 6 was amended to include it in the composition decision, and the Longevity objective is reconciled with it via replication and archival.",
       "dependencies": [],
       "owner": "User",
-      "resolution": "Resolved 2026-11-13 at 4796b98. Section 3.7 was added: the store is a named durable component that is deliberately not a domain, with exactly two operations - read a student's period history, and publish the canonical payload for verification - and a per-domain ownership model over its contents. Section 6 was amended to include it in the composition decision, and the Longevity objective is reconciled with it via replication and archival.",
+      "resolution": "Resolved 2026-11-13 at 4796b98. Section 3.7 was added: the store is a named durable component that is deliberately not a domain, with exactly two operations - read a student's period history, and publish the canonical payload for verification - and a per-domain ownership model over its contents. Section 6 was amended to include it in the composition decision, and the Longevity objective is reconciled with it via replication and archival.\n\nCORRECTION 2026-11-13 (third review): The first closure was overstated: section 3.7's operation 2 contradicted section 2.8, and section 4.1 assigned the proof sequence to the store while section 3.1 assigned it to LGS. Re-verified and genuinely closed on 2026-11-13: the store's operation 2 now returns the canonical payload rather than the reduced bytes and states that the reduced bytes are never published, and the surface ownership is split explicitly between the store (payload) and LGS (proof sequence).",
       "history": [
         {
           "timestamp": "2026-11-13T03:50:00Z",
@@ -2133,6 +2143,11 @@
         {
           "timestamp": "2026-11-13T03:50:00Z",
           "action": "Remediated at 4796b98",
+          "actor": "System"
+        },
+        {
+          "timestamp": "2026-11-13T04:35:00Z",
+          "action": "Closure corrected - the third review found the first closure overstated",
           "actor": "System"
         }
       ]
@@ -2716,6 +2731,787 @@
         {
           "timestamp": "2026-11-13T03:50:00Z",
           "action": "Remediated at 4796b98",
+          "actor": "System"
+        }
+      ]
+    },
+    {
+      "id": "WORK-103",
+      "type": "ReviewFinding",
+      "title": "B1 - The post-appeal finalization and proof path was self-contradictory and unproducible",
+      "status": "done",
+      "priority": "high",
+      "source": {
+        "type": "wf-review",
+        "reference": "spec-workspace/projects/blockchain-enabled-lms/SRS_LMS_v1.0.md sections 2.4, 2.7, 2.9 | ses_e2d29a36affeTY1R57QoI54RrB | finding B1 | third independent review"
+      },
+      "context": "The post-appeal finalization and proof path was self-contradictory and unproducible\n\nEvidence: The student-period record for that student and period is re-finalized under its new aggregate status",
+      "next_action": "Resolved 2026-11-13. W-3 step 6 no longer says the record is re-finalized - a NEW student-period record is assembled and created directly in state Finalized, and a new proof is appended to the sequence. W-6's rule now admits finalization on an approved appeal as well as at period close, and a new 'Appeal and period close' paragraph states the temporal boundary: before close the corrected grade is simply part of the aggregate; after close a successor record is created. Section 2.9 gained the producing transition row and the Open state was removed.",
+      "dependencies": [],
+      "owner": "User",
+      "resolution": "Resolved 2026-11-13. W-3 step 6 no longer says the record is re-finalized - a NEW student-period record is assembled and created directly in state Finalized, and a new proof is appended to the sequence. W-6's rule now admits finalization on an approved appeal as well as at period close, and a new 'Appeal and period close' paragraph states the temporal boundary: before close the corrected grade is simply part of the aggregate; after close a successor record is created. Section 2.9 gained the producing transition row and the Open state was removed.",
+      "history": [
+        {
+          "timestamp": "2026-11-13T04:35:00Z",
+          "action": "Proposed by wf-review",
+          "actor": "System"
+        },
+        {
+          "timestamp": "2026-11-13T04:35:00Z",
+          "action": "Remediated in the 2026-11-13 third-review pass",
+          "actor": "System"
+        }
+      ]
+    },
+    {
+      "id": "WORK-104",
+      "type": "ReviewFinding",
+      "title": "B2 - W-6 finalized a record in a Closed period, contradicting W-1's rule and S-4",
+      "status": "done",
+      "priority": "high",
+      "source": {
+        "type": "wf-review",
+        "reference": "spec-workspace/projects/blockchain-enabled-lms/SRS_LMS_v1.0.md sections 2.2, 2.7 and 4.2 | ses_e2d29a36affeTY1R57QoI54RrB | finding B2 | third independent review"
+      },
+      "context": "W-6 finalized a record in a Closed period, contradicting W-1's rule and S-4\n\nEvidence: No record that takes effect in an academic period may be created or modified in a period whose status is not Active.",
+      "next_action": "Resolved 2026-11-13. W-1's rule now carries an explicit exemption for the period-close assembly and finalization of the student-period record, which W-6 governs. S-4 was rewritten to cover the student-period record rather than four enumerated record types.",
+      "dependencies": [],
+      "owner": "User",
+      "resolution": "Resolved 2026-11-13. W-1's rule now carries an explicit exemption for the period-close assembly and finalization of the student-period record, which W-6 governs. S-4 was rewritten to cover the student-period record rather than four enumerated record types.",
+      "history": [
+        {
+          "timestamp": "2026-11-13T04:35:00Z",
+          "action": "Proposed by wf-review",
+          "actor": "System"
+        },
+        {
+          "timestamp": "2026-11-13T04:35:00Z",
+          "action": "Remediated in the 2026-11-13 third-review pass",
+          "actor": "System"
+        }
+      ]
+    },
+    {
+      "id": "WORK-105",
+      "type": "ReviewFinding",
+      "title": "B3 - The canonical-form dependency was not satisfiable and its two rules conflicted",
+      "status": "done",
+      "priority": "high",
+      "source": {
+        "type": "wf-review",
+        "reference": "spec-workspace/projects/blockchain-enabled-lms/SRS_LMS_v1.0.md section 2.8; spec-workspace/library/Capabilities/CAP-CANONICAL-FORM.md | ses_e2d29a36affeTY1R57QoI54RrB | finding B3 | third independent review"
+      },
+      "context": "The canonical-form dependency was not satisfiable and its two rules conflicted\n\nEvidence: A field is in the canonical form if and only if its value is a property of the record itself",
+      "next_action": "Resolved 2026-11-13. Property 1 was replaced by a declared-field-set rule - the record type's canonical field list is the authority - so it no longer collides with the exclusion rule; property 2 now applies by declaration. The encoding is stated in the capability artifact (canonical JSON text, UTF-8, declared order, no insignificant whitespace), and property 4 now gates: until the encoding is recorded, no proof may be committed. The field list is declared to belong to the record type's specification, and the requirement is surfaced on the LMS payload in SRS section 8.1.",
+      "dependencies": [],
+      "owner": "User",
+      "resolution": "Resolved 2026-11-13. Property 1 was replaced by a declared-field-set rule - the record type's canonical field list is the authority - so it no longer collides with the exclusion rule; property 2 now applies by declaration. The encoding is stated in the capability artifact (canonical JSON text, UTF-8, declared order, no insignificant whitespace), and property 4 now gates: until the encoding is recorded, no proof may be committed. The field list is declared to belong to the record type's specification, and the requirement is surfaced on the LMS payload in SRS section 8.1.",
+      "history": [
+        {
+          "timestamp": "2026-11-13T04:35:00Z",
+          "action": "Proposed by wf-review",
+          "actor": "System"
+        },
+        {
+          "timestamp": "2026-11-13T04:35:00Z",
+          "action": "Remediated in the 2026-11-13 third-review pass",
+          "actor": "System"
+        }
+      ]
+    },
+    {
+      "id": "WORK-106",
+      "type": "ReviewFinding",
+      "title": "B4 - The proof did not commit the canonical-form version, so the versioning guarantee could not be exercised",
+      "status": "done",
+      "priority": "high",
+      "source": {
+        "type": "wf-review",
+        "reference": "spec-workspace/projects/blockchain-enabled-lms/SRS_LMS_v1.0.md section 2.8; spec-workspace/library/Capabilities/CAP-CANONICAL-FORM.md | ses_e2d29a36affeTY1R57QoI54RrB | finding B4 | third independent review"
+      },
+      "context": "The proof did not commit the canonical-form version, so the versioning guarantee could not be exercised\n\nEvidence: The proof commits that digest together with the transaction identity and a linkage to the preceding proof in the sequence.",
+      "next_action": "Resolved 2026-11-13. The proof now commits the canonical-form version and the digest algorithm identifier alongside the digest, the transaction identity, and the sequence linkage. The capability artifact's property 5 was rewritten to match, and states that the verification surface publishes both alongside the payload so a verifier never has to guess.",
+      "dependencies": [],
+      "owner": "User",
+      "resolution": "Resolved 2026-11-13. The proof now commits the canonical-form version and the digest algorithm identifier alongside the digest, the transaction identity, and the sequence linkage. The capability artifact's property 5 was rewritten to match, and states that the verification surface publishes both alongside the payload so a verifier never has to guess.",
+      "history": [
+        {
+          "timestamp": "2026-11-13T04:35:00Z",
+          "action": "Proposed by wf-review",
+          "actor": "System"
+        },
+        {
+          "timestamp": "2026-11-13T04:35:00Z",
+          "action": "Remediated in the 2026-11-13 third-review pass",
+          "actor": "System"
+        }
+      ]
+    },
+    {
+      "id": "WORK-107",
+      "type": "ReviewFinding",
+      "title": "B5 - The verification-surface contract contradicted itself and two components claimed the same surface",
+      "status": "done",
+      "priority": "high",
+      "source": {
+        "type": "wf-review",
+        "reference": "spec-workspace/projects/blockchain-enabled-lms/SRS_LMS_v1.0.md sections 2.8, 3.1, 3.7 and 4.1 | ses_e2d29a36affeTY1R57QoI54RrB | finding B5 | third independent review"
+      },
+      "context": "The verification-surface contract contradicted itself and two components claimed the same surface\n\nEvidence: Publish the canonical payload for verification - returns the canonical form of a finalized student-period record",
+      "next_action": "Resolved 2026-11-13. The store's operation 2 now returns the canonical PAYLOAD - not the reduced bytes - together with the canonical-form version, the digest algorithm identifier and the canonical field list, and states that the reduced bytes are never published, so a verifier re-derives the reduction rather than trusting the publisher. The surface ownership is split explicitly: the store publishes the payload, the Ledger Service publishes the proof sequence, and the non-goal in section 4.1 was reworded to match.",
+      "dependencies": [],
+      "owner": "User",
+      "resolution": "Resolved 2026-11-13. The store's operation 2 now returns the canonical PAYLOAD - not the reduced bytes - together with the canonical-form version, the digest algorithm identifier and the canonical field list, and states that the reduced bytes are never published, so a verifier re-derives the reduction rather than trusting the publisher. The surface ownership is split explicitly: the store publishes the payload, the Ledger Service publishes the proof sequence, and the non-goal in section 4.1 was reworded to match.",
+      "history": [
+        {
+          "timestamp": "2026-11-13T04:35:00Z",
+          "action": "Proposed by wf-review",
+          "actor": "System"
+        },
+        {
+          "timestamp": "2026-11-13T04:35:00Z",
+          "action": "Remediated in the 2026-11-13 third-review pass",
+          "actor": "System"
+        }
+      ]
+    },
+    {
+      "id": "WORK-108",
+      "type": "ReviewFinding",
+      "title": "B6 - No workflow produced the student-period record's rule-set identifier, yet the digest requires it",
+      "status": "done",
+      "priority": "high",
+      "source": {
+        "type": "wf-review",
+        "reference": "spec-workspace/projects/blockchain-enabled-lms/SRS_LMS_v1.0.md sections 2.7 and 2.9; schema/final-academic-record.md | ses_e2d29a36affeTY1R57QoI54RrB | finding B6 | third independent review"
+      },
+      "context": "No workflow produced the student-period record's rule-set identifier, yet the digest requires it\n\nEvidence: Participants. GRA-Service, LGS.",
+      "next_action": "Resolved 2026-11-13. W-6 now lists ECS as a participant and its first step requests the governing rule set and records the identifier against the record. Section 2.9 states that the rule set identifier is a mandatory attribute of a finalized student-period record.",
+      "dependencies": [],
+      "owner": "User",
+      "resolution": "Resolved 2026-11-13. W-6 now lists ECS as a participant and its first step requests the governing rule set and records the identifier against the record. Section 2.9 states that the rule set identifier is a mandatory attribute of a finalized student-period record.",
+      "history": [
+        {
+          "timestamp": "2026-11-13T04:35:00Z",
+          "action": "Proposed by wf-review",
+          "actor": "System"
+        },
+        {
+          "timestamp": "2026-11-13T04:35:00Z",
+          "action": "Remediated in the 2026-11-13 third-review pass",
+          "actor": "System"
+        }
+      ]
+    },
+    {
+      "id": "WORK-109",
+      "type": "ReviewFinding",
+      "title": "N1 - The student-period record was absent from every domain's ownership column",
+      "status": "done",
+      "priority": "medium",
+      "source": {
+        "type": "wf-review",
+        "reference": "spec-workspace/projects/blockchain-enabled-lms/SRS_LMS_v1.0.md section 3.1 | ses_e2d29a36affeTY1R57QoI54RrB | finding N1 | third independent review"
+      },
+      "context": "The student-period record was absent from every domain's ownership column\n\nEvidence: GradeRecord, GradeAppealRecord, ReviewLog, LevelCompletionRecord",
+      "next_action": "Resolved 2026-11-13. StudentPeriodRecord was added to GRA-Service's ownership column in the domain table.",
+      "dependencies": [],
+      "owner": "User",
+      "resolution": "Resolved 2026-11-13. StudentPeriodRecord was added to GRA-Service's ownership column in the domain table.",
+      "history": [
+        {
+          "timestamp": "2026-11-13T04:35:00Z",
+          "action": "Proposed by wf-review",
+          "actor": "System"
+        },
+        {
+          "timestamp": "2026-11-13T04:35:00Z",
+          "action": "Remediated in the 2026-11-13 third-review pass",
+          "actor": "System"
+        }
+      ]
+    },
+    {
+      "id": "WORK-110",
+      "type": "ReviewFinding",
+      "title": "N2 - The Enrollment Completed event duplicated the level-completion trigger verbatim",
+      "status": "done",
+      "priority": "medium",
+      "source": {
+        "type": "wf-review",
+        "reference": "spec-workspace/projects/blockchain-enabled-lms/SRS_LMS_v1.0.md section 2.9 | ses_e2d29a36affeTY1R57QoI54RrB | finding N2 | third independent review"
+      },
+      "context": "The Enrollment Completed event duplicated the level-completion trigger verbatim\n\nEvidence: All requirements for the level are met",
+      "next_action": "Resolved 2026-11-13. The Enrollment event now reads All requirements of the enrolled course are met, and Completed is named among the Enrollment terminal states.",
+      "dependencies": [],
+      "owner": "User",
+      "resolution": "Resolved 2026-11-13. The Enrollment event now reads All requirements of the enrolled course are met, and Completed is named among the Enrollment terminal states.",
+      "history": [
+        {
+          "timestamp": "2026-11-13T04:35:00Z",
+          "action": "Proposed by wf-review",
+          "actor": "System"
+        },
+        {
+          "timestamp": "2026-11-13T04:35:00Z",
+          "action": "Remediated in the 2026-11-13 third-review pass",
+          "actor": "System"
+        }
+      ]
+    },
+    {
+      "id": "WORK-111",
+      "type": "ReviewFinding",
+      "title": "N3 - The student-period record's Open state had no producing workflow and no defined content",
+      "status": "done",
+      "priority": "medium",
+      "source": {
+        "type": "wf-review",
+        "reference": "spec-workspace/projects/blockchain-enabled-lms/SRS_LMS_v1.0.md section 2.9 | ses_e2d29a36affeTY1R57QoI54RrB | finding N3 | third independent review"
+      },
+      "context": "The student-period record's Open state had no producing workflow and no defined content\n\nEvidence: Period opens for the student - Open",
+      "next_action": "Resolved 2026-11-13. The Open state was removed entirely. A student-period record is created only when it is final, and the table now carries a single producing row plus the post-appeal successor row.",
+      "dependencies": [],
+      "owner": "User",
+      "resolution": "Resolved 2026-11-13. The Open state was removed entirely. A student-period record is created only when it is final, and the table now carries a single producing row plus the post-appeal successor row.",
+      "history": [
+        {
+          "timestamp": "2026-11-13T04:35:00Z",
+          "action": "Proposed by wf-review",
+          "actor": "System"
+        },
+        {
+          "timestamp": "2026-11-13T04:35:00Z",
+          "action": "Remediated in the 2026-11-13 third-review pass",
+          "actor": "System"
+        }
+      ]
+    },
+    {
+      "id": "WORK-112",
+      "type": "ReviewFinding",
+      "title": "N4 - The grade successor appended by the appeal workflow had no producing transition",
+      "status": "done",
+      "priority": "medium",
+      "source": {
+        "type": "wf-review",
+        "reference": "spec-workspace/projects/blockchain-enabled-lms/SRS_LMS_v1.0.md sections 2.4 and 2.9 | ses_e2d29a36affeTY1R57QoI54RrB | finding N4 | third independent review"
+      },
+      "context": "The grade successor appended by the appeal workflow had no producing transition\n\nEvidence: Assessment results submitted and a grade computed - Proposed",
+      "next_action": "Resolved 2026-11-13. A transition row was added: an approved appeal against a finalized grade creates a new grade record, linked by parent_transaction_id, directly in state Finalized.",
+      "dependencies": [],
+      "owner": "User",
+      "resolution": "Resolved 2026-11-13. A transition row was added: an approved appeal against a finalized grade creates a new grade record, linked by parent_transaction_id, directly in state Finalized.",
+      "history": [
+        {
+          "timestamp": "2026-11-13T04:35:00Z",
+          "action": "Proposed by wf-review",
+          "actor": "System"
+        },
+        {
+          "timestamp": "2026-11-13T04:35:00Z",
+          "action": "Remediated in the 2026-11-13 third-review pass",
+          "actor": "System"
+        }
+      ]
+    },
+    {
+      "id": "WORK-113",
+      "type": "ReviewFinding",
+      "title": "N5 - The section header said two constraints over a three-row table, and the instructor-load sentence sat awkwardly against the ECS consultation rule",
+      "status": "done",
+      "priority": "low",
+      "source": {
+        "type": "wf-review",
+        "reference": "spec-workspace/projects/blockchain-enabled-lms/SRS_LMS_v1.0.md section 3.3 | ses_e2d29a36affeTY1R57QoI54RrB | finding N5 | third independent review"
+      },
+      "context": "The section header said two constraints over a three-row table, and the instructor-load sentence sat awkwardly against the ECS consultation rule\n\nEvidence: Two distinct constraints, each with exactly one owner",
+      "next_action": "Resolved 2026-11-13. The header now says three distinct constraints, and the instructor-load sentence states that the load rule is not derived from ECS even though ECS is still consulted at the period gate when a section is allocated.",
+      "dependencies": [],
+      "owner": "User",
+      "resolution": "Resolved 2026-11-13. The header now says three distinct constraints, and the instructor-load sentence states that the load rule is not derived from ECS even though ECS is still consulted at the period gate when a section is allocated.",
+      "history": [
+        {
+          "timestamp": "2026-11-13T04:35:00Z",
+          "action": "Proposed by wf-review",
+          "actor": "System"
+        },
+        {
+          "timestamp": "2026-11-13T04:35:00Z",
+          "action": "Remediated in the 2026-11-13 third-review pass",
+          "actor": "System"
+        }
+      ]
+    },
+    {
+      "id": "WORK-114",
+      "type": "ReviewFinding",
+      "title": "N6 - ECS's boundary table exposed no operation returning the capacity constraints that section 3.3 has ECS define",
+      "status": "done",
+      "priority": "medium",
+      "source": {
+        "type": "wf-review",
+        "reference": "spec-workspace/projects/blockchain-enabled-lms/SRS_LMS_v1.0.md sections 3.1 and 3.3 | ses_e2d29a36affeTY1R57QoI54RrB | finding N6 | third independent review"
+      },
+      "context": "ECS's boundary table exposed no operation returning the capacity constraints that section 3.3 has ECS define\n\nEvidence: return the approval chain required for a level",
+      "next_action": "Resolved 2026-11-13. ECS's operations now include returning the capacity constraints in force for a level and period.",
+      "dependencies": [],
+      "owner": "User",
+      "resolution": "Resolved 2026-11-13. ECS's operations now include returning the capacity constraints in force for a level and period.",
+      "history": [
+        {
+          "timestamp": "2026-11-13T04:35:00Z",
+          "action": "Proposed by wf-review",
+          "actor": "System"
+        },
+        {
+          "timestamp": "2026-11-13T04:35:00Z",
+          "action": "Remediated in the 2026-11-13 third-review pass",
+          "actor": "System"
+        }
+      ]
+    },
+    {
+      "id": "WORK-115",
+      "type": "ReviewFinding",
+      "title": "N7 - Q-5's blocking reference cited an unrelated ledger item",
+      "status": "done",
+      "priority": "medium",
+      "source": {
+        "type": "wf-review",
+        "reference": "spec-workspace/projects/blockchain-enabled-lms/SRS_LMS_v1.0.md Question Q-5 | ses_e2d29a36affeTY1R57QoI54RrB | finding N7 | third independent review"
+      },
+      "context": "Q-5's blocking reference cited an unrelated ledger item\n\nEvidence: WORK-020",
+      "next_action": "Resolved 2026-11-13. Q-5 now blocks on WORK-130, a new item raised for canonical-form ownership. Q-4 continues to point at WORK-020.",
+      "dependencies": [],
+      "owner": "User",
+      "resolution": "Resolved 2026-11-13. Q-5 now blocks on WORK-130, a new item raised for canonical-form ownership. Q-4 continues to point at WORK-020.",
+      "history": [
+        {
+          "timestamp": "2026-11-13T04:35:00Z",
+          "action": "Proposed by wf-review",
+          "actor": "System"
+        },
+        {
+          "timestamp": "2026-11-13T04:35:00Z",
+          "action": "Remediated in the 2026-11-13 third-review pass",
+          "actor": "System"
+        }
+      ]
+    },
+    {
+      "id": "WORK-116",
+      "type": "ReviewFinding",
+      "title": "N8 - The digest algorithm was neither specified nor committed",
+      "status": "done",
+      "priority": "medium",
+      "source": {
+        "type": "wf-review",
+        "reference": "spec-workspace/projects/blockchain-enabled-lms/SRS_LMS_v1.0.md section 2.8; spec-workspace/library/Capabilities/CAP-CANONICAL-FORM.md | ses_e2d29a36affeTY1R57QoI54RrB | finding N8 | third independent review"
+      },
+      "context": "The digest algorithm was neither specified nor committed\n\nEvidence: The digest algorithm. That is an implementation choice, made in the implementation plan.",
+      "next_action": "Resolved 2026-11-13. The algorithm is chosen per adopting project, its identifier is committed in every proof, and changing it requires a new canonical-form version. The proof composition in SRS section 2.8 names the algorithm identifier explicitly.",
+      "dependencies": [],
+      "owner": "User",
+      "resolution": "Resolved 2026-11-13. The algorithm is chosen per adopting project, its identifier is committed in every proof, and changing it requires a new canonical-form version. The proof composition in SRS section 2.8 names the algorithm identifier explicitly.",
+      "history": [
+        {
+          "timestamp": "2026-11-13T04:35:00Z",
+          "action": "Proposed by wf-review",
+          "actor": "System"
+        },
+        {
+          "timestamp": "2026-11-13T04:35:00Z",
+          "action": "Remediated in the 2026-11-13 third-review pass",
+          "actor": "System"
+        }
+      ]
+    },
+    {
+      "id": "WORK-117",
+      "type": "ReviewFinding",
+      "title": "N9 - The sequence linkage mechanism was undefined, and genesis point was an undefined normative term",
+      "status": "done",
+      "priority": "medium",
+      "source": {
+        "type": "wf-review",
+        "reference": "spec-workspace/projects/blockchain-enabled-lms/SRS_LMS_v1.0.md section 2.8 | ses_e2d29a36affeTY1R57QoI54RrB | finding N9 | third independent review"
+      },
+      "context": "The sequence linkage mechanism was undefined, and genesis point was an undefined normative term\n\nEvidence: a linkage to the preceding proof in the sequence",
+      "next_action": "Resolved 2026-11-13. The linkage is now stated to be tamper-evident - each element commits to its predecessor's value - and the first element of a sequence is that student's genesis proof, which was added to the glossary.",
+      "dependencies": [],
+      "owner": "User",
+      "resolution": "Resolved 2026-11-13. The linkage is now stated to be tamper-evident - each element commits to its predecessor's value - and the first element of a sequence is that student's genesis proof, which was added to the glossary.",
+      "history": [
+        {
+          "timestamp": "2026-11-13T04:35:00Z",
+          "action": "Proposed by wf-review",
+          "actor": "System"
+        },
+        {
+          "timestamp": "2026-11-13T04:35:00Z",
+          "action": "Remediated in the 2026-11-13 third-review pass",
+          "actor": "System"
+        }
+      ]
+    },
+    {
+      "id": "WORK-118",
+      "type": "ReviewFinding",
+      "title": "N10 - The payload carried no finalization-time field and no authorizing-authority field, both required inside the digest",
+      "status": "done",
+      "priority": "medium",
+      "source": {
+        "type": "wf-review",
+        "reference": "spec-workspace/projects/blockchain-enabled-lms/SRS_LMS_v1.0.md sections 2.8 and 8.1; schema/final-academic-record.md | ses_e2d29a36affeTY1R57QoI54RrB | finding N10 | third independent review"
+      },
+      "context": "The payload carried no finalization-time field and no authorizing-authority field, both required inside the digest\n\nEvidence: recordId, ownerId, createdAt, updatedAt",
+      "next_action": "Resolved 2026-11-13 as a requirement. Section 2.8 now states that the canonical payload must carry an explicit finalization-time field and an explicit authorizing-authority field, and section 8.1 records the same as an open requirement on WORK-LMS-CONTRACT-001. The rendering itself still needs the fields added - that is task-specification work, tracked at WORK-069.",
+      "dependencies": [],
+      "owner": "User",
+      "resolution": "Resolved 2026-11-13 as a requirement. Section 2.8 now states that the canonical payload must carry an explicit finalization-time field and an explicit authorizing-authority field, and section 8.1 records the same as an open requirement on WORK-LMS-CONTRACT-001. The rendering itself still needs the fields added - that is task-specification work, tracked at WORK-069.",
+      "history": [
+        {
+          "timestamp": "2026-11-13T04:35:00Z",
+          "action": "Proposed by wf-review",
+          "actor": "System"
+        },
+        {
+          "timestamp": "2026-11-13T04:35:00Z",
+          "action": "Remediated in the 2026-11-13 third-review pass",
+          "actor": "System"
+        }
+      ]
+    },
+    {
+      "id": "WORK-119",
+      "type": "ReviewFinding",
+      "title": "N11 - The nearest ancestor AGENTS.md mis-cited the specification it governs and omitted the capability it depends on",
+      "status": "done",
+      "priority": "medium",
+      "source": {
+        "type": "wf-review",
+        "reference": "spec-workspace/projects/blockchain-enabled-lms/AGENTS.md | ses_e2d29a36affeTY1R57QoI54RrB | finding N11 | third independent review"
+      },
+      "context": "The nearest ancestor AGENTS.md mis-cited the specification it governs and omitted the capability it depends on\n\nEvidence: originals are never mutated (SRS Section 2.3 and the state transitions in Section 2.8)",
+      "next_action": "Resolved 2026-11-13. The anchors were corrected to SRS Sections 2.4 and 2.9, and the capability the specification depends on was added to the contents table and to the blocker table.",
+      "dependencies": [],
+      "owner": "User",
+      "resolution": "Resolved 2026-11-13. The anchors were corrected to SRS Sections 2.4 and 2.9, and the capability the specification depends on was added to the contents table and to the blocker table.",
+      "history": [
+        {
+          "timestamp": "2026-11-13T04:35:00Z",
+          "action": "Proposed by wf-review",
+          "actor": "System"
+        },
+        {
+          "timestamp": "2026-11-13T04:35:00Z",
+          "action": "Remediated in the 2026-11-13 third-review pass",
+          "actor": "System"
+        }
+      ]
+    },
+    {
+      "id": "WORK-120",
+      "type": "ReviewFinding",
+      "title": "N12 - The capability artifact violated the capabilities directory's own contract",
+      "status": "done",
+      "priority": "medium",
+      "source": {
+        "type": "wf-review",
+        "reference": "spec-workspace/library/Capabilities/CAP-CANONICAL-FORM.md | ses_e2d29a36affeTY1R57QoI54RrB | finding N12 | third independent review"
+      },
+      "context": "The capability artifact violated the capabilities directory's own contract\n\nEvidence: capability_id: CAP-CANONICAL-FORM",
+      "next_action": "Resolved 2026-11-13. The artifact was renamed to CAP-CANONICAL-FORM.md to match the filename contract, its frontmatter key is now id, and it was generalised - it no longer names a project, a domain, or a task, so it is a reusable library artifact rather than project-scoped content.",
+      "dependencies": [],
+      "owner": "User",
+      "resolution": "Resolved 2026-11-13. The artifact was renamed to CAP-CANONICAL-FORM.md to match the filename contract, its frontmatter key is now id, and it was generalised - it no longer names a project, a domain, or a task, so it is a reusable library artifact rather than project-scoped content.",
+      "history": [
+        {
+          "timestamp": "2026-11-13T04:35:00Z",
+          "action": "Proposed by wf-review",
+          "actor": "System"
+        },
+        {
+          "timestamp": "2026-11-13T04:35:00Z",
+          "action": "Remediated in the 2026-11-13 third-review pass",
+          "actor": "System"
+        }
+      ]
+    },
+    {
+      "id": "WORK-121",
+      "type": "ReviewFinding",
+      "title": "N13 - Both documents still asserted the capabilities directory was empty",
+      "status": "done",
+      "priority": "low",
+      "source": {
+        "type": "wf-review",
+        "reference": "spec-workspace/AGENTS.md; spec-workspace/library/Capabilities/README.md | ses_e2d29a36affeTY1R57QoI54RrB | finding N13 | third independent review"
+      },
+      "context": "Both documents still asserted the capabilities directory was empty\n\nEvidence: library/Capabilities/ holds no capability specifications",
+      "next_action": "Resolved 2026-11-13. Both documents now scope the claim to the four named capabilities that remain without an artifact, instead of to the directory.",
+      "dependencies": [],
+      "owner": "User",
+      "resolution": "Resolved 2026-11-13. Both documents now scope the claim to the four named capabilities that remain without an artifact, instead of to the directory.",
+      "history": [
+        {
+          "timestamp": "2026-11-13T04:35:00Z",
+          "action": "Proposed by wf-review",
+          "actor": "System"
+        },
+        {
+          "timestamp": "2026-11-13T04:35:00Z",
+          "action": "Remediated in the 2026-11-13 third-review pass",
+          "actor": "System"
+        }
+      ]
+    },
+    {
+      "id": "WORK-122",
+      "type": "ReviewFinding",
+      "title": "N14 - The artifacts table omitted the task calibration record without disclosing the omission",
+      "status": "done",
+      "priority": "medium",
+      "source": {
+        "type": "wf-review",
+        "reference": "spec-workspace/projects/blockchain-enabled-lms/SRS_LMS_v1.0.md section 8.1 | ses_e2d29a36affeTY1R57QoI54RrB | finding N14 | third independent review"
+      },
+      "context": "The artifacts table omitted the task calibration record without disclosing the omission\n\nEvidence: tasks/task-LMS-CONTRACT-001-plan.md - not yet created",
+      "next_action": "Resolved 2026-11-13. A row for the calibration record was added, marked not yet created, matching the disclosure style of the plan row.",
+      "dependencies": [],
+      "owner": "User",
+      "resolution": "Resolved 2026-11-13. A row for the calibration record was added, marked not yet created, matching the disclosure style of the plan row.",
+      "history": [
+        {
+          "timestamp": "2026-11-13T04:35:00Z",
+          "action": "Proposed by wf-review",
+          "actor": "System"
+        },
+        {
+          "timestamp": "2026-11-13T04:35:00Z",
+          "action": "Remediated in the 2026-11-13 third-review pass",
+          "actor": "System"
+        }
+      ]
+    },
+    {
+      "id": "WORK-123",
+      "type": "ReviewFinding",
+      "title": "N15 - The rendering mis-cited the specification for formula governance, weakening the stability claim of the anchor map",
+      "status": "done",
+      "priority": "low",
+      "source": {
+        "type": "wf-review",
+        "reference": "schema/final-academic-record.md | ses_e2d29a36affeTY1R57QoI54RrB | finding N15 | third independent review"
+      },
+      "context": "The rendering mis-cited the specification for formula governance, weakening the stability claim of the anchor map\n\nEvidence: SRS Sections 3.2 and 3.3",
+      "next_action": "Resolved 2026-11-13. The rendering is re-anchored to SRS Sections 2.3 and 5, which are the grade-submission workflow and the quality expectations.",
+      "dependencies": [],
+      "owner": "User",
+      "resolution": "Resolved 2026-11-13. The rendering is re-anchored to SRS Sections 2.3 and 5, which are the grade-submission workflow and the quality expectations.",
+      "history": [
+        {
+          "timestamp": "2026-11-13T04:35:00Z",
+          "action": "Proposed by wf-review",
+          "actor": "System"
+        },
+        {
+          "timestamp": "2026-11-13T04:35:00Z",
+          "action": "Remediated in the 2026-11-13 third-review pass",
+          "actor": "System"
+        }
+      ]
+    },
+    {
+      "id": "WORK-124",
+      "type": "ReviewFinding",
+      "title": "N16 - The manifest's FRAS note contradicted the single-owner capacity assignment",
+      "status": "done",
+      "priority": "low",
+      "source": {
+        "type": "wf-review",
+        "reference": "spec-workspace/projects/blockchain-enabled-lms/service-contracts.yaml | ses_e2d29a36affeTY1R57QoI54RrB | finding N16 | third independent review"
+      },
+      "context": "The manifest's FRAS note contradicted the single-owner capacity assignment\n\nEvidence: Instructional allocation, capacity and load.",
+      "next_action": "Resolved 2026-11-13. The note now reads instructional allocation and instructor load, and states that capacity constraints are defined by ECS and enforced by ESS.",
+      "dependencies": [],
+      "owner": "User",
+      "resolution": "Resolved 2026-11-13. The note now reads instructional allocation and instructor load, and states that capacity constraints are defined by ECS and enforced by ESS.",
+      "history": [
+        {
+          "timestamp": "2026-11-13T04:35:00Z",
+          "action": "Proposed by wf-review",
+          "actor": "System"
+        },
+        {
+          "timestamp": "2026-11-13T04:35:00Z",
+          "action": "Remediated in the 2026-11-13 third-review pass",
+          "actor": "System"
+        }
+      ]
+    },
+    {
+      "id": "WORK-125",
+      "type": "ReviewFinding",
+      "title": "N17 - The unresolved gateway domain had no corresponding open question",
+      "status": "done",
+      "priority": "low",
+      "source": {
+        "type": "wf-review",
+        "reference": "spec-workspace/projects/blockchain-enabled-lms/SRS_LMS_v1.0.md section 9; spec-workspace/projects/blockchain-enabled-lms/service-contracts.yaml | ses_e2d29a36affeTY1R57QoI54RrB | finding N17 | third independent review"
+      },
+      "context": "The unresolved gateway domain had no corresponding open question\n\nEvidence: domain: unresolved",
+      "next_action": "Resolved 2026-11-13. Q-6 was added for the gateway's domain placement, and the manifest's pointer was corrected from Q-3 to Q-6.",
+      "dependencies": [],
+      "owner": "User",
+      "resolution": "Resolved 2026-11-13. Q-6 was added for the gateway's domain placement, and the manifest's pointer was corrected from Q-3 to Q-6.",
+      "history": [
+        {
+          "timestamp": "2026-11-13T04:35:00Z",
+          "action": "Proposed by wf-review",
+          "actor": "System"
+        },
+        {
+          "timestamp": "2026-11-13T04:35:00Z",
+          "action": "Remediated in the 2026-11-13 third-review pass",
+          "actor": "System"
+        }
+      ]
+    },
+    {
+      "id": "WORK-126",
+      "type": "ReviewFinding",
+      "title": "N18 - The provenance timestamps postdated the commit that contained them",
+      "status": "done",
+      "priority": "low",
+      "source": {
+        "type": "wf-review",
+        "reference": "spec-workspace/projects/blockchain-enabled-lms/SRS_LMS_v1.0.md frontmatter; spec-workspace/library/Capabilities/CAP-CANONICAL-FORM.md | ses_e2d29a36affeTY1R57QoI54RrB | finding N18 | third independent review"
+      },
+      "context": "The provenance timestamps postdated the commit that contained them\n\nEvidence: updated: 2026-11-13T03:30:00Z",
+      "next_action": "Resolved 2026-11-13. Both timestamps were set to a value at or before the commit that carries this revision.",
+      "dependencies": [],
+      "owner": "User",
+      "resolution": "Resolved 2026-11-13. Both timestamps were set to a value at or before the commit that carries this revision.",
+      "history": [
+        {
+          "timestamp": "2026-11-13T04:35:00Z",
+          "action": "Proposed by wf-review",
+          "actor": "System"
+        },
+        {
+          "timestamp": "2026-11-13T04:35:00Z",
+          "action": "Remediated in the 2026-11-13 third-review pass",
+          "actor": "System"
+        }
+      ]
+    },
+    {
+      "id": "WORK-127",
+      "type": "ReviewFinding",
+      "title": "N19 - The governing documents disagreed on the frontmatter key name - spec_id against id",
+      "status": "done",
+      "priority": "low",
+      "source": {
+        "type": "wf-review",
+        "reference": "spec-workspace/projects/blockchain-enabled-lms/SRS_LMS_v1.0.md frontmatter; sdlc-framework/.opencode/skills/bootstrap/SKILL.md | ses_e2d29a36affeTY1R57QoI54RrB | finding N19 | third independent review"
+      },
+      "context": "The governing documents disagreed on the frontmatter key name - spec_id against id\n\nEvidence: spec_id: SRS-LMS-v1.0",
+      "next_action": "Resolved 2026-11-13. The conflict is recorded here as required. Both keys are now present - id and spec_id, both SRS-LMS-v1.0 - so the root AGENTS.md requirement for an id in frontmatter and the wf-bootstrap template for spec_id are both satisfied, and the three-way agreement with binding.yaml and the task spec's parent_spec_id holds in substance. The bootstrap skill's template still says spec_id only; if that is to be changed, it needs its own task.",
+      "dependencies": [],
+      "owner": "User",
+      "resolution": "Resolved 2026-11-13. The conflict is recorded here as required. Both keys are now present - id and spec_id, both SRS-LMS-v1.0 - so the root AGENTS.md requirement for an id in frontmatter and the wf-bootstrap template for spec_id are both satisfied, and the three-way agreement with binding.yaml and the task spec's parent_spec_id holds in substance. The bootstrap skill's template still says spec_id only; if that is to be changed, it needs its own task.",
+      "history": [
+        {
+          "timestamp": "2026-11-13T04:35:00Z",
+          "action": "Proposed by wf-review",
+          "actor": "System"
+        },
+        {
+          "timestamp": "2026-11-13T04:35:00Z",
+          "action": "Remediated in the 2026-11-13 third-review pass",
+          "actor": "System"
+        }
+      ]
+    },
+    {
+      "id": "WORK-128",
+      "type": "ReviewFinding",
+      "title": "N20 - The terminology note anchored System of Record to the wrong section",
+      "status": "done",
+      "priority": "low",
+      "source": {
+        "type": "wf-review",
+        "reference": "spec-workspace/projects/blockchain-enabled-lms/SRS_LMS_v1.0.md terminology note | ses_e2d29a36affeTY1R57QoI54RrB | finding N20 | third independent review"
+      },
+      "context": "The terminology note anchored System of Record to the wrong section\n\nEvidence: state (Section 3.7)",
+      "next_action": "Resolved 2026-11-13. The note now anchors to Sections 3.6 and 3.7.",
+      "dependencies": [],
+      "owner": "User",
+      "resolution": "Resolved 2026-11-13. The note now anchors to Sections 3.6 and 3.7.",
+      "history": [
+        {
+          "timestamp": "2026-11-13T04:35:00Z",
+          "action": "Proposed by wf-review",
+          "actor": "System"
+        },
+        {
+          "timestamp": "2026-11-13T04:35:00Z",
+          "action": "Remediated in the 2026-11-13 third-review pass",
+          "actor": "System"
+        }
+      ]
+    },
+    {
+      "id": "WORK-129",
+      "type": "ReviewFinding",
+      "title": "N21 - Final signatory was an undefined normative trigger term",
+      "status": "done",
+      "priority": "low",
+      "source": {
+        "type": "wf-review",
+        "reference": "spec-workspace/projects/blockchain-enabled-lms/SRS_LMS_v1.0.md sections 2.9 and 10 | ses_e2d29a36affeTY1R57QoI54RrB | finding N21 | third independent review"
+      },
+      "context": "Final signatory was an undefined normative trigger term\n\nEvidence: Final signatory rejects the appeal",
+      "next_action": "Resolved 2026-11-13. The trigger now reads the last authority in the ECS-supplied approval chain, and approval chain was added to the glossary.",
+      "dependencies": [],
+      "owner": "User",
+      "resolution": "Resolved 2026-11-13. The trigger now reads the last authority in the ECS-supplied approval chain, and approval chain was added to the glossary.",
+      "history": [
+        {
+          "timestamp": "2026-11-13T04:35:00Z",
+          "action": "Proposed by wf-review",
+          "actor": "System"
+        },
+        {
+          "timestamp": "2026-11-13T04:35:00Z",
+          "action": "Remediated in the 2026-11-13 third-review pass",
+          "actor": "System"
+        }
+      ]
+    },
+    {
+      "id": "WORK-130",
+      "type": "Question",
+      "title": "Which domain owns the canonical-form rules defined by CAP-CANONICAL-FORM",
+      "status": "proposed",
+      "priority": "medium",
+      "source": {
+        "type": "wf-review",
+        "reference": "SRS Question Q-5; finding N7 | ses_e2d29a36affeTY1R57QoI54RrB"
+      },
+      "context": "The capability artifact CAP-CANONICAL-FORM defines the reduction rules and the digest constraint that the LMS proof guarantee depends on. It is adopted by two candidate owners with different mandates: ECS as the rule authority, and LGS as the proof authority. They are not the same party, and the choice determines who may change the reduction rules without silently invalidating existing proofs. The artifact records this as an open question in its own text.",
+      "next_action": "Decide whether ECS, LGS, or a third party owns the canonical-form rules for this project, then record the Decision and close the capability artifact's open question 1.",
+      "dependencies": [
+        "WORK-067"
+      ],
+      "owner": "User",
+      "resolution": null,
+      "history": [
+        {
+          "timestamp": "2026-11-13T04:35:00Z",
+          "action": "Raised by wf-review finding N7",
           "actor": "System"
         }
       ]
