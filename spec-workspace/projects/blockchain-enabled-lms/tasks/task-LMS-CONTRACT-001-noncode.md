@@ -1,7 +1,7 @@
 ---
 task_id: WORK-LMS-CONTRACT-001
 version: 1.1
-status: Draft
+status: Approved
 project: blockchain-enabled-lms
 parent_spec: ../SRS_LMS_v1.0.md
 parent_spec_id: SRS-LMS-v1.0

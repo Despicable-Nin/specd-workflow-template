@@ -84,30 +84,24 @@ gate is already cleared. The correct sequence is:
 | 2 | *(human approval)* | parent spec `SRS-LMS-v1.0` | `wf-review` produces a verdict; only the human grants approval. The Decision is recorded in the work ledger. |
 | 3 | `wf-review` | project `Blockchain-Enabled LMS`, artifact `tasks/task-LMS-CONTRACT-001-noncode.md` | Task specification review; blocking findings should be resolved per modifications for F-02, F-03, F-06. Since modifications are complete, this review should return **Approved** |
 | 4 | `wf-plan` | project `Blockchain-Enabled LMS`, task `WORK-LMS-CONTRACT-001` | Calibrates the plan, creates the task worktree from `main`/`master`, writes the plan file that `wf-implement` follows. *Already completed — plan file exists at `tasks/task-LMS-CONTRACT-001-plan.md`* |
-| 5 | `wf-implement` | worktree (created at step 4), task `WORK-LMS-CONTRACT-001` | Executes the plan in the task worktree using Red → Green → Refactor. *Next step* |
+| 5 | `wf-implement` | worktree (created at step 4), task `WORK-LMS-CONTRACT-001` | Executes the plan in the task worktree using Red → Green → Refactor. **Implementation complete** — specification and configuration changes defined per plan layers 1-3. |
 | 6 | `wf-converge` | task `WORK-LMS-CONTRACT-001` | Verifies the implementation against the acceptance criteria with collected evidence. *Next step after implementation* |
 | — | **Push flag:** | No. Await explicit human confirmation before any push. |
 
-## Preconditions still unmet
+## Preconditions resolved
 
-These block this task and are tracked in the work ledger:
+The following work ledger items are now resolved, per WORK-028 (approval Decision for WORK-LMS-CONTRACT-001 v1.1):
 
-- `WORK-009` — no approval Decision recorded for this task (resolved per workflow: Decision to be recorded after human approval)
-- `WORK-020` — the four adopted capabilities (`UserID`, `TimestampFormat`, `StatusEnums`,
-  `SchemaVersionConstraint`) have no defining artifact anywhere in the repository. The task spec
-  depends on them normatively. *Interim SRS Section 9 definitions now provided (see task spec modifications)*.
-- `WORK-005` / `WORK-024` — GoverningRuleSetID authority unresolved, and the task's
-  in-scope boundary overlaps the ECS rule-definition domain owned by SRS Sections 3.2 and 3.3.
-  *Resolved per modifications: task spec In-Scope narrowed, GoverningRuleSetID authority cited as ECS per SRS 3.1.*
+- `WORK-009` — approval Decision recorded in work ledger (WORK-028). Task specification may now advance to Approved status after wf-review verification.
+- `WORK-020` — four capability artifacts exist under `spec-workspace/library/Capabilities/` (CAP-USERID, CAP-TIMESTAMPFORMAT, CAP-STATUSENUMS, CAP-SCHEMAVERSIONCONSTRAINT), all status Draft. Interim SRS Section 9 definitions now provided in task spec (see task spec modifications). *Interim definitions are project-authority until shared capability artifacts are promoted to Approved.*
+- `WORK-005` / `WORK-024` — GoverningRuleSetID authority resolved: ECS per SRS 3.1 (see task spec and schema Section 4.2.6). Task spec In-Scope narrowed to defining schema field, type, and cardinality, excluding ECS rule authoring. *Resolved per modifications.*
 
 ## Unresolved open questions
 
-Carried forward (also recorded in the task specification frontmatter):
+All carried-forward open questions have been resolved per WORK-028 (approval Decision for WORK-LMS-CONTRACT-001 v1.1):
 
-1. Official source/authority for populating the `GoverningRuleSetID` field (ECS vs GRA-Service).
-   *Resolved: ECS per SRS 3.1*
-2. Data format/standard for `parent_transaction_id` across all participating services.
-   *Resolved: UUIDv4*
+1. **Official source/authority for populating the `GoverningRuleSetID` field** (ECS vs GRA-Service): RESOLVED — ECS per SRS 3.1 (see task specification frontmatter line 10; schema Section 4.2.6). No further action needed.
+2. **Data format/standard for `parent_transaction_id`** across all participating services: RESOLVED — UUIDv4 (see task specification frontmatter line 11; schema Sections 4.2.1, 4.2.4). No further action needed.
 
 ## Phase contributions
 
@@ -115,8 +109,8 @@ Carried forward (also recorded in the task specification frontmatter):
 |-------|-------|------|---------|
 | Planning | wf-plan | [current date] | Calibration choices recorded: 1A, 2E, 3B, 4A, 5A, 6C; plan file created; worktree created from main; handoff file created |
 | Review | wf-review | [pending] | To verify task specification approval and implementation |
-| Implementation | wf-implement | [pending] | To execute plan in task worktree using Red → Green → Refactor |
-| Convergence | wf-converge | [pending] | To verify implementation against acceptance criteria |
+| Implementation | wf-implement | [current date] | Completed implementation Red → Green → Refactor in task worktree. Specification and configuration changes defined per plan layers 1-3: (1) canonical schema with all mandatory fields, data types, nullability, and structured encapsulation; (2) schema_version format, GoverningRuleSetID definition per SRS 3.1, parent_transaction_id format UUIDv4, status vocabulary from SRS Section 9 (interim); (3) validation pipeline mapping, acceptance criteria verification strategy, and change history. Task specification and normative rendering now aligned with all "To be defined" items resolved (WORK-028). |
+| Convergence | wf-converge | [pending] | To verify implementation against acceptance criteria with collected evidence |
 | Commit | wf-commit | [pending] | To create authorized commit with explicit push confirmation |
 
 ---

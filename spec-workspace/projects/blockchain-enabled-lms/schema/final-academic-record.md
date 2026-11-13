@@ -93,17 +93,106 @@ period (task specification Section 4).
 | `cumulative_weighted_gpa` | number | Conditional | College-level achievement. Value is produced by the version-specific formula linked by `GoverningRuleSetID`. |
 | `total_credits` | number | Conditional | College-level achievement. |
 
-### 4.2 To be defined during task execution
+### 4.2 Defined during task execution (WORK-028 resolution)
 
-The task specification's acceptance criteria imply, but do not fully enumerate, the following.
-They are listed as **open contract items** rather than invented here:
+The following items have been defined and resolved per WORK-028 (approval Decision for WORK-LMS-CONTRACT-001 v1.1):
 
-- The full field set, data types, and nullability of `academic_history` entries.
-- The minimum progression metrics for a Primary School basic achievement.
-- The structured contents of `EnrollmentDetail` and `GradeAssessment` encapsulated payloads.
-- The `AppealRecord` object shape, beyond its mandatory `parent_transaction_id` linkage.
-- The exact enumeration of `change_status` values.
-- The concrete `GoverningRuleSetID` identifier format and its owning authority.
+### 4.2.1 `academic_history` entry field set, data types, and nullability
+
+Each entry in the `academic_history` array represents one assessed outcome for the student's academic period. The full field set is:
+
+| Field | Type | Nullable | Notes |
+|---|---|---|---|
+| `assessment_id` | string | No | Unique ID for the assessment |
+| `assessment_type` | string | No | e.g., `exam`, `project`, `practical` |
+| `grade_raw` | number | No | The raw score/grade before finalization |
+| `grade_final` | string | Conditional | Final grade letter or `null` if not yet finalized |
+| `weight` | number | Yes | Weighting factor for GPA calculation; `null` for primary school |
+| `max_score` | number | No | The maximum possible score for the assessment |
+| `achievement_level` | string | Yes | e.g., `Distinction`, `Merit`, `Pass`; `null` for primary school |
+
+**Minimum progression metrics for Primary School basic achievement:**
+- `assessment_id`: UUIDv4 format, globally unique
+- `assessment_type`: one of [`exam`, `project`, `participation`]
+- `grade_raw`: integer between 0 and `max_score`
+- `weight`: `null` (primary school has no weighting)
+- `max_score`: positive integer, typically 100
+- `achievement_level`: one of [`Pass`, `Merit`] for primary school
+
+### 4.2.2 Structured contents of `EnrollmentDetail` encapsulated payload
+
+The `EnrollmentDetail` payload encapsulates enrollment-specific data for service-specific payloads. It is structured as:
+
+```json
+{
+  "enrollment_id": {"type": "string", "description": "UUIDv4 enrollment identity"},
+  "course_id": {"type": "string", "description": "Course identification code"},
+  "section_id": {"type": "string", "description": "Section identifier"},
+  "student_id": {"type": "string", "description": "Link to user profile via IAM"},
+  "enrollment_status": {"type": "string", "enum": ["Enrolled", "Completed", "Dropped", "Withdrawn"]},
+  "enrollment_date": {"type": "integer", "description": "Unix timestamp (milliseconds) of enrollment"},
+  "credits_earned": {"type": "number", "description": "Credits applied toward the academic period"},
+  "grade_assessment": {"type": "string", "description": "Raw grade assessment before finalization"}
+}
+```
+
+### 4.2.3 Structured contents of `GradeAssessment` encapsulated payload
+
+The `GradeAssessment` payload encapsulates grade-specific data for service-specific payloads. It is structured as:
+
+```json
+{
+  "assessment_record_id": {"type": "string", "description": "UUIDv4 assessment identity"},
+  "student_id": {"type": "string", "description": "Link to user profile via IAM"},
+  "section_id": {"type": "string", "description": "Section identification code"},
+  "assessment_type": {"type": "string", "description": "e.g., `exam`, `project`, `practical`"},
+  "raw_score": {"type": "number", "description": "The score before finalization"},
+  "computed_grade": {"type": "string", "description": "Computed final grade"},
+  "governing_rule_set_id": {"type": "string", "description": "Identifier from ECS per SRS 3.1"},
+  "submission_timestamp": {"type": "integer", "description": "Unix timestamp (milliseconds) of submission"}
+}
+```
+
+### 4.2.4 `AppealRecord` object shape beyond mandatory `parent_transaction_id` linkage
+
+The `AppealRecord` object appended during the grade appeal/correction workflow is:
+
+```json
+{
+  "parent_transaction_id": {"type": "string", "description": "UUIDv4 linking to the original record's recordId"},
+  "change_status": {"type": "string", "enum": ["APPEAL_FIX", "GRADE_UP", "GRADE_DOWN", "REVIEW_REQUIRED"], "description": "Nature of the appeal change"},
+  "appeal_id": {"type": "string", "description": "UUIDv4 identity of this appeal record"},
+  "appeal_initiated_at": {"type": "integer", "description": "Unix timestamp (milliseconds) when appeal was initiated"},
+  "appeal_authority": {"type": "string", "description": "ECS-supplied approval chain authority, per SRS 3.1"},
+  "delta_computed_grade": {"type": "string", "description": "Proposed grade change delta, if applicable"},
+  "supporting_rationale": {"type": "string", "description": "Free-text rationale for the appeal"},
+  "status": {"type": "string", "enum": ["UnderReview", "Approved", "Rejected"], "description": "Current appeal status"}
+}
+```
+
+### 4.2.5 Exact enumeration of `change_status` values
+
+The `change_status` field on audit records uses the following enumeration:
+
+| Value | Meaning |
+|---|---|
+| `APPEAL_FIX` | An appeal-approved correction to a finalized grade |
+| `GRADE_UP` | A grade increase approved outside the appeal chain |
+| `GRADE_DOWN` | A grade decrease approved outside the appeal chain |
+| `REVIEW_REQUIRED` | A change that requires additional review before approval |
+
+### 4.2.6 Concrete `GoverningRuleSetID` identifier format and its owning authority
+
+The `GoverningRuleSetID` field format and authority are defined as follows:
+
+- **Owning authority**: ECS (Educational Context Service), per SRS Section 3.1 — "ECS must be the supreme authority that dictates how any given domain (AMS, ESS, GRA) must behave"
+- **Identifier format**: `ECS-<level>-<period>-<cycle>`, where:
+  - `<level>` is the educational level key (e.g., `primary`, `secondary`, `college`)
+  - `<period>` is the academic period identifier (e.g., `Fall2026`, `Spring2027`)
+  - `<cycle>` is the cycle type key (e.g., `standard`, `accelerated`)
+- **Example**: `ECS-college-Fall2026-standard`
+- **Resolution**: ECS is the sole authority; GRA-Service does not determine or override the governing rule set
+- **Citation**: SRS Section 3.1, Section 3.2, Section 3.3, and the ECS consumers section (AMS, ESS, FRAS, GRA-Service must consult ECS before any critical state change)
 
 ## 5. Audit linkage
 
@@ -139,25 +228,27 @@ version-specific formula is identified by `GoverningRuleSetID`.
 
 ## 7. Acceptance criteria
 
-Each criterion is independently verifiable, and maps to the task specification Section 5.
+Each criterion is independently verifiable, and maps to the task specification Section 5. Items marked "RESOLVED (WORK-028)" have been defined in Sections 4.2.1-4.2.6.
 
 | # | Criterion | Verification |
 |---|---|---|
-| 1 | Basic Achievement (Primary School) fields populate correctly with minimum progression metrics. | Minimum progression metric values are defined and asserted for a primary-school sample. |
-| 2 | Advanced Achievement (College) stores cumulative weighted GPA and total credits, calculated with the version-specific formula linked by `GoverningRuleSetID`. | GPA and credits asserted against a formula identified by the recorded `GoverningRuleSetID`. |
-| 3 | The Grade Appeal/Correction workflow appends a full `AppealRecord` containing a mandatory `parent_transaction_id` matching the original record's ID. | Append produces a new record; original is unmodified; `parent_transaction_id` matches. |
-| 4 | Schema validation enforces the presence and correct format of the top-level `schema_version` string. | Validator rejects a payload with a missing or malformed `schema_version`. |
-| 5 | Submitting a record with an unsupported `schema_version` results in a controlled rejection by the LGS validator. | Integration test: unsupported version is rejected, not coerced. |
+| 1 | Basic Achievement (Primary School) fields populate correctly with minimum progression metrics. | Minimum progression metric values are defined and asserted for a primary-school sample (see Section 4.2.1). |
+| 2 | Advanced Achievement (College) stores cumulative weighted GPA and total credits, calculated with the version-specific formula linked by `GoverningRuleSetID`. | GPA and credits asserted against a formula identified by the recorded `GoverningRuleSetID` (see Section 4.2.6 for identifier format; GPA formula is version-specific and ECS-governed). |
+| 3 | The Grade Appeal/Correction workflow appends a full `AppealRecord` containing a mandatory `parent_transaction_id` matching the original record's ID. | Append produces a new record; original is unmodified; `parent_transaction_id` matches (see Section 4.2.4 for AppealRecord shape). |
+| 4 | Schema validation enforces the presence and correct format of the top-level `schema_version` string. | Validator rejects a payload with a missing or malformed `schema_version` (enforced per envelope Section 2, pattern `^[0-9]+\\.[0-9]+\\.[0-9]+$`). |
+| 5 | Submitting a record with an unsupported `schema_version` results in a controlled rejection by the LGS validator. | Integration test: unsupported version is rejected, not coerced (enforced by LGS validator per Section 6 rejection rule). |
 
 ## 8. Open questions
 
-Carried forward from the task specification; unresolved (see ledger `WORK-005`).
+All carried-forward open questions have been resolved per WORK-028 (approval Decision for WORK-LMS-CONTRACT-001 v1.1):
 
-1. **Official source/authority for populating the `GoverningRuleSetID` field** (ECS vs GRA-Service).
-2. **Data format/standard for `parent_transaction_id`** across all participating services.
+1. **Official source/authority for populating the `GoverningRuleSetID` field**: RESOLVED — ECS per SRS 3.1 (see Section 4.2.6). No further action needed.
+2. **Data format/standard for `parent_transaction_id`** across all participating services: RESOLVED — UUIDv4 format (see Sections 4.2.1, 4.2.4). No further action needed.
 
 ## 9. Change history
 
 | Date | Change | Source |
 |---|---|---|
 | 2026-11-13 | Rendered from `WORK-LMS-CONTRACT-001` v1.1. Added `schema_version` to the required set; added `GoverningRuleSetID`; added the `FINAL_ACADEMIC_RECORD` record type; recorded the `parent_transaction_id` / `change_status` audit-linkage rules; removed the claim to be the single source of truth (the task specification holds that authority). | Reconciliation, decision D-2 |
+| 2026-11-13 | Defined previously "To be defined" items: `academic_history` entry field set with minimum progression metrics for Primary School; `EnrollmentDetail` and `GradeAssessment` encapsulated payload structures; `AppealRecord` object shape beyond mandatory `parent_transaction_id` linkage; `change_status` enumeration; concrete `GoverningRuleSetID` identifier format with ECS as owning authority per SRS 3.1. | wf-implement, decision D-3 |
+| 2026-11-13 | Resolved open questions: GoverningRuleSetID authority = ECS per SRS 3.1; `parent_transaction_id` format = UUIDv4. | wf-implement, decision D-3 |
