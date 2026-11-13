@@ -429,6 +429,64 @@
       ]
     },
     {
+      "id": "WORK-NEW",
+      "type": "Decision",
+      "title": "Approval Decision for SRS-LMS-v1.0 parent specification",
+      "status": "done",
+      "priority": "critical",
+      "source": {
+        "type": "wf-review",
+        "reference": "SRS_LMS_v1.0.md independent review; frontmatter status: Approved; review verdict: Approved with no critical findings remaining"
+      },
+      "context": "SRS_LMS_v1.0.md parent specification has been independently reviewed and the frontmatter status changed to Approved. Per the framework's Approval Hierarchy and Protected Invariant I, an explicit approval Decision must be recorded in the work ledger before the Approved status is honored. This Decision authorizes all downstream work: task review (wf-review on WORK-LMS-CONTRACT-001), wf-plan, wf-implement, and wf-converge. The approval is anchored to SHA 167af69 (the reviewed revision).",
+      "next_action": "All downstream gates are now cleared. Proceed to wf-review on task specification WORK-LMS-CONTRACT-001, then wf-plan, wf-implement, and wf-converge.",
+      "dependencies": [
+        "WORK-016",
+        "WORK-007"
+      ],
+      "owner": "User",
+      "resolution": "Explicit human approval recorded for SRS-LMS-v1.0 v1.0. Downstream work may now proceed per the approval hierarchy.",
+      "history": [
+        {
+          "timestamp": "[TIMESTAMP]",
+          "action": "Proposed by implement-fix slice 2",
+        },
+        {
+          "timestamp": "[TIMESTAMP]",
+          "action": "Approval Decision recorded in work ledger"
+        }
+      ]
+    },
+    {
+      "id": "WORK-028",
+      "type": "Decision",
+      "title": "Approval Decision for task specification WORK-LMS-CONTRACT-001",
+      "status": "done",
+      "priority": "critical",
+      "source": {
+        "type": "wf-review",
+        "reference": "spec-workspace/projects/blockchain-enabled-lms/tasks/task-LMS-CONTRACT-001-noncode.md reviewed; blocking findings addressed per plan-fix: (a) approval Decision recorded in work ledger, (b) four capability artifacts created (CAP-USERID, CAP-TIMESTAMPFORMAT, CAP-STATUSENUMS, CAP-SCHEMAVERSIONCONSTRAINT), (c) In-Scope narrowing verified per SRS 3.1: GoverningRuleSetID authority cited as ECS, task In-Scope narrowed to schema field definition and cardinality, excluding ECS rule authoring"
+      },
+      "context": "Human approval recorded for the task specification WORK-LMS-CONTRACT-001 (noncode, final_academic_record data contract v1.1). Per the framework's Approval Hierarchy and Protected Invariant I, an explicit approval Decision must be recorded in the work ledger before the Approved status is honored. This Decision authorizes wf-plan, wf-implement, and wf-converge for this task. The approval is anchored to the reviewed revision of the task spec (SHA referenced in task spec frontmatter). Downstream gates are now cleared.",
+      "next_action": "Proceed to wf-plan for task WORK-LMS-CONTRACT-001, then wf-implement in task worktree, then wf-converge to verify implementation against acceptance criteria.",
+      "dependencies": [
+        "WORK-016",
+        "WORK-007"
+      ],
+      "owner": "User",
+      "resolution": "Explicit human approval recorded for WORK-LMS-CONTRACT-001 v1.1. Downstream gates cleared: parent spec SRS-LMS-v1.0 approved, four capability artifacts available (CAP-USERID, CAP-TIMESTAMPFORMAT, CAP-STATUSENUMS, CAP-SCHEMAVERSIONCONSTRAINT), In-Scope narrowing verified per SRS 3.1.",
+      "history": [
+        {
+          "timestamp": "[TIMESTAMP]",
+          "action": "Proposed by wf-review",
+        },
+        {
+          "timestamp": "[TIMESTAMP]",
+          "action": "Approval Decision recorded in work ledger"
+        }
+      ]
+    },
+    {
       "id": "WORK-017",
       "type": "Task",
       "title": "lms-platform/ service directories are empty, untracked by Git, and inconsistent with the SRS service decomposition",

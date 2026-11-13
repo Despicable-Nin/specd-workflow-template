@@ -49,6 +49,12 @@ authoritative_contract:
   path: tasks/task-LMS-CONTRACT-001-noncode.md
   rendered_by: schema/final-academic-record.md
 
+# Service contract bindings - moved from binding.yaml per AGENTS.md Section 4.
+# The specification collection pointer is the only content binding.yaml carries.
+# Runtime service dependency manifests are now in service-contracts.yaml.
+service_contracts:
+  path: service-contracts.yaml
+
 # The codebase directory for this project is not yet determined. When it is,
 # this file must be mirrored into it so the code is traceable to this spec
 # collection. See WORK-017 / WORK-030 / SRS Section 7 and Question Q-3.

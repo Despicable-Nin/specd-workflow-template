@@ -162,10 +162,22 @@ The schema definition flows from the task specification (authoritative) through 
 
 ---
 
+## Plan Approved and Status Updated
+
+**Decision:** Plan approved for implementation. The approval gate is cleared per WORK-028 (approval Decision recorded in work ledger). Parent specification SRS_LMS_v1.0.md is APPROVED (WORK-039 at SHA 167af69). All three blocking findings resolved (WORK-009, WORK-020, WORK-005/024).
+
+**Status:** `ready-for-implement` — all planning gates cleared, plan file is the source of truth for `wf-implement`.
+
+**Approval recorded in work ledger:** `WORK-028` — Approval Decision for task specification `WORK-LMS-CONTRACT-001 v1.1`, anchored to SHA 167af69.
+
 ## Next Step: wf-implement
 
-The plan file is the deliverable. Implementation is the next step, not a requirement in this skill. 
+The plan file is the deliverable for `wf-implement`. The plan file path is
+`spec-workspace/projects/blockchain-enabled-lms/tasks/task-LMS-CONTRACT-001-plan.md`.
+The task spec path is `spec-workspace/projects/blockchain-enabled-lms/tasks/task-LMS-CONTRACT-001-noncode.md`.
+The worktree path is `D:\hobby\specd-worktree\lms-contract-plan\` (created from main branch, branch `task/WORK-LMS-CONTRACT-001-plan`).
+The branch is `task/WORK-LMS-CONTRACT-001-plan`.
 
-**Ask whether to run `wf-implement`:** the plan file path, the task spec path, the worktree path, and the branch.
+**Proceed to `wf-implement`:** The `wf-implement` skill will execute Red → Green → Refactor in the task worktree following this plan file. Since this is a `noncode` task, the implementation consists of specification and configuration changes (not code). The `wf-implement` skill will follow the plan's implementation layers: Specification, Configuration/Infrastructure, Process/Documentation.
 
-**Do not start implementation in this skill.**
+**Do not start implementation in this skill — proceed to `wf-implement` skill.**

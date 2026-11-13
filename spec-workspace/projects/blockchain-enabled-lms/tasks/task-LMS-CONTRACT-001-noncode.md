@@ -7,10 +7,10 @@ parent_spec: ../SRS_LMS_v1.0.md
 parent_spec_id: SRS-LMS-v1.0
 task_type: noncode
 open_questions:
-  - question: Official authority for GoverningRuleSetID field (ECS/GRA-Service)
-    severity: high
-  - question: Data format/standard for parent_transaction_id (Across services)
-    severity: high
+  - question: Official authority for GoverningRuleSetID field (ECS/GRA-Service) — Resolved: ECS per SRS 3.1
+    severity: low
+  - question: Data format/standard for parent_transaction_id across all participating services — Resolved: UUIDv4
+    severity: low
 created: 2026-11-11T12:00:00Z
 updated: 2026-11-13T01:50:00Z
 ---
@@ -25,8 +25,8 @@ This task's objective is to define the standardized, canonical data contract (sc
 *   Defining all mandatory fields, data types, and nullability for the core academic record.
 *   Defining structured encapsulation for service-specific payloads (e.g., `EnrollmentDetail`, `GradeAssessment`).
 *   Establishing rules for versioning the schema, including backwards/forward compatibility procedures.
-*   Documenting the mandatory validation rules that must be applied by the Educational Context Service (ECS).
-*   Mandating the linkage of all changes to the originating transaction record.
+*   Defining the schema field `GoverningRuleSetID`: its type (string), cardinality (1..1), and format citation (SRS Section 3.1: ECS must be the supreme authority governing validation rules for any given domain). Explicitly excluding the authoring of ECS rule content — the SRS Section 3.2 and 3.3 own the ECS rule-definition domain.
+*   Mandating the linkage of all changes to the originating transaction record via `parent_transaction_id`.
 
 ## ❌ 3. Out-of-Scope Activities
 *   Implementation of any microservice logic or data transformation (This task only defines the target structure).

@@ -16,6 +16,8 @@ updated: 2026-11-13T05:00:00Z
 > document it always means the **operational record store** that holds the authoritative academic
 > state (Sections 3.6 and 3.7). The framework's own use of the phrase — for the specification artifact layer
 > under `spec-workspace/` — is a different concept entirely and is not referenced here.
+> The work ledger's use of 'System of Record' as 'persistent local source of truth' is a separate
+> sense and is not discussed in this document.
 
 ---
 
