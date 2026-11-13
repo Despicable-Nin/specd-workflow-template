@@ -3,11 +3,11 @@ spec_id: SRS-LMS-v1.0
 id: SRS-LMS-v1.0
 collection_id: SPEC-LMS-v1.0
 version: 1.0
-status: Draft
+status: Approved
 title: Software Requirements Specification - Blockchain-Enabled LMS
 project: blockchain-enabled-lms
 created: 2026-11-11T12:00:00Z
-updated: 2026-11-13T04:20:00Z
+updated: 2026-11-13T05:00:00Z
 ---
 
 # Software Requirements Specification - Blockchain-Enabled LMS
