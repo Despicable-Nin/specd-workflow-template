@@ -996,15 +996,15 @@
     {
       "id": "WORK-039",
       "type": "Decision",
-      "title": "Approval gate on the LMS specifications returned NOT APPROVABLE - 22 blocking findings across both artifacts",
+      "title": "Approval gate on the LMS specifications - first review NOT APPROVABLE, second review NOT APPROVABLE, remediation in progress",
       "status": "proposed",
       "priority": "critical",
       "source": {
         "type": "wf-review",
         "reference": "Independent review of spec-workspace/projects/blockchain-enabled-lms/SRS_LMS_v1.0.md and spec-workspace/projects/blockchain-enabled-lms/tasks/task-LMS-CONTRACT-001-noncode.md | sessions ses_e2d5a6438ffeL4CF0pJX43Pv5m and ses_e2d5a6438ffeL4CF0pJX43Pv5m"
       },
-      "context": "The approval step was executed as two independent, read-only wf-review sessions - one per artifact - so the gate was not self-certified. Both returned NOT APPROVABLE. The parent specification produced 22 findings (R-01 to R-22), 14 of them blocking; the task specification produced 17 findings (F-01 to F-17), 8 of them blocking. The grounds are threefold and independent of each other: a GATE ground - the parent spec is Draft with no approval Decision, so the task spec cannot legitimately be Approved ahead of it; an EVIDENCE ground - the task spec marked all five acceptance criteria PASS with nothing to support the claim, and criteria 1 to 3 are written in terms no reviewer can check; and a CONTENT ground - the artifacts do not specify what they claim to specify, the parent specification violates Technology Agnosticism by naming JWT and HTTP paths with no authorising Decision, and the task specification adopts four capabilities that do not exist. No approval Decision was recorded and no status was changed to Approved. Five mechanical, unambiguous defects were corrected during the review session and are recorded as done: F-02, F-15, F-17, R-08 and the citation half of R-12.",
-      "next_action": "The parent specification has been remediated - all fourteen blocking findings against it were addressed by the 2026-11-13 rewrite (WORK-040 to WORK-053). Run @wf-review against spec-workspace/projects/blockchain-enabled-lms/SRS_LMS_v1.0.md to obtain a fresh verdict, then present it for explicit approval and record the Decision. Only after the parent is Approved may the task specification's seven remaining blocking findings (WORK-062, WORK-064 to WORK-069) be addressed and reviewed.",
+      "context": "The approval step was executed as independent, read-only wf-review sessions - one per artifact - so the gate was never self-certified. The first pass returned NOT APPROVABLE on both artifacts: 22 findings on the parent specification (14 blocking) and 17 on the task specification (8 blocking). The parent was rewritten to the wf-bootstrap contract, addressing all 14 of its blocking findings, and re-reviewed. The second pass returned NOT APPROVABLE again, with 6 blocking findings (WORK-079 to WORK-084) and 17 non-blocking (WORK-085 to WORK-101) - it reached past the first pass's findings to the mechanism the specification exists to specify. Those 6 blocking findings are now closed at 4796b98. No approval Decision has been recorded and no status has been changed to Approved.",
+      "next_action": "Re-run wf-review against the committed revision 4796b98 and obtain a fresh verdict. If clear, present the specification and the findings to the human for explicit approval, and record the Decision with the spec id, version, approver, timestamp and file path, anchored to the SHA of the reviewed revision. The task specification's seven remaining blocking findings cannot be closed until the parent is Approved.",
       "dependencies": [],
       "owner": "User",
       "resolution": null,
@@ -1017,6 +1017,11 @@
         {
           "timestamp": "2026-11-13T02:50:00Z",
           "action": "Parent specification remediated; re-review pending",
+          "actor": "System"
+        },
+        {
+          "timestamp": "2026-11-13T03:50:00Z",
+          "action": "Second review recorded; 6 blocking findings closed at 4796b98",
           "actor": "System"
         }
       ]
@@ -1544,7 +1549,7 @@
       "next_action": "Commit the collection so the specification has a verifiable SHA, as Protected Invariant III requires.",
       "dependencies": [],
       "owner": "User",
-      "resolution": "Resolved. The specification collection was committed and pushed at 392008f on 2026-11-13, so the artifact has a verifiable SHA behind it.",
+      "resolution": "Resolved, but re-anchored 2026-11-13. The specification collection was first committed and pushed at 392008f on 2026-11-13. That commit contains the pre-rewrite 71-line document, so it is NOT the anchor for the current revision. The revision under review is committed at 4796b98, and any approval Decision must be recorded against that SHA or later.",
       "history": [
         {
           "timestamp": "2026-11-13T02:20:00Z",
@@ -1554,6 +1559,11 @@
         {
           "timestamp": "2026-11-13T02:50:00Z",
           "action": "Remediated by the 2026-11-13 specification rewrite",
+          "actor": "System"
+        },
+        {
+          "timestamp": "2026-11-13T03:50:00Z",
+          "action": "Resolution text corrected - 392008f does not contain the current revision",
           "actor": "System"
         }
       ]
@@ -2039,6 +2049,673 @@
         {
           "timestamp": "2026-11-13T02:20:00Z",
           "action": "Proposed by wf-review",
+          "actor": "System"
+        }
+      ]
+    },
+    {
+      "id": "WORK-079",
+      "type": "ReviewFinding",
+      "title": "F-01 - The unit of commitment was contradictory - a student-period aggregate in one section and an assessment-level grade in another",
+      "status": "done",
+      "priority": "critical",
+      "source": {
+        "type": "wf-review",
+        "reference": "spec-workspace/projects/blockchain-enabled-lms/SRS_LMS_v1.0.md sections 2.3, 2.7, 2.8 | ses_e2d322343ffeXh9hsMUFn8Cnp6 | finding F-01 | second independent review"
+      },
+      "context": "The unit of commitment was contradictory - a student-period aggregate in one section and an assessment-level grade in another\n\nEvidence: One proof per finalized student-period record versus GRA-Service submits the finalized record to LGS for commitment as a proof",
+      "next_action": "Resolved 2026-11-13 at 4796b98. The proof unit is the finalized student-period record and is stated once, in Section 2.8. Grade finalization no longer commits a proof (Section 2.3 says so explicitly), new workflow W-6 finalizes and proves the aggregate at period close, and W-3 commits the successor proof explicitly. The question of whether an appeal yields a second proof is answered: it does, over the re-finalized aggregate.",
+      "dependencies": [],
+      "owner": "User",
+      "resolution": "Resolved 2026-11-13 at 4796b98. The proof unit is the finalized student-period record and is stated once, in Section 2.8. Grade finalization no longer commits a proof (Section 2.3 says so explicitly), new workflow W-6 finalizes and proves the aggregate at period close, and W-3 commits the successor proof explicitly. The question of whether an appeal yields a second proof is answered: it does, over the re-finalized aggregate.",
+      "history": [
+        {
+          "timestamp": "2026-11-13T03:50:00Z",
+          "action": "Proposed by wf-review",
+          "actor": "System"
+        },
+        {
+          "timestamp": "2026-11-13T03:50:00Z",
+          "action": "Remediated at 4796b98",
+          "actor": "System"
+        }
+      ]
+    },
+    {
+      "id": "WORK-080",
+      "type": "ReviewFinding",
+      "title": "F-02 - The fixed form the verifiability guarantee depends on was undefined, and no artifact defined it",
+      "status": "done",
+      "priority": "critical",
+      "source": {
+        "type": "wf-review",
+        "reference": "spec-workspace/projects/blockchain-enabled-lms/SRS_LMS_v1.0.md section 2.8; spec-workspace/library/Capabilities/canonical-form.md | ses_e2d322343ffeXh9hsMUFn8Cnp6 | finding F-02 | second independent review"
+      },
+      "context": "The fixed form the verifiability guarantee depends on was undefined, and no artifact defined it\n\nEvidence: The canonical payload is reduced to a fixed form and a digest is computed over it",
+      "next_action": "Resolved 2026-11-13 at 4796b98. Section 2.8 now states the five required properties of the canonical form - stable field set, volatile fields excluded, defined ordering, defined encoding, versioned - and cites the new CAP-CANONICAL-FORM capability artifact, which owns the detailed rules and is authored in this commit.",
+      "dependencies": [],
+      "owner": "User",
+      "resolution": "Resolved 2026-11-13 at 4796b98. Section 2.8 now states the five required properties of the canonical form - stable field set, volatile fields excluded, defined ordering, defined encoding, versioned - and cites the new CAP-CANONICAL-FORM capability artifact, which owns the detailed rules and is authored in this commit.",
+      "history": [
+        {
+          "timestamp": "2026-11-13T03:50:00Z",
+          "action": "Proposed by wf-review",
+          "actor": "System"
+        },
+        {
+          "timestamp": "2026-11-13T03:50:00Z",
+          "action": "Remediated at 4796b98",
+          "actor": "System"
+        }
+      ]
+    },
+    {
+      "id": "WORK-081",
+      "type": "ReviewFinding",
+      "title": "F-03 - The operational record store was an eighth component outside the declared seven-domain model, with no owner, boundary or operations",
+      "status": "done",
+      "priority": "high",
+      "source": {
+        "type": "wf-review",
+        "reference": "spec-workspace/projects/blockchain-enabled-lms/SRS_LMS_v1.0.md sections 3.1, 3.6, 3.7 and section 6 | ses_e2d322343ffeXh9hsMUFn8Cnp6 | finding F-03 | second independent review"
+      },
+      "context": "The operational record store was an eighth component outside the declared seven-domain model, with no owner, boundary or operations\n\nEvidence: The system is composed of seven independently-owned service domains with a single",
+      "next_action": "Resolved 2026-11-13 at 4796b98. Section 3.7 was added: the store is a named durable component that is deliberately not a domain, with exactly two operations - read a student's period history, and publish the canonical payload for verification - and a per-domain ownership model over its contents. Section 6 was amended to include it in the composition decision, and the Longevity objective is reconciled with it via replication and archival.",
+      "dependencies": [],
+      "owner": "User",
+      "resolution": "Resolved 2026-11-13 at 4796b98. Section 3.7 was added: the store is a named durable component that is deliberately not a domain, with exactly two operations - read a student's period history, and publish the canonical payload for verification - and a per-domain ownership model over its contents. Section 6 was amended to include it in the composition decision, and the Longevity objective is reconciled with it via replication and archival.",
+      "history": [
+        {
+          "timestamp": "2026-11-13T03:50:00Z",
+          "action": "Proposed by wf-review",
+          "actor": "System"
+        },
+        {
+          "timestamp": "2026-11-13T03:50:00Z",
+          "action": "Remediated at 4796b98",
+          "actor": "System"
+        }
+      ]
+    },
+    {
+      "id": "WORK-082",
+      "type": "ReviewFinding",
+      "title": "F-04 - Capacity enforcement was still assigned twice - to FRAS in the boundary section and to ECS/ESS in the workflow",
+      "status": "done",
+      "priority": "high",
+      "source": {
+        "type": "wf-review",
+        "reference": "spec-workspace/projects/blockchain-enabled-lms/SRS_LMS_v1.0.md sections 3.3 and 2.6 | ses_e2d322343ffeXh9hsMUFn8Cnp6 | finding F-04 | second independent review"
+      },
+      "context": "Capacity enforcement was still assigned twice - to FRAS in the boundary section and to ECS/ESS in the workflow\n\nEvidence: ESS enrolls the student only if every constraint is satisfied",
+      "next_action": "Resolved 2026-11-13 at 4796b98. Section 3.3 now states two distinct constraints with exactly one owner each: ECS defines section capacity and credit capacity and ESS enforces both at enrollment; FRAS owns instructor load and enforces it at allocation. W-5 was rewritten to match, and FRAS now appears in workflows as a participant.",
+      "dependencies": [],
+      "owner": "User",
+      "resolution": "Resolved 2026-11-13 at 4796b98. Section 3.3 now states two distinct constraints with exactly one owner each: ECS defines section capacity and credit capacity and ESS enforces both at enrollment; FRAS owns instructor load and enforces it at allocation. W-5 was rewritten to match, and FRAS now appears in workflows as a participant.",
+      "history": [
+        {
+          "timestamp": "2026-11-13T03:50:00Z",
+          "action": "Proposed by wf-review",
+          "actor": "System"
+        },
+        {
+          "timestamp": "2026-11-13T03:50:00Z",
+          "action": "Remediated at 4796b98",
+          "actor": "System"
+        }
+      ]
+    },
+    {
+      "id": "WORK-083",
+      "type": "ReviewFinding",
+      "title": "F-05 - The immutability guarantee was contradicted by the Superseded mark on the original record",
+      "status": "done",
+      "priority": "high",
+      "source": {
+        "type": "wf-review",
+        "reference": "spec-workspace/projects/blockchain-enabled-lms/SRS_LMS_v1.0.md sections 2.4, 2.9, 5 and 10 | ses_e2d322343ffeXh9hsMUFn8Cnp6 | finding F-05 | second independent review"
+      },
+      "context": "The immutability guarantee was contradicted by the Superseded mark on the original record\n\nEvidence: A finalized record is never altered in place",
+      "next_action": "Resolved 2026-11-13 at 4796b98. Superseded was removed as a state entirely. A finalized record's state is terminal and is never written to; supersession is expressed only by a successor carrying parent_transaction_id, because recording a state would write to a finalized record and change the digest computed over it. Sections 2.4, 2.9, 5 and 10 were all reworded to that single model, and the rendering was realigned.",
+      "dependencies": [],
+      "owner": "User",
+      "resolution": "Resolved 2026-11-13 at 4796b98. Superseded was removed as a state entirely. A finalized record's state is terminal and is never written to; supersession is expressed only by a successor carrying parent_transaction_id, because recording a state would write to a finalized record and change the digest computed over it. Sections 2.4, 2.9, 5 and 10 were all reworded to that single model, and the rendering was realigned.",
+      "history": [
+        {
+          "timestamp": "2026-11-13T03:50:00Z",
+          "action": "Proposed by wf-review",
+          "actor": "System"
+        },
+        {
+          "timestamp": "2026-11-13T03:50:00Z",
+          "action": "Remediated at 4796b98",
+          "actor": "System"
+        }
+      ]
+    },
+    {
+      "id": "WORK-084",
+      "type": "ReviewFinding",
+      "title": "F-06 - The appeal status model contradicted itself, used an undefined literal, and left UnderReview in no transition row",
+      "status": "done",
+      "priority": "high",
+      "source": {
+        "type": "wf-review",
+        "reference": "spec-workspace/projects/blockchain-enabled-lms/SRS_LMS_v1.0.md sections 2.4, 2.9 and 9.1 | ses_e2d322343ffeXh9hsMUFn8Cnp6 | finding F-06 | second independent review"
+      },
+      "context": "The appeal status model contradicted itself, used an undefined literal, and left UnderReview in no transition row\n\nEvidence: the appeal moves to Rejected",
+      "next_action": "Resolved 2026-11-13 at 4796b98. UnderReview is the initial appeal state with Approved and Rejected as terminal states, and the transition table gives both. Rejected was added to the normative vocabulary in Section 9.1. The initial-state contradiction between W-3 and the transition table is removed.",
+      "dependencies": [],
+      "owner": "User",
+      "resolution": "Resolved 2026-11-13 at 4796b98. UnderReview is the initial appeal state with Approved and Rejected as terminal states, and the transition table gives both. Rejected was added to the normative vocabulary in Section 9.1. The initial-state contradiction between W-3 and the transition table is removed.",
+      "history": [
+        {
+          "timestamp": "2026-11-13T03:50:00Z",
+          "action": "Proposed by wf-review",
+          "actor": "System"
+        },
+        {
+          "timestamp": "2026-11-13T03:50:00Z",
+          "action": "Remediated at 4796b98",
+          "actor": "System"
+        }
+      ]
+    },
+    {
+      "id": "WORK-085",
+      "type": "ReviewFinding",
+      "title": "F-07 - The artifact cannot carry Approved - it is Draft and no approval Decision exists",
+      "status": "proposed",
+      "priority": "high",
+      "source": {
+        "type": "wf-review",
+        "reference": "spec-workspace/projects/blockchain-enabled-lms/SRS_LMS_v1.0.md section 12; ledger WORK-016, WORK-032 | ses_e2d322343ffeXh9hsMUFn8Cnp6 | finding F-07 | second independent review"
+      },
+      "context": "The artifact cannot carry Approved - it is Draft and no approval Decision exists\n\nEvidence: Status: Draft. This specification has not been approved.",
+      "next_action": "Still open, and it is the gate. F-01 through F-06 are now closed at 4796b98. This review must be re-run against that committed revision, and only then may the human grant approval, which must be recorded as a Decision in the work ledger with the spec id, version, approver, timestamp and file path. A request to proceed is not approval.",
+      "dependencies": [],
+      "owner": "User",
+      "resolution": null,
+      "history": [
+        {
+          "timestamp": "2026-11-13T03:50:00Z",
+          "action": "Proposed by wf-review",
+          "actor": "System"
+        }
+      ]
+    },
+    {
+      "id": "WORK-086",
+      "type": "ReviewFinding",
+      "title": "F-08 - The specification misdescribed the service manifest it references",
+      "status": "done",
+      "priority": "medium",
+      "source": {
+        "type": "wf-review",
+        "reference": "spec-workspace/projects/blockchain-enabled-lms/SRS_LMS_v1.0.md section 8.1 | ses_e2d322343ffeXh9hsMUFn8Cnp6 | finding F-08 | second independent review"
+      },
+      "context": "The specification misdescribed the service manifest it references\n\nEvidence: service-contracts.yaml currently declares three runtime bindings and records five domains as unmapped",
+      "next_action": "Resolved 2026-11-13 at 4796b98. Section 8.1 now states the manifest's actual position: all seven domains declared, three with a runtime binding specified, four marked not-yet-specified, plus one service whose domain is unresolved.",
+      "dependencies": [],
+      "owner": "User",
+      "resolution": "Resolved 2026-11-13 at 4796b98. Section 8.1 now states the manifest's actual position: all seven domains declared, three with a runtime binding specified, four marked not-yet-specified, plus one service whose domain is unresolved.",
+      "history": [
+        {
+          "timestamp": "2026-11-13T03:50:00Z",
+          "action": "Proposed by wf-review",
+          "actor": "System"
+        },
+        {
+          "timestamp": "2026-11-13T03:50:00Z",
+          "action": "Remediated at 4796b98",
+          "actor": "System"
+        }
+      ]
+    },
+    {
+      "id": "WORK-087",
+      "type": "ReviewFinding",
+      "title": "F-09 - Section 7 contradicted itself and re-opened a question the governing contract had already answered",
+      "status": "done",
+      "priority": "medium",
+      "source": {
+        "type": "wf-review",
+        "reference": "spec-workspace/projects/blockchain-enabled-lms/SRS_LMS_v1.0.md section 7 and Question Q-3 | ses_e2d322343ffeXh9hsMUFn8Cnp6 | finding F-09 | second independent review"
+      },
+      "context": "Section 7 contradicted itself and re-opened a question the governing contract had already answered\n\nEvidence: The location of the codebase directory for this project is not yet decided",
+      "next_action": "Resolved 2026-11-13 at 4796b98. The contradiction was removed: the codebase path is fixed by the root AGENTS.md and is stated as not an open question. Q-3 was reworded to the genuinely open question - whether the exploratory lms-platform/ and src/identity/ directories are folded in or removed (WORK-017, WORK-035).",
+      "dependencies": [],
+      "owner": "User",
+      "resolution": "Resolved 2026-11-13 at 4796b98. The contradiction was removed: the codebase path is fixed by the root AGENTS.md and is stated as not an open question. Q-3 was reworded to the genuinely open question - whether the exploratory lms-platform/ and src/identity/ directories are folded in or removed (WORK-017, WORK-035).",
+      "history": [
+        {
+          "timestamp": "2026-11-13T03:50:00Z",
+          "action": "Proposed by wf-review",
+          "actor": "System"
+        },
+        {
+          "timestamp": "2026-11-13T03:50:00Z",
+          "action": "Remediated at 4796b98",
+          "actor": "System"
+        }
+      ]
+    },
+    {
+      "id": "WORK-088",
+      "type": "ReviewFinding",
+      "title": "F-10 - The Related Artifacts table listed a file that does not exist without saying so",
+      "status": "done",
+      "priority": "medium",
+      "source": {
+        "type": "wf-review",
+        "reference": "spec-workspace/projects/blockchain-enabled-lms/SRS_LMS_v1.0.md section 8.1 | ses_e2d322343ffeXh9hsMUFn8Cnp6 | finding F-10 | second independent review"
+      },
+      "context": "The Related Artifacts table listed a file that does not exist without saying so\n\nEvidence: tasks/task-LMS-CONTRACT-001-plan.md - The implementation plan derived from that task specification.",
+      "next_action": "Resolved 2026-11-13 at 4796b98. The row now records the artifact's state as not yet created, names the skill that produces it, and points at its canonical path.",
+      "dependencies": [],
+      "owner": "User",
+      "resolution": "Resolved 2026-11-13 at 4796b98. The row now records the artifact's state as not yet created, names the skill that produces it, and points at its canonical path.",
+      "history": [
+        {
+          "timestamp": "2026-11-13T03:50:00Z",
+          "action": "Proposed by wf-review",
+          "actor": "System"
+        },
+        {
+          "timestamp": "2026-11-13T03:50:00Z",
+          "action": "Remediated at 4796b98",
+          "actor": "System"
+        }
+      ]
+    },
+    {
+      "id": "WORK-089",
+      "type": "ReviewFinding",
+      "title": "F-11 - Section 8 overstated what binding.yaml does",
+      "status": "done",
+      "priority": "medium",
+      "source": {
+        "type": "wf-review",
+        "reference": "spec-workspace/projects/blockchain-enabled-lms/SRS_LMS_v1.0.md section 8.1 | ses_e2d322343ffeXh9hsMUFn8Cnp6 | finding F-11 | second independent review"
+      },
+      "context": "Section 8 overstated what binding.yaml does\n\nEvidence: Binds this collection's identifier and version to the codebase.",
+      "next_action": "Resolved 2026-11-13 at 4796b98. The row now states that it declares the collection's identifier and version, and that its codebase binding target is not yet determined.",
+      "dependencies": [],
+      "owner": "User",
+      "resolution": "Resolved 2026-11-13 at 4796b98. The row now states that it declares the collection's identifier and version, and that its codebase binding target is not yet determined.",
+      "history": [
+        {
+          "timestamp": "2026-11-13T03:50:00Z",
+          "action": "Proposed by wf-review",
+          "actor": "System"
+        },
+        {
+          "timestamp": "2026-11-13T03:50:00Z",
+          "action": "Remediated at 4796b98",
+          "actor": "System"
+        }
+      ]
+    },
+    {
+      "id": "WORK-090",
+      "type": "ReviewFinding",
+      "title": "F-12 - One status literal carried two incompatible meanings - a refused request and a voluntary withdrawal",
+      "status": "done",
+      "priority": "medium",
+      "source": {
+        "type": "wf-review",
+        "reference": "spec-workspace/projects/blockchain-enabled-lms/SRS_LMS_v1.0.md section 2.9 and section 9.1 | ses_e2d322343ffeXh9hsMUFn8Cnp6 | finding F-12 | second independent review"
+      },
+      "context": "One status literal carried two incompatible meanings - a refused request and a voluntary withdrawal\n\nEvidence: A constraint is not satisfied - Withdrawn",
+      "next_action": "Resolved 2026-11-13 at 4796b98. Refused was introduced as a distinct terminal state for constraint failure, separate from Withdrawn, and both are stated as terminal. Whether a refused request may be submitted again is now stated: it may.",
+      "dependencies": [],
+      "owner": "User",
+      "resolution": "Resolved 2026-11-13 at 4796b98. Refused was introduced as a distinct terminal state for constraint failure, separate from Withdrawn, and both are stated as terminal. Whether a refused request may be submitted again is now stated: it may.",
+      "history": [
+        {
+          "timestamp": "2026-11-13T03:50:00Z",
+          "action": "Proposed by wf-review",
+          "actor": "System"
+        },
+        {
+          "timestamp": "2026-11-13T03:50:00Z",
+          "action": "Remediated at 4796b98",
+          "actor": "System"
+        }
+      ]
+    },
+    {
+      "id": "WORK-091",
+      "type": "ReviewFinding",
+      "title": "F-13 - Entity-granularity mismatch in the level-transition trigger",
+      "status": "done",
+      "priority": "medium",
+      "source": {
+        "type": "wf-review",
+        "reference": "spec-workspace/projects/blockchain-enabled-lms/SRS_LMS_v1.0.md sections 2.5 and 2.9 | ses_e2d322343ffeXh9hsMUFn8Cnp6 | finding F-13 | second independent review"
+      },
+      "context": "Entity-granularity mismatch in the level-transition trigger\n\nEvidence: A student's enrollment record for a level reaches Completed.",
+      "next_action": "Resolved 2026-11-13 at 4796b98. The LevelCompletionRecord is now defined as a distinct entity - one per student per level, distinct from a section enrollment - with its own transition table, and W-4's trigger and the next-level determination were reworded to match.",
+      "dependencies": [],
+      "owner": "User",
+      "resolution": "Resolved 2026-11-13 at 4796b98. The LevelCompletionRecord is now defined as a distinct entity - one per student per level, distinct from a section enrollment - with its own transition table, and W-4's trigger and the next-level determination were reworded to match.",
+      "history": [
+        {
+          "timestamp": "2026-11-13T03:50:00Z",
+          "action": "Proposed by wf-review",
+          "actor": "System"
+        },
+        {
+          "timestamp": "2026-11-13T03:50:00Z",
+          "action": "Remediated at 4796b98",
+          "actor": "System"
+        }
+      ]
+    },
+    {
+      "id": "WORK-092",
+      "type": "ReviewFinding",
+      "title": "F-14 - The mandatory appeal chain omitted the principal, so two of the three levels in scope had no chain",
+      "status": "done",
+      "priority": "medium",
+      "source": {
+        "type": "wf-review",
+        "reference": "spec-workspace/projects/blockchain-enabled-lms/SRS_LMS_v1.0.md section 2.4 | ses_e2d322343ffeXh9hsMUFn8Cnp6 | finding F-14 | second independent review"
+      },
+      "context": "The mandatory appeal chain omitted the principal, so two of the three levels in scope had no chain\n\nEvidence: instructor, then chair, then dean",
+      "next_action": "Resolved 2026-11-13 at 4796b98. The chain is now level-dependent and supplied by ECS for the student's level: instructor to head of year to principal for primary and secondary, instructor to chair to dean for college. A level with no chair has no chair step.",
+      "dependencies": [],
+      "owner": "User",
+      "resolution": "Resolved 2026-11-13 at 4796b98. The chain is now level-dependent and supplied by ECS for the student's level: instructor to head of year to principal for primary and secondary, instructor to chair to dean for college. A level with no chair has no chair step.",
+      "history": [
+        {
+          "timestamp": "2026-11-13T03:50:00Z",
+          "action": "Proposed by wf-review",
+          "actor": "System"
+        },
+        {
+          "timestamp": "2026-11-13T03:50:00Z",
+          "action": "Remediated at 4796b98",
+          "actor": "System"
+        }
+      ]
+    },
+    {
+      "id": "WORK-093",
+      "type": "ReviewFinding",
+      "title": "F-15 - The appeal workflow omitted the proof step that Section 2.8 mandates",
+      "status": "done",
+      "priority": "medium",
+      "source": {
+        "type": "wf-review",
+        "reference": "spec-workspace/projects/blockchain-enabled-lms/SRS_LMS_v1.0.md section 2.4 | ses_e2d322343ffeXh9hsMUFn8Cnp6 | finding F-15 | second independent review"
+      },
+      "context": "The appeal workflow omitted the proof step that Section 2.8 mandates\n\nEvidence: LGS is a listed participant of the appeal workflow",
+      "next_action": "Resolved 2026-11-13 at 4796b98. W-3 now has an explicit sixth step in which LGS commits a new proof over the re-finalized aggregate, superseding the prior proof in the sequence.",
+      "dependencies": [],
+      "owner": "User",
+      "resolution": "Resolved 2026-11-13 at 4796b98. W-3 now has an explicit sixth step in which LGS commits a new proof over the re-finalized aggregate, superseding the prior proof in the sequence.",
+      "history": [
+        {
+          "timestamp": "2026-11-13T03:50:00Z",
+          "action": "Proposed by wf-review",
+          "actor": "System"
+        },
+        {
+          "timestamp": "2026-11-13T03:50:00Z",
+          "action": "Remediated at 4796b98",
+          "actor": "System"
+        }
+      ]
+    },
+    {
+      "id": "WORK-094",
+      "type": "ReviewFinding",
+      "title": "F-16 - The closed set of ECS consumers was not closed in practice",
+      "status": "done",
+      "priority": "medium",
+      "source": {
+        "type": "wf-review",
+        "reference": "spec-workspace/projects/blockchain-enabled-lms/SRS_LMS_v1.0.md sections 2.2 and 3.2 | ses_e2d322343ffeXh9hsMUFn8Cnp6 | finding F-16 | second independent review"
+      },
+      "context": "The closed set of ECS consumers was not closed in practice\n\nEvidence: The following domains must consult ECS before any critical state change, and no others are",
+      "next_action": "Resolved 2026-11-13 at 4796b98. LGS was removed from the set - it commits a proof over an already-finalized record and does not vary by level or period - leaving AMS, ESS, FRAS and GRA-Service. Each remaining member is now shown consulting ECS in a named workflow, and W-1's open parenthetical was replaced by a reference to the closed set.",
+      "dependencies": [],
+      "owner": "User",
+      "resolution": "Resolved 2026-11-13 at 4796b98. LGS was removed from the set - it commits a proof over an already-finalized record and does not vary by level or period - leaving AMS, ESS, FRAS and GRA-Service. Each remaining member is now shown consulting ECS in a named workflow, and W-1's open parenthetical was replaced by a reference to the closed set.",
+      "history": [
+        {
+          "timestamp": "2026-11-13T03:50:00Z",
+          "action": "Proposed by wf-review",
+          "actor": "System"
+        },
+        {
+          "timestamp": "2026-11-13T03:50:00Z",
+          "action": "Remediated at 4796b98",
+          "actor": "System"
+        }
+      ]
+    },
+    {
+      "id": "WORK-095",
+      "type": "ReviewFinding",
+      "title": "F-17 - It was unstated whether the timestamp and the authorizing authority are inside the digest or committed beside it",
+      "status": "done",
+      "priority": "medium",
+      "source": {
+        "type": "wf-review",
+        "reference": "spec-workspace/projects/blockchain-enabled-lms/SRS_LMS_v1.0.md section 2.8 | ses_e2d322343ffeXh9hsMUFn8Cnp6 | finding F-17 | second independent review"
+      },
+      "context": "It was unstated whether the timestamp and the authorizing authority are inside the digest or committed beside it\n\nEvidence: The proof commits that digest together with the transaction identity, the",
+      "next_action": "Resolved 2026-11-13 at 4796b98. Section 2.8 now states explicitly that the authority attestation and the time of finalization are inside the digest, so they are tamper-evident rather than merely committed alongside it, and CAP-CANONICAL-FORM repeats the rule.",
+      "dependencies": [],
+      "owner": "User",
+      "resolution": "Resolved 2026-11-13 at 4796b98. Section 2.8 now states explicitly that the authority attestation and the time of finalization are inside the digest, so they are tamper-evident rather than merely committed alongside it, and CAP-CANONICAL-FORM repeats the rule.",
+      "history": [
+        {
+          "timestamp": "2026-11-13T03:50:00Z",
+          "action": "Proposed by wf-review",
+          "actor": "System"
+        },
+        {
+          "timestamp": "2026-11-13T03:50:00Z",
+          "action": "Remediated at 4796b98",
+          "actor": "System"
+        }
+      ]
+    },
+    {
+      "id": "WORK-096",
+      "type": "ReviewFinding",
+      "title": "F-18 - The scope of the proof sequence was undefined, and the no-removal guarantee depended on it",
+      "status": "done",
+      "priority": "medium",
+      "source": {
+        "type": "wf-review",
+        "reference": "spec-workspace/projects/blockchain-enabled-lms/SRS_LMS_v1.0.md section 2.8 | ses_e2d322343ffeXh9hsMUFn8Cnp6 | finding F-18 | second independent review"
+      },
+      "context": "The scope of the proof sequence was undefined, and the no-removal guarantee depended on it\n\nEvidence: a linkage to the preceding proof in the sequence",
+      "next_action": "Resolved 2026-11-13 at 4796b98. The sequence is now scoped to one sequence per student, a verifier is given that student's sequence from its genesis point, and the guarantee is stated precisely - it establishes that no proof in that student's sequence was removed or reordered, and does not by itself attest to proofs of other students.",
+      "dependencies": [],
+      "owner": "User",
+      "resolution": "Resolved 2026-11-13 at 4796b98. The sequence is now scoped to one sequence per student, a verifier is given that student's sequence from its genesis point, and the guarantee is stated precisely - it establishes that no proof in that student's sequence was removed or reordered, and does not by itself attest to proofs of other students.",
+      "history": [
+        {
+          "timestamp": "2026-11-13T03:50:00Z",
+          "action": "Proposed by wf-review",
+          "actor": "System"
+        },
+        {
+          "timestamp": "2026-11-13T03:50:00Z",
+          "action": "Remediated at 4796b98",
+          "actor": "System"
+        }
+      ]
+    },
+    {
+      "id": "WORK-097",
+      "type": "ReviewFinding",
+      "title": "F-19 - The reviewed artifact had no immutable anchor and changed during the review",
+      "status": "done",
+      "priority": "medium",
+      "source": {
+        "type": "wf-review",
+        "reference": "spec-workspace/projects/blockchain-enabled-lms/SRS_LMS_v1.0.md whole file; git history | ses_e2d322343ffeXh9hsMUFn8Cnp6 | finding F-19 | second independent review"
+      },
+      "context": "The reviewed artifact had no immutable anchor and changed during the review\n\nEvidence: git show 392008f - the pre-rewrite 71-line document",
+      "next_action": "Resolved 2026-11-13. The revision under review is committed at 4796b98, and the review must be re-run against that committed artifact. Two process defects are recorded separately: WORK-058's resolution text no longer described the committed content and has been corrected, and the mid-review edit that made the artifact unstable was caused by this session editing the file while the review was reading it - future reviews must run against a frozen, committed revision.",
+      "dependencies": [],
+      "owner": "User",
+      "resolution": "Resolved 2026-11-13. The revision under review is committed at 4796b98, and the review must be re-run against that committed artifact. Two process defects are recorded separately: WORK-058's resolution text no longer described the committed content and has been corrected, and the mid-review edit that made the artifact unstable was caused by this session editing the file while the review was reading it - future reviews must run against a frozen, committed revision.",
+      "history": [
+        {
+          "timestamp": "2026-11-13T03:50:00Z",
+          "action": "Proposed by wf-review",
+          "actor": "System"
+        },
+        {
+          "timestamp": "2026-11-13T03:50:00Z",
+          "action": "Remediated at 4796b98",
+          "actor": "System"
+        }
+      ]
+    },
+    {
+      "id": "WORK-098",
+      "type": "ReviewFinding",
+      "title": "F-20 - The collection's only normative rendering cited sections of the specification that did not exist",
+      "status": "done",
+      "priority": "medium",
+      "source": {
+        "type": "wf-review",
+        "reference": "spec-workspace/projects/blockchain-enabled-lms/schema/final-academic-record.md | ses_e2d322343ffeXh9hsMUFn8Cnp6 | finding F-20 | second independent review"
+      },
+      "context": "The collection's only normative rendering cited sections of the specification that did not exist\n\nEvidence: SRS_LMS_v1.0.md Section 4.3, Section 2",
+      "next_action": "Resolved 2026-11-13 at 4796b98. The rendering's citations were re-anchored to the specification's new section anchors, and Section 8.2 was added to the specification as a stable anchor map that child artifacts can cite. This was corrected before the reviewer read the file; the finding was accurate against the earlier revision.",
+      "dependencies": [],
+      "owner": "User",
+      "resolution": "Resolved 2026-11-13 at 4796b98. The rendering's citations were re-anchored to the specification's new section anchors, and Section 8.2 was added to the specification as a stable anchor map that child artifacts can cite. This was corrected before the reviewer read the file; the finding was accurate against the earlier revision.",
+      "history": [
+        {
+          "timestamp": "2026-11-13T03:50:00Z",
+          "action": "Proposed by wf-review",
+          "actor": "System"
+        },
+        {
+          "timestamp": "2026-11-13T03:50:00Z",
+          "action": "Remediated at 4796b98",
+          "actor": "System"
+        }
+      ]
+    },
+    {
+      "id": "WORK-099",
+      "type": "ReviewFinding",
+      "title": "F-21 - Q-4's wording overstated what this specification uses",
+      "status": "done",
+      "priority": "low",
+      "source": {
+        "type": "wf-review",
+        "reference": "spec-workspace/projects/blockchain-enabled-lms/SRS_LMS_v1.0.md Question Q-4 | ses_e2d322343ffeXh9hsMUFn8Cnp6 | finding F-21 | second independent review"
+      },
+      "context": "Q-4's wording overstated what this specification uses\n\nEvidence: the shared UserID, TimestampFormat, StatusEnums, and SchemaVersionConstraint vocabularies that this specification uses",
+      "next_action": "Resolved 2026-11-13 at 4796b98. Q-4 now distinguishes the four capabilities the child task specification adopts normatively from the status vocabulary this specification defines inline, and states that this specification does not use those four.",
+      "dependencies": [],
+      "owner": "User",
+      "resolution": "Resolved 2026-11-13 at 4796b98. Q-4 now distinguishes the four capabilities the child task specification adopts normatively from the status vocabulary this specification defines inline, and states that this specification does not use those four.",
+      "history": [
+        {
+          "timestamp": "2026-11-13T03:50:00Z",
+          "action": "Proposed by wf-review",
+          "actor": "System"
+        },
+        {
+          "timestamp": "2026-11-13T03:50:00Z",
+          "action": "Remediated at 4796b98",
+          "actor": "System"
+        }
+      ]
+    },
+    {
+      "id": "WORK-100",
+      "type": "ReviewFinding",
+      "title": "F-22 - Undefined term in a normative trigger",
+      "status": "done",
+      "priority": "low",
+      "source": {
+        "type": "wf-review",
+        "reference": "spec-workspace/projects/blockchain-enabled-lms/SRS_LMS_v1.0.md section 2.2 | ses_e2d322343ffeXh9hsMUFn8Cnp6 | finding F-22 | second independent review"
+      },
+      "context": "Undefined term in a normative trigger\n\nEvidence: Any primary creation or update of an enrollment or a grade submission.",
+      "next_action": "Resolved 2026-11-13 at 4796b98. The trigger was reworded to any creation or update of a student academic record, with the scope broadened to section allocations and course or program definitions, and the undefined term was removed.",
+      "dependencies": [],
+      "owner": "User",
+      "resolution": "Resolved 2026-11-13 at 4796b98. The trigger was reworded to any creation or update of a student academic record, with the scope broadened to section allocations and course or program definitions, and the undefined term was removed.",
+      "history": [
+        {
+          "timestamp": "2026-11-13T03:50:00Z",
+          "action": "Proposed by wf-review",
+          "actor": "System"
+        },
+        {
+          "timestamp": "2026-11-13T03:50:00Z",
+          "action": "Remediated at 4796b98",
+          "actor": "System"
+        }
+      ]
+    },
+    {
+      "id": "WORK-101",
+      "type": "ReviewFinding",
+      "title": "F-23 - Duplicated word and an overloaded term - promotion was used for a level transition",
+      "status": "done",
+      "priority": "low",
+      "source": {
+        "type": "wf-review",
+        "reference": "spec-workspace/projects/blockchain-enabled-lms/SRS_LMS_v1.0.md sections 1.4, 2.5, 4.2 and 10 | ses_e2d322343ffeXh9hsMUFn8Cnp6 | finding F-23 | second independent review"
+      },
+      "context": "Duplicated word and an overloaded term - promotion was used for a level transition\n\nEvidence: Control over promotion and promotion decisions",
+      "next_action": "Resolved 2026-11-13 at 4796b98. The duplication was removed and level transition is used consistently throughout, with a glossary entry distinguishing it from academic promotion or graduation.",
+      "dependencies": [],
+      "owner": "User",
+      "resolution": "Resolved 2026-11-13 at 4796b98. The duplication was removed and level transition is used consistently throughout, with a glossary entry distinguishing it from academic promotion or graduation.",
+      "history": [
+        {
+          "timestamp": "2026-11-13T03:50:00Z",
+          "action": "Proposed by wf-review",
+          "actor": "System"
+        },
+        {
+          "timestamp": "2026-11-13T03:50:00Z",
+          "action": "Remediated at 4796b98",
+          "actor": "System"
+        }
+      ]
+    },
+    {
+      "id": "WORK-102",
+      "type": "ReviewFinding",
+      "title": "F-24 - External verifiability was claimed while third-party exposure was excluded",
+      "status": "done",
+      "priority": "low",
+      "source": {
+        "type": "wf-review",
+        "reference": "spec-workspace/projects/blockchain-enabled-lms/SRS_LMS_v1.0.md section 4.1 and section 2.8 | ses_e2d322343ffeXh9hsMUFn8Cnp6 | finding F-24 | second independent review"
+      },
+      "context": "External verifiability was claimed while third-party exposure was excluded\n\nEvidence: Third-party integration protocols. Consumers outside the seven domains are not specified.",
+      "next_action": "Resolved 2026-11-13 at 4796b98. The non-goal now says the exclusion is of integration protocols and not of third-party verification, and states that the read-only verification surface required by Section 2.8 is owned by the operational record store under Section 3.7.",
+      "dependencies": [],
+      "owner": "User",
+      "resolution": "Resolved 2026-11-13 at 4796b98. The non-goal now says the exclusion is of integration protocols and not of third-party verification, and states that the read-only verification surface required by Section 2.8 is owned by the operational record store under Section 3.7.",
+      "history": [
+        {
+          "timestamp": "2026-11-13T03:50:00Z",
+          "action": "Proposed by wf-review",
+          "actor": "System"
+        },
+        {
+          "timestamp": "2026-11-13T03:50:00Z",
+          "action": "Remediated at 4796b98",
           "actor": "System"
         }
       ]
