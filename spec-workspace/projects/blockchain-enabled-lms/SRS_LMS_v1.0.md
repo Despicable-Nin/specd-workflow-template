@@ -6,14 +6,14 @@ status: Draft
 title: Software Requirements Specification - Blockchain-Enabled LMS
 project: blockchain-enabled-lms
 created: 2026-11-11T12:00:00Z
-updated: 2026-11-13T02:45:00Z
+updated: 2026-11-13T03:30:00Z
 ---
 
 # Software Requirements Specification - Blockchain-Enabled LMS
 
 > **Terminology note.** "System of Record" has two distinct uses in this repository. In this
 > document it always means the **operational record store** that holds the authoritative academic
-> state (Section 3.6). The framework's own use of the phrase — for the specification artifact layer
+> state (Section 3.7). The framework's own use of the phrase — for the specification artifact layer
 > under `spec-workspace/` — is a different concept entirely and is not referenced here.
 
 ---
@@ -35,10 +35,10 @@ normative rendering `schema/final-academic-record.md` (Section 8).
 
 | Objective | Statement |
 |---|---|
-| **Integrity** | Every final academic record is immutable once finalized, and any later correction is *appended* rather than substituted. |
-| **Verifiability** | A third party can confirm that a final academic record existed, was authorized, and has not been altered. |
+| **Integrity** | A finalized grade record is immutable in every field. A correction is *appended*, never substituted. |
+| **Verifiability** | A third party can confirm that a final academic record existed, was authorized, and has not been altered, using only a published verification surface. |
 | **Traceability** | Any record can be traced back to the assessment and the rule set that produced it. |
-| **Longevity** | The record remains provable independent of the lifetime of any single service. |
+| **Longevity** | A record remains provable independently of the lifetime of any single service, because both the proof sequence and the canonical payload are archived. |
 | **Contextual correctness** | The rules applied to a student depend on the educational level and the academic period in force at the time. |
 
 ### 1.3 Educational levels in scope
@@ -55,7 +55,7 @@ normative rendering `schema/final-academic-record.md` (Section 8).
 |---|---|
 | **Students** | A defensible, permanent record of their academic progress. |
 | **Instructors and faculty** | The ability to record and defend an assessment, including after an appeal. |
-| **Academic administrators** (Dean, Principal, Chair) | Control over promotion and promotion decisions, and the authority to approve corrections. |
+| **Academic administrators** (Dean, Principal, Chair, Head of Year) | Control over level transitions, and the authority to approve corrections. |
 | **Registrar / records office** | The authoritative, complete academic history at all times. |
 | **Compliance and audit parties** | Independent evidence that records were produced under a known rule set. |
 | **Learning platform operator** | Correct behaviour across levels and periods, and a defensible audit trail. |
@@ -71,15 +71,18 @@ normative rendering `schema/final-academic-record.md` (Section 8).
 | C-1 | Identify and authorize actors, and hold the user profile. | IAM |
 | C-2 | Determine the rules in force for a given educational level and academic period. | ECS |
 | C-3 | Define what is taught: subjects, course definitions, degree structures, prerequisite maps. | AMS |
-| C-4 | Allocate instructional resources to scheduled sections. | FRAS |
+| C-4 | Allocate instructional resources to scheduled sections, and own instructor load. | FRAS |
 | C-5 | Instantiate learning: sections, enrollments, scheduling. | ESS |
-| C-6 | Compute the final grade from assessments under the governing formula. | GRA-Service |
-| C-7 | Commit an immutable, verifiable proof of grade finalization. | LGS |
+| C-6 | Compute the final grade from assessments under the governing formula, and own the appeal and review history. | GRA-Service |
+| C-7 | Assemble the finalized academic record for a student-period, and commit its proof. | LGS |
 
 ### 2.2 Workflow W-1 — Academic period gatekeeping
 
-**Trigger.** Any primary creation or update of an enrollment or a grade submission.
-**Participants.** ESS, GRA-Service (and any other domain creating such records).
+**Trigger.** Any creation or update of a student academic record — an enrollment, a grade
+submission, a section allocation, or a course or program definition that takes effect in a period.
+
+**Participants.** AMS, ESS, FRAS, GRA-Service.
+
 **Flow.**
 
 1. The creating domain requests the governing context for the target educational level and academic
@@ -89,60 +92,76 @@ normative rendering `schema/final-academic-record.md` (Section 8).
 4. If the status is `Active`, ECS returns the governing rule set identifier, which the creating
    domain records against the record it is about to create.
 
-**Rule.** No enrollment or grade submission may be created or modified in a period whose status is
-not `Active`.
+**Rule.** No record that takes effect in an academic period may be created or modified in a period
+whose status is not `Active`.
 
 ### 2.3 Workflow W-2 — Grade submission
 
 **Trigger.** An instructor submits assessed results for an enrolled student in a section.
-**Participants.** GRA-Service, ECS, LGS.
+**Participants.** GRA-Service, ECS.
 **Flow.**
 
 1. The submission names the enrolled student, the section, the assessment, and the raw scores.
 2. GRA-Service requests the governing grading formula from ECS for the student's educational level
    and the academic period in force.
-3. GRA-Service applies the formula and produces a proposed final grade.
-4. The proposed grade is recorded with the rule set identifier returned in step 2.
-5. GRA-Service submits the finalized record to LGS for commitment as a proof (Section 2.7).
+3. GRA-Service applies the formula and produces a proposed final grade, recorded with the rule set
+   identifier returned in step 2.
+4. The grade is approved and recorded in the operational record store with status `Finalized`, and
+   the approving authority is recorded against it.
 
 **Rule.** A finalized grade must carry the rule set identifier under which it was computed.
+
+**No proof is committed here.** A proof is committed over a *student-period record*, not over an
+individual grade (Section 2.8).
 
 ### 2.4 Workflow W-3 — Appeal and correction
 
 **Trigger.** A correction is required to a grade that has already been finalized.
-**Participants.** GRA-Service, IAM, the approval chain, LGS.
+**Participants.** GRA-Service, ECS, IAM, the approval chain, LGS.
 **Flow.**
 
 1. A `GradeAppealRecord` is raised against the finalized grade, referencing it by its transaction
-   identity.
+   identity, with status `UnderReview`.
 2. GRA-Service computes the proposed grade delta under the rule set identified in the original
    record.
-3. The appeal passes through a mandatory, documented approval chain: instructor, then chair, then
-   dean. Each step is recorded.
-4. Until the final signatory approves, the appeal carries the status `UnderReview`. **The
-   original finalized record is not modified, withdrawn, or marked in any way.**
-5. On approval, a **new, versioned record** is appended that references the original via
-   `parent_transaction_id`, carries the status flag of the change, and states the revised grade.
-   The original remains part of the history exactly as finalized.
+3. The appeal passes through the approval chain that ECS supplies for the student's educational
+   level. Each step is recorded.
+4. On rejection, the appeal moves to `Rejected` and no further record is created.
+5. On approval, the appeal moves to `Approved` and a **new, versioned grade record** is appended
+   that references the original via `parent_transaction_id` and carries the status flag of the
+   change. **No field of the original grade record is written.**
+6. The student-period record for that student and period is re-finalized under its new aggregate
+   status (Section 2.9), and LGS commits a **new proof** over it, superseding the prior proof.
 
-**Rule (append-only).** A correction never overwrites the record it corrects. The operational record
-store holds both, linked by `parent_transaction_id`.
+**Rule (append-only).** A correction never overwrites the grade record it corrects. The operational
+record store holds both, linked by `parent_transaction_id`.
 
 > **Decision recorded.** The append-only model is adopted. The alternative — amending the original
-> record in place — is explicitly rejected, because it destroys the evidence that a finalized
+> grade record in place — is explicitly rejected, because it destroys the evidence that a finalized
 > record existed in the form it was finalized.
 
-### 2.5 Workflow W-4 — Promotion between levels
+**Approval chain by level.** ECS supplies the chain required for the student's educational level.
+The customary chains are: instructor → head of year → principal for primary and secondary;
+instructor → chair → dean for college. A level with no chair has no chair step — the chain is
+determined by the rule set, not assumed.
 
-**Trigger.** A student's enrollment record for a level reaches `Completed`.
-**Participants.** ESS, AMS, ECS, IAM, GRA-Service.
+### 2.5 Workflow W-4 — Level transition
+
+**Trigger.** A student's `LevelCompletionRecord` for a level reaches `Completed`.
+**Participants.** GRA-Service, AMS, ECS, IAM, ESS.
 **Flow.**
 
-1. GRA-Service validates that the student meets the credit and pass milestones defined by AMS and
-   ECS for the level being completed.
+1. GRA-Service validates that the student meets the credit and pass milestones for the level, as
+   defined by AMS and ECS.
 2. An IAM-secured role at dean or principal authority manually approves the transition.
-3. ESS updates the student's level to the next expected level and signals the transition.
+3. ESS updates the student's level to the next expected level — as determined by the rule set ECS
+   supplies for the level just completed — and signals the transition.
 4. The transition is recorded as a new versioned record linked to the prior one.
+
+**The `LevelCompletionRecord`.** A student has one level-completion record per educational level. It
+records the requirements met toward completing that level, and it is distinct from a section
+enrollment: a section enrollment covers one course in one section, while a level-completion record
+covers the whole level. It becomes `Completed` when all requirements for the level are met.
 
 ### 2.6 Workflow W-5 — College enrollment
 
@@ -152,30 +171,72 @@ store holds both, linked by `parent_transaction_id`.
 
 1. AMS validates the request against the prerequisite map for the student's program.
 2. AMS confirms the student holds an active major program definition.
-3. ECS supplies the credit capacity constraints in force for the academic period.
+3. ECS supplies the capacity constraints in force for the academic period — the maximum credits
+   a student may carry in the period, and the maximum students a section may hold.
 4. ESS enrolls the student only if every constraint is satisfied, and records the outcome against
-   the governing rule set.
+   the governing rule set. Where a constraint is not satisfied, the request moves to `Refused`.
 
-### 2.7 Proof of finalization — the proof unit
+**Capacity enforcement.** ESS is the single owner of enforcing capacity constraints, and it does so
+at the point of enrollment (Section 3.3). No other domain re-derives or re-enforces them.
+
+### 2.7 Workflow W-6 — Period close and record finalization
+
+**Trigger.** An academic period moves to `Closed`.
+**Participants.** GRA-Service, LGS.
+**Flow.**
+
+1. For each student with finalized grades in the period, GRA-Service assembles the
+   **student-period record**: the canonical `final_academic_record` payload defined by
+   `WORK-LMS-CONTRACT-001`.
+2. The student-period record is marked `Finalized`, and its status is recorded.
+3. LGS commits a proof over the student-period record (Section 2.8).
+
+**Rule.** A student-period record is finalized at period close, and only then is it proven. A grade
+finalized earlier in the period is auditable in the operational record store immediately, but it is
+not itself proven — the proof attests the period aggregate.
+
+### 2.8 Proof of finalization — the proof unit
 
 **One proof unit, stated precisely:**
 
-* **What is proved.** The finalized academic state of **one student, for one academic period**,
-  captured as the canonical `final_academic_record` payload defined by `WORK-LMS-CONTRACT-001`.
-* **Granularity.** One proof per finalized student-period record. A change to that record — an
-  appeal outcome — produces a **new** proof, not a replacement.
-* **How the proof is formed.** The canonical payload is reduced to a fixed form and a digest is
-  computed over it. The proof commits that digest together with the transaction identity, the
-  timestamp, the authorizing authority, and a linkage to the preceding proof in the sequence.
-* **How a verifier re-derives it.** A verifier obtains the canonical payload from the operational
-  record store, reduces it to the same fixed form, computes the digest, and compares it with the
-  committed digest. The sequence linkage lets the verifier establish that no proof was removed or
-  reordered.
+* **What is proved.** The finalized **student-period record** — the canonical `final_academic_record`
+  payload for **one student, for one academic period**, as defined by `WORK-LMS-CONTRACT-001`.
+* **Granularity.** One proof per finalized student-period record. A grade finalized mid-period does
+  **not** produce a proof; the proof is committed at period close (Section 2.7).
+* **How the proof is formed.** The canonical payload is reduced to its **canonical form** and a
+  digest is computed over it. The proof commits that digest together with the transaction identity
+  and a linkage to the preceding proof in the sequence.
+* **What the digest covers.** The canonical form includes the record's identity, its content, the
+  rule set identifier under which it was computed, the time of finalization, and the authorizing
+  authority. It excludes fields that vary between otherwise identical records — session identifiers,
+  last-read markers, and transport metadata — because including them would make the digest
+  irreproducible. **The authority attestation and the time of finalization are inside the digest**,
+  so they are tamper-evident, not merely committed alongside it.
+* **How a verifier re-derives it.** A verifier obtains the canonical payload from the verification
+  surface (Section 4.1), reduces it to the canonical form, computes the digest, and compares it with
+  the committed digest.
+* **The sequence.** One proof sequence per **student**: every proof ever committed for that student,
+  in order, each linked to its predecessor. A verifier is given the student's sequence from its
+  genesis point and walks it. The linkage establishes that **no proof in that student's sequence was
+  removed or reordered**; it does not by itself attest to proofs of other students.
 
 **Rule.** The proof commits evidence of a record's existence and content. It is **not** the record,
 and it does not replace the operational record store.
 
-### 2.8 State transitions
+**Canonical form — required properties.** The canonical form is defined by the
+`CAP-CANONICAL-FORM` capability artifact (`spec-workspace/library/Capabilities/canonical-form.md`),
+which owns the detailed rules. It must satisfy, at minimum:
+
+1. **Stable field set** — the fields included are determined by the record type, not by the
+   occasion.
+2. **Volatile fields excluded** — any field whose value varies between otherwise identical records
+   is excluded, and the exclusion list is part of the definition, not implied.
+3. **Defined ordering** — fields are ordered by a stated rule, so the reduction is deterministic.
+4. **Defined encoding** — one stated encoding is used.
+5. **Versioned** — the canonical form carries its own version, so a change to the rules does not
+   silently invalidate proofs committed under the earlier version.
+
+### 2.9 State transitions
 
 #### Academic period
 
@@ -188,29 +249,65 @@ and it does not replace the operational record store.
 `Closed` is terminal. A record may not be created or modified in a period that is not `Active`
 (Workflow W-1).
 
+#### Grade record
+
+| From | Event | To |
+|---|---|---|
+| — | Assessment results submitted and a grade computed | `Proposed` |
+| `Proposed` | Approved and recorded | `Finalized` |
+
+`Finalized` is **terminal**. No field of a finalized grade record is ever written. A correction does
+not move a grade record to another state — it appends a new one (Workflow W-3).
+
+#### Appeal record
+
+| From | Event | To |
+|---|---|---|
+| — | Appeal raised against a finalized grade | `UnderReview` |
+| `UnderReview` | Final signatory rejects the appeal | `Rejected` |
+| `UnderReview` | Final signatory approves the appeal | `Approved` |
+
+`Rejected` and `Approved` are terminal. On `Approved`, a successor grade record is appended
+(Workflow W-3); the appealed grade record is unchanged.
+
+#### Student-period record
+
+| From | Event | To |
+|---|---|---|
+| — | Period opens for the student | `Open` |
+| `Open` | Period closes and the record is assembled | `Finalized` |
+
+`Finalized` is **terminal**. A later student-period record for the same student and period — for
+example after an approved appeal — does not alter this one. It carries `parent_transaction_id`
+pointing at the record it supersedes.
+
+**Rule.** A finalized student-period record is never altered, and it never leaves the `Finalized`
+state. Supersession is expressed **only** by a successor that links to it. There is no
+`Superseded` state, because recording one would write to a finalized record and change the digest
+computed over it.
+
 #### Enrollment
 
 | From | Event | To |
 |---|---|---|
 | — | Enrollment requested | `Requested` |
-| `Requested` | Prerequisites, capacity and program constraints satisfied | `Enrolled` |
-| `Requested` | A constraint is not satisfied | `Withdrawn` |
-| `Enrolled` | All requirements met for the period | `Completed` |
+| `Requested` | Prerequisites and capacity constraints satisfied | `Enrolled` |
+| `Requested` | A constraint is not satisfied | `Refused` |
+| `Enrolled` | All requirements for the level are met | `Completed` |
 | `Enrolled` | Withdrawn by the student or an administrator | `Withdrawn` |
 
-#### Grade and appeal
+`Refused` and `Withdrawn` are distinct terminal states: a refusal records that the system declined
+the request, a withdrawal records that the student or an administrator ended it. A refused request
+may be submitted again.
+
+#### Level-completion record
 
 | From | Event | To |
 |---|---|---|
-| — | Assessment results submitted and a grade computed | `Proposed` |
-| `Proposed` | Approved and committed as a proof | `Finalized` |
-| `Finalized` | An appeal is raised against it | `Finalized` (unchanged) with an appended appeal in `Proposed` |
-| `Finalized` | An appeal is approved | The original stays `Finalized`; an appended successor record is created, and the original is additionally marked `Superseded` |
-| `Finalized` | An appeal is rejected | The original stays `Finalized`; the appeal moves to `Rejected` |
+| — | Student begins study at a level | `InProgress` |
+| `InProgress` | All requirements for the level are met | `Completed` |
 
-**Rule.** A finalized record only ever leaves `Finalized` by being marked `Superseded` **after** a
-successor has been appended. The mark records which successor supersedes it; it never alters the
-superseded record's content.
+`Completed` is terminal and triggers Workflow W-4.
 
 ---
 
@@ -221,33 +318,42 @@ superseded record's content.
 | Domain | Responsibility | Operations it exposes | Operational record it owns |
 |---|---|---|---|
 | **IAM** | Identify and authorize actors; hold the user profile. | Authenticate an actor and return an access assertion; return the profile of an authenticated actor; resolve the authorities held by an actor. | `User`, `UserGroup`, `Scope`, `Authority` |
-| **ECS** | **The rule authority.** Determine the rules in force for an educational level and academic period. | Given an educational level and academic period, return the governing rule set identifier and the rules it contains; given a period, return its current status. | `EducationalLevel`, `AcademicPeriod`, `CycleType`, `FormulaRules` |
+| **ECS** | **The rule authority.** Determine the rules in force for an educational level and academic period. | Given an educational level and academic period, return the governing rule set identifier and the rules it contains; given a period, return its current status; return the approval chain required for a level. | `EducationalLevel`, `AcademicPeriod`, `CycleType`, `FormulaRules` |
 | **AMS** | Define what is taught: subjects, course definitions, degree structures, prerequisite maps. | Define a course, validated against the prerequisite map; define a program of study; return the prerequisites of a course. | `CourseCatalog`, `ProgramMap` |
-| **FRAS** | Allocate instructional resources to scheduled sections, and enforce capacity and load constraints on that allocation. | Assign an instructor to a section, validated against instructor load and section capacity; return an instructor's load record. | `Faculty`, `Assignment`, `LoadRecord` |
-| **ESS** | Instantiate learning: sections, enrollments, scheduling. | Enroll a student in a section, validated against prerequisites (AMS) and capacity (FRAS); return a student's enrollment instance. | `Section`, `Enrollment` |
-| **GRA-Service** | Compute the final grade under the governing formula; own the appeal and review history. | Submit an assessment result and receive the computed final grade; raise an appeal against a finalized grade; record an approval step. | `GradeRecord`, `GradeAppealRecord`, `ReviewLog` |
-| **LGS** | Commit the immutable proof of grade finalization; maintain the proof sequence. | Commit a proof over a finalized `final_academic_record` payload; return the proof sequence for verification. | `BlockHash`, `TransactionID` |
+| **FRAS** | Allocate instructional resources to scheduled sections; own instructor load. | Assign an instructor to a section, validated against instructor load; return an instructor's load record. | `Faculty`, `Assignment`, `LoadRecord` |
+| **ESS** | Instantiate learning: sections, enrollments, scheduling; enforce capacity constraints at enrollment. | Enroll a student in a section, validated against prerequisites (AMS) and capacity (ECS); return a student's enrollment instance. | `Section`, `Enrollment` |
+| **GRA-Service** | Compute the final grade under the governing formula; own grade, appeal, review and level-completion records. | Submit an assessment result and receive the computed final grade; raise an appeal against a finalized grade; record an approval step; assemble a student-period record. | `GradeRecord`, `GradeAppealRecord`, `ReviewLog`, `LevelCompletionRecord` |
+| **LGS** | Commit the immutable proof of a finalized student-period record; maintain the proof sequence. | Commit a proof over a finalized student-period record; return a student's proof sequence for verification. | `BlockHash`, `TransactionID` |
 
 ### 3.2 The closed set of ECS consumers
 
-The following domains **must** consult ECS before any critical state change, and no others are
+The following domains **must** consult ECS before any critical state change, and no other domain is
 required to:
 
-`AMS`, `ESS`, `GRA-Service`, `FRAS`, `LGS`
+`AMS`, `ESS`, `FRAS`, `GRA-Service`
 
-ECS itself is the authority and is not a consumer of itself. IAM is not a consumer — it authorizes
-actors, and does not vary by educational level or academic period.
+Each is shown consulting ECS in a workflow: AMS, ESS and FRAS in W-1 (Section 2.2), GRA-Service in
+W-2 (Section 2.3). **LGS is not a consumer** — it commits a proof over an already-finalized record
+and does not vary by educational level or academic period. ECS is the authority and is not a
+consumer of itself. IAM is not a consumer — it authorizes actors and does not vary by level or
+period.
 
 ### 3.3 Capacity and load ownership
 
-**Ownership is split by decision, not by duplication:**
+**Two distinct constraints, each with exactly one owner. No constraint has two enforcers.**
 
-* **ECS** *defines* the capacity constraint — how many students a section may hold, derived from
-  the rule set in force.
-* **FRAS** *enforces* it — FRAS is the single owner of capacity-and-load validation at the point
-  of instructional allocation, checking both instructor load and section capacity.
-* **ESS** *consumes* the outcome — ESS enrolls against the allocation FRAS has already validated,
-  and does not re-derive or re-own the constraint.
+| Constraint | Defined by | Enforced by | When |
+|---|---|---|---|
+| **Section capacity** — maximum students a section may hold | ECS | **ESS** | At enrollment |
+| **Credit capacity** — maximum credits a student may carry in a period | ECS | **ESS** | At enrollment |
+| **Instructor load** — maximum teaching load and availability of an instructor | FRAS | **FRAS** | At section allocation |
+
+ECS *defines* the capacity constraints because they are level- and period-dependent, exactly like
+every other rule. ESS *enforces* them because it is the domain that acts on them, and it does so
+once, at enrollment. FRAS owns instructor load outright — it is a property of the instructor, not a
+rule derived from a level or period, so neither ECS nor ESS is involved.
+
+**No other domain re-derives or re-enforces a capacity constraint.**
 
 ### 3.4 Academic period ownership
 
@@ -260,19 +366,50 @@ ECS-owned identity.
 
 ### 3.5 The audit trail has a stated home
 
-The operational record store holds the complete, authoritative academic history: finalized grades,
-appeal records, approval-chain review logs, and appeal status flags. GRA-Service does **not** hold
-this state transiently — its own working state is transient, but every artifact it produces is
-committed to the operational record store as it is produced.
+The operational record store holds the complete, authoritative academic history: finalized grade
+records, appeal records, approval-chain review logs, student-period records, level-completion
+records, and their linkage. GRA-Service does **not** hold this state transiently — its own working
+state is transient, but every artifact it produces is committed to the operational record store as
+it is produced.
 
 ### 3.6 The operational record store is the record of truth
 
 The operational record store is the authoritative, complete, approved state of a student's academic
 history. It is always able to answer, for any student and period, the full set of grades, appeals,
-and status flags that have been recorded — including the records that a later appeal superseded,
-which remain present and linked.
+status flags and records — including those that a later appeal superseded, which remain present and
+linked.
 
 LGS commits proof over that state. LGS does not hold it, and does not replace it.
+
+### 3.7 The operational record store is a component, not a domain
+
+The operational record store is a **named durable component** of the system, and it is deliberately
+not one of the seven service domains. It is the component that holds the authoritative state and
+that publishes the canonical payload for verification.
+
+**Responsibility.** Hold the authoritative, complete academic history. Publish the canonical
+payload for verification. Retain superseded records with their linkage.
+
+**Operations it exposes.** Exactly two, and they are the only way anything outside the system reads
+authoritative academic state:
+
+1. **Read a student's period history** — returns the records for one student and period, including
+   superseded ones and their linkage.
+2. **Publish the canonical payload for verification** — returns the canonical form of a finalized
+   student-period record, so a verifier can recompute the digest.
+
+**Ownership.** Each domain owns the records it produces *within* the store, and no domain owns
+another domain's records. The store itself is a shared durable component; it has no domain
+ownership of its own, because its contents are owned domain by domain and its behaviour is defined
+by the two operations above.
+
+**Why it is not a domain.** It has no rules of its own to enforce and no independent decision to
+make. Treating it as a domain would give it an identity to own, which it does not have.
+
+**Longevity.** The store is replicated and archived. Because the proof sequence and the canonical
+payload are both archived, the loss of any single service — including the store itself — does not
+destroy provability: a verifier can recompute the digest from an archived copy of the canonical
+payload and check it against the archived proof sequence.
 
 ---
 
@@ -284,12 +421,17 @@ The following are explicitly **out of scope** for this specification:
 
 * **Implementation.** No language, framework, storage engine, deployment platform, or hosting
   arrangement is specified or implied. Those are chosen when the implementation plan is created.
-* **Delivery model.** How the seven domains are deployed, scaled, or networked is not specified.
+* **Delivery model.** How the seven domains and the operational record store are deployed, scaled,
+  or networked is not specified.
 * **Field-level academic record contracts.** Defined by `WORK-LMS-CONTRACT-001`, not here.
 * **Financial, payroll, and human-resources functions.** Only the instructional allocation that
   academic scheduling requires is in scope.
 * **Learning content authoring.** Course content is referenced by identity, not modelled.
 * **Third-party integration protocols.** Consumers outside the seven domains are not specified.
+  **This is not the same as excluding third-party verification.** Section 2.8 requires a read-only
+  verification surface over the canonical payload and the proof sequence, owned by the operational
+  record store (Section 3.7). What is excluded is a *protocol* by which other systems integrate
+  with the seven domains.
 * **Historical migration of existing records.** The system governs records it creates.
 * **Correction of records finalized before this system existed.**
 
@@ -297,12 +439,13 @@ The following are explicitly **out of scope** for this specification:
 
 | # | Criterion | How it is judged |
 |---|---|---|
-| S-1 | A finalized record cannot be altered without leaving a linked, appended successor. | Audit of the operational record store shows original and successor both present, linked by `parent_transaction_id`. |
-| S-2 | Any finalized record can be verified by a party with no access to the originating services. | The proof digest recomputes from the record the store holds. |
+| S-1 | A finalized grade record cannot be altered without leaving a linked, appended successor. | Audit of the operational record store shows original and successor both present, linked by `parent_transaction_id`, with the original's fields unchanged. |
+| S-2 | Any finalized student-period record can be verified by a party with no access to the originating services. | The digest recomputes from the canonical payload published on the verification surface. |
 | S-3 | Every finalized grade states the rule set it was computed under. | Every finalized grade carries a rule set identifier that resolves to a known rule set. |
-| S-4 | No record is created in an academic period that is not active. | No enrollment or grade submission exists whose period was not `Active` at creation. |
-| S-5 | A promotion is never automatic. | Every promotion records an explicit approval by a dean or principal authority. |
+| S-4 | No record is created in an academic period that is not active. | No enrollment, grade submission, section allocation, or course definition exists whose period was not `Active` at creation. |
+| S-5 | A level transition is never automatic. | Every level transition records an explicit approval by a dean or principal authority. |
 | S-6 | Rules in force are consistent across every domain that depends on them. | ECS is the sole source of the rule set for a level and period, and every dependent domain records the identifier it used. |
+| S-7 | A proof is committed for every finalized student-period record, and only for those. | The set of committed proofs corresponds exactly to the set of finalized student-period records. |
 
 ---
 
@@ -310,12 +453,12 @@ The following are explicitly **out of scope** for this specification:
 
 | Attribute | Expectation |
 |---|---|
-| **Immutability** | A finalized record is never altered in place. Corrections append a linked successor. The operational record store and the proof sequence must both reflect the append. |
-| **Verifiability** | The proof of a finalized record must be independently recomputable from the record the store holds, by a party with no privileged access. |
-| **Auditability** | Every state change to an academic record — creation, appeal, approval step, promotion — must be attributable to an actor and an authorization, and retained. |
+| **Immutability** | No field of a finalized grade record, and no field of a finalized student-period record, is ever written. A correction appends a new record and expresses the relationship by linkage; it does not amend what it corrects. |
+| **Verifiability** | The proof of a finalized student-period record must be independently recomputable from the canonical payload published on the verification surface, by a party with no privileged access. |
+| **Auditability** | Every state change to an academic record — creation, appeal, approval step, level transition — must be attributable to an actor and an authorization, and retained. |
 | **Determinism** | Given the same rule set and the same assessed inputs, the computed grade must be identical. The rule set identifier must therefore be sufficient to reproduce a computation. |
 | **Completeness** | The operational record store must be able to reconstruct a student's complete academic history at any point in time, including superseded records. |
-| **Traceability of authority** | Every record that depends on a rule set must name it; every record that depends on an approval must name the approving authority. |
+| **Traceability of authority** | Every record that depends on a rule set must name it; every record that depends on an approval must name the approving authority; and both are inside the digested canonical form. |
 | **Refusal over ambiguity** | When a rule set cannot be resolved, a governing context cannot be established, or an approval is absent, the operation must be refused rather than completed under an assumption. |
 | **Latency** | The system must not make correctness contingent on timing. No workflow may race an academic period's status or an approval. |
 
@@ -323,9 +466,9 @@ The following are explicitly **out of scope** for this specification:
 
 ## 6. Architecture composition decision
 
-**Decision.** The system is composed of **seven independently-owned service domains with a single
-rule authority (ECS) and a single proof authority (LGS)**, connected by explicit operation contracts
-rather than by shared state.
+**Decision.** The system is composed of **seven independently-owned service domains, one rule
+authority (ECS), one proof authority (LGS), and one shared durable component (the operational
+record store)**, connected by explicit operation contracts rather than by shared state.
 
 **Rationale.**
 
@@ -334,11 +477,14 @@ rather than by shared state.
   same computation could legitimately produce different answers.
 * Separating the proof authority from the record authority keeps the record store complete and
   queryable (Section 3.6), instead of making the proof sequence the primary store.
+* Treating the operational record store as a component rather than a domain keeps the seven service
+  domains a closed set of decision-makers, while still giving the component that holds the
+  authoritative state a name, a boundary, and exactly two operations (Section 3.7).
 * Explicit operation contracts, rather than shared state, keep the boundaries in Section 3
   enforceable: a domain that needs another's data must call that domain's operation.
 
-**Consequence.** Domain boundaries are contracts, not deployment boundaries. The seven domains may
-be deployed together or separately; that choice is not made here.
+**Consequence.** Domain boundaries are contracts, not deployment boundaries. The seven domains and
+the operational record store may be deployed together or separately; that choice is not made here.
 
 ---
 
@@ -346,7 +492,8 @@ be deployed together or separately; that choice is not made here.
 
 **Decision.** The specification collection is rooted at
 `spec-workspace/projects/blockchain-enabled-lms/`, and the codebase — when created — is rooted at
-`generated-projects/blockchain-enabled-lms/`, bound to the collection by `binding.yaml`.
+`generated-projects/blockchain-enabled-lms/`, bound to the collection by `binding.yaml`. This path
+is fixed by the root `AGENTS.md`; it is not an open question.
 
 **Layout.**
 
@@ -372,30 +519,55 @@ generated-projects/blockchain-enabled-lms/
 `binding.yaml` pair is the traceability link: the collection points at the codebase, and the
 codebase points back at the collection's identifier and version.
 
-**Consequence.** A codebase directory exists only after its `binding.yaml` is written. The
-collection's `binding.yaml` states the identifier and version of the specification it is bound to
-(`SRS-LMS-v1.0`, version 1.0). The location of the codebase directory for this project is **not yet
-decided** — see Section 9.
+**Consequence.** A codebase directory exists only after its `binding.yaml` is written. Until then
+the collection's `binding.yaml` declares the identifier and version but has no binding target.
+
+**Open.** Whether the exploratory `lms-platform/` and `src/identity/` directories are folded into
+the codebase directory, or removed, is undecided — `WORK-017`, `WORK-035`.
 
 ---
 
 ## 8. Related artifacts
 
-| Artifact | Relationship to this specification |
-|---|---|
-| `schema/final-academic-record.md` | Normative rendering of the `final_academic_record` payload. Defines the payload shape referenced by Section 2.7. Authoritative source: `tasks/task-LMS-CONTRACT-001-noncode.md`. |
-| `tasks/task-LMS-CONTRACT-001-noncode.md` | Task specification that defines the field-level data contract for the finalized academic record. |
-| `tasks/task-LMS-CONTRACT-001-plan.md` | The implementation plan derived from that task specification. |
-| `tasks/task-LMS-CONTRACT-001-handoff.md` | The running handoff for that task. |
-| `binding.yaml` | Binds this collection's identifier and version to the codebase. |
-| `service-contracts.yaml` | Runtime dependency manifest between the domains of Section 3.1. It is a **runtime artifact**, not a source of authority — where it disagrees with Section 3, this document governs. |
-| `AGENTS.md` (project) | Project-local rules that bind any work in this collection. |
+### 8.1 Artifacts in this collection
 
-**Domain coverage.** This document defines seven domains (Section 3.1).
-`service-contracts.yaml` currently declares three runtime bindings and records five domains as
-unmapped. That manifest is **incomplete against this specification**, not contradictory to it: the
-domain model here is the authority, and the manifest is to be brought into agreement. The unmapped
-domains are `ECS`, `AMS`, `FRAS`, `ESS`, and `GRA-Service`.
+| Artifact | State | Relationship to this specification |
+|---|---|---|
+| `schema/final-academic-record.md` | exists, `Draft` | Normative rendering of the `final_academic_record` payload — the payload a proof is computed over (Section 2.8). Authoritative source: `tasks/task-LMS-CONTRACT-001-noncode.md`. |
+| `tasks/task-LMS-CONTRACT-001-noncode.md` | exists, `Draft` | Task specification that defines the field-level data contract for the finalized student-period record. |
+| `tasks/task-LMS-CONTRACT-001-plan.md` | **not yet created** | The implementation plan for that task, produced by `wf-plan`. Its canonical path is listed in Section 7; the file does not exist yet. |
+| `tasks/task-LMS-CONTRACT-001-handoff.md` | exists, `Open` | The running handoff for that task. Disposable: deleted once its status is `Done`. |
+| `binding.yaml` | exists | Declares this collection's identifier and version. Its codebase binding target is not yet determined. |
+| `service-contracts.yaml` | exists | Runtime dependency manifest. It declares all seven domains: three have a runtime binding specified, and four are marked `not-yet-specified`. It also declares one service with `domain: unresolved` — a gateway whose place in the domain model is undecided. This manifest is a **runtime artifact**, not a source of authority; where it disagrees with Section 3, this document governs. |
+| `AGENTS.md` (project) | exists | Project-local rules that bind any work in this collection. |
+
+### 8.2 Section-anchor map
+
+Child artifacts cite this specification by section. The anchors are stable:
+
+| Concern | Section |
+|---|---|
+| Objectives and stakeholders | §1.2, §1.4 |
+| Capabilities | §2.1 |
+| Academic period gatekeeping | §2.2 |
+| Grade submission | §2.3 |
+| Appeal and correction; audit linkage | §2.4 |
+| Level transition | §2.5 |
+| College enrollment | §2.6 |
+| Period close and record finalization | §2.7 |
+| Proof unit; canonical form | §2.8 |
+| State transitions and status vocabulary | §2.9, §9 |
+| Domain responsibilities and operations | §3.1 |
+| ECS consumers | §3.2 |
+| Capacity and load ownership | §3.3 |
+| Academic period ownership | §3.4 |
+| Audit trail home | §3.5 |
+| Operational record store | §3.6, §3.7 |
+| Non-goals; success criteria | §4.1, §4.2 |
+| Quality expectations | §5 |
+| Composition decision | §6 |
+| Repository topology | §7 |
+| Glossary | §10 |
 
 ---
 
@@ -403,16 +575,25 @@ domains are `ECS`, `AMS`, `FRAS`, `ESS`, and `GRA-Service`.
 
 | # | Question | Owner | Blocks |
 |---|---|---|---|
-| Q-1 | Which domain is the authoritative source for the value of the rule set identifier that the finalized record carries? | ECS / GRA-Service domain owners | `WORK-LMS-CONTRACT-001` (the `GoverningRuleSetID` field) |
+| Q-1 | Which domain is the authoritative source for the value of the rule set identifier that a finalized record carries? | ECS / GRA-Service domain owners | `WORK-LMS-CONTRACT-001` (the `GoverningRuleSetID` field) |
 | Q-2 | What is the agreed data format for `parent_transaction_id` across the domains that produce and consume it? | Domain owners | `WORK-LMS-CONTRACT-001` (the `parent_transaction_id` field) |
-| Q-3 | Where is the codebase directory for this project created? | Architecture owner | `WORK-017`, `WORK-030` |
-| Q-4 | Which capability artifacts define the shared `UserID`, `TimestampFormat`, `StatusEnums`, and `SchemaVersionConstraint` vocabularies that this specification uses? | Architecture owner | `WORK-020` |
+| Q-3 | Should the exploratory `lms-platform/` and `src/identity/` directories be folded into the codebase directory, or removed? | Architecture owner | `WORK-017`, `WORK-035` |
+| Q-4 | Which capability artifacts define the shared `UserID`, `TimestampFormat`, `StatusEnums`, and `SchemaVersionConstraint` vocabularies that the **child task specification** adopts normatively? This specification defines its own status vocabulary inline (Section 9 below) and does not use those four. | Architecture owner | `WORK-020`, `WORK-LMS-CONTRACT-001` |
+| Q-5 | Which domain owns the canonical form rules that `CAP-CANONICAL-FORM` defines — ECS as the rule authority, or LGS as the proof authority? | Architecture owner | `WORK-020` |
 
-**Status vocabulary used by this specification.** The academic period status values are `Draft`,
-`Active`, `Closed`. The grade and appeal status values are `Proposed`, `UnderReview`, `Finalized`,
-`Superseded`. The enrollment status values are `Requested`, `Enrolled`, `Completed`, `Withdrawn`.
-These are defined **here** as normative for this project; a shared capability artifact for them
-does not yet exist (Q-4).
+### 9.1 Status vocabulary used by this specification
+
+| Entity | Status values |
+|---|---|
+| Academic period | `Draft`, `Active`, `Closed` |
+| Grade record | `Proposed`, `Finalized` |
+| Appeal record | `UnderReview`, `Approved`, `Rejected` |
+| Student-period record | `Open`, `Finalized` |
+| Enrollment | `Requested`, `Enrolled`, `Completed`, `Refused`, `Withdrawn` |
+| Level-completion record | `InProgress`, `Completed` |
+
+These are normative for this project. The shared `StatusEnums` capability artifact does not yet
+exist (Q-4); until it does, this table is the authority.
 
 ---
 
@@ -420,12 +601,16 @@ does not yet exist (Q-4).
 
 | Term | Meaning in this document |
 |---|---|
-| **Record** | A single fact about a student's academic history — a grade, an appeal, an approval step, an enrollment. Distinct from *proof*, which is evidence about a record. |
-| **Proof** | A committed, independently recomputable digest over a canonical record, together with its position in the proof sequence. Evidence *of* a record, never the record itself. |
+| **Grade record** | The immutable record of one assessed outcome for one student in one assessment. Terminal once `Finalized`. |
+| **Student-period record** | The aggregate of a student's finalized grades for one academic period. This is what a proof is computed over. |
+| **Level-completion record** | A student's record of requirements met toward completing one educational level. Distinct from a section enrollment. |
+| **Proof** | A committed, independently recomputable digest over the canonical form of a finalized student-period record, together with its position in that student's proof sequence. Evidence *of* a record, never the record itself. |
+| **Canonical form** | The deterministic reduction of a record to the exact bytes a digest is computed over. Defined by `CAP-CANONICAL-FORM`. |
 | **Operational record store** | The authoritative, complete state of academic history. The record of truth for this system. |
-| **Rule set** | The complete set of rules in force for an educational level and academic period. Identified by an identifier that a finalized record carries. |
+| **Rule set** | The complete set of rules in force for an educational level and academic period. Identified by an identifier that a finalized grade carries. |
 | **Academic period** | A named span of time with a status and a cycle type. Owned solely by ECS. |
-| **Finalized record** | A record that has been approved and committed. Never altered; only superseded by an appended successor. |
+| **Level transition** | A student's progression from one educational level to the next. Distinct from academic promotion or graduation. |
+| **Superseded** | The relationship a later student-period record has to an earlier one, expressed by the successor's `parent_transaction_id`. **Not a state.** A superseded record is still `Finalized`, with its content and its digest unchanged. |
 | **Appended successor** | A new record created to correct a finalized one, linked to it by `parent_transaction_id`. |
 
 ---
@@ -434,9 +619,9 @@ does not yet exist (Q-4).
 
 **This requirement applies from the first approved version onward.** Pre-approval drafting — up to
 and including the version that first earns approval — is governed by the review-and-approval
-process itself, not by this section. The 2026-11-13 rewrite was pre-approval drafting: it
-addressed the blocking findings of the independent review recorded as `WORK-039`, and it therefore
-did not increment the version.
+process itself, not by this section. The 2026-11-13 rewrites were pre-approval drafting: they
+addressed the blocking findings of the independent reviews recorded as `WORK-039` and `WORK-079`,
+and they therefore did not increment the version.
 
 Changes to an **approved** specification require:
 

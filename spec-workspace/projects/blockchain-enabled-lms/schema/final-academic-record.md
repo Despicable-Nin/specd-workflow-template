@@ -113,9 +113,10 @@ original's content. The new record carries:
 - `parent_transaction_id` - the `recordId` / transaction identity of the record being amended.
 - `change_status` - the nature of the change.
 
-Per the parent specification (SRS Section 2.8), a finalized record leaves the `Finalized` state
-only by being marked `Superseded`, and **only after** the successor has been appended. The mark
-records which successor supersedes it; it never changes the superseded record's own content.
+Per the parent specification (SRS Section 2.9), a finalized record's state is terminal and is
+never written to. A correction appends a successor that links back through `parent_transaction_id`;
+supersession is expressed by that link alone, because recording a `Superseded` state would write to
+a finalized record and change the digest computed over it.
 
 The complete, approved state of the student's academic history is held in the operational
 record store, which is the system of record (SRS Section 3.6); the Ledger Service (LGS) commits an
