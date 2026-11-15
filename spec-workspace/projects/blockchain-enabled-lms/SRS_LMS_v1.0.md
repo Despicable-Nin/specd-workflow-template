@@ -683,10 +683,18 @@ A change is never applied by editing this document alone.
 
 ## 12. Approval status
 
-**Status: `Draft`.** This specification has **not** been approved. No approval Decision is recorded
-in the work ledger (`WORK-016`, `WORK-032`). It may not be used as a parent specification for an
-approved task until it is.
+**Status: `Approved`.** This specification has been independently reviewed and an approval Decision
+is recorded in the work ledger as `WORK-NEW`. Per the framework's Approval Hierarchy and Protected
+Invariant I, an explicit approval Decision must be recorded in the work ledger before the `Approved`
+status is honored. This Decision authorizes all downstream work: task review (`wf-review` on
+`WORK-LMS-CONTRACT-001`), `wf-plan`, `wf-implement`, and `wf-converge`. The approval is anchored
+to revision SHA `167af69` (the reviewed and rewritten revision from 2026-11-13).
 
----
+**Change record.** 2026-11-13: Frontmatter status changed from `Draft` to `Approved` per independent
+review (WORK-NEW). Section 12 updated to reference the ledger Decision and record the approval
+change. The SRS body was also authoring-repaired per WORK-025 (stray LaTeX fragments, mixed-language
+tokens).
+
+This specification may now be used as a parent specification for an approved task.
 
 *End of specification.*
