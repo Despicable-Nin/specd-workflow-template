@@ -253,7 +253,7 @@ student-period record that supersedes it by linkage. Either way the prior record
 and it does not replace the operational record store.
 
 **Canonical form — required properties.** The canonical form is defined by the
-`CAP-CANONICAL-FORM` capability artifact (`spec-workspace/library/Capabilities/canonical-form.md`),
+`CAP-CANONICAL-FORM` capability artifact (`spec-workspace/library/Capabilities/CAP-CANONICAL-FORM.md`),
 which owns the detailed rules. It must satisfy, at minimum:
 
 1. **Declared field set** — the fields included are exactly those the record type's canonical field
@@ -684,16 +684,17 @@ A change is never applied by editing this document alone.
 ## 12. Approval status
 
 **Status: `Approved`.** This specification has been independently reviewed and an approval Decision
-is recorded in the work ledger as `WORK-NEW`. Per the framework's Approval Hierarchy and Protected
+is recorded in the work ledger as `WORK-039`. Per the framework's Approval Hierarchy and Protected
 Invariant I, an explicit approval Decision must be recorded in the work ledger before the `Approved`
 status is honored. This Decision authorizes all downstream work: task review (`wf-review` on
 `WORK-LMS-CONTRACT-001`), `wf-plan`, `wf-implement`, and `wf-converge`. The approval is anchored
 to revision SHA `167af69` (the reviewed and rewritten revision from 2026-11-13).
 
 **Change record.** 2026-11-13: Frontmatter status changed from `Draft` to `Approved` per independent
-review (WORK-NEW). Section 12 updated to reference the ledger Decision and record the approval
+review (`WORK-039`). Section 12 updated to reference the ledger Decision and record the approval
 change. The SRS body was also authoring-repaired per WORK-025 (stray LaTeX fragments, mixed-language
-tokens).
+tokens). 2026-11-16: the Decision reference was corrected from the placeholder `WORK-NEW` to the
+actual Decision id `WORK-039`; no semantic change.
 
 This specification may now be used as a parent specification for an approved task.
 

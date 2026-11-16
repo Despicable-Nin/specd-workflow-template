@@ -7,39 +7,43 @@ spec_collection:
   id: SPEC-LMS-v1.0
   version: 1.0
   title: Blockchain-Enabled LMS
-  status: Draft
+  status: Approved
   path: spec-workspace/projects/blockchain-enabled-lms/
 
 root_spec:
   id: SRS-LMS-v1.0
   version: 1.0
-  status: Draft
+  status: Approved
   file: SRS_LMS_v1.0.md
 
 spec_files:
   - path: SRS_LMS_v1.0.md
     id: SRS-LMS-v1.0
     version: 1.0
-    status: Draft
+    status: Approved
     role: Parent specification - objectives, capabilities, workflows, domain boundaries, quality expectations, composition and topology decisions.
   - path: schema/final-academic-record.md
     id: SCHEMA-LMS-FAR-v1.0
     version: 1.0.0
-    status: Draft
+    status: Approved
     role: Normative rendering of the final_academic_record payload.
   - path: tasks/task-LMS-CONTRACT-001-noncode.md
     id: WORK-LMS-CONTRACT-001
-    version: 1.1
-    status: Draft
+    version: 1.5
+    status: Approved
     role: Task specification - authoritative definition of the final_academic_record contract.
+  - path: tasks/task-LMS-CONTRACT-001-noncode-calibration.md
+    id: CALIBRATION-LMS-CONTRACT-001
+    status: Draft - retrospective, requires user confirmation
+    role: The six calibration choices for this task. Retrospective; see WORK-148.
   - path: tasks/task-LMS-CONTRACT-001-plan.md
     id: PLAN-LMS-CONTRACT-001
     version: 1.0
-    status: pending
-    role: Implementation plan - the source of truth for wf-implement.
+    status: stale - regenerate from task spec v1.5
+    role: Implementation plan - written against v1.2; superseded by v1.5. Not a source of truth until regenerated.
   - path: tasks/task-LMS-CONTRACT-001-handoff.md
     id: HANDOFF-LMS-CONTRACT-001
-    status: Open
+    status: In Progress
     role: The task's running handoff. Disposable - deleted once Done.
 
 # The authoritative source for the final_academic_record contract is the task

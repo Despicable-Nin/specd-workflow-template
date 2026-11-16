@@ -7,14 +7,20 @@ repo: D:\hobby\specd-workflow-template
 base_branch: main
 calibration: {1: A, 2: E, 3: B, 4: A, 5: A, 6: C}
 workflow: A
-decision: ''
-status: in-progress
-pending: ''
-worktree: ''
-branch: ''
+decision: 'Stale. Written against task specification v1.2; the specification is now v1.5 and this plan describes a superseded model. Regenerate via wf-plan before implementation.'
+status: stale
+pending: 'Regenerate from task specification v1.5. The plan still describes UUIDv4 identifier mandates and an integration-test requirement, both removed in v1.4, and does not reflect the removal of the record envelope, the embedded appeal object, the change_status field or the GradeAssessment object.'
+worktree: D:/hobby/specd-worktree/lms-contract-plan
+branch: task/WORK-LMS-CONTRACT-001-plan
 ---
 
 # Plan — WORK-LMS-CONTRACT-001
+
+> **Stale — do not implement from this file.** This plan was written against task specification
+> **v1.2**. The specification is now **v1.5**, which removed the record envelope, the embedded
+> appeal object, the `change_status` field and the `GradeAssessment` object, and which no longer
+> mandates UUIDv4 identifiers or an integration test. Nothing below has been re-verified against
+> v1.5. Regenerate this plan with `wf-plan` from v1.5 before any `wf-implement` run (`I-02`).
 
 ## Progress
 
