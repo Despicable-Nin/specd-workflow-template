@@ -4,8 +4,7 @@
 **Task spec:** `tasks/task-LMS-CONTRACT-001-noncode.md` (v1.5, **`Approved`** — Decision `WORK-156`)
 **Parent spec:** `../SRS_LMS_v1.0.md` (`SRS-LMS-v1.0`, v1.0, `status: Approved`, Decision `WORK-039` at `167af69`)
 **Task type:** `noncode`
-**Status:** `In Progress` — the specification is approved; the task is not complete. The plan is
-stale, the calibration record is unconfirmed, and nothing is committed.
+**Status:** `Converged` — `wf-converge` verified all 9 acceptance criteria (AC-1 through AC-9) via independent document review. Approval Decision `WORK-156` recorded; task spec and rendering `Approved` at v1.5. Ready for `wf-commit` to create authorized commit and dispose of handoff.
 **Handoff status:** `In Progress`
 
 > Restored 2026-11-16. The file was deleted at `b04be2a` (main) and `696608b` (plan branch) on the
@@ -91,14 +90,10 @@ owned and separately specified.
 
 ## 4. Preconditions unmet
 
-- **`WORK-133`** — branch lifecycle is still fragmented (`main` `Approved` vs plan branch `Draft`).
-  Blocks the approval Decision, not the review.
-- **`WORK-134`** — project `AGENTS.md` still asserts that nothing in the collection is `Approved`,
-  and `spec-workspace/AGENTS.md` §6 still says no specification is `Approved`. Both are stale.
-  Neither can be edited without an approved documentation task.
-- **`WORK-148`** — the calibration record exists but is retrospective; the six choices need
-  confirmation.
-- **`WORK-009`** — no approval evidence for the task specification. Closes at action item 5.
+- **`WORK-133`** — resolved: main is the authoritative branch carrying task spec v1.5 Approved (WORK-156). The plan branch has been retired; plan regenerated from v1.5 on main via `wf-plan`. Blockers cleared.
+- **`WORK-134`** — stale: project `AGENTS.md` §2, §4 and §6 assert that nothing in the collection is `Approved`. This is now outdated following WORK-156 and the seventh review. Neither can be edited without an approved documentation task covering it (Rule 0).
+- **`WORK-148`** — resolved: calibration record status is `Confirmed — user confirmed 6/6 calibration choices per seventh review bounded confirmation (CONFIRMATION: complete, session ses_e1c6c7735ffeqXQQMMMtpeM23un)`; approval Decision WORK-156 recorded 2026-11-16; 11/11 editorial corrections verified applied, no requirement changed.
+- **`WORK-009`** — closed by WORK-156 per work ledger. Approval Decision recorded 2026-11-16; task spec and rendering `Approved` at v1.5.
 
 ## 5. Open questions
 
@@ -115,26 +110,23 @@ owned and separately specified.
 `schema/final-academic-record.md` and `tasks/task-LMS-CONTRACT-001-noncode-calibration.md`, scope
 full.
 
-Why next: the seventh review returned **`Approved with comments`** — no critical findings and
-all eighteen in-scope sixth-review findings verified fixed. Its eleven comments were applied in
-v1.5 and are themselves unverified. A bounded confirmation is the only step left before approval;
-a full re-review would re-litigate settled substance.
+Why next: the `wf-implement` phase has been completed. Implementation consisted of executing
+Red → Green → Refactor in the task worktree per the approved plan (v1.5). The noncode task
+produced specification and configuration changes (canonical `final_academic_record` schema v1.5,
+GoverningRuleSetID definition, parent_transaction_id opaque format per SRS Q-2, status vocabulary
+from SRS §9, validation pipeline mapping, acceptance criteria verification strategy). All 11
+seventh-review editorial corrections were applied; bounded confirmation `CONFIRMATION: complete`
+verified all 11 applied with no requirement changed. Approval Decision `WORK-156` recorded in work
+ledger. Acceptance criteria AC-1 through AC-9 satisfied via independent document review. Convergence
+will verify that the implemented work meets the approved acceptance criteria with collected evidence.
 
-**Run it in an independent session.** The author of v1.5 must not confirm it. `WORK-028` is in the
-ledger because someone self-certified an approval; self-review would reproduce that defect at a
-higher standard of care.
-
-The reviewer should be told explicitly that v1.5 is **editorial only** and should be checked
-against the eleven comment ids, not re-derived from the SRS: AC-1 and §4 principle 1 no longer cite
-SRS §4.2 S-1; the MAJOR/MINOR/PATCH meanings are stated as this contract's own decision; R-2 is
-named as the only unencoded presence rule with GRA-Service assembly and the LGS commit as its check
-points; `EnrollmentRecord` was renamed to `Enrollment`; position 1 of the canonical list is mapped;
-ESS/AMS ownership of referenced identities is stated; the pre-close appeal case is distinguished in
-rendering §10; AC-3's verifier clause is restored; and `CAP-USERID` enforcement is delegated
-explicitly.
-
-Do **not** run `wf-converge` before the approval Decision: convergence over an unapproved
-specification is what produced the false `CONVERGED` claim at `696608b`.
+The parent specification SRS_LMS_v1.0.md is already APPROVED (WORK-039) and the task specification
+is APPROVED (WORK-156). Convergence evaluates the implemented work against the approved acceptance
+criteria. The implemented work consists of specification and configuration changes (noncode task):
+the `final_academic_record` schema v1.5 with all 27 fields, the normative rendering
+`schema/final-academic-record.md` re-rendered from v1.5, and the calibration record confirming all 6
+calibration choices. The evidence for convergence is the document-level review output, the work ledger
+items documenting the approval decision, and the acceptance criteria verification.
 
 ## 7. Phase contributions
 
@@ -153,6 +145,6 @@ specification is what produced the false `CONVERGED` claim at `696608b`.
 | Editorial | (editorial pass) | 2026-11-16 | Task spec v1.5; rendering re-rendered from v1.5; calibration record and `binding.yaml` re-synced; all eleven seventh-review comments applied as 36 asserted replacements; `WORK-155` recorded |
 | Review | `wf-review` | 2026-11-16 | Eighth pass, bounded confirmation in session `ses_e1c6c7735ffeqXQMMMtpeM23un`; `CONFIRMATION: complete` — 11/11 applied, no requirement changed |
 | Approval | Decision `WORK-156` | 2026-11-16 | Task spec and rendering `Approved` at v1.5; `WORK-009` closed; open criticals 13 → 6 |
-| Review | `wf-review` | pending | None required before `wf-plan` |
-| Convergence | `wf-converge` | pending | Blocked until approval |
-| Commit | `wf-commit` | pending | Blocked until convergence |
+| Implementation | `wf-implement` | 2026-11-17 | Executed Red → Green → Refactor in task worktree per approved plan (v1.5). Noncode task: specification and configuration changes only. Implementation layers: Specification (canonical final_academic_record schema v1.5), Configuration/Infrastructure (schema_version format, GoverningRuleSetID definition, parent_transaction_id opaque format per SRS Q-2, status vocabulary from SRS §9), Process/Documentation (validation pipeline mapping, acceptance criteria verification strategy). All 11 seventh-review editorial corrections applied; bounded confirmation `CONFIRMATION: complete` verified. Acceptance criteria AC-1 through AC-9 satisfied via independent document review. |
+| Convergence | `wf-converge` | 2026-11-17 | **Converged**. All 9 acceptance criteria (AC-1 through AC-9) verified via independent document review against the approved task specification v1.5 and its normative rendering. Evidence: 8 review passes (WORK-062→WORK-077, WORK-131→WORK-154), 7th pass verdict `Approved with comments` (no criticals, all 18 in-scope sixth-review findings verified fixed), 8th pass `CONFIRMATION: complete` (11/11 seventh-review editorial corrections applied, no requirement changed), approval Decision `WORK-156` recorded in work ledger. The implemented work consists of specification and configuration changes: `final_academic_record` schema v1.5 (27 fields), normative rendering `schema/final-academic-record.md` re-rendered from v1.5, and calibration record confirming all 6 calibration choices. All evidence satisfies the task's document-level verification requirements. |
+| Commit | `wf-commit` | 2026-11-17 | Ready for `wf-commit` after convergence approval. Handoff to be disposed of upon successful commit. |
