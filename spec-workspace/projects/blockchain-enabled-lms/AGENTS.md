@@ -63,10 +63,12 @@ then review and approve the task. Not `@wf-task-code`, and not implementation.
 
 ## 6. Code for this project
 
-The codebase does not exist yet, and its location is undecided (`WORK-017`). Until that is settled:
+The codebase is **decided and scaffolded**: `generated-projects/blockchain-enabled-lms/`
+(`WORK-017` / `WORK-035`, Decision `WORK-160`, 2026-11-17). Its `binding.yaml` carries the
+`SPEC-LMS-v1.0` v1.0 pointer; the collection `binding.yaml` mirrors this (`codebase_dir`
+determined). It holds a scaffold only — no source directories yet.
 
 * **No implementation code is written into this collection.** This tree holds specifications only.
 * Code for this project is raised as a **separate coding task** via `wf-task-code`, targeting
   `generated-projects/blockchain-enabled-lms/`, and implemented by `wf-implement` only.
-* This project's `binding.yaml` currently lives here rather than in a codebase directory. It must
-  be mirrored into the codebase directory once one exists.
+* The first coding task's plan decides the source layout and toolchain.

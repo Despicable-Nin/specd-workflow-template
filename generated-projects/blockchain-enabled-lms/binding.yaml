@@ -1,0 +1,13 @@
+---
+# Binding: this codebase -> the specification collection it implements.
+# Contract: generated-projects/AGENTS.md Section 3 and spec-workspace/AGENTS.md Section 4.
+# binding.yaml carries ONLY that pointer. Runtime service bindings live in the collection's
+# service-contracts.yaml; the constitution is referenced from AGENTS.md Section 2.
+spec_collection:
+  id: SPEC-LMS-v1.0
+  version: 1.0
+  path: spec-workspace/projects/blockchain-enabled-lms/
+root_spec:
+  id: SRS-LMS-v1.0
+  version: 1.0
+  file: spec-workspace/projects/blockchain-enabled-lms/SRS_LMS_v1.0.md

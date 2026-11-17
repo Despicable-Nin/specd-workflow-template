@@ -59,8 +59,8 @@ authoritative_contract:
 service_contracts:
   path: service-contracts.yaml
 
-# The codebase directory for this project is not yet determined. When it is,
-# this file must be mirrored into it so the code is traceable to this spec
-# collection. See WORK-017 / WORK-030 / SRS Section 7 and Question Q-3.
-codebase_dir: null
-codebase_dir_status: undetermined
+# The codebase directory for this project is created and bound:
+# generated-projects/blockchain-enabled-lms/ (Decision WORK-160, 2026-11-17, WORK-017 / WORK-035).
+# Its binding.yaml points back at this collection (SPEC-LMS-v1.0 v1.0).
+codebase_dir: generated-projects/blockchain-enabled-lms/
+codebase_dir_status: determined

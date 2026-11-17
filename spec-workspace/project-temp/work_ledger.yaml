@@ -495,24 +495,29 @@
       "id": "WORK-017",
       "type": "Task",
       "title": "lms-platform/ service directories are empty, untracked by Git, and inconsistent with the SRS service decomposition",
-      "status": "proposed",
+      "status": "done",
       "priority": "medium",
       "source": {
         "type": "wf-state",
         "reference": "lms-platform/ (blockchain-proxy, iam-service, lms-issuer-service, web-api-gateway - all empty); SRS_LMS_v1.0.md Section 2 service table (IAM, ECS, AMS, FRAS, ESS, GRA-Service, LGS)"
       },
       "context": "The repo root contains lms-platform/ with four subdirectories that are entirely empty. Because Git cannot track empty directories, these are invisible to version control: they appear in no commit, no branch, and no worktree, so they are invisible to any other agent or collaborator and would silently vanish on a clean clone. The four names also do not map onto the SRS Section 2 decomposition of seven service domains: blockchain-proxy and web-api-gateway are not SRS domains at all, and iam-service and lms-issuer-service cover only two of the seven (IAM and, implicitly, LGS). ECS, AMS, FRAS, ESS, and GRA-Service have no directory. No spec, task, or ledger item authorizes this layout, so it is untracked work relative to the specification set.",
-      "next_action": "Decide whether lms-platform/ is the intended future codebase root. If yes, create it as a wf-bootstrap scaffold with a binding.yaml and a spec-derived service mapping covering all seven domains; if it is exploratory, remove the empty directories or add a placeholder tracked by Git so the intent is visible.",
+      "next_action": "None - Decision recorded as WORK-160. Codebase scaffold created at generated-projects/blockchain-enabled-lms/ (AGENTS.md + binding.yaml), collection binding.yaml mirrored (codebase_dir determined), exploratory empty roots removed.",
       "dependencies": [
         "WORK-010"
       ],
       "owner": "User",
-      "resolution": null,
+      "resolution": "Resolved 2026-11-17 by human decision (WORK-160): canonical root generated-projects/blockchain-enabled-lms/ adopted per root AGENTS.md Section 3 and SRS Section 7. Empty, untracked exploratory directories lms-platform/ (iam-service, lms-issuer-service) and src/ were removed; neither was tracked by Git and neither survives a clean clone. Codebase scaffold created: AGENTS.md (project context, constitution binding, seven-domain boundary rules) and binding.yaml (SPEC-LMS-v1.0 v1.0 pointer). Collection binding.yaml codebase_dir set to generated-projects/blockchain-enabled-lms/, codebase_dir_status determined.",
       "history": [
         {
           "timestamp": "2026-11-12T23:58:16Z",
           "action": "Proposed by wf-state",
           "actor": "System"
+        },
+        {
+          "timestamp": "2026-11-17T12:13:49Z",
+          "action": "Closed by human Decision WORK-160: canonical codebase root adopted; exploratory empty roots removed; scaffold created and mirrored",
+          "actor": "User"
         }
       ]
     },
@@ -971,25 +976,30 @@
       "id": "WORK-035",
       "type": "Task",
       "title": "Determine the LMS codebase directory - two candidate roots exist and neither is an approved decision",
-      "status": "proposed",
+      "status": "done",
       "priority": "medium",
       "source": {
         "type": "wf-reconcile",
         "reference": "lms-platform/ (four empty directories); src/identity/core-identity-module (empty, created 2026-11-13 09:41 by a concurrent session)"
       },
       "context": "Two candidate codebase locations exist for the LMS. lms-platform/ holds four empty directories named blockchain-proxy, iam-service, lms-issuer-service and web-api-gateway. src/identity/core-identity-module appeared during the reconciliation run, authored by a concurrent session, and matches the core-identity-module dependency named in the service binding manifest. Both are empty, so neither is tracked by Git and neither survives a clean clone. Neither maps onto the seven SRS service domains. Because the codebase directory is undetermined, the project binding.yaml currently lives in the specification collection instead of in a codebase directory.",
-      "next_action": "Choose the codebase root - generated-projects/blockchain-enabled-lms/ per the AGENTS.md contract is the canonical answer, and these two candidate directories should be either emptied into it or removed. Then create the codebase directory with its binding.yaml and mirror the project binding.yaml into it.",
+      "next_action": "None - Decision recorded as WORK-160. Codebase scaffold created at generated-projects/blockchain-enabled-lms/; collection binding.yaml mirrored.",
       "dependencies": [
         "WORK-017",
         "WORK-010"
       ],
       "owner": "User",
-      "resolution": null,
+      "resolution": "Resolved 2026-11-17 by human decision (WORK-160): canonical root generated-projects/blockchain-enabled-lms/ adopted per root AGENTS.md Section 3 and SRS Section 7. src/ (which had already lost src/identity/core-identity-module) removed - empty and untracked; lms-platform/ removed - empty and untracked. Neither candidate root survives. Scaffold created and bindings mirrored as recorded under WORK-017.",
       "history": [
         {
           "timestamp": "2026-11-13T01:54:23Z",
           "action": "Proposed by wf-reconcile",
           "actor": "System"
+        },
+        {
+          "timestamp": "2026-11-17T12:13:49Z",
+          "action": "Closed by human Decision WORK-160: canonical codebase root adopted; exploratory empty roots removed; scaffold created and mirrored",
+          "actor": "User"
         }
       ]
     },
@@ -4445,6 +4455,106 @@
         {
           "timestamp": "2026-11-16T09:26:06Z",
           "action": "Pushed to origin/main; synchronization verified (0 ahead, 0 behind).",
+          "actor": "User"
+        }
+      ]
+    },
+    {
+      "id": "WORK-158",
+      "type": "Task",
+      "title": "Draft project constitution CONST-LMS-v1.0 for blockchain-enabled-lms (wf-constitution)",
+      "status": "done",
+      "priority": "high",
+      "source": {
+        "type": "wf-constitution",
+        "reference": "spec-workspace/projects/blockchain-enabled-lms/constitution.md | user adoption of SRS-derived candidate set (P-1..P-15, project scope, version 1.0) on 2026-11-17"
+      },
+      "context": "The project had no constitution: no engineering principles (quality, testing, security, performance, process) were captured for blockchain-enabled-lms, and readiness for coded tasks was blocked on more than the codebase decision. Candidate principles P-1 to P-15 were derived from the approved SRS (success criteria S-1..S-7, Section 5 quality expectations, Section 6 composition decision) and the framework's Protected Invariants, each with rationale and trade-off recorded in the document, plus three owned-not-resolved tensions (retention vs auditability, canonical-form freeze, latency governance). The user adopted the candidate set as proposed, project scope, version 1.0. The file was written as status Draft; it carries no authority until independent review (wf-review, type spec) and explicit human approval recorded in this ledger.",
+      "dependencies": [
+        "WORK-039",
+        "WORK-156"
+      ],
+      "next_action": "None - Gate 2 approval recorded as WORK-159. Constitution binds this project's specification, planning, implementation and review. Documentation debt remains for a separate pass: SRS Section 9.1 stale sentence; project AGENTS.md Section 4 and contents table stale; spec-workspace/AGENTS.md Known gaps stale; SRS Section 8.1 does not list constitution.md.",
+      "owner": "User",
+      "resolution": "Done 2026-11-17. Draft written from user-adopted SRS-derived candidate set (P-1..P-15, project scope, v1.0); three independent read-only review passes run; first pass CHANGES REQUIRED (F-01..F-06 applied), second pass CHANGES REQUIRED (C-01 introduced by F-03 fix, applied; C-02 editorial, applied), third pass APPROVED WITH COMMENTS (R-01 non-blocking, outside artifact). Human granted Gate 2 approval; frontmatter status set to Approved; approval recorded as Decision WORK-159.",
+      "history": [
+        {
+          "timestamp": "2026-11-17T00:00:00Z",
+          "action": "Draft written by wf-constitution from user-adopted SRS-derived candidate set; status Draft; not reviewed; no approval recorded",
+          "actor": "System"
+        },
+        {
+          "timestamp": "2026-11-17T11:45:08Z",
+          "action": "Gate 1 independent review returned CHANGES REQUIRED (zero critical findings; reviewer: delegated session, read-only). Applied F-01 (P-8 two verification surfaces, SRS 2.8/3.1/3.7/4.1), F-02 (S-7 proof-per-finalized-record + longevity, SRS 1.2/3.7), F-03 (open tensions extended with Q-5/WORK-130, Q-6/WORK-037, Q-1, WORK-020 interim vocabulary; tensions renumbered 1-7), F-04 (drop implicit 'Accepted for v1' resolution), F-05 (P-14 cites spec-workspace/AGENTS.md Section 4), F-06 (P-10 cites CAP-CANONICAL-FORM as reduction authority). F-07 was NOT applied (user scoped fixes to F-01..F-06); an accidental partial F-07 edit was reverted. F-08 informational, not applied. Re-review required before approval.",
+          "actor": "System"
+        },
+        {
+          "timestamp": "2026-11-17T11:55:00Z",
+          "action": "Second independent review returned CHANGES REQUIRED with one Medium defect (C-01) introduced by the F-03 fix: tension 7 claimed the five capability artifacts do not exist and cited WORK-020 as open; they exist as Draft and WORK-020 was resolved 2026-11-16. Tension 7 reworded (artifacts exist as Draft, none Approved, SRS Section 9.1 interim table governs until promotion). C-02 (Low, editorial) applied: P-8 parenthetical now reads 'it serves the committed proof sequence'. Per-finding confirmations from second review: F-01, F-02, F-04, F-05, F-06 applied faithfully; F-03 applied with defect, now corrected. Third review required before the human approval gate.",
+          "actor": "System"
+        },
+        {
+          "timestamp": "2026-11-17T11:57:44Z",
+          "action": "Third (bounded) independent review returned APPROVED WITH COMMENTS: C-01 and C-02 confirmed applied faithfully, no new requirement relative to the second verdict, no invariant weakened, no disguised approval; R-01 (Low, non-blocking) notes SRS Section 9.1 and the two AGENTS.md files carry stale capability/approval language - outside the constitution, routed to the documentation refresh. Constitution remains Draft. Ready for human Gate 2.",
+          "actor": "System"
+        },
+        {
+          "timestamp": "2026-11-17T12:05:25Z",
+          "action": "Gate 2: human explicitly APPROVED CONST-LMS-v1.0. Frontmatter status set Draft -> Approved; approval Decision recorded as WORK-159. Task complete.",
+          "actor": "User"
+        }
+      ]
+    },
+    {
+      "id": "WORK-159",
+      "type": "Decision",
+      "title": "Approval Decision - constitution CONST-LMS-v1.0 approved at Gate 2",
+      "status": "done",
+      "priority": "critical",
+      "source": {
+        "type": "human-decision",
+        "reference": "spec-workspace/projects/blockchain-enabled-lms/constitution.md | Gate 2 approval granted by the user on 2026-11-17 after three independent read-only review passes (1: CHANGES REQUIRED F-01..F-06; 2: CHANGES REQUIRED C-01/C-02; 3: APPROVED WITH COMMENTS) | parent spec SRS-LMS-v1.0 Approved under WORK-039 | task spec WORK-LMS-CONTRACT-001 Approved v1.5 under WORK-156"
+      },
+      "context": "The user granted Gate 2 approval for the project constitution CONST-LMS-v1.0 (project scope, version 1.0) on 2026-11-17. Evidence chain: draft authored from a user-adopted SRS-derived candidate set (P-1..P-15, each with rationale and trade-off); three independent review passes, none self-certified - pass 1 found F-01..F-06 (four medium/low defects: two-surface verification conflation, S-7 and longevity omission, missing owned-not-resolved tensions, resolution-in-disguise, two citation errors), all applied; pass 2 found one introduced defect (C-01: tension 7 denied existence of capability artifacts and cited WORK-020 as open) plus an editorial Low (C-02), both applied; pass 3 (bounded) returned APPROVED WITH COMMENTS, confirming both fixes faithful, no requirement change, no invariant weakened, and Gate 2 readiness. The constitution remains technology-agnostic, contains no executable content, and weakens no Protected Invariant. Approval authorizes the constitution to bind specification, planning, implementation and review for this project. It does NOT approve any coded task, any codebase location decision (WORK-017 still open), or the outstanding critical ledger-integrity Decisions (WORK-136, WORK-139).",
+      "dependencies": [
+        "WORK-158",
+        "WORK-039",
+        "WORK-156"
+      ],
+      "next_action": "Constitution is Approved and binding. Next substantive steps (not this Decision's scope): the codebase location Decision (WORK-017), the critical ledger-integrity Decisions (WORK-136, WORK-139), and the documentation refresh (SRS Section 9.1; project AGENTS.md Section 4 and contents; spec-workspace/AGENTS.md Known gaps; SRS Section 8.1 constitution linkage).",
+      "owner": "User",
+      "resolution": "Explicit human approval recorded for CONST-LMS-v1.0 v1.0. Constitution status set Approved. WORK-158 closed. Review evidence retained in WORK-158 history (three passes, findings and confirmations).",
+      "history": [
+        {
+          "timestamp": "2026-11-17T12:05:25Z",
+          "action": "Approval Decision recorded by the user at Gate 2. Constitution status Draft -> Approved.",
+          "actor": "User"
+        }
+      ]
+    },
+    {
+      "id": "WORK-160",
+      "type": "Decision",
+      "title": "Decision - LMS codebase root is generated-projects/blockchain-enabled-lms/",
+      "status": "done",
+      "priority": "critical",
+      "source": {
+        "type": "human-decision",
+        "reference": "user decision 2026-11-17 (recorded in this item) | root AGENTS.md Section 3 (generated-projects/<project-name>/, name matches spec collection) | SRS_LMS_v1.0.md Section 7 (path fixed by root AGENTS.md, not an open question) | generated-projects/AGENTS.md Section 3 | closes WORK-017 and WORK-035"
+      },
+      "context": "The user decided the Blockchain-Enabled LMS codebase root is generated-projects/blockchain-enabled-lms/, per the framework contract (root AGENTS.md Section 3; generated-projects/AGENTS.md Section 3; SRS Section 7). The exploratory candidates were removed: lms-platform/ (holding only empty iam-service/ and lms-issuer-service/ at decision time) and src/ (already empty of src/identity/core-identity-module). Both were untracked by Git, so neither survives a clean clone and no history is lost. A non-executable scaffold was created in the codebase: AGENTS.md (project context, constitution binding, seven-domain boundary rules) and binding.yaml carrying ONLY the SPEC-LMS-v1.0 v1.0 pointer and root spec SRS-LMS-v1.0 v1.0. The collection binding.yaml now declares codebase_dir: generated-projects/blockchain-enabled-lms/ and codebase_dir_status: determined. No implementation code was written; the first coding task (wf-task-code, then wf-plan) decides the source layout. This Decision does NOT resolve WORK-037 (blockchain-gateway domain placement) or WORK-136/WORK-139 (ledger integrity).",
+      "dependencies": [
+        "WORK-017",
+        "WORK-035",
+        "WORK-039"
+      ],
+      "next_action": "None for the codebase root. Coding tasks may now be raised targeting generated-projects/blockchain-enabled-lms/ once the user rules on WORK-136 and WORK-139 (critical ledger-integrity Decisions) and any desired documentation refresh is authorized.",
+      "owner": "User",
+      "resolution": "Explicit human decision recorded. Codebase scaffold created and bindings mirrored; WORK-017 and WORK-035 closed.",
+      "history": [
+        {
+          "timestamp": "2026-11-17T12:13:49Z",
+          "action": "Decision recorded by the user; scaffold created; collection binding.yaml mirrored; exploratory roots removed",
           "actor": "User"
         }
       ]

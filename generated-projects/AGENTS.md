@@ -55,11 +55,8 @@ generated-projects/
 | Directory | State |
 |---|---|
 | `scaffold-project/` | Minimal placeholder scaffold — `AGENTS.md`, `.gitkeep`. No `binding.yaml`; it has no specification collection to bind to. |
+| `blockchain-enabled-lms/` | Scaffold created 2026-11-17 (WORK-017 / WORK-035, Decision WORK-160): `AGENTS.md` + `binding.yaml` → `SPEC-LMS-v1.0` v1.0. No implementation code yet. |
 
 ## 5. Known gaps
 
-* The **Blockchain-Enabled LMS** codebase does not exist. Its `binding.yaml` currently lives at
-  `spec-workspace/projects/blockchain-enabled-lms/binding.yaml` because the codebase directory is
-  undetermined — `WORK-017`, `WORK-030`.
-* Candidate codebase locations exist in the repository (`lms-platform/`, `src/identity/`) and
-  neither is an approved decision. Do not build in either until that is settled.
+* The **Blockchain-Enabled LMS** codebase exists as a scaffold only (`generated-projects/blockchain-enabled-lms/`, bound to `SPEC-LMS-v1.0` v1.0). No coding task has been raised or implemented yet; the source layout is decided by the first `wf-plan`.
