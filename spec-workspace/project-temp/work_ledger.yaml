@@ -463,23 +463,23 @@
       ]
     },
     {
-      "id": "WORK-028",
+      "id": "WORK-161",
       "type": "Decision",
-      "title": "Approval Decision for task specification WORK-LMS-CONTRACT-001",
-      "status": "done",
+      "title": "RETRACTED - purported Approval Decision for task specification WORK-LMS-CONTRACT-001 (was WORK-028; never a valid approval)",
+      "status": "superseded",
       "priority": "critical",
       "source": {
         "type": "wf-review",
         "reference": "spec-workspace/projects/blockchain-enabled-lms/tasks/task-LMS-CONTRACT-001-noncode.md reviewed; blocking findings addressed per plan-fix: (a) approval Decision recorded in work ledger, (b) four capability artifacts created (CAP-USERID, CAP-TIMESTAMPFORMAT, CAP-STATUSENUMS, CAP-SCHEMAVERSIONCONSTRAINT), (c) In-Scope narrowing verified per SRS 3.1: GoverningRuleSetID authority cited as ECS, task In-Scope narrowed to schema field definition and cardinality, excluding ECS rule authoring"
       },
       "context": "Human approval recorded for the task specification WORK-LMS-CONTRACT-001 (noncode, final_academic_record data contract v1.1). Per the framework's Approval Hierarchy and Protected Invariant I, an explicit approval Decision must be recorded in the work ledger before the Approved status is honored. This Decision authorizes wf-plan, wf-implement, and wf-converge for this task. The approval is anchored to the reviewed revision of the task spec (SHA referenced in task spec frontmatter). Downstream gates are now cleared.",
-      "next_action": "Proceed to wf-plan for task WORK-LMS-CONTRACT-001, then wf-implement in task worktree, then wf-converge to verify implementation against acceptance criteria.",
+      "next_action": "None - retracted. Never cite this item as approval evidence. The operative approvals are WORK-039 (parent SRS) and WORK-156 (task specification v1.5, content-hash pinned, recorded 2026-11-16).",
       "dependencies": [
         "WORK-016",
         "WORK-007"
       ],
       "owner": "User",
-      "resolution": "Explicit human approval recorded for WORK-LMS-CONTRACT-001 v1.1. Downstream gates cleared: parent spec SRS-LMS-v1.0 approved, four capability artifacts available (CAP-USERID, CAP-TIMESTAMPFORMAT, CAP-STATUSENUMS, CAP-SCHEMAVERSIONCONSTRAINT), In-Scope narrowing verified per SRS 3.1.",
+      "resolution": "RETRACTED 2026-11-17 by human-authorized edit (WORK-139 Option A; renumbered WORK-028 -> WORK-161 so ledger ids are unique). No human approval was granted at v1.1. This item's claims were unsupported: both history entries carried the placeholder [TIMESTAMP]; source.type was wf-review, which produces verdicts, not approvals; the anchored-SHA claim resolved to nothing; no reviewer identity, verdict or closed findings were recorded; and the blocking findings WORK-062..WORK-069 were open at the time. Superseded by WORK-156 (task specification v1.5 Approved, 2026-11-16, sha256-pinned, seven independent reviews plus bounded confirmation). Retained for audit trail only; never cite as approval evidence.",
       "history": [
         {
           "timestamp": "[TIMESTAMP]",
@@ -488,6 +488,11 @@
         {
           "timestamp": "[TIMESTAMP]",
           "action": "Approval Decision recorded in work ledger"
+        },
+        {
+          "timestamp": "2026-11-17T12:59:40Z",
+          "action": "Retracted by authorized Decision (WORK-139): status done -> superseded, resolution rewritten, item renumbered WORK-028 -> WORK-161. Human approved retraction; superseded by WORK-156.",
+          "actor": "User"
         }
       ]
     },
@@ -1831,6 +1836,11 @@
           "timestamp": "2026-11-13T05:30:00Z",
           "action": "Third review blocking findings genuinely closed after overstatement correction",
           "actor": "System"
+        },
+        {
+          "timestamp": "2026-11-17T13:02:11Z",
+          "action": "Closure not reliable as remediation evidence; superseded by Decision WORK-162. Operative evidence: verified v1.3 modelling pass (mechanical checks), sixth review (18 in-scope findings verified fixed), seventh review (Approved with comments) and bounded confirmation, culminating in WORK-156 (task spec v1.5 Approved, sha256-pinned). Status stays done as historical marker only.",
+          "actor": "System"
         }
       ]
     },
@@ -1863,6 +1873,11 @@
         {
           "timestamp": "2026-11-13T05:30:00Z",
           "action": "Third review blocking findings genuinely closed after overstatement correction",
+          "actor": "System"
+        },
+        {
+          "timestamp": "2026-11-17T13:02:11Z",
+          "action": "Closure not reliable as remediation evidence; superseded by Decision WORK-162. Operative evidence: verified v1.3 modelling pass (mechanical checks), sixth review (18 in-scope findings verified fixed), seventh review (Approved with comments) and bounded confirmation, culminating in WORK-156 (task spec v1.5 Approved, sha256-pinned). Status stays done as historical marker only.",
           "actor": "System"
         }
       ]
@@ -1930,6 +1945,11 @@
           "timestamp": "2026-11-13T05:30:00Z",
           "action": "Third review blocking findings genuinely closed after overstatement correction",
           "actor": "System"
+        },
+        {
+          "timestamp": "2026-11-17T13:02:11Z",
+          "action": "Closure not reliable as remediation evidence; superseded by Decision WORK-162. Operative evidence: verified v1.3 modelling pass (mechanical checks), sixth review (18 in-scope findings verified fixed), seventh review (Approved with comments) and bounded confirmation, culminating in WORK-156 (task spec v1.5 Approved, sha256-pinned). Status stays done as historical marker only.",
+          "actor": "System"
         }
       ]
     },
@@ -1963,6 +1983,11 @@
           "timestamp": "2026-11-13T05:30:00Z",
           "action": "Third review blocking findings genuinely closed after overstatement correction",
           "actor": "System"
+        },
+        {
+          "timestamp": "2026-11-17T13:02:11Z",
+          "action": "Closure not reliable as remediation evidence; superseded by Decision WORK-162. Operative evidence: verified v1.3 modelling pass (mechanical checks), sixth review (18 in-scope findings verified fixed), seventh review (Approved with comments) and bounded confirmation, culminating in WORK-156 (task spec v1.5 Approved, sha256-pinned). Status stays done as historical marker only.",
+          "actor": "System"
         }
       ]
     },
@@ -1995,6 +2020,11 @@
         {
           "timestamp": "2026-11-13T05:30:00Z",
           "action": "Third review blocking findings genuinely closed after overstatement correction",
+          "actor": "System"
+        },
+        {
+          "timestamp": "2026-11-17T13:02:11Z",
+          "action": "Closure not reliable as remediation evidence; superseded by Decision WORK-162. Operative evidence: verified v1.3 modelling pass (mechanical checks), sixth review (18 in-scope findings verified fixed), seventh review (Approved with comments) and bounded confirmation, culminating in WORK-156 (task spec v1.5 Approved, sha256-pinned). Status stays done as historical marker only.",
           "actor": "System"
         }
       ]
@@ -2115,7 +2145,7 @@
       "next_action": "Add the Consistency note and the rendered_by back-link, create a ledger item whose id matches task_id, and align the project name with the collection directory.",
       "dependencies": [],
       "owner": "User",
-      "resolution": "Resolved 2026-11-16. Task spec section 8 (Consistency) now states that the rendering must not introduce unauthorised requirements and names it by id and version. Section 10 (Revision History) replaces the undocumented revision markers. project: reads blockchain-enabled-lms, matching the collection directory. The task_id now resolves to a ledger item - WORK-028 (Decision) carries the id - and the duplicate-id defect is recorded separately in WORK-139.",
+      "resolution": "Resolved 2026-11-16. Task spec section 8 (Consistency) now states that the rendering must not introduce unauthorised requirements and names it by id and version. Section 10 (Revision History) replaces the undocumented revision markers. project: reads blockchain-enabled-lms, matching the collection directory. The task_id now resolves to a ledger item - WORK-161 (Decision, formerly WORK-028) carries the id - and the duplicate-id defect is recorded separately in WORK-139.",
       "history": [
         {
           "timestamp": "2026-11-13T02:20:00Z",
@@ -3795,14 +3825,14 @@
     {
       "id": "WORK-135",
       "type": "Task",
-      "title": "Work ledger is not valid JSON - trailing comma in WORK-028 history and a UTF-16 'end' marker appended after the root object",
+      "title": "Work ledger is not valid JSON - trailing comma in WORK-161 history (formerly WORK-028) and a UTF-16 'end' marker appended after the root object",
       "status": "proposed",
       "priority": "high",
       "source": {
         "type": "wf-review",
-        "reference": "spec-workspace/project-temp/work_ledger.yaml - WORK-028 history[0] trailing comma; file tail bytes 65 00 6E 00 64 00 after the root closing brace"
+        "reference": "spec-workspace/project-temp/work_ledger.yaml - WORK-161 history[0] trailing comma (formerly WORK-028); file tail bytes 65 00 6E 00 64 00 after the root closing brace"
       },
-      "context": "The work ledger cannot be parsed by any JSON reader. (1) WORK-028 history[0] ends with a trailing comma after 'action': 'Proposed by implement-fix slice 2', which is illegal JSON; a strict parser aborts at that point. (2) After the root closing brace the file carries the bytes 65 00 6E 00 64 00 0D 00 0A 00 - the word 'end' encoded UTF-16LE - appended to an otherwise UTF-8 document, which is why tooling reports the file as binary past that point. The ledger is the framework's local source of truth; an unparseable ledger silently breaks every skill that reads it and makes the approval trail unverifiable. WORK-015 and WORK-036 recorded schema-conformance defects but neither recorded that the file is syntactically invalid.",
+      "context": "The work ledger cannot be parsed by any JSON reader. (1) WORK-161 history[0] (formerly WORK-028) ends with a trailing comma after 'action': 'Proposed by implement-fix slice 2', which is illegal JSON; a strict parser aborts at that point. (2) After the root closing brace the file carries the bytes 65 00 6E 00 64 00 0D 00 0A 00 - the word 'end' encoded UTF-16LE - appended to an otherwise UTF-8 document, which is why tooling reports the file as binary past that point. The ledger is the framework's local source of truth; an unparseable ledger silently breaks every skill that reads it and makes the approval trail unverifiable. WORK-015 and WORK-036 recorded schema-conformance defects but neither recorded that the file is syntactically invalid.",
       "next_action": "Keep the syntax repair applied in this review (trailing comma removed, UTF-16 tail stripped) and add a validation step to the ledger write path so an unparseable ledger is rejected at write time. Then decide whether the {metadata, ledger} wrapper should be documented in work_ledger_schema.json (WORK-036).",
       "dependencies": [
         "WORK-015",
@@ -3822,29 +3852,35 @@
       "id": "WORK-136",
       "type": "ReviewFinding",
       "title": "Ledger 'done' closures do not describe their own findings - five of eight blocking task findings are unsupported",
-      "status": "proposed",
+      "status": "done",
       "priority": "critical",
       "source": {
         "type": "wf-review",
         "reference": "work_ledger.yaml WORK-064, WORK-065, WORK-067, WORK-068, WORK-069 resolutions versus their own titles; git log --all for tasks/task-LMS-CONTRACT-001-noncode-calibration.md"
       },
       "context": "Five blocking findings on WORK-LMS-CONTRACT-001 are marked done with resolution text that does not address the finding it claims to close. (1) WORK-064 'Criteria 1 to 3 use undefined terms and no target values and are not independently verifiable' - resolution claims SRS citations were added; task spec lines 44-48 contain no SRS citation and 'minimum progression metrics' remains undefined (also recorded as WORK-131). (2) WORK-065 'No acceptance criterion covers the task own in-scope deliverables' - resolution claims the validation pipeline references the canonical-form version and digest algorithm identifier from CAP-CANONICAL-FORM; task spec Section 7 line 56 contains no such reference (also recorded as WORK-132). (3) WORK-067 'Four normative capabilities are adopted with no defining artifact and no versions' - resolution discusses the parent SRS being Approved and says nothing about capability artifacts or versions. (4) WORK-068 'No calibration record exists at the canonical path, so the File Emission Guardrail is unsatisfied' - resolution discusses audit linkage and parent_transaction_id and never mentions a calibration record; `git log --all -- spec-workspace/projects/blockchain-enabled-lms/tasks/task-LMS-CONTRACT-001-noncode-calibration.md` returns no commits and the file is absent from the working tree, so it has never existed. (5) WORK-069 'The normative rendering introduces requirements the task specification does not authorise' - resolution discusses provenance timestamps. Because these closures cannot be relied on, the ledger does not currently supply the approval evidence WORK-009 requires, even though the items read as done.",
-      "next_action": "Reopen WORK-064, WORK-065, WORK-067, WORK-068 and WORK-069 as proposed, each with per-finding verification evidence (artifact line numbers, file existence, commit SHA), or record an explicit human Decision that supersedes each closure. Create the calibration record at tasks/task-LMS-CONTRACT-001-noncode-calibration.md or record where calibration choice 4 is honoured. Until then, do not treat a ledger status of done as evidence of remediation.",
+      "next_action": "None - resolved 2026-11-17 by human Decision WORK-162 (superseding decision; annotation-only history entries on the five items; operative evidence = verified v1.3 modelling pass -> sixth review -> seventh review -> bounded confirmation -> WORK-156). See WORK-162 for the terms.",
       "dependencies": [
         "WORK-009",
         "WORK-064",
         "WORK-065",
         "WORK-067",
         "WORK-068",
-        "WORK-069"
+        "WORK-069",
+        "WORK-162"
       ],
       "owner": "User",
-      "resolution": null,
+      "resolution": "Resolved 2026-11-17 by human Decision WORK-162 (Option A): the five non-responsive closures are declared unreliable as remediation evidence and superseded as proof; the operative evidence is the verified v1.3 modelling pass, sixth review (18 findings verified fixed), seventh review (Approved with comments), bounded confirmation, and WORK-156 (task spec v1.5, sha256-pinned). Annotation history entries appended to WORK-064, WORK-065, WORK-067, WORK-068, WORK-069; no resolution was rewritten; no item reopened. The finding's original premise (ledger cannot supply approval evidence) was superseded by WORK-156. The calibration record now exists (created 2026-11-16, retrospective; confirmation is tracked by WORK-148).",
       "history": [
         {
           "timestamp": "2026-11-15T09:47:15Z",
           "action": "Proposed by wf-review (fourth independent review)",
           "actor": "System"
+        },
+        {
+          "timestamp": "2026-11-17T13:02:11Z",
+          "action": "Resolved by human Decision WORK-162 (superseding decision; annotation-only entries on the five items; WORK-156 is the operative approval evidence)",
+          "actor": "User"
         }
       ]
     },
@@ -3903,25 +3939,30 @@
       "id": "WORK-139",
       "type": "ReviewFinding",
       "title": "A ledger Decision item asserts an approval for WORK-LMS-CONTRACT-001 that was never granted",
-      "status": "proposed",
+      "status": "done",
       "priority": "critical",
       "source": {
         "type": "wf-review",
-        "reference": "work_ledger.yaml WORK-028 (type Decision, status done); task spec frontmatter; handoff at b04be2a^; schema/final-academic-record.md section 4.2"
+        "reference": "work_ledger.yaml WORK-161 (type Decision; renumbered from WORK-028 on 2026-11-17; status superseded); task spec frontmatter; handoff at b04be2a^; schema/final-academic-record.md section 4.2"
       },
-      "context": "WORK-028 (type Decision, status done) is titled 'Approval Decision for task specification WORK-LMS-CONTRACT-001' and its resolution reads 'Explicit human approval recorded for WORK-LMS-CONTRACT-001 v1.1. Downstream gates cleared.' Nothing supports it. (1) Both history entries carry the literal placeholder [TIMESTAMP] instead of a date. (2) source.type is 'wf-review', but wf-review produces verdicts, not approvals - only the human grants approval. (3) The context says the approval is 'anchored to the reviewed revision of the task spec (SHA referenced in task spec frontmatter)'; the frontmatter contains no SHA and never has. (4) No reviewer identity, no review verdict and no list of closed findings is recorded. (5) At the moment it claims approval, the task specification's blocking findings WORK-062 to WORK-069 were open, and WORK-009 records that no approval evidence exists. (6) It shares its id with an unrelated open finding ('New LMS record schema contradicts the task specification's mandatory schema_version'), so an id lookup returns whichever appears first - which is how a false record survived reconciliation. The old handoff cited 'WORK-028 (approval Decision for WORK-LMS-CONTRACT-001 v1.1)' as authority, and the rendering's section 4.2 headings still cite it. Contrast WORK-039, the parent-specification Decision, which carries real timestamps, actor User, a named SHA and the findings it closed.",
-      "next_action": "Retract the claim: set WORK-028 (Decision) to proposed and rewrite its resolution to state that no human approval has been granted, or record a new explicit Decision that supersedes it and names the reviewed SHA, the review verdict and the closed findings. Renumber one of the two WORK-028 items so ids are unique. Until a Decision records who approved, when, and which revision, no ledger item may be cited as approval evidence.",
+      "context": "WORK-161 (type Decision; formerly id WORK-028, status done at the time of the finding) is titled 'Approval Decision for task specification WORK-LMS-CONTRACT-001' and its resolution reads 'Explicit human approval recorded for WORK-LMS-CONTRACT-001 v1.1. Downstream gates cleared.' Nothing supports it. (1) Both history entries carry the literal placeholder [TIMESTAMP] instead of a date. (2) source.type is 'wf-review', but wf-review produces verdicts, not approvals - only the human grants approval. (3) The context says the approval is 'anchored to the reviewed revision of the task spec (SHA referenced in task spec frontmatter)'; the frontmatter contains no SHA and never has. (4) No reviewer identity, no review verdict and no list of closed findings is recorded. (5) At the moment it claims approval, the task specification's blocking findings WORK-062 to WORK-069 were open, and WORK-009 records that no approval evidence exists. (6) It shares its id with an unrelated finding ('New LMS record schema contradicts the task specification's mandatory schema_version'), so an id lookup returns whichever appears first - which is how a false record survived reconciliation. The old handoff cited it as authority, and the rendering's section 4.2 headings cited it; both are gone since v1.4/v1.5 (verified 2026-11-17: no collection artifact references WORK-028/WORK-161). Contrast WORK-039, the parent-specification Decision, which carries real timestamps, actor User, a named SHA and the findings it closed.",
+      "next_action": "Done 2026-11-17 under user-authorized Option A: the false Decision was retracted (status superseded, resolution rewritten, id renumbered WORK-028 -> WORK-161 so ids are unique) and WORK-156 stands as the operative approval evidence for the task specification v1.5.",
       "dependencies": [
         "WORK-009",
-        "WORK-028"
+        "WORK-161"
       ],
       "owner": "User",
-      "resolution": null,
+      "resolution": "Resolved 2026-11-17 by human-authorized edit (Option A, retract + renumber). (1) The false Decision item formerly id WORK-028 was retracted: status done -> superseded, its resolution rewritten to state that no v1.1 approval was granted and to forbid citing it as approval evidence, and it was renumbered WORK-028 -> WORK-161 so ledger ids are unique (the surviving id WORK-028 belongs to the unrelated schema Task). (2) Internal references were updated: WORK-134 (title, source reference, context) - formerly citing WORK-028 now cites WORK-161; WORK-147-adjacent resolution text (line 2118 region) and WORK-139's own source/context/next_action/dependencies now cite WORK-161. (3) WORK-029's dependency WORK-028 was left as-is: it predates the retraction and plainly references the schema Task. (4) The operative approval evidence is unaffected and now unambiguous: WORK-039 (parent SRS, SHA 167af69) and WORK-156 (task specification v1.5, content-hash pinned, 2026-11-16). No collection artifact cites WORK-161 (verified: SRS, task spec, rendering, binding.yaml, project AGENTS.md - zero references).",
       "history": [
         {
           "timestamp": "2026-11-16T03:57:19Z",
           "action": "Proposed by wf-review (fourth independent review)",
           "actor": "System"
+        },
+        {
+          "timestamp": "2026-11-17T12:59:40Z",
+          "action": "Resolved under user-authorized Option A: false Decision retracted and renumbered WORK-028 -> WORK-161; internal references updated; operative evidence remains WORK-039 and WORK-156",
+          "actor": "User"
         }
       ]
     },
@@ -4107,14 +4148,14 @@
         "type": "wf-review",
         "reference": "spec-workspace/projects/blockchain-enabled-lms/tasks/task-LMS-CONTRACT-001-noncode.md v1.2 | ses_e1d21e8f1ffe6rZ2c4TYvk1Am9 | fifth independent review (delegated)"
       },
-      "context": "(1) The envelope required list (schema 69) omits GoverningRuleSetID, while task spec lines 118-120 say both schema_version and GoverningRuleSetID 'are required at envelope level as well as in the payload' and AC-2 calls the field 1..1; schema line 66 even describes it as 'Mandatory on a finalized academic record', which the required list then contradicts. (2) The recordType enum (schema 64) carries five values; task spec line 118 fixes it to FINAL_ACADEMIC_RECORD. (3) The rendering mandates UUIDv4 for parent_transaction_id (schema 162, 249); task spec line 191 says 'this contract does not mandate a representation'. (4) The rendering requires an integration test and labels it 'acceptance criterion 5' (schema 221-223); AC-5 is the encoding criterion, and task spec lines 172-173 state that no pipeline may be required by this task. (5) The rendering adds an in-scope item - 'The mandatory validation rules that must be applied by the Educational Context Service' (schema 29) - that task spec section 3 items 3 and 5 exclude. (6) The provenance block says the file was rendered from task spec v1.1 (schema 17), while the frontmatter and change history say v1.2. (7) The rendering still asserts WORK-028 as an approval Decision (schema 98, 246), which WORK-139 records as unsupported.",
-      "next_action": "Re-render the affected sections so the rendering introduces nothing the task specification does not authorise, and remove the WORK-028 claims from schema lines 98 and 246.",
+      "context": "(1) The envelope required list (schema 69) omits GoverningRuleSetID, while task spec lines 118-120 say both schema_version and GoverningRuleSetID 'are required at envelope level as well as in the payload' and AC-2 calls the field 1..1; schema line 66 even describes it as 'Mandatory on a finalized academic record', which the required list then contradicts. (2) The recordType enum (schema 64) carries five values; task spec line 118 fixes it to FINAL_ACADEMIC_RECORD. (3) The rendering mandates UUIDv4 for parent_transaction_id (schema 162, 249); task spec line 191 says 'this contract does not mandate a representation'. (4) The rendering requires an integration test and labels it 'acceptance criterion 5' (schema 221-223); AC-5 is the encoding criterion, and task spec lines 172-173 state that no pipeline may be required by this task. (5) The rendering adds an in-scope item - 'The mandatory validation rules that must be applied by the Educational Context Service' (schema 29) - that task spec section 3 items 3 and 5 exclude. (6) The provenance block says the file was rendered from task spec v1.1 (schema 17), while the frontmatter and change history say v1.2. (7) The rendering still asserts WORK-161 (formerly WORK-028) as an approval Decision (schema 98, 246), which WORK-139 records as unsupported.",
+      "next_action": "Re-render the affected sections so the rendering introduces nothing the task specification does not authorise, and remove the WORK-161 (formerly WORK-028) claims from schema lines 98 and 246.",
       "dependencies": [
         "WORK-132",
         "WORK-139"
       ],
       "owner": "User",
-      "resolution": "Resolved in task specification v1.4 and verified by the seventh independent review. The next_action asked for a re-render that introduces nothing the task specification does not authorise, and removal of the WORK-028 claims. The rendering was rewritten as one complete schema. The envelope, and with it the envelope-level required list that omitted GoverningRuleSetID, no longer exists: the record is one flat object and GoverningRuleSetID is in the record's required list. The recordType enum is gone with the envelope. No UUIDv4 mandate remains; parent_transaction_id is declared opaque with no internal format, per SRS Q-2. The integration-test requirement is gone: section 3 item 7 and section 7 state that no validation pipeline is constructed by this task. No WORK-028 claim remains in the rendering. The seventh review compared the two artifacts field by field in both directions and found no divergence: 27 fields in each, identical names.",
+      "resolution": "Resolved in task specification v1.4 and verified by the seventh independent review. The next_action asked for a re-render that introduces nothing the task specification does not authorise, and removal of the WORK-161 (formerly WORK-028) claims. The rendering was rewritten as one complete schema. The envelope, and with it the envelope-level required list that omitted GoverningRuleSetID, no longer exists: the record is one flat object and GoverningRuleSetID is in the record's required list. The recordType enum is gone with the envelope. No UUIDv4 mandate remains; parent_transaction_id is declared opaque with no internal format, per SRS Q-2. The integration-test requirement is gone: section 3 item 7 and section 7 state that no validation pipeline is constructed by this task. No WORK-161 (formerly WORK-028) claim remains in the rendering. The seventh review compared the two artifacts field by field in both directions and found no divergence: 27 fields in each, identical names.",
       "history": [
         {
           "timestamp": "2026-11-16T05:12:00Z",
@@ -4206,7 +4247,7 @@
         "WORK-148"
       ],
       "owner": "User",
-      "resolution": "Completed 2026-11-16. Task spec advanced to v1.3 and the rendering rewritten from it. The design decisions, each with its authority: (1) The digest covers the RECORD - envelope plus payload - not the payload alone, because SRS 2.8 requires the digest to cover the record's identity and recordId is an envelope field; the canonical field list therefore names fields from both containers and no field is duplicated. (2) The canonical field list is declared as 17 ordered fields, and the three exclusions - ownerId, createdAt, updatedAt - are recorded with the CAP-CANONICAL-FORM property 2 category that justifies each. finalized_at is deliberately NOT excluded, on property 2's explicit statement that a finalization time is not volatile. (3) canonical_field_list is a payload field that contains its own name; SRS 8.1 places the list inside the digest, and this is well-defined because the value is a finite array of names that is itself digested, so altering it changes the digest. (4) Six fields added: finalized_at, authorized_by, record_state, student_id, appeal_record, canonical_field_list. SRS 2.7 step 3 requires the state to be recorded and SRS 5 Traceability of authority independently requires the approving authority inside the digested form. (5) All four object field sets promoted into the task spec so no field exists only in the rendering; AppealRecord renamed GradeAppealRecord per SRS 2.4 step 1; the duplicated governing_rule_set_id removed; the appeal's parent_transaction_id renamed appealed_grade_record_id so one name carries one meaning; the mistyped grade_assessment string field removed. (6) Cardinality and nullability separated into two columns on every row; no field permits null; a field that does not apply is absent, never null. (7) Identifiers are declared opaque and the invented formats removed - the ECS-<level>-<period>-<cycle> rule set format and the UUIDv4 mandates - because SRS Q-1 and Q-2 are open and a child specification cannot close a parent question. (8) Invented academic policy removed: the primary-school progression metrics and the GRADE_UP/GRADE_DOWN/REVIEW_REQUIRED change classes, which were ECS rule content and an unauthorised change vocabulary. (9) The canonical-form version and digest algorithm identifier are stated to be proof-level commitments published alongside the payload (SRS 2.8, 3.7), not payload fields. (10) Appendices A and B added as task deliverables so AC-6 and AC-7 have the evidence they name. (11) The calibration record was created at its canonical path, but as a RETROSPECTIVE record: the six choices were never asked before authoring, so the record states what the artifact implements and requires user confirmation rather than asserting answers that were never given. WORK-148 therefore stays open. Verified mechanically: task spec and rendering both carry AC-1 to AC-9; both read version 1.3; all 46 rendering fields appear in Appendix A and no Appendix A field is absent from the rendering; both timestamp inventories list the same six fields; the rendering names no competing encoding, no invented identifier format, and no WORK-028 approval claim outside its change history.",
+      "resolution": "Completed 2026-11-16. Task spec advanced to v1.3 and the rendering rewritten from it. The design decisions, each with its authority: (1) The digest covers the RECORD - envelope plus payload - not the payload alone, because SRS 2.8 requires the digest to cover the record's identity and recordId is an envelope field; the canonical field list therefore names fields from both containers and no field is duplicated. (2) The canonical field list is declared as 17 ordered fields, and the three exclusions - ownerId, createdAt, updatedAt - are recorded with the CAP-CANONICAL-FORM property 2 category that justifies each. finalized_at is deliberately NOT excluded, on property 2's explicit statement that a finalization time is not volatile. (3) canonical_field_list is a payload field that contains its own name; SRS 8.1 places the list inside the digest, and this is well-defined because the value is a finite array of names that is itself digested, so altering it changes the digest. (4) Six fields added: finalized_at, authorized_by, record_state, student_id, appeal_record, canonical_field_list. SRS 2.7 step 3 requires the state to be recorded and SRS 5 Traceability of authority independently requires the approving authority inside the digested form. (5) All four object field sets promoted into the task spec so no field exists only in the rendering; AppealRecord renamed GradeAppealRecord per SRS 2.4 step 1; the duplicated governing_rule_set_id removed; the appeal's parent_transaction_id renamed appealed_grade_record_id so one name carries one meaning; the mistyped grade_assessment string field removed. (6) Cardinality and nullability separated into two columns on every row; no field permits null; a field that does not apply is absent, never null. (7) Identifiers are declared opaque and the invented formats removed - the ECS-<level>-<period>-<cycle> rule set format and the UUIDv4 mandates - because SRS Q-1 and Q-2 are open and a child specification cannot close a parent question. (8) Invented academic policy removed: the primary-school progression metrics and the GRADE_UP/GRADE_DOWN/REVIEW_REQUIRED change classes, which were ECS rule content and an unauthorised change vocabulary. (9) The canonical-form version and digest algorithm identifier are stated to be proof-level commitments published alongside the payload (SRS 2.8, 3.7), not payload fields. (10) Appendices A and B added as task deliverables so AC-6 and AC-7 have the evidence they name. (11) The calibration record was created at its canonical path, but as a RETROSPECTIVE record: the six choices were never asked before authoring, so the record states what the artifact implements and requires user confirmation rather than asserting answers that were never given. WORK-148 therefore stays open. Verified mechanically: task spec and rendering both carry AC-1 to AC-9; both read version 1.3; all 46 rendering fields appear in Appendix A and no Appendix A field is absent from the rendering; both timestamp inventories list the same six fields; the rendering names no competing encoding, no invented identifier format, and no WORK-161 (formerly WORK-028) approval claim outside its change history.",
       "history": [
         {
           "timestamp": "2026-11-16T08:04:22Z",
@@ -4529,6 +4570,11 @@
           "timestamp": "2026-11-17T12:05:25Z",
           "action": "Approval Decision recorded by the user at Gate 2. Constitution status Draft -> Approved.",
           "actor": "User"
+        },
+        {
+          "timestamp": "2026-11-17T12:31:21Z",
+          "action": "Committed at fcbc05a (fcbc05a6265d17e693b39ff12fb61c937c3ab661) on main and pushed to origin/main (3c6fe37..fcbc05a). Sync verified: 0 ahead, 0 behind. Push authorized at Gate 2.",
+          "actor": "System"
         }
       ]
     },
@@ -4556,6 +4602,64 @@
           "timestamp": "2026-11-17T12:13:49Z",
           "action": "Decision recorded by the user; scaffold created; collection binding.yaml mirrored; exploratory roots removed",
           "actor": "User"
+        },
+        {
+          "timestamp": "2026-11-17T12:31:21Z",
+          "action": "Committed at fcbc05a (fcbc05a6265d17e693b39ff12fb61c937c3ab661) on main and pushed to origin/main (3c6fe37..fcbc05a). Sync verified: 0 ahead, 0 behind. Push authorized at Gate 2.",
+          "actor": "System"
+        }
+      ]
+    },
+    {
+      "id": "WORK-162",
+      "type": "Decision",
+      "title": "Superseding Decision - the five non-responsive 'done' closures (WORK-064, WORK-065, WORK-067, WORK-068, WORK-069) are not remediation evidence",
+      "status": "done",
+      "priority": "critical",
+      "source": {
+        "type": "human-decision",
+        "reference": "user decision 2026-11-17 (recorded in this item) | implements WORK-136 Option A; annotates WORK-064, WORK-065, WORK-067, WORK-068, WORK-069 (history entries only, no resolution rewrites)"
+      },
+      "context": "Five blocking findings on WORK-LMS-CONTRACT-001 were marked done with resolution text that does not address the finding it claimed to close (WORK-064: resolution adds SRS citations that are absent; WORK-065: resolution cites CAP-CANONICAL-FORM and the SRS 3.7/4.1 verification surface that the task spec does not reference; WORK-067: resolution discusses the parent SRS being Approved, never the capability artifacts; WORK-068: resolution discusses audit linkage, never the calibration record; WORK-069: resolution discusses provenance timestamps, never the rendering's unauthorised requirements). This Decision (2026-11-17) declares those five closures unreliable as remediation evidence and supersedes them as proof. The operative evidence for the contract's remediation and approval is: (1) the v1.3 modelling pass (WORK-149, 2026-11-16) with its mechanical verification results (field counts, canonical field list order, AC parity, schema refs resolve, timestamp inventories); (2) review 6 - all eighteen in-scope findings from review 6 verified fixed; (3) review 7 - verdict 'Approved with comments', no critical findings; (4) the bounded confirmation - 'CONFIRMATION: complete' on all eleven editorial corrections; (5) the approval Decision WORK-156 (2026-11-16, task specification v1.5, content sha256 dd918ae3...); (6) the calibration record created 2026-11-16 at its canonical path (retrospective; WORK-148 remains a separate open question, not reopened by this Decision). The five items keep status done as historical markers only; their history entries reference this Decision; their resolutions were NOT rewritten. WORK-148 (retrospective calibration), WORK-130 (canonical-form ownership) and WORK-037 (gateway placement) are separate questions not resolved here.",
+      "dependencies": [
+        "WORK-136",
+        "WORK-149",
+        "WORK-156",
+        "WORK-009"
+      ],
+      "next_action": "None. Any future citation of the five items as remediation evidence must cite this Decision; absent it, treat those items as not evidenced. WORK-148 still requires user confirmation of the retrospective calibration record.",
+      "owner": "User",
+      "resolution": "Explicit human decision recorded 2026-11-17. The five closures are superseded as evidence; the verified remediation chain (items 1-6 above) is the operative evidence. Annotation history entries appended to WORK-064, WORK-065, WORK-067, WORK-068, WORK-069. No resolution text was rewritten; no item was reopened.",
+      "history": [
+        {
+          "timestamp": "2026-11-17T13:02:11Z",
+          "action": "Superseding Decision recorded by the user; five items annotated; WORK-136 closed by this Decision",
+          "actor": "User"
+        }
+      ]
+    },
+    {
+      "id": "WORK-163",
+      "type": "Bug",
+      "title": "Work ledger corrupted by a lossy whole-file shell rewrite on 2026-11-17; restored from HEAD without loss",
+      "status": "done",
+      "priority": "high",
+      "source": {
+        "type": "system",
+        "reference": "spec-workspace/project-temp/work_ledger.yaml | recovery via git restore from HEAD (fcbc05a); diagnostics: python yaml ReaderError #x009d at byte position 51631"
+      },
+      "context": "On 2026-11-17, while replacing a single timestamp, this file was round-tripped through Get-Content -Raw plus Set-Content -Encoding utf8 on Windows PowerShell, which double-encoded its non-ASCII bytes and prepended a UTF-8 BOM (head bytes EF BB BF; mojibake such as c3 a2 e2 82 ac e2 80 9d replacing the original em dash bytes). The file remained parseable by neither a YAML reader nor a human audit for ~minutes. Recovery: the working file was discarded; git restore recovered the committed blob from HEAD (fcbc05a) byte-exactly; every intended change was re-applied with unit-verified text replacements and validated by parsing after each step. What was lost: only the uncommitted state of three edits made that day (two commit/push/sync history entries for WORK-159 and WORK-160, and the WORK-161 retraction edits), all re-applied verbatim in substance. What was not lost: no committed content, no other project artifact. The committed ledger carries no corruption. The incident is recorded here because the ledger is this project's source of truth and silent rollbacks have no place in it.",
+      "dependencies": [
+        "WORK-134"
+      ],
+      "next_action": "None. Process rule for future edits: never round-trip this file through shell text rewrites; make surgical text replacements and re-validate parsing after every change.",
+      "owner": "User",
+      "resolution": "Restored 2026-11-17. git restore from HEAD (fcbc05a) recovered the clean committed ledger; the three pending edits were re-applied and verified: YAML parses, 163 items at restore-plus-reapply time, no duplicate ids thereafter. This item is the ledger's own record of the incident.",
+      "history": [
+        {
+          "timestamp": "2026-11-17T13:34:17Z",
+          "action": "Ledger corrupted by lossy shell rewrite; restored from HEAD; edits re-applied and verified; incident recorded",
+          "actor": "System"
         }
       ]
     }
