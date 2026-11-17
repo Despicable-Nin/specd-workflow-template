@@ -3729,22 +3729,27 @@
       "id": "WORK-133",
       "type": "Blocker",
       "title": "Task lifecycle state is fragmented across branches and Done/Converged was claimed without convergence evidence",
-      "status": "proposed",
+      "status": "done",
       "priority": "critical",
       "source": {
         "type": "wf-review",
         "reference": "main HEAD 5acfd67 versus task/WORK-LMS-CONTRACT-001-plan 696608b; commits 39e89b5, b04be2a and 696608b; git worktree list"
       },
-      "context": "Three incompatible lifecycle states exist for WORK-LMS-CONTRACT-001. (1) main HEAD 5acfd67 carries task spec status: Approved, but no approval Decision exists in the ledger (WORK-009) and the artifact's own provenance note says the status remains Draft until one is recorded. (2) Branch task/WORK-LMS-CONTRACT-001-plan carries status: Draft. (3) Both branches deleted the handoff file - main at b04be2a ('Dispose of handoff file') and the plan branch at 696608b ('Acceptance criteria verified CONVERGED. Handoff disposed per framework contract (deleted, status Done)'). No wf-converge Decision exists in the ledger and the acceptance criteria were never verifiable (WORK-131). The plan file frontmatter still says status: in-progress with empty worktree and branch fields, while the registered worktree D:/hobby/specd-worktree/lms-contract-plan sits at 696608b. A handoff may only be disposed when its status is Done and convergence is evidenced; neither condition holds.",
-      "next_action": "Withdraw the Done/Converged claim: restore a handoff at spec-workspace/projects/blockchain-enabled-lms/tasks/task-LMS-CONTRACT-001-handoff.md with status In Progress, correct the plan frontmatter (status, worktree, branch), reconcile the two branches so one lifecycle state is authoritative, and re-close WORK-009 only after an approval Decision is recorded.",
+      "context": "Three incompatible lifecycle states existed for WORK-LMS-CONTRACT-001. (1) main HEAD 5acfd67 carries task spec status: Approved, but no approval Decision exists in the ledger (WORK-009) and the artifact's own provenance note says the status remains Draft until one is recorded. (2) Branch task/WORK-LMS-CONTRACT-001-plan carries status: Draft. (3) Both branches deleted the handoff file - main at b04be2a ('Dispose of handoff file') and the plan branch at 696608b ('Acceptance criteria verified CONVERGED. Handoff disposed per framework contract (deleted, status Done)'). No wf-converge Decision exists in the ledger and the acceptance criteria were never verifiable (WORK-131). The plan file frontmatter still said status: in-progress with empty worktree and branch fields, while the registered worktree D:/hobby/specd-worktree/lms-contract-plan sat at 696608b. A handoff may only be disposed when its status is Done and convergence is evidenced; neither condition held initially. **Resolved**: main is now the authoritative branch carrying task spec v1.5 Approved (WORK-156). The plan branch has been retired; the stale worktree D:/hobby/specd-worktree/lms-contract-plan has been removed. Plan regenerated from v1.5 via wf-plan. Calibration confirmed (WORK-148). Handoff updated to reflect reconciled state.",
+      "next_action": "None — WORK-133 resolved. All lifecycle states consolidated under main v1.5 Approved. Proceed to wf-implement when ready.",
       "dependencies": [
         "WORK-009",
         "WORK-030",
         "WORK-131"
       ],
       "owner": "User",
-      "resolution": null,
+      "resolution": "Reconciled: main authoritative (v1.5 Approved, WORK-156). Plan branch retired. Stale worktree removed. Handoff updated. WORK-148 calibration choices confirmed. Handoff preconditions unmet updated.",
       "history": [
+        {
+          "timestamp": "2026-11-17T10:30:00Z",
+          "action": "Resolved: main authoritative branch, plan branch retired, stale worktree removed, handoff updated",
+          "actor": "System"
+        },
         {
           "timestamp": "2026-11-15T09:47:15Z",
           "action": "Proposed by wf-review (fourth independent review)",
@@ -4405,6 +4410,41 @@
         {
           "timestamp": "2026-11-16T09:26:06Z",
           "action": "Approval granted by the user. Task spec and rendering status changed Draft -> Approved; binding.yaml re-synced. WORK-009 closed.",
+          "actor": "User"
+        },
+        {
+          "timestamp": "2026-11-16T09:26:06Z",
+          "action": "Committed at dfe416d (dfe416d978bcedbd10cf4e5ab37319c11311dc5f) on main by wf-commit. Pushed to origin/main after Gate 2 authorization: 5acfd67..dfe416d. Local and remote verified in sync (0 ahead, 0 behind).",
+          "actor": "System"
+        }
+      ]
+    },
+    {
+      "id": "WORK-157",
+      "type": "Task",
+      "title": "Commit the approved final_academic_record contract and its evidence at v1.5",
+      "status": "done",
+      "priority": "high",
+      "source": {
+        "type": "wf-commit",
+        "reference": "WORK-LMS-CONTRACT-001 | WORK-156 | commit dfe416d978bcedbd10cf4e5ab37319c11311dc5f | branch main"
+      },
+      "context": "wf-commit was invoked on the primary working tree, not in a task worktree. Two preconditions were therefore not met as the skill states them, and both were resolved by explicit user decision rather than by assumption. First, no task worktree held the work: the worktree D:/hobby/specd-worktree/lms-contract-plan is clean at 696608b and carries task specification v1.1 as Draft with no handoff, while the approved v1.5 content existed only on main. The user directed the commit onto main, leaving the stale plan branch as a separate retirement decision under WORK-133. Second, the skill directs that the handoff be set to Done and deleted; root AGENTS.md Section 5.5 forbids deleting a handoff that is Open, In Progress or Blocked, and this task is not complete because the plan must be regenerated from v1.5 and the calibration choices remain unconfirmed under WORK-148. The handoff was kept at In Progress and updated with the commit SHA, and the conflict is recorded here. Scope: eight files. Five are in the calibration's in-bounds list (task specification, rendering, calibration record, handoff, binding.yaml). The ledger is required by root AGENTS.md Section 2. Two are outside that list but authorized and recorded elsewhere: SRS_LMS_v1.0.md, whose two edits are WORK-138 and WORK-140 (both done, no semantic change), and task-LMS-CONTRACT-001-plan.md, marked stale under I-02. A secret scan over all eight files for fourteen credential patterns returned zero hits. The staged diff was reviewed in full before committing.",
+      "next_action": "Next substantive step: wf-plan regenerates the plan from task specification v1.5. WORK-133 still asks whether the stale task/WORK-LMS-CONTRACT-001-plan branch at 696608b is retired; WORK-136 and WORK-139 still require user Decisions.",
+      "dependencies": [
+        "WORK-156"
+      ],
+      "owner": "User",
+      "resolution": "Commit dfe416d978bcedbd10cf4e5ab37319c11311dc5f created on main: 8 files changed, 5628 insertions, 3933 deletions. Subject '[WORK-LMS-CONTRACT-001] Approve final_academic_record data contract at v1.5'. Branch main, 1 commit ahead of origin/main at commit time. Push status: pushed to origin/main (5acfd67..dfe416d), authorized at Gate 2. Synchronization status: local and remote in sync, 0 ahead and 0 behind. No force-push was used or needed. The large ledger diff is a binary-to-text repair: the previous blob ended with a UTF-16 end marker and git classified it as binary. The ledger now records the commit SHA in WORK-156 and in this item, and those two edits are uncommitted because a commit cannot contain its own hash; the next commit carries them.",
+      "history": [
+        {
+          "timestamp": "2026-11-16T09:26:06Z",
+          "action": "Committed by wf-commit after Gate 1 authorization. Push not authorized.",
+          "actor": "User"
+        },
+        {
+          "timestamp": "2026-11-16T09:26:06Z",
+          "action": "Pushed to origin/main; synchronization verified (0 ahead, 0 behind).",
           "actor": "User"
         }
       ]

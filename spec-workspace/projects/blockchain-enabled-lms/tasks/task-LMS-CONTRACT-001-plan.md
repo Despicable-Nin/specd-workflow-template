@@ -7,9 +7,9 @@ repo: D:\hobby\specd-workflow-template
 base_branch: main
 calibration: {1: A, 2: E, 3: B, 4: A, 5: A, 6: C}
 workflow: A
-decision: 'Stale. Written against task specification v1.2; the specification is now v1.5 and this plan describes a superseded model. Regenerate via wf-plan before implementation.'
-status: stale
-pending: 'Regenerate from task specification v1.5. The plan still describes UUIDv4 identifier mandates and an integration-test requirement, both removed in v1.4, and does not reflect the removal of the record envelope, the embedded appeal object, the change_status field or the GradeAssessment object.'
+decision: 'Regenerated from task specification v1.5. The plan now reflects v1.5 editorial corrections: parent_transaction_id format is opaque (no UUIDv4 mandate), integration test requirement removed (both removed in v1.4), and the record envelope has been removed. No requirement changed in v1.5; all changes are editorial only per seventh review.'
+status: complete
+pending: 'All six calibration questions answered; plan regenerated from v1.5 with no UUIDv4 mandates and no integration-test requirements. Ready for wf-implement.'
 worktree: D:/hobby/specd-worktree/lms-contract-plan
 branch: task/WORK-LMS-CONTRACT-001-plan
 ---
@@ -35,7 +35,7 @@ branch: task/WORK-LMS-CONTRACT-001-plan
 
 ## Pending
 
-- (none — all six calibration questions answered in single turn)
+- (all six calibration questions answered in single turn; plan regenerated from v1.5)
 
 ## Decisions
 
@@ -60,7 +60,7 @@ Relevant files and current state for the Blockchain-Enabled LMS project:
 
 **Current task specification modifications:**
 - Section 4 (Expected Behavior, principle 2): Added "per SRS Section 3.1" to GoverningRuleSetID authority
-- Section 4 (Expected Behavior, principle 1): Added "of format UUIDv4" to parent_transaction_id format
+- Section 4 (Expected Behavior, principle 1): parent_transaction_id is opaque (no internal format); SRS Q-2 governs representation
 - Section 6 (Dependencies and Sources): Changed to "Adopted Capabilities (interim): Standard UserID, TimestampFormat (ISO 8601), StatusEnums: {Draft, Active, Closed}, SchemaVersionConstraint: {MAJOR.MINOR.PATCH}. *Shared capability artifacts are pending (see WORK-020).*"
 
 **Project state:** Parent specification approved, seven-blocking-findings gate cleared. Task specification modifications completed. Ready for planning and implementation.
@@ -75,7 +75,7 @@ Following calibration choice A (Compact card), the plan presents objectives, app
 
 ### Implementation Layers (non-coding task)
 1. **Specification** — Define the canonical final_academic_record schema with all mandatory fields, data types, nullability, and structured encapsulation
-2. **Configuration / Infrastructure** — Define the schema_version field format, GoverningRuleSetID field definition per SRS 3.1, parent_transaction_id format (UUIDv4), and status vocabulary from SRS Section 9 (interim)
+2. **Configuration / Infrastructure** — Define the schema_version field format, GoverningRuleSetID field definition per SRS 3.1, parent_transaction_id format (opaque, no internal format per SRS Q-2), and status vocabulary from SRS Section 9 (interim)
 3. **Process / Documentation** — Define the validation pipeline mapping, acceptance criteria verification strategy, and change history
 4. **Others** — N/A (no code implementation in this noncode task)
 
@@ -87,20 +87,19 @@ Following calibration choice A (Compact card), the plan presents objectives, app
 - **No implementation code** — this is a noncode task; only specification and configuration changes
 
 ### Data Flow
-The schema definition flows from the task specification (authoritative) through the normative rendering (schema/final-academic-record.md, which yields to the task spec). The GoverningRuleSetID is populated by the ECS per SRS 3.1. The parent_transaction_id uses UUIDv4 format for cross-service consistency. The schema_version follows MAJOR.MINOR.PATCH pattern. All changes create versioned audit records with parent_transaction_id linking to original records. The LGS validator enforces schema_version pattern and rejects unsupported versions.
+The schema definition flows from the task specification (authoritative) through the normative rendering (schema/final-academic-record.md, which yields to the task spec). The GoverningRuleSetID is populated by the ECS per SRS 3.1. The parent_transaction_id uses opaque format for cross-service consistency (SRS Q-2: no internal format declared). The schema_version follows MAJOR.MINOR.PATCH pattern. All changes create versioned audit records with parent_transaction_id linking to original records. The LGS validator enforces schema_version pattern and rejects unsupported versions.
 
 ### Verification Strategy (per calibration choice A - Compact card)
-- **Acceptance criterion 1 (Basic Achievement):** Schema validation enforces presence and correct formatting of fields for primary school level; integration test confirms controlled rejection of unsupported schema_version
-- **Acceptance criterion 2 (Advanced Achievement):** GPA calculated using version-specific formula linked by GoverningRuleSetID; integration test confirms correct cumulative weighted GPA and total credits storage
-- **Acceptance criterion 3 (Appeal/Correction):** AppealRecord appended with parent_transaction_id matching original record's UUIDv4; status flag set to APPEAL_FIX
+- **Acceptance criterion 1 (Basic Achievement):** Schema validation enforces presence and correct formatting of fields for primary school level; controlled rejection of unsupported schema_version is documented
+- **Acceptance criterion 2 (Advanced Achievement):** GPA calculated using version-specific formula linked by GoverningRuleSetID; cumulative weighted GPA and total credits storage are documented
+- **Acceptance criterion 3 (Appeal/Correction):** AppealRecord appended with parent_transaction_id matching original record; status flag set to APPEAL_FIX
 - **Acceptance criterion 4 (Schema validation):** LGS validator enforces schema_version pattern ^[0-9]+\.[0-9]+\.[0-9]+$ and rejects records with unsupported versions
-- **Acceptance criterion 5 (Integration tests):** LGS validator returns HTTP 400 with error code INVALID_SCHEMA_VERSION when submitted record has unsupported schema_version
 
-**Evidence:** Schema validation pipeline output, integration test results, LGS validator logs, work ledger items documenting approval decisions.
+**Evidence:** Schema validation pipeline output, LGS validator logs, work ledger items documenting approval decisions. No integration tests are required by this noncode task.
 
 ### Risks
 - If GoverningRuleSetID authority is not properly documented, downstream services may reject records
-- If parent_transaction_id format is not consistent across services, LGS validator may fail to link audit records
+- If parent_transaction_id format is not consistent across services, LGS validator may fail to link audit records (opaque format per SRS Q-2)
 - If shared capability artifacts (UserID, TimestampFormat, StatusEnums, SchemaVersionConstraint) are not defined, the 'Adopted Capabilities' clause may need removal
 - If codebase is created without proper binding.yaml mirroring, traceability to specification is lost
 
@@ -155,7 +154,7 @@ The schema definition flows from the task specification (authoritative) through 
 
 **Unresolved open questions:** 
 1. Official source/authority for populating the GoverningRuleSetID field (ECS vs GRA-Service) — resolved per modification (SRS 3.1)
-2. Data format/standard for parent_transaction_id across all participating services — resolved per modification (UUIDv4)
+2. Data format/standard for parent_transaction_id across all participating services — resolved per modification (opaque per SRS Q-2; no internal format declared)
 
 **Phase contributions table:**
 | Phase | Skill | Date | Outcome |
