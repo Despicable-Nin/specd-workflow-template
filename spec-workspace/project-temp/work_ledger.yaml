@@ -5021,6 +5021,33 @@
           "actor": "System"
         }
       ]
+    },
+    {
+      "id": "WORK-175",
+      "type": "Decision",
+      "title": "Gate 2 approval - Promote CAP-CANONICAL-FORM, CAP-USERID, CAP-TIMESTAMPFORMAT, CAP-SCHEMAVERSIONCONSTRAINT to Approved",
+      "status": "done",
+      "priority": "high",
+      "source": {
+        "type": "human-decision",
+        "reference": "user decision 2026-11-18 ('Yes, promote the four') | promotion evidence chain: review ses_e1296afdbffeP0bYwlR2dWulSo (CHANGES REQUIRED) -> fixes -> re-review ses_e128f39b1ffeWHcRvm4Br2Vf0E (CHANGES REQUIRED on RD-1/RD-2/RD-3 only) -> RD verification ses_e1287f686ffen8zCJrQYg8y3ya (APPROVED) -> fixes commit 39e1cad (39e1cadd1bb2383cae0628e9747c8a699b4e164e)"
+      },
+      "context": "Gate 2 promotion of four of the five capability artifacts to Approved (2026-11-18). Per-artifact evidence: (1) CAP-CANONICAL-FORM v1.0 - internally fit at the first review (WORK-164 edit verified non-drifting), status Draft -> In_Review -> Approved; (2) CAP-USERID v1.1 - invented format policy removed, opaque non-empty string, domain enumeration generalized, dead relations removed, id/frontmatter fixed; (3) CAP-TIMESTAMPFORMAT v1.1 - UTC-only Z form matching contract AC-7 and the rendering pattern; offsets and vacuous bullet removed; (4) CAP-SCHEMAVERSIONCONSTRAINT v1.1 - reduced to format + presence + rejection (LGS-validator and approval-chain invented policy removed); re-review found one residual RD-2 (Declaration bullet) - removed and re-verified. All four flip In_Review -> Approved in the same change as this Decision (Invariant III), updated stamped at apply time (2026-11-18T07:22:17Z); READMEs updated to 'four of five Approved'. CAP-STATUSENUMS v1.1 is explicitly NOT promoted by this Decision: it remains In_Review and is gated on the Section 11 Change Request (WORK-171) that reduces SRS Section 9.1 to a normative reference to the capability; until that lands, SRS Section 9.1 is the interim authority. No protected invariant engaged; technology-agnosticism retained; the four artifacts are named normative by the task contract WORK-LMS-CONTRACT-001 (Dependencies and Sources).",
+      "dependencies": [
+        "WORK-020",
+        "WORK-174",
+        "WORK-164"
+      ],
+      "next_action": "Commit the promotion flip with Gate 1/Gate 2 authorization; record the commit SHA in this item's history at commit time (aa11a42 precedent). CAP-STATUSENUMS promotion follows the Section 11 Change Request (WORK-171, scope extended 2026-11-18 to Sections 8.1 and 9): Change Request -> independent review -> Gate 2 -> apply -> promote.",
+      "owner": "User",
+      "resolution": "The four artifacts are APPROVED (Gate 2, 2026-11-18). CAP-STATUSENUMS v1.1 remains In_Review, gated on WORK-171. SHA evidence for the fixes commit (39e1cad) recorded in the solutions trail of this Decision and to be recorded per-commit at the promotion commit.",
+      "history": [
+        {
+          "timestamp": "2026-11-18T07:22:17Z",
+          "action": "Gate 2 granted by the human ('Yes, promote the four'); promotion recorded; the four artifacts flipped In_Review -> Approved in the same change; fixes-pass commit 39e1cadd1bb2383cae0628e9747c8a699b4e164e verified on main and pushed (dc09151..39e1cad) before the flip",
+          "actor": "User"
+        }
+      ]
     }
   ]
 }

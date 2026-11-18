@@ -1,10 +1,10 @@
 ---
 id: CAP-SCHEMAVERSIONCONSTRAINT
 version: 1.1
-status: In_Review
+status: Approved
 title: Schema Version Constraint Capability
 created: 2026-11-13T00:00:00Z
-updated: 2026-11-18T06:55:06Z
+updated: 2026-11-18T07:22:17Z
 ---
 
 # CAP-SCHEMAVERSIONCONSTRAINT: Schema Version Constraint Capability

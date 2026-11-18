@@ -21,19 +21,19 @@ proof guarantee depends) have defining artifacts under `Capabilities/`:
 
 | Capability | Referenced as | Status |
 |---|---|---|
-| `CAP-USERID` | Standard user identity | Exists (`In_Review`) |
-| `CAP-TIMESTAMPFORMAT` | ISO 8601 | Exists (`In_Review`) |
-| `CAP-STATUSENUMS` | Shared status enumerations | Exists (`In_Review`) |
-| `CAP-SCHEMAVERSIONCONSTRAINT` | `MAJOR.MINOR.PATCH` version constraint | Exists (`In_Review`) |
-| `CAP-CANONICAL-FORM` | Canonical form and digest constraint | Exists (`In_Review`) |
+| `CAP-USERID` | Standard user identity | **Approved** (2026-11-18) |
+| `CAP-TIMESTAMPFORMAT` | ISO 8601 | **Approved** (2026-11-18) |
+| `CAP-STATUSENUMS` | Shared status enumerations | Exists (`In_Review`; promotion gated on the SRS Section 11 Change Request) |
+| `CAP-SCHEMAVERSIONCONSTRAINT` | `MAJOR.MINOR.PATCH` version constraint | **Approved** (2026-11-18) |
+| `CAP-CANONICAL-FORM` | Canonical form and digest constraint | **Approved** (2026-11-18) |
 
 ## Status
 
-**Populated.** Each capability carries a stable ID, a version, and a `status` from the
-`Draft -> In_Review -> Approved -> Superseded` lifecycle. Approval requires independent review
-and a recorded ledger Decision per artifact before it is marked `Approved`; promotion evidence
-lives in the work ledger. `CAP-STATUSENUMS` promotion is additionally gated on the SRS Section 11
-Change Request that reduces `SRS_LMS_v1.0.md` Section 9.1 to a normative reference to the
-capability.
+**Populated; four of five Approved.** Each capability carries a stable ID, a version, and a
+`status` from the `Draft -> In_Review -> Approved -> Superseded` lifecycle. Approval required
+independent review and a recorded ledger Decision per artifact; four promotions are recorded in
+ledger `WORK-175`. `CAP-STATUSENUMS` promotion is gated on the SRS Section 11 Change Request
+(WORK-171) that reduces `SRS_LMS_v1.0.md` Section 9.1 to a normative reference to the capability;
+until it lands, the SRS Section 9.1 interim table is the authority.
 
 See ledger `WORK-020` (authoring).

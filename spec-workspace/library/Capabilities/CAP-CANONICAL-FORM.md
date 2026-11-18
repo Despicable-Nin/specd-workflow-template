@@ -1,10 +1,10 @@
 ---
 id: CAP-CANONICAL-FORM
 version: 1.0
-status: In_Review
+status: Approved
 title: Canonical Form and Digest Constraint
 created: 2026-11-13T03:35:00Z
-updated: 2026-11-18T06:55:06Z
+updated: 2026-11-18T07:22:17Z
 ---
 
 # Canonical Form and Digest Constraint (`CAP-CANONICAL-FORM`)
