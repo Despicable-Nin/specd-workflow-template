@@ -1,25 +1,28 @@
 ---
-constitution_id: CONST-LMS-v1.1
-id: CONST-LMS-v1.1
-version: 1.1
+constitution_id: CONST-LMS-v1.2
+id: CONST-LMS-v1.2
+version: 1.2
 status: Approved
 project: blockchain-enabled-lms
 scope: project
 created: 2026-11-17T00:00:00Z
-updated: 2026-11-18T04:35:34Z
+updated: 2026-11-18T06:37:31Z
 ---
 
 # Blockchain-Enabled LMS — Project Constitution
 
-> **Status: Approved.** v1.1 was approved by the human at Gate 2 on 2026-11-18 (Decision
-> `WORK-168`), after independent review (verdict CHANGES REQUIRED; findings F-01 to F-16; the
-> human-ratified fixes are applied). v1.0 was approved by the human at Gate 2 on 2026-11-17
-> (Decision `WORK-159`), after three independent read-only review passes
-> (CHANGES REQUIRED → CHANGES REQUIRED → APPROVED WITH COMMENTS), and remains in git history -
-> supersession is explicit, never silent overwrite. This v1.1 amendment changes no principle: it
-> marks Open Tensions item 4 RESOLVED (Decision `WORK-164`; SRS v1.1 §9 Q-5 - Change Request
-> `WORK-165`, Gate 2 `WORK-167`) and updates Linked artifacts to the amended parent specification.
-> Nothing in this document weakens a Protected Invariant (root `AGENTS.md` Section 7).
+> **Status: Approved.** v1.2 was approved by the human at Gate 2 on 2026-11-18 (Decision
+> `WORK-174`), after independent review (verdict CHANGES REQUIRED; findings F-01 to F-10; the
+> human-ratified fixes and the F-03 ratification of the `WORK-156` interpretation are applied).
+> v1.1 was approved at Gate 2 on 2026-11-18 (Decision `WORK-168`) and remains in git history
+> (81c825f); v1.0 was approved at Gate 2 on 2026-11-17 (Decision `WORK-159`) and remains in git
+> history (fcbc05a) - supersession is explicit, never silent overwrite. This v1.2 amendment changes
+> no principle: it marks Open Tensions item 2 RESOLVED (interpretation of `WORK-156` - the contract
+> v1.5 approval interpreted as the v1 acceptance the P-8 freeze tension required; ratified by the
+> human at this Gate 2) and Open Tensions item 5 RESOLVED (Decision `WORK-173`:
+> `blockchain-gateway` is outside the seven-domain model - an implementation component of LGS's
+> proof-commit path). Nothing in this document weakens a Protected Invariant
+> (root `AGENTS.md` Section 7).
 
 ## 0. Authority and precedence
 
@@ -174,14 +177,19 @@ only by explicit, versioned revision with supersession marked — never silently
 *Rationale:* `wf-constitution` safety boundaries; root `AGENTS.md` Sections 6 and 7.
 *Trade-off:* none. Absolute.
 
-## Open tensions (owned; item 4 resolved 2026-11-18)
+## Open tensions (owned; items 2, 4 and 5 resolved 2026-11-18)
 
 1. **P-5/P-6 vs privacy and retention.** Monotonic retention of superseded records and full audit
    attribution conflict with any future hard-deletion or minimisation requirement. An explicit
    retention-policy Decision is owed; this constitution does not resolve it.
-2. **P-8 freezes the canonical form early.** Every contract change after freezing is breaking by
+2. ~~**P-8 freezes the canonical form early.** Every contract change after freezing is breaking by
    definition. Not resolved here; any v1 acceptance is a human Decision, or belongs to the first
-   contract-revision agenda.
+   contract-revision agenda.~~
+   **RESOLVED 2026-11-18** (interpretation of `WORK-156`, 2026-11-16, ratified at Gate 2 on
+   2026-11-18 - the ratification is this amendment's own Gate 2 approval): the human approved the
+   contract at v1.5, and that approval is interpreted as the v1 acceptance this tension required -
+   the freeze is accepted for every proof committed under this form. Any future contract revision
+   remains breaking by definition and remains a human Decision under this constitution.
 3. **Latency governance.** The SRS deliberately makes no timing commitments; no performance
    principle beyond P-1 exists yet. If operational SLOs are ever required, they enter as a versioned
    revision of this constitution, not as ad hoc practice.
@@ -195,9 +203,17 @@ only by explicit, versioned revision with supersession marked — never silently
    `CAP-CANONICAL-FORM`, independent review, and explicit human approval recorded as a ledger
    Decision. No runtime domain dependency is introduced. This bears on P-3, P-8 and P-14. Retained
    struck-through for traceability; not reopened.
-5. **`blockchain-gateway` placement (SRS Q-6; ledger WORK-037; service-contracts.yaml `domain:
+5. ~~**`blockchain-gateway` placement (SRS Q-6; ledger WORK-037; service-contracts.yaml `domain:
    unresolved`).** Whether that gateway belongs to the seven-domain model at all is open. This
-   bears on P-7 and P-12. Not resolved here.
+   bears on P-7 and P-12. Not resolved here.~~
+   **RESOLVED 2026-11-18** (Decision `WORK-173`; closes `WORK-037`; SRS Q-6 annotation PENDING -
+   proposed Section 11 change request `WORK-171`, not yet applied; the SRS is unchanged as of
+   this draft). `blockchain-gateway` is OUTSIDE the
+   seven-domain model: it is not a domain and not a service binding; the chain-client is an
+   implementation component of LGS's proof-commit path, decided at implementation time by the
+   LGS implementation plan. The manifest binding is superseded (`superseded_by: WORK-173`). This
+   bears on P-7 and P-12 - both hold unchanged. Retained struck-through for traceability; not
+   reopened.
 6. **Rule-set identifier source (SRS Q-1).** The authoritative source of the rule-set identifier
    value is open. This bears on P-3 and P-4. Not resolved here.
 7. **Interim status vocabulary; capability artifacts exist but are unpromoted.** All five
@@ -218,6 +234,13 @@ explicit through the in-file Amendment lineage block (see Linked artifacts) plus
 there is no separate `Superseded` file, and the old version is never overwritten in place without
 the lineage record.
 
+**Change record (v1.2, 2026-11-18).** Open tensions item 2 marked RESOLVED (`WORK-156` - the
+human accepted the P-8 freeze by approving the contract at v1.5); Open tensions item 5 marked
+RESOLVED (Decision `WORK-173` - `blockchain-gateway` outside the seven-domain model); banner and
+frontmatter versioned to v1.2. **No principle was added, changed or weakened.** Amendment path per
+this section: independent review (`wf-review`), then explicit human Gate 2 approval
+(Decision `WORK-174` to be recorded at Gate 2). v1.1 remains in git history (`81c825f`); never overwritten.
+
 **Change record (v1.1, 2026-11-18).** Open tensions item 4 marked RESOLVED (Decision `WORK-164`;
 SRS `v1.1` Section 9 Q-5, Decision `WORK-167`; `CAP-CANONICAL-FORM`); Linked artifacts updated to
 parent SRS `v1.1`; banner and frontmatter versioned to v1.1. **No principle was added, changed or
@@ -233,7 +256,10 @@ Gate 2 approval (Decision `WORK-168`). v1.0 remains in git history (`WORK-159`);
 - Collection binding: `binding.yaml`; runtime manifest: `service-contracts.yaml`
 - Protected Invariants: root `AGENTS.md` Section 7; framework policy reference
 - Approval: v1.0 - Gate 2, 2026-11-17, Work Ledger Decision `WORK-159`; v1.1 - Gate 2,
-  2026-11-18, Work Ledger Decision `WORK-168` (status flipped Draft -> Approved in the same change).
+  2026-11-18, Work Ledger Decision `WORK-168` (status flipped Draft -> Approved in the same
+  change); v1.2 - Gate 2, 2026-11-18, Work Ledger Decision `WORK-174` (status flipped Draft ->
+  Approved in the same change).
 - Amendment lineage: v1.0 (Approved 2026-11-17, `WORK-159`) → v1.1 (Approved 2026-11-18,
-  `WORK-168`); v1.0 retained in git history, never overwritten
+  `WORK-168`) → v1.2 (Approved 2026-11-18, `WORK-174`); v1.0 and v1.1 retained in git history, never
+  overwritten
 - Work ledger: `spec-workspace/project-temp/work_ledger.yaml`

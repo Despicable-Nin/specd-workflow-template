@@ -4482,6 +4482,11 @@
           "timestamp": "2026-11-16T09:26:06Z",
           "action": "Committed at dfe416d (dfe416d978bcedbd10cf4e5ab37319c11311dc5f) on main by wf-commit. Pushed to origin/main after Gate 2 authorization: 5acfd67..dfe416d. Local and remote verified in sync (0 ahead, 0 behind).",
           "actor": "System"
+        },
+        {
+          "timestamp": "2026-11-18T06:37:31Z",
+          "action": "Ratification note (append-only, no rewrite): at the CONST-LMS-v1.2 Gate 2, the user explicitly ratified interpreting this Decision as the v1 acceptance required by the constitution's P-8 freeze tension (Open Tensions item 2, now struck through as RESOLVED 2026-11-18). This note records the ratification; the resolution text above is unchanged and still states no P-8 language of its own - the interpretation is recorded here, at v1.2 approval (Decision WORK-174).",
+          "actor": "User"
         }
       ]
     },
@@ -4945,6 +4950,11 @@
           "timestamp": "2026-11-18T06:22:03Z",
           "action": "Proposed by wf-reconcile (2026-11-18 pass); recorded per human direction",
           "actor": "System"
+        },
+        {
+          "timestamp": "2026-11-18T06:37:31Z",
+          "action": "Coverage note (CONST-LMS-v1.2 review finding F-08, ses_e12a50dc5ffem9iDHSrcDFWdK4): the SRS Section 9.1 sentence 'The shared StatusEnums capability artifact does not yet exist (Q-4)' is false in fact - CAP-STATUSENUMS.md exists as Draft (created 2026-11-13, WORK-020 done 2026-11-16). When the Section 11 Change Request for this item is raised, include or explicitly exclude the Section 9.1 StatusEnums sentence (and, if promotion of the five capability artifacts proceeds, revise Section 9.1 to reference the promoted artifacts per tension item 7); record the scope decision then.",
+          "actor": "System"
         }
       ]
     },
@@ -4976,6 +4986,34 @@
           "timestamp": "2026-11-18T06:33:00Z",
           "action": "Option A committed at 9fa39fd (9fa39fdb727182081261a39214d4ba2957aaaf4e) on main and pushed to origin/main (cad3232..9fa39fd). Sync verified: 0 ahead, 0 behind. Push authorized at Gate 2.",
           "actor": "System"
+        }
+      ]
+    },
+    {
+      "id": "WORK-174",
+      "type": "Decision",
+      "title": "Gate 2 approval - Constitution v1.2 amendment (CONST-LMS-v1.2): open tensions items 2 and 5 RESOLVED",
+      "status": "done",
+      "priority": "high",
+      "source": {
+        "type": "human-decision",
+        "reference": "user decision 2026-11-18 (Gate 2 granted at the question prompt; includes explicit ratification of the WORK-156 interpretation per finding F-03; cascade of codebase AGENTS.md pins to v1.2 ratified per finding F-04) | satisfies the constitution amendment path (P-15; Lifecycle and amendment)"
+      },
+      "context": "Gate 2 approval for CONST-LMS-v1.2 (2026-11-18), amending the v1.1 Approved constitution (WORK-168, 2026-11-18; v1.0 WORK-159, 2026-11-17). The amendment: (1) frontmatter id/version CONST-LMS-v1.2 / 1.2, status Draft -> Approved in the same change, updated set to apply time; (2) banner rewritten for v1.2, v1.1 lineage retained (81c825f); (3) Open tensions items 2 and 5 marked RESOLVED, v1.0 text struck through, never deleted: item 2 - P-8 freeze accepted via interpretation of WORK-156 (contract v1.5 approval, 2026-11-16) as the v1 acceptance the tension required, explicitly RATIFIED by the user at this Gate 2 (append-only ratification note added to WORK-156's history); item 5 - blockchain-gateway outside the seven-domain model (Decision WORK-173, 2026-11-18; manifest binding superseded; the SRS Q-6 annotation remains PENDING via proposed Section 11 change request WORK-171 - the SRS was NOT annotated); (4) Lifecycle change record appended (v1.2); heading now reads 'owned; items 2, 4 and 5 resolved 2026-11-18'; (5) Linked artifacts: approval line extended to v1.2 (flip at this Gate 2), amendment lineage extended to v1.2; (6) cascade: codebase AGENTS.md CONST-LMS pins moved to v1.2 (F-04, human direction at Gate 2). Independent review before approval: 2026-11-18, ses_e12a50dc5ffem9iDHSrcDFWdK4, verdict CHANGES REQUIRED (findings F-01 to F-10): F-01 (WORK-174 references qualified as 'to be recorded at Gate 2'), F-02 (SRS annotation pending wording), F-03 (interpretation marked; ratified at this Gate 2; WORK-156 noted append-only), F-04 (codebase cascade applied at Gate 2 per human direction), F-05 (this Decision recorded; status and updated flipped in the same change) all satisfied in this change. No principle added, changed or weakened; P-1 to P-15 and Section 0 byte-identical to v1.1; Protected Invariants I/II/III upheld.",
+      "dependencies": [
+        "WORK-168",
+        "WORK-156",
+        "WORK-173",
+        "WORK-159"
+      ],
+      "next_action": "Commit CONST-LMS-v1.2 with Gate 1/Gate 2 authorization; record the commit SHA in this item's history at commit time (81c825f precedent).",
+      "owner": "User",
+      "resolution": "Approval granted 2026-11-18 at Gate 2 after independent review (CHANGES REQUIRED; F-01..F-05 satisfied in the flip change). Protected Invariant III is satisfied by this recorded Decision plus the in-file v1.2 change record and the amendment lineage block. The constitution is now CONST-LMS-v1.2, Approved.",
+      "history": [
+        {
+          "timestamp": "2026-11-18T06:37:31Z",
+          "action": "Gate 2 granted by the human; approval recorded; constitution flipped Draft -> Approved in the same change; F-03 ratification note appended to WORK-156",
+          "actor": "User"
         }
       ]
     }
