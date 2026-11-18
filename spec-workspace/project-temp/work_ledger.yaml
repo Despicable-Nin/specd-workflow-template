@@ -4970,6 +4970,11 @@
           "timestamp": "2026-11-18T10:50:39Z",
           "action": "Gate 2 granted by the human ('Approve (Gate 2 granted)'; C-8(ii) resolved: fix binding.yaml calibration row in this change; C-8(i) resolved: raise CONST-LMS-v1.3 as proposed item). Approval recorded as Decision WORK-176. Applying the revised change now.",
           "actor": "User"
+        },
+        {
+          "timestamp": "2026-11-18T11:12:01Z",
+          "action": "SRS v1.2 applied and committed at b6ce80c (b6ce80c114e74e5168b494f803736a88a5588a18) on main and pushed to origin/main (d350b7d..b6ce80c). Sync verified: 0 ahead, 0 behind. Push authorized at Gate 2. CAP-STATUSENUMS Approved in the same commit.",
+          "actor": "System"
         }
       ]
     },
@@ -5097,6 +5102,11 @@
           "timestamp": "2026-11-18T10:50:39Z",
           "action": "Gate 2 granted by the human; approval recorded; revised change applied; atomic commit authorized",
           "actor": "User"
+        },
+        {
+          "timestamp": "2026-11-18T11:12:01Z",
+          "action": "SRS v1.2 applied and committed at b6ce80c (b6ce80c114e74e5168b494f803736a88a5588a18) on main and pushed to origin/main (d350b7d..b6ce80c). Sync verified: 0 ahead, 0 behind. Push authorized at Gate 2.",
+          "actor": "System"
         }
       ]
     },
