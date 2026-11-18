@@ -5114,7 +5114,7 @@
       "id": "WORK-177",
       "type": "Task",
       "title": "Constitution v1.3 amendment - re-pin Linked artifacts SRS v1.2, retire item 5 PENDING note, strike tension item 7",
-      "status": "proposed",
+      "status": "done",
       "priority": "medium",
       "source": {
         "type": "wf-review",
@@ -5126,14 +5126,62 @@
         "WORK-174",
         "WORK-175"
       ],
-      "next_action": "Human decision to run the v1.3 amendment (draft -> review -> Gate 2); not started until directed.",
+      "next_action": "None. v1.3 amendment complete: drafted 2026-11-18, independent review (APPROVED WITH COMMENTS; F-01..F-06), Gate 2 granted 2026-11-18 (Decision WORK-178), flip applied in the same change. Commit authorized separately by the human.",
       "owner": "User",
-      "resolution": null,
+      "resolution": "v1.3 amendment complete 2026-11-18: CONST-LMS-v1.3 Approved at Gate 2 (Decision WORK-178) after independent review (ses_e1166ff8fffeISU1TbsWEM7x9g; verdict APPROVED WITH COMMENTS; findings F-01 to F-06, all informational). F-01 (codebase AGENTS.md CONST pin cascade), F-04 (RESOLVED wording + banner attribution) and F-06 (review verdict and this transition recorded) applied in the same change; F-02 out of scope (pre-existing; tracked as a proposed item); F-03 accepted by the human. The three stale statements the v1.2 SRS change and the five-of-five capability promotion had falsified are retired. No principle added, changed or weakened; P-15 supersession discipline followed; v1.2 retained in git history (aa11a42), never overwritten.",
       "history": [
         {
           "timestamp": "2026-11-18T10:50:39Z",
           "action": "Proposed per wf-review condition C-8(i); user-authorized at Gate 2 (2026-11-18); constitution NOT edited in this change",
           "actor": "System"
+        },
+        {
+          "timestamp": "2026-11-18T20:17:23Z",
+          "action": "v1.3 draft applied to the working tree (CONST-LMS-v1.3, status Draft) per explicit human direction ('Fix constitution drift (v1.3)'); strike-through convention retained for items 5 and 7; Linked artifacts re-pinned to SRS v1.2.",
+          "actor": "System"
+        },
+        {
+          "timestamp": "2026-11-18T20:17:23Z",
+          "action": "Independent review (delegated, read-only; session ses_e1166ff8fffeISU1TbsWEM7x9g) verdict APPROVED WITH COMMENTS. Verified: diff confined to sanctioned regions; Section 0 and P-1..P-15 byte-identical to v1.2; all SHAs/Decision ids/versions/statuses verify; no approval claim made for v1.3. Findings F-01 (codebase AGENTS.md pins - stale at flip; cascade owed at Gate 2), F-02 (spec-workspace AGENTS.md stale Known-gaps bullets - pre-existing, out of scope), F-03 (v1.2 banner tense edit only; no falsification), F-04 ('RESOLVED-IN-EFFECT' qualifier; banner attribution compressed), F-05 (byte-identity claim verified true), F-06 (this ledger item still proposed while a draft exists - transition and verdict must be recorded at Gate 2).",
+          "actor": "System"
+        },
+        {
+          "timestamp": "2026-11-18T20:27:51Z",
+          "action": "Gate 2 granted by the human ('Gate 2 granted - full package'): F-01 codebase-AGENTS.md CONST pin cascade applied in the same change (pins -> CONST-LMS-v1.3), F-04 wording harmonized (plain RESOLVED; banner attribution split between WORK-175 and WORK-176), F-06 recorded by this entry. Approval recorded as Decision WORK-178; constitution flipped Draft -> Approved in the same change; WORK-177 closed.",
+          "actor": "User"
+        }
+      ]
+    },
+    {
+      "id": "WORK-178",
+      "type": "Decision",
+      "title": "Gate 2 approval - Constitution v1.3 amendment (CONST-LMS-v1.3): re-pin SRS v1.2, retire item 5 PENDING note, strike tension item 7",
+      "status": "done",
+      "priority": "high",
+      "source": {
+        "type": "human-decision",
+        "reference": "user decision 2026-11-18 (Gate 2 granted at the question prompt; full package: F-01 codebase-AGENTS.md pin cascade applied in the same change, F-04 wording nits applied, F-06 ledger transition recorded) | satisfies the constitution amendment path (P-15; Lifecycle and amendment); closes WORK-177"
+      },
+      "context": "WHAT CHANGES: (1) frontmatter id/version CONST-LMS-v1.3 / 1.3, status Draft -> Approved in the same change, updated set to apply time (2026-11-18T20:27:51Z); (2) banner rewritten for v1.3 with the v1.2/v1.1/v1.0 history retained (F-03 accepted; F-04 applied); (3) Open tensions item 5 PENDING clause struck through - the SRS Q-6 annotation was applied 2026-11-18 (Section 11 Change Request WORK-171; SRS v1.2; Gate 2 Decision WORK-176; commit b6ce80c); (4) Open tensions item 7 struck through and marked RESOLVED - all five capability artifacts Approved (four via Decision WORK-175, applied at 7a80293; CAP-STATUSENUMS under WORK-176 in the same change that applied WORK-171); SRS Section 9.1 now carries a normative reference to CAP-STATUSENUMS; (5) Open tensions section heading re-anchored to items 2, 4, 5 and 7; (6) Lifecycle change record (v1.3) appended; (7) Linked artifacts re-pinned to parent SRS v1.2 (WORK-171, Gate 2 WORK-176, applied at b6ce80c); Approval and Amendment lineage extended to v1.3; (8) cascade: generated-projects/blockchain-enabled-lms/AGENTS.md CONST-LMS pins moved to v1.3 (F-01, human direction at Gate 2). WHY: three statements in the Approved constitution (v1.2) were false after the SRS v1.2 change and the five-of-five capability promotion; P-14/P-15 demand supersession, never silent overwrite. The v1.3 draft was reviewed read-only before approval (2026-11-18, delegated, session ses_e1166ff8fffeISU1TbsWEM7x9g, verdict APPROVED WITH COMMENTS; findings F-01 to F-06, all informational; F-01/F-04/F-06 applied in this change; F-02 out of scope, pre-existing; F-03 accepted by the human). No principle was added, changed or weakened; P-1..P-15 and Section 0 are byte-identical to v1.2 (verified by the independent review). No Protected Invariant engaged.",
+      "dependencies": [
+        "WORK-177",
+        "WORK-176",
+        "WORK-175",
+        "WORK-174"
+      ],
+      "next_action": "Commit CONST-LMS-v1.3 with Gate 1/Gate 2 authorization; record the commit SHA in this item's history at commit time (aa11a42 precedent).",
+      "owner": "User",
+      "resolution": "Approval granted 2026-11-18 at Gate 2 after independent review (APPROVED WITH COMMENTS; F-01..F-06 all informational; F-01/F-04/F-06 resolved in the flip change; F-02 out of scope; F-03 accepted by the human). Protected Invariant III is satisfied by this recorded Decision plus the in-file v1.3 change record and the amendment lineage block. The constitution is now CONST-LMS-v1.3, Approved.",
+      "history": [
+        {
+          "timestamp": "2026-11-18T20:17:23Z",
+          "action": "v1.3 draft applied to the working tree (CONST-LMS-v1.3, status Draft). Independent review (delegated, read-only; session ses_e1166ff8fffeISU1TbsWEM7x9g) verdict APPROVED WITH COMMENTS (F-01 to F-06, all info).",
+          "actor": "System"
+        },
+        {
+          "timestamp": "2026-11-18T20:27:51Z",
+          "action": "Gate 2 granted by the human ('Gate 2 granted - full package'; F-01 pin cascade applied in the same change; F-04 wording applied; F-06 recorded). Approval recorded as Decision WORK-178; constitution flipped Draft -> Approved in the same change; WORK-177 closed. Commit NOT yet made - requires explicit commit authorization.",
+          "actor": "User"
         }
       ]
     }

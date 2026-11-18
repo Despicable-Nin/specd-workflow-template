@@ -1,28 +1,36 @@
 ---
-constitution_id: CONST-LMS-v1.2
-id: CONST-LMS-v1.2
-version: 1.2
+constitution_id: CONST-LMS-v1.3
+id: CONST-LMS-v1.3
+version: 1.3
 status: Approved
 project: blockchain-enabled-lms
 scope: project
 created: 2026-11-17T00:00:00Z
-updated: 2026-11-18T06:37:31Z
+updated: 2026-11-18T20:27:51Z
 ---
 
 # Blockchain-Enabled LMS — Project Constitution
 
-> **Status: Approved.** v1.2 was approved by the human at Gate 2 on 2026-11-18 (Decision
+> **Status: Approved.** v1.3 was approved by the human at Gate 2 on 2026-11-18 (Decision
+> `WORK-178`), after independent review (verdict APPROVED WITH COMMENTS; findings F-01 to F-06,
+> all informational; review session `ses_e1166ff8fffeISU1TbsWEM7x9g`). v1.3 re-pins three
+> references that had been falsified: the Linked artifacts parent-SRS pin and the Open tensions
+> item 5 "SRS Q-6 annotation PENDING" note (both falsified by the SRS v1.2 change - Gate 2
+> `WORK-176`, applied at `b6ce80c`), and Open tensions item 7 (falsified by the capability
+> promotions - Decision `WORK-175`, applied at `7a80293`; `CAP-STATUSENUMS` flipped under
+> `WORK-176` in the same change). **No principle was added, changed or weakened.** The v1.2
+> version was approved by the human at Gate 2 on 2026-11-18 (Decision
 > `WORK-174`), after independent review (verdict CHANGES REQUIRED; findings F-01 to F-10; the
 > human-ratified fixes and the F-03 ratification of the `WORK-156` interpretation are applied).
 > v1.1 was approved at Gate 2 on 2026-11-18 (Decision `WORK-168`) and remains in git history
 > (81c825f); v1.0 was approved at Gate 2 on 2026-11-17 (Decision `WORK-159`) and remains in git
-> history (fcbc05a) - supersession is explicit, never silent overwrite. This v1.2 amendment changes
+> history (fcbc05a) - supersession is explicit, never silent overwrite. The v1.2 amendment changed
 > no principle: it marks Open Tensions item 2 RESOLVED (interpretation of `WORK-156` - the contract
 > v1.5 approval interpreted as the v1 acceptance the P-8 freeze tension required; ratified by the
 > human at this Gate 2) and Open Tensions item 5 RESOLVED (Decision `WORK-173`:
 > `blockchain-gateway` is outside the seven-domain model - an implementation component of LGS's
 > proof-commit path). Nothing in this document weakens a Protected Invariant
-> (root `AGENTS.md` Section 7).
+> (root `AGENTS.md` Section 7). Working item: `WORK-177` (complete).
 
 ## 0. Authority and precedence
 
@@ -177,7 +185,7 @@ only by explicit, versioned revision with supersession marked — never silently
 *Rationale:* `wf-constitution` safety boundaries; root `AGENTS.md` Sections 6 and 7.
 *Trade-off:* none. Absolute.
 
-## Open tensions (owned; items 2, 4 and 5 resolved 2026-11-18)
+## Open tensions (owned; items 2, 4, 5 and 7 resolved 2026-11-18)
 
 1. **P-5/P-6 vs privacy and retention.** Monotonic retention of superseded records and full audit
    attribution conflict with any future hard-deletion or minimisation requirement. An explicit
@@ -206,9 +214,11 @@ only by explicit, versioned revision with supersession marked — never silently
 5. ~~**`blockchain-gateway` placement (SRS Q-6; ledger WORK-037; service-contracts.yaml `domain:
    unresolved`).** Whether that gateway belongs to the seven-domain model at all is open. This
    bears on P-7 and P-12. Not resolved here.~~
-   **RESOLVED 2026-11-18** (Decision `WORK-173`; closes `WORK-037`; SRS Q-6 annotation PENDING -
-   proposed Section 11 change request `WORK-171`, not yet applied; the SRS is unchanged as of
-   this draft). `blockchain-gateway` is OUTSIDE the
+   **RESOLVED 2026-11-18** (Decision `WORK-173`; closes `WORK-037`). The SRS Q-6 annotation was
+   ~~PENDING - proposed Section 11 change request `WORK-171`, not yet applied; the SRS is unchanged as of this draft~~
+   **applied 2026-11-18**: Section 11 Change Request `WORK-171` (Sections 8.1 and 9), Gate 2
+   Decision `WORK-176`, applied at commit `b6ce80c` (SRS v1.2); this v1.3 amendment retires the
+   PENDING note as stale. `blockchain-gateway` is OUTSIDE the
    seven-domain model: it is not a domain and not a service binding; the chain-client is an
    implementation component of LGS's proof-commit path, decided at implementation time by the
    LGS implementation plan. The manifest binding is superseded (`superseded_by: WORK-173`). This
@@ -216,12 +226,20 @@ only by explicit, versioned revision with supersession marked — never silently
    reopened.
 6. **Rule-set identifier source (SRS Q-1).** The authoritative source of the rule-set identifier
    value is open. This bears on P-3 and P-4. Not resolved here.
-7. **Interim status vocabulary; capability artifacts exist but are unpromoted.** All five
+7. ~~**Interim status vocabulary; capability artifacts exist but are unpromoted.** All five
    capability artifacts exist under `spec-workspace/library/Capabilities/` as `Draft` (created
    under ledger WORK-020, resolved 2026-11-16; promotion to Approved is a separate concern and is
    not a precondition). None is `Approved`, and `SRS Section 9.1`'s interim table still governs
    this project until the capability artifacts are promoted — at which point SRS Section 9.1
-   should be revised to reference them. Not resolved here.
+   should be revised to reference them. Not resolved here.~~
+   **RESOLVED 2026-11-18** (Decision `WORK-175` - `CAP-CANONICAL-FORM` v1.0, `CAP-USERID` v1.1,
+   `CAP-TIMESTAMPFORMAT` v1.1 and `CAP-SCHEMAVERSIONCONSTRAINT` v1.1 promoted to `Approved`;
+   `CAP-STATUSENUMS` v1.1 flipped `In_Review` -> `Approved` in the same change that applied
+   Section 11 Change Request `WORK-171` (SRS v1.2, Gate 2 Decision `WORK-176`, commit `b6ce80c`)).
+   All five capability artifacts are `Approved`; `SRS Section 9.1` no longer carries an interim
+   table - it carries a normative reference to `CAP-STATUSENUMS` (the capability governs). This
+   v1.3 amendment records the resolution; it does not reopen it. Retained struck-through for
+   traceability; not reopened.
 
 ## Lifecycle and amendment
 
@@ -233,6 +251,18 @@ Clarification (v1.1): for a single-file constitution revision such as this one, 
 explicit through the in-file Amendment lineage block (see Linked artifacts) plus git history -
 there is no separate `Superseded` file, and the old version is never overwritten in place without
 the lineage record.
+
+**Change record (v1.3, 2026-11-18).** Open tensions item 5 marked RESOLVED (the
+   `PENDING` clause is struck through: the SRS Q-6 annotation was applied 2026-11-18 as part of
+   Section 11 Change Request `WORK-171`, Sections 8.1 and 9, Gate 2 Decision `WORK-176`, commit
+   `b6ce80c`); Open tensions item 7 marked RESOLVED (all five capability artifacts `Approved` -
+   Decision `WORK-175`; `CAP-STATUSENUMS` under `WORK-176` in the same change), and the section
+   heading re-anchored to items 2, 4, 5 and 7; Linked artifacts re-pinned to parent SRS v1.2;
+   banner and frontmatter versioned to v1.3. **No principle was added, changed or weakened;
+   P-1…P-15 and Section 0 are byte-identical to v1.2.** Amendment path per this section:
+   independent review 2026-11-18 (verdict APPROVED WITH COMMENTS; findings F-01 to F-06, all
+   informational; session `ses_e1166ff8fffeISU1TbsWEM7x9g`), then explicit human Gate 2 approval
+   (Decision `WORK-178`). v1.2 remains in git history (`aa11a42`); never overwritten.
 
 **Change record (v1.2, 2026-11-18).** Open tensions item 2 marked RESOLVED (`WORK-156` - the
 human accepted the P-8 freeze by approving the contract at v1.5); Open tensions item 5 marked
@@ -249,17 +279,21 @@ Gate 2 approval (Decision `WORK-168`). v1.0 remains in git history (`WORK-159`);
 
 ## Linked artifacts
 
-- Parent specification: `SRS_LMS_v1.0.md` (`SRS-LMS-v1.0` v1.1, Approved, `WORK-039`; v1.1
-  amendment 2026-11-18 - Change Request `WORK-165`, Gate 2 `WORK-167`, applied at `4b3936a`;
-  v1.0 anchored to SHA `167af69`)
+- Parent specification: `SRS_LMS_v1.0.md` (`SRS-LMS-v1.0` v1.2, Approved, `WORK-039`; v1.2
+  amendment 2026-11-18 - Section 11 Change Request `WORK-171` (Sections 8.1 and 9), Gate 2
+  Decision `WORK-176`, applied at `b6ce80c`; v1.1 amendment 2026-11-18 - Change Request
+  `WORK-165`, Gate 2 `WORK-167`, applied at `4b3936a`; v1.0 anchored to SHA `167af69`)
 - Task specification: `tasks/task-LMS-CONTRACT-001-noncode.md` (Approved v1.5, `WORK-156`)
 - Collection binding: `binding.yaml`; runtime manifest: `service-contracts.yaml`
 - Protected Invariants: root `AGENTS.md` Section 7; framework policy reference
 - Approval: v1.0 - Gate 2, 2026-11-17, Work Ledger Decision `WORK-159`; v1.1 - Gate 2,
   2026-11-18, Work Ledger Decision `WORK-168` (status flipped Draft -> Approved in the same
   change); v1.2 - Gate 2, 2026-11-18, Work Ledger Decision `WORK-174` (status flipped Draft ->
-  Approved in the same change).
+  Approved in the same change). v1.3 - Gate 2, 2026-11-18, Work Ledger Decision `WORK-178`
+  (status flipped Draft -> Approved in the same change; F-01 codebase-AGENTS.md pin cascade
+  applied in the same change; review verdict and `WORK-177` transition recorded in the ledger).
 - Amendment lineage: v1.0 (Approved 2026-11-17, `WORK-159`) → v1.1 (Approved 2026-11-18,
-  `WORK-168`) → v1.2 (Approved 2026-11-18, `WORK-174`); v1.0 and v1.1 retained in git history, never
+  `WORK-168`) → v1.2 (Approved 2026-11-18, `WORK-174`) → v1.3 (Approved 2026-11-18,
+  `WORK-178`); v1.0, v1.1 and v1.2 retained in git history, never
   overwritten
 - Work ledger: `spec-workspace/project-temp/work_ledger.yaml`

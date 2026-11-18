@@ -19,7 +19,7 @@ the source layout; do not improvise one.
 
 `binding.yaml` in this directory points at the specification collection this codebase implements:
 collection `SPEC-LMS-v1.0` v1.0, root spec `SRS-LMS-v1.0` v1.2 (`Approved`, `WORK-039`; v1.2 refreshes Sections 8.1 and 9 per Decision `WORK-176`),
-project constitution `CONST-LMS-v1.2` v1.2 (`Approved`; lineage `WORK-159` v1.0, `WORK-168` v1.1, `WORK-174` v1.2). This directory is invalid
+project constitution `CONST-LMS-v1.3` v1.3 (`Approved`; lineage `WORK-159` v1.0, `WORK-168` v1.1, `WORK-174` v1.2, `WORK-178` v1.3). This directory is invalid
 without that pointer. `generated-projects/AGENTS.md` governs this tree.
 
 ## 3. Rules that bind any work here
@@ -29,7 +29,7 @@ without that pointer. `generated-projects/AGENTS.md` governs this tree.
 * **No code without an approved spec** (Protected Invariant I). Every task here cites its task
   specification, its plan, and its worktree.
 * **The constitution binds this codebase.** `spec-workspace/projects/blockchain-enabled-lms/
-  constitution.md` (CONST-LMS-v1.2 v1.2, Approved; lineage `WORK-159` v1.0, `WORK-168` v1.1, `WORK-174` v1.2) is the durable engineering principles for this
+  constitution.md` (CONST-LMS-v1.3 v1.3, Approved; lineage `WORK-159` v1.0, `WORK-168` v1.1, `WORK-174` v1.2, `WORK-178` v1.3) is the durable engineering principles for this
   project — specification before implementation (P-11), evidence-based completion (P-9), explicit
   operation contracts over shared state (P-12), one normative contract per subject (P-14).
 * **Domain boundaries are contracts.** The seven service domains (IAM, ECS, AMS, FRAS, ESS,
