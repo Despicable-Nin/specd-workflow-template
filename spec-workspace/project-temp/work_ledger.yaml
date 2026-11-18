@@ -3688,24 +3688,29 @@
       "id": "WORK-130",
       "type": "Question",
       "title": "Which domain owns the canonical-form rules defined by CAP-CANONICAL-FORM",
-      "status": "proposed",
+      "status": "done",
       "priority": "medium",
       "source": {
         "type": "wf-review",
         "reference": "SRS Question Q-5; finding N7 | ses_e2d29a36affeTY1R57QoI54RrB"
       },
       "context": "The capability artifact CAP-CANONICAL-FORM defines the reduction rules and the digest constraint that the LMS proof guarantee depends on. It is adopted by two candidate owners with different mandates: ECS as the rule authority, and LGS as the proof authority. They are not the same party, and the choice determines who may change the reduction rules without silently invalidating existing proofs. The artifact records this as an open question in its own text.",
-      "next_action": "Decide whether ECS, LGS, or a third party owns the canonical-form rules for this project, then record the Decision and close the capability artifact's open question 1.",
+      "next_action": "None. Closed by Decision WORK-164 (2026-11-18).",
       "dependencies": [
         "WORK-067"
       ],
       "owner": "User",
-      "resolution": null,
+      "resolution": "Closed by Decision WORK-164 (2026-11-18). The canonical-form rules defined by CAP-CANONICAL-FORM are owned by the specification artifacts under spec-workspace governance, not by ECS or LGS. Neither runtime domain may change them unilaterally; either domain may propose a revision; adoption requires a versioned revision + independent review + explicit human approval recorded as a ledger Decision. CAP-CANONICAL-FORM's open question 1 is closed in the same change.",
       "history": [
         {
           "timestamp": "2026-11-13T04:35:00Z",
           "action": "Raised by wf-review finding N7",
           "actor": "System"
+        },
+        {
+          "timestamp": "2026-11-18T00:46:53Z",
+          "action": "Closed by Decision WORK-164 (user decision 2026-11-18); CAP-CANONICAL-FORM updated in the same change",
+          "actor": "User"
         }
       ]
     },
@@ -4665,6 +4670,32 @@
           "timestamp": "2026-11-17T13:49:55Z",
           "action": "Committed at 1450415 (1450415f1c01beca5c8c4aaf590df99cf9deae46) on main and pushed to origin/main (fcbc05a..1450415). Sync verified: 0 ahead, 0 behind. Push authorized at Gate 2.",
           "actor": "System"
+        }
+      ]
+    },
+    {
+      "id": "WORK-164",
+      "type": "Decision",
+      "title": "Canonical-form rules are owned by the specification artifacts; neither ECS nor LGS may change them unilaterally",
+      "status": "done",
+      "priority": "medium",
+      "source": {
+        "type": "human-decision",
+        "reference": "user decision 2026-11-18 (recorded in this item) | closes WORK-130; answers SRS Q-5; closes CAP-CANONICAL-FORM open question 1"
+      },
+      "context": "SRS Q-5 / WORK-130 asked which domain owns the canonical-form rules defined by CAP-CANONICAL-FORM - ECS as the rule authority, or LGS as the proof authority. Decision (2026-11-18): neither. The rules are owned by the specification artifacts under spec-workspace governance. Rationale: (1) scope mismatch - ECS rules are level- and period-scoped academic rules; the canonical form is a global, byte-level encoding with a freeze cadence, not a curriculum artifact. (2) SRS 3.2 excludes LGS from ECS consumers because it does not vary by educational level or academic period; the same logic excludes a level/period authority from a global form. (3) Section 6 separates the proof authority from the record authority so the attester does not define the attestation format unchecked; either domain as unilateral owner recreates that coupling in a new guise. (4) CAP-CANONICAL-FORM property 5 (versioned; version committed in the proof) means no change silently invalidates existing proofs regardless of owner - ownership is change control and accountability, not proof safety. (5) P-14 - one normative contract per subject; the rules already live in one artifact, and change to it belongs in versioned, reviewed, human-approved revision. Either ECS or LGS may propose a revision; neither may adopt. Adoption requires a versioned revision of CAP-CANONICAL-FORM + independent review + explicit human approval recorded as a ledger Decision.",
+      "dependencies": [
+        "WORK-130",
+        "WORK-039"
+      ],
+      "next_action": "None. SRS Q-5 row remains un-annotated - annotating the Approved SRS is a Section 11 change request (ledger Change Request Decision + independent review + human approval + version increment) and was deliberately NOT authorized by this decision.",
+      "owner": "User",
+      "resolution": "Human decision recorded 2026-11-18. Ownership assigned to specification-workspace governance; neither runtime domain holds unilateral change authority; either may propose, only review + human approval disposes. CAP-CANONICAL-FORM updated in the same change (owner recorded; open question 1 closed). No SRS change applied.",
+      "history": [
+        {
+          "timestamp": "2026-11-18T00:46:53Z",
+          "action": "Decision recorded by the user; WORK-130 closed; CAP-CANONICAL-FORM updated",
+          "actor": "User"
         }
       ]
     }

@@ -4,7 +4,7 @@ version: 1.0
 status: Draft
 title: Canonical Form and Digest Constraint
 created: 2026-11-13T03:35:00Z
-updated: 2026-11-13T04:25:00Z
+updated: 2026-11-18T00:46:53Z
 ---
 
 # Canonical Form and Digest Constraint (`CAP-CANONICAL-FORM`)
@@ -114,9 +114,7 @@ would assert an authority that could be altered without changing the digest.
 
 * **The canonical field list of any particular record type.** That belongs to the record type's own
   specification, and is a prerequisite for committing any proof over that type.
-* **Which domain owns these rules.** The owning domain is an open question for the adopting
-  project — a rule authority and a proof authority are both candidates, and they are not the same
-  party.
+* **Which domain owns these rules.** Decided 2026-11-18 (ledger Decision WORK-164): the rules are owned by the specification artifacts under spec-workspace governance. Neither the rule authority nor the proof authority may change them unilaterally; either may propose a revision. Adoption requires a versioned revision of this artifact, independent review, and explicit human approval recorded as a ledger Decision.
 * **The digest algorithm.** The algorithm is chosen per adopting project, and its identifier is
   committed in every proof. Changing it requires a new canonical-form version.
 
@@ -124,13 +122,11 @@ would assert an authority that could be altered without changing the digest.
 
 An adopting project cites this capability from its specification and records the adoption. For
 example, one project's proof guarantee depends on it directly: the student-period record there is
-digested at period close, and the same project has raised the open question of which domain owns
-these rules.
+digested at period close, and the same project's ownership question was resolved on 2026-11-18 (Decision WORK-164): the rules are owned by specification-workspace governance, not by either adopting domain.
 
 ## Open questions
 
-1. Which domain owns the rules in this artifact — the rule authority, the proof authority, or a
-   third party?
+1. ~~Which domain owns the rules in this artifact?~~ **Resolved 2026-11-18** (ledger Decision WORK-164): neither domain - specification-workspace governance owns the rules; either domain may propose a revision, and only a versioned revision + independent review + explicit human approval adopts one.
 2. Which record types, if any, require an encoding other than the default stated in property 4?
 3. What is the canonical field list of each record type that is digested? Each is a prerequisite for
    committing a proof over that type.
