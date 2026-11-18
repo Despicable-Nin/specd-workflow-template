@@ -9,13 +9,13 @@ The complete specification collection for a blockchain-enabled Learning Manageme
 of record for student academic achievements across Primary, Secondary, and College education,
 with immutable blockchain proofs of grade finalization.
 
-The parent specification is `SRS_LMS_v1.0.md` (`SRS-LMS-v1.0`, v1.0).
+The parent specification is `SRS_LMS_v1.0.md` (`SRS-LMS-v1.0`, v1.1).
 
 ## 2. Contents
 
 | Path | Role |
 |---|---|
-| `SRS_LMS_v1.0.md` | Parent specification — objectives, stakeholders, capabilities and workflows, domain boundaries, quality expectations, composition and topology decisions. `spec_id: SRS-LMS-v1.0`, version 1.0, `status: Draft`. |
+| `SRS_LMS_v1.0.md` | Parent specification — objectives, stakeholders, capabilities and workflows, domain boundaries, quality expectations, composition and topology decisions. `spec_id: SRS-LMS-v1.0`, version 1.1, `status: Approved` (`WORK-039`). |
 | `schema/final-academic-record.md` | Normative rendering of the `final_academic_record` contract. `status: Draft`. |
 | `tasks/task-LMS-CONTRACT-001-noncode.md` | Task specification `WORK-LMS-CONTRACT-001`. `status: Draft`. |
 | `tasks/task-LMS-CONTRACT-001-plan.md` | The implementation plan for that task. **Does not exist yet** — created by `wf-plan`. |

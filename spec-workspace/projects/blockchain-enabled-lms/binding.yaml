@@ -12,14 +12,14 @@ spec_collection:
 
 root_spec:
   id: SRS-LMS-v1.0
-  version: 1.0
+  version: 1.1
   status: Approved
   file: SRS_LMS_v1.0.md
 
 spec_files:
   - path: SRS_LMS_v1.0.md
     id: SRS-LMS-v1.0
-    version: 1.0
+    version: 1.1
     status: Approved
     role: Parent specification - objectives, capabilities, workflows, domain boundaries, quality expectations, composition and topology decisions.
   - path: schema/final-academic-record.md

@@ -2,12 +2,12 @@
 spec_id: SRS-LMS-v1.0
 id: SRS-LMS-v1.0
 collection_id: SPEC-LMS-v1.0
-version: 1.0
+version: 1.1
 status: Approved
 title: Software Requirements Specification - Blockchain-Enabled LMS
 project: blockchain-enabled-lms
 created: 2026-11-11T12:00:00Z
-updated: 2026-11-13T05:00:00Z
+updated: 2026-11-18T03:33:56Z
 ---
 
 # Software Requirements Specification - Blockchain-Enabled LMS
@@ -621,8 +621,16 @@ Child artifacts cite this specification by section. The anchors are stable:
 | Q-2 | What is the agreed data format for `parent_transaction_id` across the domains that produce and consume it? | Domain owners | `WORK-LMS-CONTRACT-001` (the `parent_transaction_id` field) |
 | Q-3 | Should the exploratory `lms-platform/` and `src/identity/` directories be folded into the codebase directory, or removed? | Architecture owner | `WORK-017`, `WORK-035` |
 | Q-4 | Which capability artifacts define the shared `UserID`, `TimestampFormat`, `StatusEnums`, and `SchemaVersionConstraint` vocabularies that the **child task specification** adopts normatively? This specification defines its own status vocabulary inline (Section 9 below) and does not use those four. | Architecture owner | `WORK-020`, `WORK-LMS-CONTRACT-001` |
-| Q-5 | Which domain owns the canonical form rules that `CAP-CANONICAL-FORM` defines — ECS as the rule authority, or LGS as the proof authority? | Architecture owner | `WORK-130` |
+| Q-5 | Which domain owns the canonical form rules that `CAP-CANONICAL-FORM` defines — ECS as the rule authority, or LGS as the proof authority? | Architecture owner | **Resolved 2026-11-18 - Decision `WORK-164`; see `CAP-CANONICAL-FORM` and the work ledger (footnote below)** |
 | Q-6 | Which domain does the `blockchain-gateway` service belong to, or is it outside the seven-domain model? | Architecture owner | `WORK-037` |
+
+**Q-5 resolution (2026-11-18, Decision `WORK-164`).** Neither domain owns the canonical-form rules.
+The rules defined by `CAP-CANONICAL-FORM` are owned by the specification artifacts under
+spec-workspace governance. Neither ECS nor LGS may change them unilaterally; either domain may
+propose a revision. Adoption requires a versioned revision of `CAP-CANONICAL-FORM`, independent
+review, and explicit human approval whose approval is recorded as a ledger Decision. No runtime
+domain dependency is introduced. The question text above is retained verbatim for traceability;
+`WORK-130` is closed.
 
 ### 9.1 Status vocabulary used by this specification
 
@@ -697,5 +705,21 @@ tokens). 2026-11-16: the Decision reference was corrected from the placeholder `
 actual Decision id `WORK-039`; no semantic change.
 
 This specification may now be used as a parent specification for an approved task.
+
+**Change record (v1.1).** 2026-11-18: Section 9 Q-5 annotated as resolved by Decision `WORK-164`
+(canonical-form rules owned by specification-workspace governance; neither ECS nor LGS may change
+them unilaterally; either may propose; adoption requires a versioned revision of
+`CAP-CANONICAL-FORM`, independent review, and explicit human approval). Fulfilled through Section
+11: Change Request `WORK-165`; independent review 2026-11-18, verdict CHANGES REQUIRED, conditions
+C-1 to C-4 satisfied as recorded in the work ledger; Gate 2 approval recorded as Decision
+`WORK-167` (2026-11-18). Version incremented to 1.1 and `updated` set to the application time, per
+Section 11. v1.0 remains retrievable at git revision `167af69`, anchored to approval Decision
+`WORK-039` (2026-11-13); this v1.1 revision is anchored to Decision `WORK-167` and to the commit
+carrying this change (the commit SHA is recorded in the work ledger history at commit time). The
+specification collection `SPEC-LMS-v1.0` remains version 1.0 by Decision: the collection did not
+change, and the root specification version is the change signal; `root_spec.version` in both
+`binding.yaml` files moves to 1.1 accordingly. The id `SRS-LMS-v1.0` and the filename are unchanged
+(three-way filename agreement, root `AGENTS.md` Section 2). **No requirement was added, removed or
+modified**; Sections 2.8, 3, 5 and 6 are unchanged.
 
 *End of specification.*

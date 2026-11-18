@@ -4703,6 +4703,95 @@
           "actor": "System"
         }
       ]
+    },
+    {
+      "id": "WORK-165",
+      "type": "Decision",
+      "title": "Change Request - annotate SRS Section 9 Q-5 as resolved by Decision WORK-164 and increment version to 1.1",
+      "status": "done",
+      "priority": "medium",
+      "source": {
+        "type": "human-decision",
+        "reference": "user decision 2026-11-18 ('proceed' after the two-phase plan was presented and accepted) | authorizes the Section 11 change request path for SRS annotation only"
+      },
+      "context": "Section 11 change request. WHAT CHANGES: (1) SRS frontmatter version 1.0 -> 1.1 and updated timestamp; id SRS-LMS-v1.0 and filename unchanged. (2) Section 9 Q-5 row annotated as resolved 2026-11-18 (Decision WORK-164; CAP-CANONICAL-FORM): neither ECS nor LGS owns the canonical-form rules; specification-workspace governance owns them; either domain may propose; adoption requires versioned revision + independent review + explicit human approval. No requirement added, removed or modified; Sections 2.8, 3, 5 and 6 are NOT touched. (3) Section 12 change record appended. (4) Cascade consistency edits: collection binding.yaml root_spec.version 1.0 -> 1.1 and the SRS spec_files entry -> 1.1 (spec_collection version SPEC-LMS-v1.0 unchanged - the collection did not change); generated-projects/blockchain-enabled-lms/binding.yaml root_spec.version -> 1.1; project AGENTS.md line 12 v1.0 -> v1.1. WHY: the Approved SRS Section 9 still lists Q-5 as an open question with Blocks=WORK-130, but Decision WORK-164 (2026-11-18) resolved it; leaving the Approved parent stale misinforms every downstream artifact that reads Section 9. SECTIONS AFFECTED: frontmatter; Section 9 (Q-5 row); Section 12 (change record); the three binding/AGENTS consistency files.",
+      "dependencies": [
+        "WORK-164",
+        "WORK-039"
+      ],
+      "next_action": "None. Applied under Gate 2 approval Decision WORK-167; commit SHA recorded in the ledger history at commit time (90f84b3 precedent).",
+      "owner": "User",
+      "resolution": "Approved at Gate 2 (2026-11-18, Decision WORK-167) after independent review (CHANGES REQUIRED; conditions C-1 to C-4 satisfied as recorded in the 2026-11-18 history entry). SRS v1.1 applied: frontmatter version increment and apply-time updated stamp; Section 9 Q-5 annotated RESOLVED with footnote; Section 12 change record appended; cascade edits applied (collection binding.yaml root_spec + SRS spec_files entry; codebase binding.yaml root_spec; project AGENTS.md line 12 and line 18; codebase AGENTS.md line 21). SPEC-LMS-v1.0 stays 1.0 by Decision; rationale recorded in Section 12.",
+      "history": [
+        {
+          "timestamp": "2026-11-18T03:19:16Z",
+          "action": "Change Request recorded by user instruction; pending independent review and Gate 2 approval",
+          "actor": "User"
+        },
+        {
+          "timestamp": "2026-11-18T03:25:00Z",
+          "action": "Independent review (delegated, read-only; session ses_e135530f3ffeoGyLYmPGWvJBu7) verdict CHANGES REQUIRED. Conditions: C-1 extend cascade to spec-workspace/projects/blockchain-enabled-lms/AGENTS.md line 18 (version 1.1; status aligned to Approved per WORK-039) or recorded explicit deferral; C-2 extend cascade to generated-projects/blockchain-enabled-lms/AGENTS.md line 21 (v1.0 -> v1.1) or recorded explicit deferral; C-3 constitution NOT edited in this change - deferral recorded, tracked as WORK-166, applied later via the constitution amendment path; C-4 Section 12 append must anchor v1.1 to the Gate 2 Decision and the applied commit SHA (recorded in ledger history at commit time, per the 90f84b3 precedent), retain the WORK-039/167af69 anchor for v1.0, and record why SPEC-LMS-v1.0 stays 1.0 while root_spec.version moves to 1.1. F-05: Q-5 cell shortened to RESOLVED + named Decision, full rule restated verbatim in a footnote paragraph under the Section 9 table, terminal clause attributed (approval recorded as a ledger Decision). F-06: updated timestamp set to the actual apply time. F-11: footnote approach. F-10: strict order - review verdict, Gate 2 Decision, then apply. F-01/F-02 substance accepted.",
+          "actor": "System"
+        },
+        {
+          "timestamp": "2026-11-18T03:33:26Z",
+          "action": "Gate 2 granted by the human: revised change approved (cascade includes both AGENTS.md edits). Approval recorded as Decision WORK-167. Applying the SRS v1.1 amendment now.",
+          "actor": "User"
+        }
+      ]
+    },
+    {
+      "id": "WORK-166",
+      "type": "Task",
+      "title": "Constitution v1.1 amendment - open tensions item 4 and Linked artifacts line (constitution deferred from the SRS v1.1 change)",
+      "status": "proposed",
+      "priority": "medium",
+      "source": {
+        "type": "wf-review",
+        "reference": "wf-review of WORK-165 (2026-11-18, verdict CHANGES REQUIRED) condition C-3 | constitution.md lines 184-186 (open tensions item 4 still cites WORK-130 as open, false since WORK-164) and line 207 (SRS reference still pins v1.0 / SHA 167af69)"
+      },
+      "context": "The SRS v1.1 change (WORK-165) deliberately did NOT edit the Approved constitution. The constitution must be amended through its own path (P-15; Constitution lifecycle Draft -> In_Review -> Approved): versioned revision CONST-LMS-v1.0 -> CONST-LMS-v1.1, independent review (wf-review, type spec), explicit human Gate 2 approval, supersession marked in-file (v1.0 stays in git history). Scope limited to: (1) frontmatter id/version bump and updated timestamp; (2) approval banner rewritten for v1.1 with v1.0 lineage retained; (3) Open tensions item 4 marked RESOLVED 2026-11-18 (Decision WORK-164; SRS v1.1; CAP-CANONICAL-FORM), text struck through not deleted; (4) Linked artifacts: parent SRS reference -> SRS-LMS-v1.0 v1.1 Approved plus v1.1 amendment lineage (WORK-164, WORK-165, WORK-166/167 per final numbering); (5) Lifecycle and amendment: v1.1 change record appended. No principle is touched or weakened. User already authorized this amendment as Part 2 of the agreed two-phase plan ('proceed', 2026-11-18).",
+      "dependencies": [
+        "WORK-164",
+        "WORK-165"
+      ],
+      "next_action": "After WORK-165 is applied and committed (SRS v1.1), run the constitution amendment path: draft CONST-LMS-v1.1, delegate independent review, present findings and draft to the human, on approval set status Approved and record the Gate 2 Decision, then commit.",
+      "owner": "User",
+      "resolution": null,
+      "history": [
+        {
+          "timestamp": "2026-11-18T03:26:00Z",
+          "action": "Proposed by the coordinator per wf-review condition C-3; user had already authorized the constitution amendment as Part 2 ('proceed', 2026-11-18)",
+          "actor": "System"
+        }
+      ]
+    },
+    {
+      "id": "WORK-167",
+      "type": "Decision",
+      "title": "Gate 2 approval - SRS Section 9 Q-5 annotation amendment (SRS v1.1, Change Request WORK-165)",
+      "status": "done",
+      "priority": "high",
+      "source": {
+        "type": "human-decision",
+        "reference": "user decision 2026-11-18 (Gate 2 granted at the question prompt; C-1/C-2 resolved as 'include both edits') | satisfies SRS Section 11 item 3 (explicit human approval) for Change Request WORK-165"
+      },
+      "context": "Gate 2 approval for the WORK-165 Section 11 change request, as revised to satisfy the independent review (2026-11-18, CHANGES REQUIRED, conditions C-1 to C-4). The approved change: frontmatter version 1.0 -> 1.1 with apply-time updated stamp; id SRS-LMS-v1.0 and filename unchanged; Section 9 Q-5 row annotated RESOLVED 2026-11-18 (Decision WORK-164; CAP-CANONICAL-FORM; this ledger) with the full rule restated in a footnote paragraph under the table; Section 12 change record appended (v1.0 retains the WORK-039/167af69 anchor; v1.1 anchored to this Decision and the applied commit SHA recorded in ledger history at commit time; SPEC-LMS-v1.0 stays 1.0 and why); cascade edits: collection binding.yaml (root_spec.version, SRS spec_files entry -> 1.1), codebase binding.yaml (root_spec.version -> 1.1), project AGENTS.md (line 12 -> v1.1; line 18 -> version 1.1, status Approved per WORK-039), codebase AGENTS.md (line 21 -> v1.1). Constitution explicitly NOT included; tracked as WORK-166. No requirement added, removed or modified; Sections 2.8, 3, 5, 6 unchanged.",
+      "dependencies": [
+        "WORK-165",
+        "WORK-164",
+        "WORK-039"
+      ],
+      "next_action": "Apply the edits (done in the same change), then commit with Gate 1/Gate 2 authorization; record the commit SHA in this item's history at commit time (90f84b3 precedent).",
+      "owner": "User",
+      "resolution": "Approval granted 2026-11-18 at Gate 2 after independent review (CHANGES REQUIRED; revised to C-1..C-4). Protected Invariant III is satisfied by this recorded Decision plus the Section 12 change record.",
+      "history": [
+        {
+          "timestamp": "2026-11-18T03:33:26Z",
+          "action": "Gate 2 granted by the human; approval recorded; SRS v1.1 applied",
+          "actor": "User"
+        }
+      ]
     }
   ]
 }
