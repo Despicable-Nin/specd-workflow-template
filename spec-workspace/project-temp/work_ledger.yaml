@@ -4749,7 +4749,7 @@
       "id": "WORK-166",
       "type": "Task",
       "title": "Constitution v1.1 amendment - open tensions item 4 and Linked artifacts line (constitution deferred from the SRS v1.1 change)",
-      "status": "proposed",
+      "status": "done",
       "priority": "medium",
       "source": {
         "type": "wf-review",
@@ -4760,14 +4760,24 @@
         "WORK-164",
         "WORK-165"
       ],
-      "next_action": "After WORK-165 is applied and committed (SRS v1.1), run the constitution amendment path: draft CONST-LMS-v1.1, delegate independent review, present findings and draft to the human, on approval set status Approved and record the Gate 2 Decision, then commit.",
+      "next_action": "None. Completed at Gate 2 (2026-11-18, Decision WORK-168); commit SHA recorded in the ledger history at commit time (4b3936a precedent).",
       "owner": "User",
-      "resolution": null,
+      "resolution": "Approved at Gate 2 (2026-11-18, Decision WORK-168) after independent review (CHANGES REQUIRED; findings F-01 to F-16; fixes F-01, F-02, F-04, F-05, F-06, F-10 applied as directed by the human at Gate 2; F-03 cascade extended to generated-projects/blockchain-enabled-lms/AGENTS.md per human direction). CONST-LMS-v1.1 recorded: open tensions item 4 marked RESOLVED, Linked artifacts updated to parent SRS v1.1, banner and frontmatter versioned, Lifecycle clarification added (single-file supersession = lineage block + git history). No principle added, changed or weakened. v1.0 retained in git history (fcbc05a).",
       "history": [
         {
           "timestamp": "2026-11-18T03:26:00Z",
           "action": "Proposed by the coordinator per wf-review condition C-3; user had already authorized the constitution amendment as Part 2 ('proceed', 2026-11-18)",
           "actor": "System"
+        },
+        {
+          "timestamp": "2026-11-18T03:52:00Z",
+          "action": "v1.1 draft applied to the working tree (CONST-LMS-v1.1, status Draft). Independent review (delegated, read-only; session ses_e13423c32ffe7q7l61X0m81iaq) verdict CHANGES REQUIRED. Confirmed: no principle changed; neither invariant-adjacent text weakened; RESOLVED text faithful to WORK-164; SRS v1.1 Linked artifacts accurate. Required: F-01 (Linked artifacts and lineage must not assert unrecorded Gate 2 approval - WORK-168 does not exist; reword to pending state, fix at Gate 2), F-02 (Lifecycle single-file supersession mechanism unrecorded - clarify sentence or explicit human acceptance), F-03 (two live pins in generated-projects/blockchain-enabled-lms/AGENTS.md lines 22 and 31-33 must be swept or explicitly deferred by the human at Gate 2 - not silently). F-04: strike the deleted 'bears on' clause or reword the overclaim. F-09: updated set to apply time at Gate 2. Optional: F-05/F-06/F-10 editorial. Rejected: committing the draft as-is. Reminder F-12: scope additions beyond the WORK-166 scope (F-02 option a, F-03 option a) need explicit human Gate 2 direction, not silent action.",
+          "actor": "System"
+        },
+        {
+          "timestamp": "2026-11-18T04:35:34Z",
+          "action": "Human Gate 2 granted. Decisions applied: F-01/F-04 mechanical fixes applied; F-02 resolved by adding the Lifecycle clarification sentence (human-ratified at Gate 2); F-03 resolved by extending the cascade to generated-projects/blockchain-enabled-lms/AGENTS.md (human direction, Gate 2); F-05/F-06/F-10 editorial fixes included; F-09 apply-time stamp set at the flip. Approval recorded as Decision WORK-168. Constitution flipped Draft -> Approved in the same change.",
+          "actor": "User"
         }
       ]
     },
@@ -4800,6 +4810,35 @@
           "timestamp": "2026-11-18T03:39:06Z",
           "action": "SRS v1.1 committed at 4b3936a (4b3936a6df77f49899800870caead07164796b9e) on main and pushed to origin/main (1b4a988..4b3936a). Sync verified: 0 ahead, 0 behind. Push authorized at Gate 2.",
           "actor": "System"
+        }
+      ]
+    },
+    {
+      "id": "WORK-168",
+      "type": "Decision",
+      "title": "Gate 2 approval - Constitution v1.1 amendment (CONST-LMS-v1.1): open tensions item 4 RESOLVED",
+      "status": "done",
+      "priority": "high",
+      "source": {
+        "type": "human-decision",
+        "reference": "user decision 2026-11-18 (Gate 2 granted at the question prompt) | satisfies the constitution amendment path (P-15; Lifecycle and amendment) for WORK-166"
+      },
+      "context": "Gate 2 approval for CONST-LMS-v1.1 (2026-11-18), amending the v1.0 Approved constitution (WORK-159, 2026-11-17). The amendment: (1) frontmatter id/version CONST-LMS-v1.1 / 1.1, status Draft -> Approved in the same change, updated set to apply time; (2) banner rewritten for v1.1 with v1.0 lineage retained; (3) Open tensions item 4 marked RESOLVED (Decision WORK-164; SRS v1.1 Section 9 Q-5, Decision WORK-167; CAP-CANONICAL-FORM) with the v1.0 text struck through, not deleted; (4) Lifecycle and amendment: v1.1 change record appended plus a clarification that single-file supersession is explicit via the in-file Amendment lineage block plus git history; (5) Linked artifacts updated to the parent SRS v1.1 (applied at 4b3936a) with v1.0 anchored to SHA 167af69; amendment lineage block records v1.0 -> v1.1; (6) cascade: generated-projects/blockchain-enabled-lms/AGENTS.md CONST-LMS pins moved to v1.1 (human direction at Gate 2). No principle added, changed or weakened; P-15, Section 0 and all P-1..P-15 texts byte-identical to v1.0. Independent review sat before this approval: 2026-11-18, CHANGES REQUIRED (F-01 to F-16); F-01, F-02, F-03, F-04, F-05, F-06, F-09, F-10 resolved as directed by the human at Gate 2; the review's alternative of committing the draft as-is was rejected.",
+      "dependencies": [
+        "WORK-166",
+        "WORK-164",
+        "WORK-165",
+        "WORK-167",
+        "WORK-159"
+      ],
+      "next_action": "Commit CONST-LMS-v1.1 with Gate 1/Gate 2 authorization; record the commit SHA in this item's history at commit time (4b3936a precedent).",
+      "owner": "User",
+      "resolution": "Approval granted 2026-11-18 at Gate 2 after independent review (CHANGES REQUIRED; revised). Protected Invariant III is satisfied by this recorded Decision plus the in-file change record and the lineage block. The constitution is now CONST-LMS-v1.1, Approved.",
+      "history": [
+        {
+          "timestamp": "2026-11-18T04:35:34Z",
+          "action": "Gate 2 granted by the human; approval recorded; constitution flipped Draft -> Approved in the same change",
+          "actor": "User"
         }
       ]
     }
