@@ -5169,7 +5169,7 @@
         "WORK-175",
         "WORK-174"
       ],
-      "next_action": "Commit CONST-LMS-v1.3 with Gate 1/Gate 2 authorization; record the commit SHA in this item's history at commit time (aa11a42 precedent).",
+      "next_action": "None. CONST-LMS-v1.3 committed at b33e6a6 and pushed to origin/main (push authorized); sync verified 0 ahead, 0 behind at push time.",
       "owner": "User",
       "resolution": "Approval granted 2026-11-18 at Gate 2 after independent review (APPROVED WITH COMMENTS; F-01..F-06 all informational; F-01/F-04/F-06 resolved in the flip change; F-02 out of scope; F-03 accepted by the human). Protected Invariant III is satisfied by this recorded Decision plus the in-file v1.3 change record and the amendment lineage block. The constitution is now CONST-LMS-v1.3, Approved.",
       "history": [
@@ -5180,8 +5180,13 @@
         },
         {
           "timestamp": "2026-11-18T20:27:51Z",
-          "action": "Gate 2 granted by the human ('Gate 2 granted - full package'; F-01 pin cascade applied in the same change; F-04 wording applied; F-06 recorded). Approval recorded as Decision WORK-178; constitution flipped Draft -> Approved in the same change; WORK-177 closed. Commit NOT yet made - requires explicit commit authorization.",
+          "action": "Gate 2 granted by the human ('Gate 2 granted - full package'; F-01 pin cascade applied in the same change; F-04 wording applied; F-06 recorded). Approval recorded as Decision WORK-178; constitution flipped Draft -> Approved in the same change; WORK-177 closed. Commit authorized by the human ('yes' to commit and push).",
           "actor": "User"
+        },
+        {
+          "timestamp": "2026-11-19T07:19:27Z",
+          "action": "CONST-LMS-v1.3 committed at b33e6a6 (b33e6a6f67f0dfa9e46d62baa0e9a088c6d83750) on main; push to origin/main authorized by the human.",
+          "actor": "System"
         }
       ]
     }
