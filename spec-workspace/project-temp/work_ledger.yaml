@@ -4929,8 +4929,8 @@
     {
       "id": "WORK-171",
       "type": "Task",
-      "title": "SRS Section 8.1 artifact table refresh via Section 11 change request (schema/task/plan/calibration/handoff statuses)",
-      "status": "proposed",
+      "title": "SRS Section 11 change request - refresh Sections 8.1 and 9 (artifact statuses, Q-4/Q-6 annotation, Section 9.1 normative reference to CAP-STATUSENUMS)",
+      "status": "done",
       "priority": "medium",
       "source": {
         "type": "wf-reconcile",
@@ -4942,9 +4942,9 @@
         "WORK-165",
         "WORK-167"
       ],
-      "next_action": "Await WORK-148 user confirmation, then record the Change Request, review, Gate 2, apply, commit.",
+      "next_action": "None. Applied 2026-11-18 under Gate 2 approval Decision WORK-176 (independent review ses_e12724059ffe5U7uPY0rVPH0yw, verdict CHANGES REQUIRED, conditions C-1..C-8 satisfied in the apply as recorded here). Commit SHA recorded in the ledger history at commit time.",
       "owner": "User",
-      "resolution": null,
+      "resolution": "SRS v1.2 applied 2026-11-18 (Sections 8.1 and 9 refreshed; Section 9.1 re-anchored to CAP-STATUSENUMS with byte-identical values; paired CAP-STATUSENUMS promotion to Approved in the same change; Q-4/Q-6 annotated resolved with traceability notes). Gate 2 Decision WORK-176 recorded; review verdict and all C-1..C-8 conditions recorded in the review history entry above. Constitution references tracked as WORK-177 (proposed) - not edited in this change.",
       "history": [
         {
           "timestamp": "2026-11-18T06:22:03Z",
@@ -4955,6 +4955,21 @@
           "timestamp": "2026-11-18T06:37:31Z",
           "action": "Coverage note (CONST-LMS-v1.2 review finding F-08, ses_e12a50dc5ffem9iDHSrcDFWdK4): the SRS Section 9.1 sentence 'The shared StatusEnums capability artifact does not yet exist (Q-4)' is false in fact - CAP-STATUSENUMS.md exists as Draft (created 2026-11-13, WORK-020 done 2026-11-16). When the Section 11 Change Request for this item is raised, include or explicitly exclude the Section 9.1 StatusEnums sentence (and, if promotion of the five capability artifacts proceeds, revise Section 9.1 to reference the promoted artifacts per tension item 7); record the scope decision then.",
           "actor": "System"
+        },
+        {
+          "timestamp": "2026-11-18T07:33:00Z",
+          "action": "Scope extended per user decision 2026-11-18 ('One CR covering Sections 8.1 and 9'): this item is now the Section 11 Change Request for SRS v1.2 covering the Section 8.1 artifact table AND Section 9 (Q-4 resolved, Q-6 resolved, Section 9.1 normative reference to CAP-STATUSENUMS). The paired CAP-STATUSENUMS promotion flips to Approved in the same Gate-approved change.",
+          "actor": "User"
+        },
+        {
+          "timestamp": "2026-11-18T07:47:00Z",
+          "action": "Independent review (delegated, read-only; session ses_e12724059ffe5U7uPY0rVPH0yw) of the proposed SRS v1.2 CR verdict CHANGES REQUIRED. All row edits verified accurate against the tree (schema Approved v1.0.0; task spec Approved v1.5; plan exists but stale; calibration Confirmed; handoff missing - disposition correctly out of scope; binding codebase_dir determined; manifest supersession). Conditions to satisfy IN THE APPLY: C-1 CAP-STATUSENUMS preamble rewritten (sole normative status-vocabulary authority; drop the stale v1.1 pin; flip In_Review->Approved at apply); C-2 both library READMEs flip fully to five-of-five Approved (per-artifact STATUSENUMS entries + trailing clauses; cite the Gate 2); C-3 Q-4 annotation gains a traceability clause for its retained-verbatim question text (or human's recorded verbatim-retention decision at Gate 2); C-4 service-contracts cell counts corrected (two declared bindings - auth-service IAM, record-schema LGS; five not-yet-specified domains; gateway superseded, superseded_by WORK-173); C-5 Section 12 v1.2 record names the confirmed Gate 2 Decision id (WORK-176), anchors v1.2 to Gate 2 + applying commit SHA (recorded at commit time), retains v1.1/v1.0 anchors, restates SPEC-LMS-v1.0 stays-1.0 rationale, characterizes Section 9.1 as normative-authority RE-ANCHORING with byte-identical values, and records the paired flip + README/preamble edits as part of the same change; C-6 single atomic commit (SRS v1.2 + CAP-STATUSENUMS flip + README flips), post-commit consistency check, push only with authorization, WORK-171 closed citing verdict + Gate 2 + SHA; C-7 the Gate 2 Decision restates the what/why/affected-sections (satisfies Section 11 step 1 in substance); C-8(i) proposed CONST-LMS-v1.3 ledger item raised for three stale constitution references (Linked artifacts SRS pin, item 5 PENDING note, item 7 interim-authority text) - not edited in this change; C-8(ii) binding.yaml stale calibration row corrected in this change OR explicitly re-assigned to WORK-170 at Gate 2 (human choice); C-8(iii) plan artifact internal inconsistency (frontmatter 'Ready for wf-implement' vs stale body/binding.yaml) recorded as known defect owned by wf-plan regeneration - plan not touched in this change.",
+          "actor": "System"
+        },
+        {
+          "timestamp": "2026-11-18T10:50:39Z",
+          "action": "Gate 2 granted by the human ('Approve (Gate 2 granted)'; C-8(ii) resolved: fix binding.yaml calibration row in this change; C-8(i) resolved: raise CONST-LMS-v1.3 as proposed item). Approval recorded as Decision WORK-176. Applying the revised change now.",
+          "actor": "User"
         }
       ]
     },
@@ -5050,6 +5065,64 @@
         {
           "timestamp": "2026-11-18T07:26:00Z",
           "action": "Promotion committed at 7a80293 (7a802934cf39d59ca22c500a63b91e9f59f498ea) on main and pushed to origin/main (39e1cad..7a80293). Sync verified: 0 ahead, 0 behind. Push authorized at Gate 2.",
+          "actor": "System"
+        }
+      ]
+    },
+    {
+      "id": "WORK-176",
+      "type": "Decision",
+      "title": "Gate 2 approval - SRS v1.2 change request (Sections 8.1 and 9) with the paired CAP-STATUSENUMS promotion",
+      "status": "done",
+      "priority": "critical",
+      "source": {
+        "type": "human-decision",
+        "reference": "user decision 2026-11-18 (Gate 2 granted at the question prompt; C-8(ii) fix binding.yaml calibration row in this change; C-8(i) raise CONST-LMS-v1.3 proposed) | satisfies SRS Section 11 items 1 and 3 for Change Request WORK-171"
+      },
+      "context": "WHAT CHANGES: (1) SRS frontmatter version 1.1 -> 1.2, updated set to the application time; id SRS-LMS-v1.0 and filename unchanged. (2) Section 8.1 artifact table refreshed: schema row Draft -> Approved (SCHEMA-LMS-FAR-v1.0 v1.0.0; open requirement satisfied in contract v1.5); task specification Draft -> Approved v1.5 (WORK-156); plan row not-yet-created -> exists, stale (regenerate via wf-plan); calibration row -> exists, retrospective, confirmed by the user 2026-11-18 (WORK-148); handoff row -> MISSING verified 2026-11-18 (disposition out of scope, WORK-170); binding.yaml row -> codebase binding determined (WORK-160), root_spec.version moves to 1.2 (both binding.yaml files + the SRS spec_files entry); service-contracts.yaml row -> blockchain-gateway described as retired outside the seven-domain model (Decision WORK-173); counts corrected to two declared bindings / five not-yet-specified / one superseded. (3) Section 9: Q-4 annotated resolved (all five capability artifacts exist; four Approved under Decision WORK-175; CAP-STATUSENUMS Approved under this same change) with verbatim-retention traceability clause; Q-6 annotated resolved (Decision WORK-173) with footnote; Section 9.1 inline interim table DELETED and replaced by a normative reference to Approved CAP-STATUSENUMS - normative-authority re-anchoring with byte-identical values; the false 'does not yet exist' footnote removed. (4) Paired change: CAP-STATUSENUMS flips In_Review -> Approved (preamble rewritten: sole normative status-vocabulary authority; READMEs flip to five of five Approved). (5) binding.yaml calibration row corrected (C-8(ii)). (6) CONST-LMS-v1.3 raised as proposed item (WORK-177) for three stale constitution references - constitution NOT edited here. WHY: the Approved parent SRS Section 8.1/Section 9 were stale in nine cells (verified against the working tree during review), Section 9.1 was both false and a P-14 duplication, and CAP-STATUSENUMS promotion was gated on exactly this change. WHICH SECTIONS: 8.1; 9; 12 (change record); frontmatter. No requirement added, removed or modified beyond the named replacements; Sections 2.8, 2.9, 3, 5, 6 unchanged. Independent review: 2026-11-18, ses_e12724059ffe5U7uPY0rVPH0yw, verdict CHANGES REQUIRED; conditions C-1 to C-8 satisfied in this change as recorded in WORK-171's history.",
+      "dependencies": [
+        "WORK-171",
+        "WORK-175",
+        "WORK-173",
+        "WORK-148",
+        "WORK-160",
+        "WORK-167",
+        "WORK-039"
+      ],
+      "next_action": "Single atomic commit carrying SRS v1.2 + CAP-STATUSENUMS flip + README flips + bindings + AGENTS pins + ledger; record the commit SHA in this item's history at commit time (4b3936a/aa11a42 precedent); WORK-171 closed citing verdict + Gate 2 + SHA.",
+      "owner": "User",
+      "resolution": "Approval granted 2026-11-18 at Gate 2 after independent review (CHANGES REQUIRED; C-1..C-8 satisfied in the apply). Protected Invariant III is satisfied by this recorded Decision plus the Section 12 v1.2 change record and the commit carrying this change. The SRS is now v1.2; CAP-STATUSENUMS is Approved; Section 9.1 carries a normative reference to it.",
+      "history": [
+        {
+          "timestamp": "2026-11-18T10:50:39Z",
+          "action": "Gate 2 granted by the human; approval recorded; revised change applied; atomic commit authorized",
+          "actor": "User"
+        }
+      ]
+    },
+    {
+      "id": "WORK-177",
+      "type": "Task",
+      "title": "Constitution v1.3 amendment - re-pin Linked artifacts SRS v1.2, retire item 5 PENDING note, strike tension item 7",
+      "status": "proposed",
+      "priority": "medium",
+      "source": {
+        "type": "wf-review",
+        "reference": "wf-review of the SRS v1.2 CR (2026-11-18, verdict CHANGES REQUIRED) condition C-8(i) | constitution.md (v1.2, Approved): Linked artifacts parent-SRS line pins 'SRS-LMS-v1.0 v1.1' / 'applied at 4b3936a'; Open tensions item 5 trailing note cites 'SRS Q-6 annotation PENDING - proposed Section 11 change request WORK-171'; Open tensions item 7 states the five capability artifacts are 'as Draft' and 'None is Approved' and that Section 9.1 'still governs' - all three are false as of the v1.2 change (CONST-LMS-v1.2 review deferral + this CR)"
+      },
+      "context": "The constitution (CONST-LMS-v1.2) is consistent only as of v1.1/v1.2 constitution lineage; after the SRS v1.2 change and the five-of-five capability promotion, three statements in the Approved constitution are stale: (1) Linked artifacts - 'Parent specification: SRS_LMS_v1.0.md (SRS-LMS-v1.0 v1.1, Approved...)' pins superseded v1.1 and the v1.1 anchor; (2) Open tensions item 5's RESOLVED note vs the SRS it describes - 'SRS Q-6 annotation PENDING ... not yet applied' is now false (Section 9 Q-6 annotation landed in v1.2); (3) Open tensions item 7 - 'All five capability artifacts exist ... as Draft ... None is Approved ... SRS Section 9.1's interim table still governs' is false on every clause (five of five Approved; Section 9.1 is now a normative reference to CAP-STATUSENUMS). Per the strike-through convention and P-15, item 7 and the item 5 note should be marked RESOLVED (v1.2 change) with the v1.0 text struck through, never deleted, and Linked artifacts re-pinned to SRS v1.2 + the v1.2 commit anchor. Any such amendment is a CONST-LMS-v1.3: draft, wf-review, Gate 2, commit - the constitution is not edited by this item's creation.",
+      "dependencies": [
+        "WORK-176",
+        "WORK-174",
+        "WORK-175"
+      ],
+      "next_action": "Human decision to run the v1.3 amendment (draft -> review -> Gate 2); not started until directed.",
+      "owner": "User",
+      "resolution": null,
+      "history": [
+        {
+          "timestamp": "2026-11-18T10:50:39Z",
+          "action": "Proposed per wf-review condition C-8(i); user-authorized at Gate 2 (2026-11-18); constitution NOT edited in this change",
           "actor": "System"
         }
       ]

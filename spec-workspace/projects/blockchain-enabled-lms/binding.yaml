@@ -12,14 +12,14 @@ spec_collection:
 
 root_spec:
   id: SRS-LMS-v1.0
-  version: 1.1
+  version: 1.2
   status: Approved
   file: SRS_LMS_v1.0.md
 
 spec_files:
   - path: SRS_LMS_v1.0.md
     id: SRS-LMS-v1.0
-    version: 1.1
+    version: 1.2
     status: Approved
     role: Parent specification - objectives, capabilities, workflows, domain boundaries, quality expectations, composition and topology decisions.
   - path: schema/final-academic-record.md
@@ -34,7 +34,7 @@ spec_files:
     role: Task specification - authoritative definition of the final_academic_record contract.
   - path: tasks/task-LMS-CONTRACT-001-noncode-calibration.md
     id: CALIBRATION-LMS-CONTRACT-001
-    status: Draft - retrospective, requires user confirmation
+    status: Confirmed - user confirmed 6/6 calibration choices 2026-11-16 (bounded confirmation); reaffirmed by the user 2026-11-18 (WORK-148)
     role: The six calibration choices for this task. Retrospective; see WORK-148.
   - path: tasks/task-LMS-CONTRACT-001-plan.md
     id: PLAN-LMS-CONTRACT-001

@@ -23,17 +23,17 @@ proof guarantee depends) have defining artifacts under `Capabilities/`:
 |---|---|---|
 | `CAP-USERID` | Standard user identity | **Approved** (2026-11-18) |
 | `CAP-TIMESTAMPFORMAT` | ISO 8601 | **Approved** (2026-11-18) |
-| `CAP-STATUSENUMS` | Shared status enumerations | Exists (`In_Review`; promotion gated on the SRS Section 11 Change Request) |
+| `CAP-STATUSENUMS` | Shared status enumerations | **Approved** (2026-11-18) |
 | `CAP-SCHEMAVERSIONCONSTRAINT` | `MAJOR.MINOR.PATCH` version constraint | **Approved** (2026-11-18) |
 | `CAP-CANONICAL-FORM` | Canonical form and digest constraint | **Approved** (2026-11-18) |
 
 ## Status
 
-**Populated; four of five Approved.** Each capability carries a stable ID, a version, and a
+**Populated; five of five Approved.** Each capability carries a stable ID, a version, and a
 `status` from the `Draft -> In_Review -> Approved -> Superseded` lifecycle. Approval required
-independent review and a recorded ledger Decision per artifact; four promotions are recorded in
-ledger `WORK-175`. `CAP-STATUSENUMS` promotion is gated on the SRS Section 11 Change Request
-(WORK-171) that reduces `SRS_LMS_v1.0.md` Section 9.1 to a normative reference to the capability;
-until it lands, the SRS Section 9.1 interim table is the authority.
+independent review and a recorded ledger Decision per artifact; the four promotions are recorded
+in ledger `WORK-175` and the `CAP-STATUSENUMS` promotion in `WORK-176`. `SRS_LMS_v1.0.md`
+Section 9.1 now carries a normative reference to `CAP-STATUSENUMS` (SRS v1.2, 2026-11-18); the
+values are identical, and the capability governs the status vocabulary.
 
 See ledger `WORK-020` (authoring).

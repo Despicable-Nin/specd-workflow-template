@@ -2,12 +2,12 @@
 spec_id: SRS-LMS-v1.0
 id: SRS-LMS-v1.0
 collection_id: SPEC-LMS-v1.0
-version: 1.1
+version: 1.2
 status: Approved
 title: Software Requirements Specification - Blockchain-Enabled LMS
 project: blockchain-enabled-lms
 created: 2026-11-11T12:00:00Z
-updated: 2026-11-18T03:33:56Z
+updated: 2026-11-18T10:50:39Z
 ---
 
 # Software Requirements Specification - Blockchain-Enabled LMS
@@ -574,13 +574,13 @@ the codebase directory, or removed, is undecided — `WORK-017`, `WORK-035`.
 
 | Artifact | State | Relationship to this specification |
 |---|---|---|
-| `schema/final-academic-record.md` | exists, `Draft` | Normative rendering of the `final_academic_record` payload — the payload a proof is computed over (Section 2.8). Authoritative source: `tasks/task-LMS-CONTRACT-001-noncode.md`. **Open requirement:** the payload must carry an explicit finalization-time field and an explicit authorizing-authority field, and must declare its canonical field list, because Section 2.8 places all three inside the digest. |
-| `tasks/task-LMS-CONTRACT-001-noncode.md` | exists, `Draft` | Task specification that defines the field-level data contract for the finalized student-period record. |
-| `tasks/task-LMS-CONTRACT-001-plan.md` | **not yet created** | The implementation plan for that task, produced by `wf-plan`. Its canonical path is listed in Section 7; the file does not exist yet. |
-| `tasks/task-LMS-CONTRACT-001-noncode-calibration.md` | **not yet created** | The calibration record for that task, required by the root `AGENTS.md`. It does not exist yet. |
-| `tasks/task-LMS-CONTRACT-001-handoff.md` | exists, `Open` | The running handoff for that task. Disposable: deleted once its status is `Done`. |
-| `binding.yaml` | exists | Declares this collection's identifier and version. Its codebase binding target is not yet determined. |
-| `service-contracts.yaml` | exists | Runtime dependency manifest. It declares all seven domains: three have a runtime binding specified, and four are marked `not-yet-specified`. It also declares one service with `domain: unresolved` — a gateway whose place in the domain model is undecided. This manifest is a **runtime artifact**, not a source of authority; where it disagrees with Section 3, this document governs. |
+| `schema/final-academic-record.md` | exists, `Approved` (`SCHEMA-LMS-FAR-v1.0` v1.0.0) | Normative rendering of the `final_academic_record` payload - the payload a proof is computed over (Section 2.8). Authoritative source: `tasks/task-LMS-CONTRACT-001-noncode.md`. The contract it renders is Approved at v1.5 (`WORK-156`); the finalization-time, authorizing-authority and canonical-field-list requirements are satisfied there (positions 11-13 of the canonical field list). |
+| `tasks/task-LMS-CONTRACT-001-noncode.md` | exists, `Approved` v1.5 (`WORK-156`) | Task specification that defines the field-level data contract for the finalized student-period record. The normative source for the `final_academic_record` contract. |
+| `tasks/task-LMS-CONTRACT-001-plan.md` | exists, `stale` (marked `stale - regenerate from task spec v1.5` in `binding.yaml`) | The implementation plan for that task, produced by `wf-plan`. It was written against v1.2 and describes the superseded model; `wf-plan` regenerates it from the v1.5 contract before any `wf-implement` run. |
+| `tasks/task-LMS-CONTRACT-001-noncode-calibration.md` | exists, retrospective | The calibration record for that task - `CALIBRATION-LMS-CONTRACT-001`, confirmed by the user 2026-11-18 (`WORK-148`; the bounded confirmation of 2026-11-16 recorded in the record stands). Required by the root `AGENTS.md`. |
+| `tasks/task-LMS-CONTRACT-001-handoff.md` | **missing** (verified 2026-11-18 - no handoff file exists in `tasks/`) | The running handoff for that task. Disposable: deleted once its status is `Done`. `binding.yaml` records it as `In Progress` and this row previously said `exists, Open` - the artifacts disagree; the disposition is a human decision, tracked by `WORK-170`, and out of this CR's scope. |
+| `binding.yaml` | exists | Declares this collection's identifier and version. Its codebase binding target IS determined: `generated-projects/blockchain-enabled-lms/` (`WORK-160`, 2026-11-17); this change and the binding files move `root_spec.version` to 1.2. |
+| `service-contracts.yaml` | exists | Runtime dependency manifest. It declares all seven domains: two have a runtime binding specified (`auth-service` to IAM; `record-schema` to LGS) and five are marked `not-yet-specified`. It also declares one RETIRED binding: `blockchain-gateway` is OUTSIDE the seven-domain model (Decision `WORK-173`, 2026-11-18 - an implementation component of LGS's proof-commit path; superseded in the manifest). This manifest is a **runtime artifact**, not a source of authority; where it disagrees with Section 3, this document governs. |
 | `AGENTS.md` (project) | exists | Project-local rules that bind any work in this collection. |
 
 ### 8.2 Section-anchor map
@@ -620,9 +620,9 @@ Child artifacts cite this specification by section. The anchors are stable:
 | Q-1 | Which domain is the authoritative source for the value of the rule set identifier that a finalized record carries? | ECS / GRA-Service domain owners | `WORK-LMS-CONTRACT-001` (the `GoverningRuleSetID` field) |
 | Q-2 | What is the agreed data format for `parent_transaction_id` across the domains that produce and consume it? | Domain owners | `WORK-LMS-CONTRACT-001` (the `parent_transaction_id` field) |
 | Q-3 | Should the exploratory `lms-platform/` and `src/identity/` directories be folded into the codebase directory, or removed? | Architecture owner | `WORK-017`, `WORK-035` |
-| Q-4 | Which capability artifacts define the shared `UserID`, `TimestampFormat`, `StatusEnums`, and `SchemaVersionConstraint` vocabularies that the **child task specification** adopts normatively? This specification defines its own status vocabulary inline (Section 9 below) and does not use those four. | Architecture owner | `WORK-020`, `WORK-LMS-CONTRACT-001` |
+| Q-4 | Which capability artifacts define the shared `UserID`, `TimestampFormat`, `StatusEnums`, and `SchemaVersionConstraint` vocabularies that the **child task specification** adopts normatively? This specification defines its own status vocabulary inline (Section 9 below) and does not use those four. | Architecture owner | ~~`WORK-020`, `WORK-LMS-CONTRACT-001`~~ **Resolved 2026-11-18** - all five capability artifacts exist; four are `Approved` (`CAP-CANONICAL-FORM` v1.0, `CAP-USERID` v1.1, `CAP-TIMESTAMPFORMAT` v1.1, `CAP-SCHEMAVERSIONCONSTRAINT` v1.1; Decision `WORK-175`) and `CAP-STATUSENUMS` is `Approved` under the same Gate-approved change that retires this question. Question text retained verbatim for traceability; its "inline (Section 9 below)" clause is superseded as of this change - Section 9.1 now carries a normative reference to `CAP-STATUSENUMS`, and the capability governs. |
 | Q-5 | Which domain owns the canonical form rules that `CAP-CANONICAL-FORM` defines — ECS as the rule authority, or LGS as the proof authority? | Architecture owner | **Resolved 2026-11-18 - Decision `WORK-164`; see `CAP-CANONICAL-FORM` and the work ledger (footnote below)** |
-| Q-6 | Which domain does the `blockchain-gateway` service belong to, or is it outside the seven-domain model? | Architecture owner | `WORK-037` |
+| Q-6 | Which domain does the `blockchain-gateway` service belong to, or is it outside the seven-domain model? | Architecture owner | ~~`WORK-037`~~ **Resolved 2026-11-18 - Decision `WORK-173`: outside the seven-domain model (implementation component of LGS's proof-commit path; the manifest binding is superseded). See `service-contracts.yaml` and the work ledger.** |
 
 **Q-5 resolution (2026-11-18, Decision `WORK-164`).** Neither domain owns the canonical-form rules.
 The rules defined by `CAP-CANONICAL-FORM` are owned by the specification artifacts under
@@ -632,19 +632,20 @@ review, and explicit human approval whose approval is recorded as a ledger Decis
 domain dependency is introduced. The question text above is retained verbatim for traceability;
 `WORK-130` is closed.
 
+**Q-6 resolution (2026-11-18, Decision `WORK-173`).** The `blockchain-gateway` service is outside the seven-domain model: it is not a domain and not a service binding. The chain-client is an implementation component of LGS's proof-commit path, decided at implementation time by the LGS implementation plan. If a distinct deployable gateway is ever required, that requires a Section 11 change request. The manifest binding is superseded (`superseded_by: Decision WORK-173`). The question text above is retained for traceability; `WORK-037` is closed.
+
 ### 9.1 Status vocabulary used by this specification
 
-| Entity | Status values |
-|---|---|
-| Academic period | `Draft`, `Active`, `Closed` |
-| Grade record | `Proposed`, `Finalized` |
-| Appeal record | `UnderReview`, `Approved`, `Rejected` |
-| Student-period record | `Finalized` |
-| Enrollment | `Requested`, `Enrolled`, `Completed`, `Refused`, `Withdrawn` |
-| Level-completion record | `InProgress`, `Completed` |
+This specification no longer carries an inline status vocabulary table. The normative status
+vocabulary is `library/Capabilities/CAP-STATUSENUMS.md` (`Approved` 2026-11-18). Where this
+specification and the capability appear to differ, the capability governs. The values previously
+carried inline (academic period `Draft`, `Active`, `Closed`; grade record `Proposed`, `Finalized`;
+appeal record `UnderReview`, `Approved`, `Rejected`; student-period record `Finalized`;
+enrollment `Requested`, `Enrolled`, `Completed`, `Refused`, `Withdrawn`; level-completion record
+`InProgress`, `Completed`) are identical to the capability's normative table and to Section 2.9's
+transition tables; the capability additionally carries the transition rules and the ECS authority
+statement.
 
-These are normative for this project. The shared `StatusEnums` capability artifact does not yet
-exist (Q-4); until it does, this table is the authority.
 
 ---
 
@@ -721,5 +722,34 @@ change, and the root specification version is the change signal; `root_spec.vers
 `binding.yaml` files moves to 1.1 accordingly. The id `SRS-LMS-v1.0` and the filename are unchanged
 (three-way filename agreement, root `AGENTS.md` Section 2). **No requirement was added, removed or
 modified**; Sections 2.8, 3, 5 and 6 are unchanged.
+
+**Change record (v1.2).** 2026-11-18: Sections 8.1 and 9 refreshed. Section 8.1 artifact table:
+schema row `Draft` -> `Approved` (`SCHEMA-LMS-FAR-v1.0` v1.0.0; open requirement satisfied in
+contract v1.5, `WORK-156`); task specification `Draft` -> `Approved` v1.5; plan row
+`not yet created` -> `exists, stale` (regenerate from v1.5 via `wf-plan`); calibration row
+`not yet created` -> `exists, retrospective`, confirmed by the user 2026-11-18 (`WORK-148`);
+handoff row `exists, Open` -> **missing** (disposition out of scope, `WORK-170`); binding.yaml
+row: codebase binding determined (`WORK-160`), codebase binding and `root_spec.version` move to
+1.2; service-contracts.yaml row: gateway description replaced - `blockchain-gateway` retired
+outside the seven-domain model (Decision `WORK-173`); counts corrected to two declared bindings /
+five not-yet-specified / one superseded. Section 9: Q-4 annotated resolved (all five capability
+artifacts exist; four `Approved` under Decision `WORK-175`; `CAP-STATUSENUMS` `Approved` under
+this same change); Q-6 annotated resolved (Decision `WORK-173`, with footnote); Section 9.1
+inline interim table DELETED and replaced by a normative reference to `CAP-STATUSENUMS` - this is
+normative-authority re-anchoring with byte-identical values, not an annotation; the false
+footnote ("does not yet exist") is removed. The paired `CAP-STATUSENUMS` flip to `Approved` and
+the library READMEs' five-of-five wording are part of this same change. Fulfilled through Section
+11: Change Request `WORK-171` (scope extended 2026-11-18 to Sections 8.1 and 9); independent
+review 2026-11-18 (verdict CHANGES REQUIRED; conditions C-1 to C-8 satisfied in this change as
+recorded in the work ledger); Gate 2 approval recorded as Decision `WORK-176` (2026-11-18).
+Version incremented to 1.2 and `updated` set to the application time, per Section 11. v1.1 remains
+retrievable at the commit carrying it (`4b3936a`), anchored to approval Decision `WORK-167`; v1.0
+remains retrievable at `167af69`, anchored to Decision `WORK-039`; this v1.2 revision is anchored
+to Decision `WORK-176` and to the commit carrying this change (the commit SHA is recorded in the
+work ledger history at commit time). The specification collection `SPEC-LMS-v1.0` remains version
+1.0 by Decision; the root specification version is the change signal (`root_spec.version` and the
+SRS `spec_files` entry in both `binding.yaml` files move to 1.2). The id `SRS-LMS-v1.0` and the
+filename are unchanged (three-way filename agreement). **No requirement was added, removed or
+modified beyond the named replacements**; Sections 2.8, 2.9, 3, 5 and 6 are unchanged.
 
 *End of specification.*

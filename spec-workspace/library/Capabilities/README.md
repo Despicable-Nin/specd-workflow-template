@@ -22,12 +22,11 @@ artifact is a missing relationship, not an implicit convention.
 
 ## Status
 
-**Populated; four of five Approved.** All five capabilities exist: `CAP-CANONICAL-FORM` (v1.0,
-Approved 2026-11-18), `CAP-USERID` (v1.1, Approved 2026-11-18), `CAP-TIMESTAMPFORMAT` (v1.1,
-Approved 2026-11-18), `CAP-SCHEMAVERSIONCONSTRAINT` (v1.1, Approved 2026-11-18), and
-`CAP-STATUSENUMS` (v1.1, `In_Review`). Promotions were approved by the human at Gate 2 and are
-recorded as a ledger Decision per the framework approval hierarchy. `CAP-STATUSENUMS` promotion
-is gated on the SRS Section 11 Change Request that reduces `SRS_LMS_v1.0.md` Section 9.1 to a
-normative reference to this artifact; until it lands, the SRS Section 9.1 interim table is the
-authority. See `spec-workspace/library/README.md` and ledger `WORK-020` (authoring) and
-`WORK-175` (promotion).
+**Populated; five of five Approved (2026-11-18).** All five capabilities are `Approved`:
+`CAP-CANONICAL-FORM` (v1.0; `WORK-175`), `CAP-USERID` (v1.1; `WORK-175`),
+`CAP-TIMESTAMPFORMAT` (v1.1; `WORK-175`), `CAP-SCHEMAVERSIONCONSTRAINT` (v1.1; `WORK-175`), and
+`CAP-STATUSENUMS` (v1.1; `WORK-176` - promoted at the same Gate-approved change that retired the
+`SRS_LMS_v1.0.md` Section 9.1 interim table, now a normative reference to this capability).
+Approvals were recorded as ledger Decisions per the framework approval hierarchy. See
+`spec-workspace/library/README.md` and ledger `WORK-020` (authoring), `WORK-175`/`WORK-176`
+(promotions).

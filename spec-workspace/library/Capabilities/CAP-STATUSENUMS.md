@@ -1,10 +1,10 @@
 ---
 id: CAP-STATUSENUMS
 version: 1.1
-status: In_Review
+status: Approved
 title: Status Enumeration Capability
 created: 2026-11-13T00:00:00Z
-updated: 2026-11-18T06:55:06Z
+updated: 2026-11-18T10:50:39Z
 ---
 
 # CAP-STATUSENUMS: Status Enumeration Capability
@@ -18,11 +18,11 @@ the shared library; its values are project-specific. Adopting projects copy or s
 
 ## Normative Definition
 
-The following status values are standardized for this project. The vocabulary is identical to
-the interim table in `SRS_LMS_v1.0.md` Section 9.1 (v1.1), which is the interim authority until
-this artifact is promoted to `Approved`; promotion requires the SRS Section 11 Change Request
-that reduces Section 9.1 to a normative reference to this artifact. Until that Change Request
-lands, where the two disagree, the SRS governs.
+This artifact is the sole normative status-vocabulary authority for this project.
+`SRS_LMS_v1.0.md` Section 9.1 carries a normative reference to it (v1.2, 2026-11-18). The values
+below are identical to the SRS Section 2.9 transition tables; transitions are governed by SRS
+Section 2.9 and the value vocabulary by this artifact. Where this artifact and the SRS appear to
+differ, that split governs, recorded at this artifact's promotion (2026-11-18).
 
 | Entity | Status values |
 |---|---|
