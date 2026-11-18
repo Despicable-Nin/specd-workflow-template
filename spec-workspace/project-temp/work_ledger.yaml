@@ -4778,6 +4778,11 @@
           "timestamp": "2026-11-18T04:35:34Z",
           "action": "Human Gate 2 granted. Decisions applied: F-01/F-04 mechanical fixes applied; F-02 resolved by adding the Lifecycle clarification sentence (human-ratified at Gate 2); F-03 resolved by extending the cascade to generated-projects/blockchain-enabled-lms/AGENTS.md (human direction, Gate 2); F-05/F-06/F-10 editorial fixes included; F-09 apply-time stamp set at the flip. Approval recorded as Decision WORK-168. Constitution flipped Draft -> Approved in the same change.",
           "actor": "User"
+        },
+        {
+          "timestamp": "2026-11-18T04:39:00Z",
+          "action": "CONST-LMS-v1.1 committed at 81c825f (81c825f5ec159bfa6408993f65ddb4069711ad21) on main and pushed to origin/main (bc858c6..81c825f). Sync verified: 0 ahead, 0 behind. Push authorized at Gate 2.",
+          "actor": "System"
         }
       ]
     },
@@ -4839,6 +4844,11 @@
           "timestamp": "2026-11-18T04:35:34Z",
           "action": "Gate 2 granted by the human; approval recorded; constitution flipped Draft -> Approved in the same change",
           "actor": "User"
+        },
+        {
+          "timestamp": "2026-11-18T04:39:00Z",
+          "action": "CONST-LMS-v1.1 committed at 81c825f (81c825f5ec159bfa6408993f65ddb4069711ad21) on main and pushed to origin/main (bc858c6..81c825f). Sync verified: 0 ahead, 0 behind. Push authorized at Gate 2.",
+          "actor": "System"
         }
       ]
     }
