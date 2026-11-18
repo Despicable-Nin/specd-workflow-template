@@ -1,47 +1,43 @@
 ---
-id: SCHEMA-VERSION-CONSTRAINT
-version: 1.0
-status: Draft
+id: CAP-SCHEMAVERSIONCONSTRAINT
+version: 1.1
+status: In_Review
+title: Schema Version Constraint Capability
+created: 2026-11-13T00:00:00Z
+updated: 2026-11-18T06:55:06Z
 ---
 
 # CAP-SCHEMAVERSIONCONSTRAINT: Schema Version Constraint Capability
 
 ## Description
 
-Schema version validation rule for the `final_academic_record` payload. Defines the required format and validation constraints for the `schema_version` field.
+Constraint on the `schema_version` field of a record type that declares one. Defines the
+format, presence, and the rejection rule for missing, malformed or unsupported values. It
+defines no per-segment semantics: the meanings of MAJOR, MINOR and PATCH are the record
+type's own contract decision, not this capability's.
 
 ## Normative Definition
 
-The `schema_version` field is a mandatory top-level field in the `final_academic_record` payload with the following constraints:
+A record type that declares a `schema_version` field conforms to:
 
-- **Format:** `MAJOR.MINOR.PATCH` (e.g., `1.0.0`, `2.3.1`)
-- **Requirement:** Must be present as a top-level, mandatory field
-- **Validation:** Attempting to submit a record with an unsupported `schema_version` results in a controlled rejection by the LGS validator
-- **Backward compatibility:** Records with earlier `schema_version` may be accepted per domain-specific rules, but the version must be declared
-- **Forward compatibility:** New `schema_version` values must be explicitly approved through the approval chain before records using them are accepted
-
-## Status Vocabulary
-
-Entity | Status Values
---- | ---
-SchemaVersionConstraint | `Draft`, `Approved`, `Superseded`
+- **Format:** `MAJOR.MINOR.PATCH`, where MAJOR, MINOR and PATCH are non-negative integers
+  (e.g., `1.0.0`, `2.3.1`).
+- **Presence:** the field is mandatory and top-level.
+- **Rejection:** a record whose `schema_version` is missing, malformed, or unsupported by the
+  consuming surface is rejected, never coerced. What counts as supported is defined by the
+  consuming surface.
 
 ## Relations
 
-- **Used by:** LGS validator, all seven domains (schema version declaration)
-- **Related to:** CAP-USERID (versioned records), CAP-TIMESTAMPFORMAT (version timestamps), CAP-STATUSENUMS (version-status linkage), task-LMS-CONTRACT-001-noncode.md (contract integrity principle 3)
-
-## Validation Rules
-
-1. The `final_academic_record` payload must contain a top-level `schema_version` string field
-2. The `schema_version` string must match the pattern `MAJOR.MINOR.PATCH` where MAJOR, MINOR, and PATCH are non-negative integers
-3. Attempting to submit a record with an unsupported or malformed `schema_version` results in a controlled rejection by the LGS validator
-4. The `schema_version` must be declared when defining a new record type or modifying an existing one
-5. Version changes must follow the approval chain: proposal → review → approval → commitment to the proof sequence
+- **Consumed by:** any record type whose contract adopts this constraint. The LMS
+  `final_academic_record` contract (`WORK-LMS-CONTRACT-001`) is the reference adopter.
 
 ## Constraints
 
-- The `schema_version` field is **non-negotiable**: the contract requires a top-level mandatory `schema_version: [MAJOR.MINOR.PATCH]` field (Principle 3 of Expected Behavior)
-- Records submitted without a `schema_version` field are immediately rejected
-- Records submitted with a `schema_version` that does not match `MAJOR.MINOR.PATCH` pattern are immediately rejected
-- Version changes require explicit approval through the approval chain and are recorded in the proof sequence
+- `schema_version` is non-negotiable: a record type that adopts this constraint requires a
+  mandatory top-level string field `schema_version` matching `MAJOR.MINOR.PATCH`.
+- Records submitted without `schema_version` are rejected.
+- Records submitted with a `schema_version` that does not match `MAJOR.MINOR.PATCH`, or that
+  is not supported by the consuming surface, are rejected.
+- This capability fixes the format, presence, and rejection rule only. It defines no
+  per-segment semantics and gates no governance process.

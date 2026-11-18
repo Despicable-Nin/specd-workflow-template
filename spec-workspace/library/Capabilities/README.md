@@ -22,7 +22,10 @@ artifact is a missing relationship, not an implicit convention.
 
 ## Status
 
-**Partially populated.** `CAP-CANONICAL-FORM` is defined. The four capabilities that
-`WORK-LMS-CONTRACT-001` depends on (`UserID`, `TimestampFormat`, `StatusEnums`,
-`SchemaVersionConstraint`) still have no defining artifact. See `spec-workspace/library/README.md`
-and ledger `WORK-020`.
+**Populated; promotions underway.** All five capabilities exist: `CAP-CANONICAL-FORM` (v1.0),
+`CAP-USERID` (v1.1), `CAP-TIMESTAMPFORMAT` (v1.1), `CAP-STATUSENUMS` (v1.1),
+`CAP-SCHEMAVERSIONCONSTRAINT` (v1.1). Each artifact follows the required shape above. Promotion
+to `Approved` requires independent review plus a recorded ledger Decision per artifact, per the
+framework approval hierarchy. `CAP-STATUSENUMS` promotion is additionally gated on the SRS
+Section 11 Change Request that reduces `SRS_LMS_v1.0.md` Section 9.1 to a normative reference to
+this artifact. See `spec-workspace/library/README.md` and ledger `WORK-020` (authoring).

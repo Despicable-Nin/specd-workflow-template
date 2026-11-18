@@ -1,10 +1,10 @@
 ---
 id: CAP-CANONICAL-FORM
 version: 1.0
-status: Draft
+status: In_Review
 title: Canonical Form and Digest Constraint
 created: 2026-11-13T03:35:00Z
-updated: 2026-11-18T00:46:53Z
+updated: 2026-11-18T06:55:06Z
 ---
 
 # Canonical Form and Digest Constraint (`CAP-CANONICAL-FORM`)
@@ -128,5 +128,6 @@ digested at period close, and the same project's ownership question was resolved
 
 1. ~~Which domain owns the rules in this artifact?~~ **Resolved 2026-11-18** (ledger Decision WORK-164): neither domain - specification-workspace governance owns the rules; either domain may propose a revision, and only a versioned revision + independent review + explicit human approval adopts one.
 2. Which record types, if any, require an encoding other than the default stated in property 4?
-3. What is the canonical field list of each record type that is digested? Each is a prerequisite for
+3. What is the canonical field list of each remaining record type that is digested (the student-period
+   record is answered by the `WORK-LMS-CONTRACT-001` contract)? Each is a prerequisite for
    committing a proof over that type.
