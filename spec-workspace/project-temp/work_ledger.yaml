@@ -5046,6 +5046,11 @@
           "timestamp": "2026-11-18T07:22:17Z",
           "action": "Gate 2 granted by the human ('Yes, promote the four'); promotion recorded; the four artifacts flipped In_Review -> Approved in the same change; fixes-pass commit 39e1cadd1bb2383cae0628e9747c8a699b4e164e verified on main and pushed (dc09151..39e1cad) before the flip",
           "actor": "User"
+        },
+        {
+          "timestamp": "2026-11-18T07:26:00Z",
+          "action": "Promotion committed at 7a80293 (7a802934cf39d59ca22c500a63b91e9f59f498ea) on main and pushed to origin/main (39e1cad..7a80293). Sync verified: 0 ahead, 0 behind. Push authorized at Gate 2.",
+          "actor": "System"
         }
       ]
     }
