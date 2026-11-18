@@ -1037,24 +1037,29 @@
       "id": "WORK-037",
       "type": "Task",
       "title": "Resolve the unmapped service bindings against the SRS seven-domain model",
-      "status": "proposed",
+      "status": "done",
       "priority": "medium",
       "source": {
         "type": "wf-reconcile",
         "reference": "spec-workspace/projects/blockchain-enabled-lms/service-contracts.yaml"
       },
       "context": "The service binding manifest names three services - auth-service, record-schema and blockchain-gateway - while the SRS Section 2 defines seven service domains: IAM, ECS, AMS, FRAS, ESS, GRA-Service and LGS. auth-service maps cleanly to IAM and record-schema plausibly to LGS, but blockchain-gateway has no SRS home: the SRS defines no gateway domain, and the two candidate directories blockchain-proxy and web-api-gateway are not SRS domains either. Five SRS domains have no manifest entry at all. The mappings recorded in the manifest are marked proposed and are not approved.",
-      "next_action": "Map blockchain-gateway to a specific SRS domain or amend the SRS to define one, and decide whether the five unmapped domains need manifest entries now or when their services are specified. Update service-contracts.yaml once decided.",
+      "next_action": "None. Closed by Decision WORK-173 (2026-11-18). SRS Section 8.1 gateway row and Section 9 Q-6 annotation are folded into the proposed SRS Section 8.1 Section 11 change request (WORK-171) rather than amended separately.",
       "dependencies": [
         "WORK-027"
       ],
       "owner": "User",
-      "resolution": null,
+      "resolution": "Decided by the user 2026-11-18 (Option A): blockchain-gateway is OUTSIDE the seven-domain model. It is not a domain and not a service binding; the gateway role is distributed (LGS commits the proof, IAM authorizes the actor), and the chain-client is an implementation component of LGS's proof-commit path, decided at implementation time by the LGS implementation plan. Manifest updated in the same change: binding_status superseded, superseded_by WORK-173, stale note about nonexistent candidate directories (lms-platform/blockchain-proxy, lms-platform/web-api-gateway) removed. No SRS change applied; if a distinct deployable gateway is ever required, that requires a Section 11 change request.",
       "history": [
         {
           "timestamp": "2026-11-13T01:54:23Z",
           "action": "Proposed by wf-reconcile",
           "actor": "System"
+        },
+        {
+          "timestamp": "2026-11-18T06:27:56Z",
+          "action": "Closed by Decision WORK-173 (user 2026-11-18, Option A); service-contracts.yaml binding retired; stale directory-note removed",
+          "actor": "User"
         }
       ]
     },
@@ -4209,25 +4214,30 @@
       "id": "WORK-148",
       "type": "ReviewFinding",
       "title": "The task's calibration record does not exist, and the parent's artifact table is stale about it",
-      "status": "proposed",
+      "status": "done",
       "priority": "high",
       "source": {
         "type": "wf-review",
         "reference": "spec-workspace/projects/blockchain-enabled-lms/tasks/task-LMS-CONTRACT-001-noncode.md v1.2 | ses_e1d21e8f1ffe6rZ2c4TYvk1Am9 | fifth independent review (delegated)"
       },
       "context": "The tasks directory holds only task-LMS-CONTRACT-001-noncode.md, -plan.md and -handoff.md. Root AGENTS.md line 72 and spec-workspace/AGENTS.md line 75 name the canonical path task-<task-id>-noncode-calibration.md, and root AGENTS.md lines 375-376 require the six answers to be 'recorded bindingly in the task's calibration file'. The 1A/2E/3B/4A/5A/6C values recorded in handoff line 97 are wf-plan's consumption choices, not the task skill's calibration answers, so they do not satisfy the requirement. WORK-068 claimed this closure and was closed on unrelated text; WORK-136 records that pattern. SRS section 8.1 line 580 independently records the file as 'not yet created', as it does the plan at line 579 ('not yet created') and the handoff at line 581 ('exists, Open') - all three are now stale, and the plan and handoff are Approved-artifact inaccuracies that need a parent change under SRS section 11.",
-      "next_action": "Create the calibration record at the canonical path with the six answers and their binding effect, or record a Decision that wf-plan's calibration record supersedes it. Correct SRS section 8.1 lines 579-581 as a parent change.",
+      "next_action": "None for the calibration record itself (confirmed). The SRS section 8.1 staleness is carried by WORK-171 (Section 11 change request); the binding.yaml 'Draft - retrospective, requires user confirmation' line is superseded by this closure and is corrected via WORK-170/WORK-171.",
       "dependencies": [
         "WORK-068",
         "WORK-136"
       ],
       "owner": "User",
-      "resolution": null,
+      "resolution": "The calibration record exists at its canonical path (task-LMS-CONTRACT-001-noncode-calibration.md, created 2026-11-16T08:04:22Z) and carries the six answers with their binding effect. Its frontmatter status already recorded 'Confirmed - user confirmed 6/6 calibration choices per seventh review bounded confirmation (CONFIRMATION: complete, session ses_e1c6c7735ffeqXQQMMMtpeM23un); approval Decision WORK-156 recorded 2026-11-16; 11/11 editorial corrections verified applied, no requirement changed.' On 2026-11-18 the user explicitly confirmed that this recorded confirmation stands (WORK-148 confirmation question). The handoff/1A-2E consumption-choice conflation flagged here remains superseded by that confirmation and by WORK-162's superseding Decision (WORK-064..WORK-069 closures unreliable as remediation evidence). SRS section 8.1 correction is tracked as WORK-171.",
       "history": [
         {
           "timestamp": "2026-11-16T05:12:00Z",
           "action": "Proposed by wf-review (fifth independent review, delegated session)",
           "actor": "System"
+        },
+        {
+          "timestamp": "2026-11-18T06:31:00Z",
+          "action": "User confirmed 2026-11-18: the calibration record's recorded bounded confirmation stands as confirmation of the six choices; item closed. SRS section 8.1 staleness tracked as WORK-171.",
+          "actor": "User"
         }
       ]
     },
@@ -4849,6 +4859,118 @@
           "timestamp": "2026-11-18T04:39:00Z",
           "action": "CONST-LMS-v1.1 committed at 81c825f (81c825f5ec159bfa6408993f65ddb4069711ad21) on main and pushed to origin/main (bc858c6..81c825f). Sync verified: 0 ahead, 0 behind. Push authorized at Gate 2.",
           "actor": "System"
+        }
+      ]
+    },
+    {
+      "id": "WORK-169",
+      "type": "Task",
+      "title": "Revise spec-workspace/AGENTS.md stale bullets - 'No specification in this tree is Approved' and the WORK-020 capabilities bullet",
+      "status": "proposed",
+      "priority": "high",
+      "source": {
+        "type": "wf-reconcile",
+        "reference": "reconciliation pass 2026-11-18 (findings R1, R2) | spec-workspace/AGENTS.md 'Recorded in the work ledger' section | evidence: SRS v1.1 Approved (WORK-039/WORK-167), task spec Approved v1.5 (WORK-156), constitution Approved v1.1 (WORK-159/WORK-168), schema Approved (frontmatter), five Draft capability artifacts exist (WORK-020 done 2026-11-16)"
+      },
+      "context": "spec-workspace/AGENTS.md (the framework's own operating contract, Rule-0-bound) still states: 'No specification in this tree is Approved - WORK-009, WORK-016' (false since WORK-039/WORK-156/WORK-159 and SRS v1.1) and 'The four capabilities WORK-LMS-CONTRACT-001 depends on (UserID, TimestampFormat, StatusEnums, SchemaVersionConstraint) still have no defining artifact - WORK-020' (false in fact: five Draft capability artifacts exist under library/Capabilities/, created 2026-11-13; WORK-020 closed 2026-11-16). Recommended revision is limited to these two bullets: state that the tree now holds Approved specifications and that the five capability artifacts exist as Draft (promotion tracked separately). The file is Rule-0-bound: the edit requires explicit human instruction, and independent review is recommended before/after the edit. Do NOT widen the scope; historical references to WORK-009/WORK-016 as the origin of the statements may be kept as history if the human prefers.",
+      "dependencies": [
+        "WORK-009",
+        "WORK-016",
+        "WORK-039",
+        "WORK-156",
+        "WORK-159"
+      ],
+      "next_action": "Human decision on scope, then edit, then independent review; record outcome in the ledger.",
+      "owner": "User",
+      "resolution": null,
+      "history": [
+        {
+          "timestamp": "2026-11-18T06:22:03Z",
+          "action": "Proposed by wf-reconcile (2026-11-18 pass); recorded per human direction",
+          "actor": "System"
+        }
+      ]
+    },
+    {
+      "id": "WORK-170",
+      "type": "Task",
+      "title": "Revise project AGENTS.md Section 2 contents table and Section 4 status block to current reality",
+      "status": "proposed",
+      "priority": "high",
+      "source": {
+        "type": "wf-reconcile",
+        "reference": "reconciliation pass 2026-11-18 (findings R3, R4, R6) | spec-workspace/projects/blockchain-enabled-lms/AGENTS.md | evidence: five contents-table cells and the entire Section 4 block are stale"
+      },
+      "context": "Project AGENTS.md (Rule-0-bound for the collection) is materially false in two places. (1) Section 2 contents table: schema row says status Draft but schema/final-academic-record.md frontmatter is Approved v1.0.0 (SCHEMA-LMS-FAR-v1.0); task spec row says Draft but WORK-LMS-CONTRACT-001 is Approved v1.5; plan row says 'Does not exist yet' but task-LMS-CONTRACT-001-plan.md exists (stale - binding.yaml marks it 'stale - regenerate from task spec v1.5'); handoff row is listed but no handoff file exists in tasks/ (binding.yaml says In Progress, SRS Section 8.1 says 'exists, Open' - all three disagree; reconcile cannot adjudicate, human must decide the handoff disposition). (2) Section 4 'Status - read this before starting anything': the heading claim 'Nothing in this collection is Approved', the 'parent specification is Draft' sentence, the blockers table rows (WORK-016/032/039 parent unapproved; WORK-009 task spec unapproved; WORK-020 no defining artifact; WORK-130 owning domain; WORK-062..WORK-069 seven blocking findings) and the 'The correct next action is @wf-review against SRS_LMS_v1.0.md' paragraph are ALL stale - parent Approved (WORK-039; v1.1 at 4b3936a), task Approved v1.5 (WORK-156), schema Approved, constitution Approved, WORK-130 closed (WORK-164), blocking findings superseded as evidence by the WORK-162 remediation chain and WORK-156 approval. (3) The Section 4 claim also contradicts the schema-status mismatch across artifacts (binding.yaml Approved vs SRS Section 8.1 Draft vs file frontmatter Approved - frontmatter authoritative). Recommended revision: rewrite Section 4 to current reality (Approved parent, task, schema, constitution; CAP-CANONICAL-FORM Draft and adopted-pending-promotion; WORK-037, WORK-148, WORK-017/035, tension items 2 and 7 remain open), refresh the contents table, and disposition the handoff row explicitly.",
+      "dependencies": [
+        "WORK-039",
+        "WORK-156",
+        "WORK-159",
+        "WORK-164",
+        "WORK-162",
+        "WORK-148"
+      ],
+      "next_action": "Human decision on exact scope including the handoff disposition, then edit, then independent review; record outcome in the ledger.",
+      "owner": "User",
+      "resolution": null,
+      "history": [
+        {
+          "timestamp": "2026-11-18T06:22:03Z",
+          "action": "Proposed by wf-reconcile (2026-11-18 pass); recorded per human direction",
+          "actor": "System"
+        }
+      ]
+    },
+    {
+      "id": "WORK-171",
+      "type": "Task",
+      "title": "SRS Section 8.1 artifact table refresh via Section 11 change request (schema/task/plan/calibration/handoff statuses)",
+      "status": "proposed",
+      "priority": "medium",
+      "source": {
+        "type": "wf-reconcile",
+        "reference": "reconciliation pass 2026-11-18 (finding R5) | SRS_LMS_v1.0.md Section 8.1 lines ~579-583 | overlaps WORK-148 next_action ('Correct SRS section 8.1 lines 579-581 as a parent change')"
+      },
+      "context": "SRS Section 8.1 (Approved parent) lists: schema/final-academic-record.md status Draft (actually Approved v1.0.0); tasks/task-LMS-CONTRACT-001-noncode.md status Draft (actually Approved v1.5); plan 'not yet created' (exists; marked stale-regenerate in binding.yaml); calibration 'not yet created' (exists, created 2026-11-16, retrospective); handoff 'exists, Open' (file missing from tasks/). All five cells are stale. The SRS is Approved: any correction goes through Section 11 (ledger Change Request Decision + independent review + explicit human approval + version increment to 1.2). Recommend ONE Change Request covering the Section 8.1 refresh, executed together with or immediately after the WORK-148 confirmation, so the SRS is touched once. Also fold in the stale anchor-map/Section-9 references if the promotion of capability artifacts (tension item 7) changes Section 9.1 - coordinate rather than double-touch.",
+      "dependencies": [
+        "WORK-148",
+        "WORK-165",
+        "WORK-167"
+      ],
+      "next_action": "Await WORK-148 user confirmation, then record the Change Request, review, Gate 2, apply, commit.",
+      "owner": "User",
+      "resolution": null,
+      "history": [
+        {
+          "timestamp": "2026-11-18T06:22:03Z",
+          "action": "Proposed by wf-reconcile (2026-11-18 pass); recorded per human direction",
+          "actor": "System"
+        }
+      ]
+    },
+    {
+      "id": "WORK-173",
+      "type": "Decision",
+      "title": "blockchain-gateway is outside the seven-domain model; it is an implementation component of LGS's proof-commit path",
+      "status": "done",
+      "priority": "medium",
+      "source": {
+        "type": "human-decision",
+        "reference": "user decision 2026-11-18 (Option A at the WORK-037 question prompt) | closes WORK-037; answers SRS Q-6 in substance (SRS annotation only via Section 11)"
+      },
+      "context": "SRS Q-6 / WORK-037 asked which domain the blockchain-gateway service belongs to, or whether it is outside the seven-domain model. Decision (2026-11-18, Option A): OUTSIDE THE MODEL. Evidence: SRS Section 6 closes the seven-domain set with explicit operation contracts; Section 4.1 places delivery model, deployment and networking out of scope; Section 3.7 establishes the rule that a thing with no rules of its own is a component, not a domain - the gateway has no decisions to make (LGS commits the proof, IAM authorizes the actor); no implementation exists (lms-platform/ and src/identity/ were empty and were removed 2026-11-17, Decision WORK-160; verified 2026-11-18 - no gateway directory exists anywhere in the repository); the manifest's own note recorded that the role is distributed. The provides/requires pair (immutable-event-pointer / network-client-sdk) describes a chain-client adapter: an implementation component of LGS's proof-commit path, decided at implementation time by the LGS implementation plan, not a binding between domains of the SRS model. No SRS change is applied by this Decision. If a distinct, deployable gateway is ever required, that changes the domain model and requires a Section 11 change request with review and Gate 2.",
+      "dependencies": [
+        "WORK-037",
+        "WORK-160"
+      ],
+      "next_action": "Manifest updated in the same change (binding_status superseded; stale note removed; codebase AGENTS.md pin updated). SRS Section 8.1 service-contracts.yaml row and Section 9 Q-6 row are stale as of this Decision and are folded into the proposed Section 11 change request (WORK-171). Constitution open tensions item 5 folds into the v1.2 amendment draft.",
+      "owner": "User",
+      "resolution": "Option A executed 2026-11-18: service-contracts.yaml blockchain-gateway binding superseded (domain: none; superseded_by WORK-173; note rewritten), codebase AGENTS.md pin updated, WORK-037 closed. Constitution amendment (item 5 strike-through) and SRS Section 8.1/Q-6 annotation pending the v1.2 draft and WORK-171 respectively.",
+      "history": [
+        {
+          "timestamp": "2026-11-18T06:27:56Z",
+          "action": "Decision recorded by the user (Option A); manifest and AGENTS.md updated in the same change; WORK-037 closed",
+          "actor": "User"
         }
       ]
     }

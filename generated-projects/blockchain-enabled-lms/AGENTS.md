@@ -58,8 +58,9 @@ No source directories yet. The first implementation plan creates them.
 
 * The first coding task decides the source layout and the build/test toolchain (via
   `wf-task-code` → `wf-plan` → `wf-implement`).
-* `service-contracts.yaml` in the collection declares runtime bindings (IAM/LGS declared; other
-  domains not-yet-specified; `blockchain-gateway` `domain: unresolved` — SRS Q-6, ledger
-  `WORK-037`). None of this blocks the first task; it constrains it.
+* `service-contracts.yaml` in the collection declares runtime bindings (IAM/LGS declared;
+  other domains not-yet-specified; `blockchain-gateway` RETIRED 2026-11-18 - outside the
+  seven-domain model by Decision WORK-173; it is an implementation component of LGS's
+  proof-commit path). None of this blocks the first task; it constrains it.
 * The canonical-form contract (`WORK-LMS-CONTRACT-001` v1.5, Approved) and `CAP-CANONICAL-FORM`
   define the digest; implementation must not re-derive them.

@@ -28,17 +28,24 @@ services:
     binding_status: declared
 
   blockchain-gateway:
-    domain: unresolved
+    domain: none
+    binding_status: superseded
+    superseded_by: Decision WORK-173 (2026-11-18)
     provides: immutable-event-pointer
     requires: network-client-sdk
-    binding_status: declared
     note: >-
-      The SRS defines no gateway domain among its seven. The gateway role is
-      distributed: LGS commits the proof and IAM authorizes the actor, so this
-      service's place in the domain model is not yet decided. Two candidate
-      directory names exist in the repository (lms-platform/blockchain-proxy,
-      lms-platform/web-api-gateway) and neither is an SRS domain. Requires a
-      human decision - see SRS Question Q-6 and ledger WORK-037.
+      RETIRED 2026-11-18 (Decision WORK-173; SRS Question Q-6, WORK-037).
+      The SRS defines no gateway domain among its seven, and the gateway role is
+      distributed: LGS commits the proof and IAM authorizes the actor. Under
+      Decision WORK-173 the gateway is OUTSIDE the seven-domain model: it is an
+      implementation component of LGS's proof-commit path (chain-client / SDK
+      adapter), decided at implementation time by the LGS implementation plan,
+      not a service binding between domains. The two candidate directory names
+      cited earlier (lms-platform/blockchain-proxy, lms-platform/web-api-gateway)
+      no longer exist in the repository. No runtime binding exists; no service
+      is to be implemented against this entry. If a distinct, deployable gateway
+      is ever required, that changes the domain model and requires an SRS
+      Section 11 change request - it is not an artifact of this manifest.
 
 # The seven service domains declared by SRS_LMS_v1.0.md Section 3.1.
 domains:
