@@ -14,41 +14,38 @@ tracks (`WORK-181`, `WORK-182`).
 
 ## Status
 
-`Open` — contract and rendering are `Approved`; the plan (`tasks/task-LMS-CONTRACT-001-plan.md`) was
-regenerated from task spec v1.5 on 2026-11-19 and is **`ready-for-implement`** (Gate 2 pass 2
-APPROVED WITH COMMENTS; human Gate 3 approved 2026-11-19, Decision `WORK-189`). The previous handoff
-file was missing as of 2026-11-18 (verified); this file was recreated by `wf-plan` 2026-11-19.
+`Open` — contract and rendering are `Approved`; the plan was regenerated from task spec v1.5 on
+2026-11-19 and is **`ready-for-implement`** (Gate 2 pass 2 APPROVED WITH COMMENTS; human Gate 3
+approved 2026-11-19, Decision `WORK-189`). **Implementation is complete** (2026-11-19,
+`wf-implement`: three attribution-only rendering edits; conformance check PASS; binding verify-only;
+evidence pack appended in this file). Awaiting `wf-converge`. The previous handoff file was missing
+as of 2026-11-18 (verified); this file was recreated by `wf-plan` 2026-11-19.
 
 | Skill | Date | Outcome |
 |---|---|---|
 | wf-task-noncode | 2026-11-11..16 | Task spec created and refined (v1.0→v1.5); six calibration choices recorded (`CALIBRATION-LMS-CONTRACT-001`) |
 | wf-review | 2026-11-13..16 | Seven review passes; all findings closed in the authoritative artifact; spec `Approved` (`WORK-156`) |
 | wf-plan | 2026-11-19 | Plan regenerated from v1.5 (this run); worktree `D:/hobby/specd-worktree/lms-contract-plan` created from `main` (`9022742`), branch `task/WORK-LMS-CONTRACT-001-plan` |
+| wf-implement | 2026-11-19 | Three attribution-only rendering edits; conformance check PASS (27/27 fields); binding verify-only PASS; AC-1..AC-9 evidence pack appended |
 
 ## Action items
 
-1. **Verify `binding.yaml`** — the plan and handoff row re-points already exist in this change;
-   `wf-implement` makes **no further** `binding.yaml` edit unless Gate 3 changes the wording (at
-   Gate 3 the plan row's status flips to `ready-for-implement` citing the Gate 3 Decision). *Artifact:*
-   `binding.yaml`. *Verified by:* parse + git diff shows the two rows only. *Owner:* `wf-implement`
-   (verify-only).
-2. **Fix the rendering's stale attribution lines** — three attribution-only edits, zero requirement
-   change (rendering line 17 provenance `1.4` → `1.5`; §9 `(v1.4)` → `(v1.5)`; §8 "has never been
-   approved" sentence). Rendering-class defect; the task specification (v1.5, `Approved`) wins.
-   *Artifact:* `schema/final-academic-record.md`. *Verified by:* diff shows exactly those three
-   line-class edits; no other change. *Owner:* `wf-implement`.
-3. **Field-by-field conformance check** rendering ↔ task spec v1.5 (field tables §4.2/§4.4.1/§4.4.2;
-   13-field canonical list in order; exclusion record; R-1/R-3/R-4 encoded, R-2 not encoded). Any
-   divergence becomes a finding — never a silent edit. *Artifact:* verification notes in this
-   handoff + the conformance table delivered by `wf-implement`. *Verified by:* independent review.
-   *Owner:* `wf-implement`.
-4. **Verification evidence pack** mapping AC-1…AC-9 to named evidence (per the plan's verification
-   table). *Artifact:* this handoff, appended. *Verified by:* `wf-converge`. *Owner:* `wf-implement`.
-5. **Plan review and approval** — submit the plan to `wf-review` (type: implementation/architecture planning artifact); on a clear verdict present it to the human for Gate 3; on approval record the
-   approval Decision in the ledger and set the plan file to `status: ready-for-implement` (and flip
-   the `binding.yaml` plan row to match). *Artifact:* `tasks/task-LMS-CONTRACT-001-plan.md`,
-   `binding.yaml`, work ledger. *Verified by:* ledger Decision recorded; plan frontmatter
-   `status: ready-for-implement`; binding row matches. *Owner:* `wf-review` → human Gate 3.
+1. **Verify `binding.yaml`** — ✔ done (verify-only, 2026-11-19): parses; rows in sync
+   (plan `ready-for-implement`/Gate 3 `WORK-189`; handoff `Open`; codebase determined). No edit
+   required. *Owner:* `wf-implement`.
+2. **Fix the rendering's stale attribution lines** — ✔ done (2026-11-19): exactly three
+   attribution-only edits (line 17 provenance `1.5`; §9 `(v1.5)`; §8 `Approved`); `git diff` shows
+   no other change; zero requirement change. *Owner:* `wf-implement`.
+3. **Field-by-field conformance check** — ✔ done (2026-11-19): 27/27 fields match the spec
+   (record 13; entry 10 with `required` = 7; `EnrollmentDetail` 4 with `required` = 3); 13-field
+   canonical list in declared order; exclusions recorded-absent; R-1/R-3/R-4 encoded, R-2 not
+   encoded. No divergence found. *Owner:* `wf-implement`.
+4. **Verification evidence pack** — ✔ done (2026-11-19): appended below (## Verification
+   evidence); AC-1…AC-9 each named to evidence; AC-5 and AC-1 greps recorded as expected.
+   *Verified by:* `wf-converge`. *Owner:* `wf-implement`.
+5. **Plan review and approval** — ✔ done (Gate 2 pass 2 APPROVED WITH COMMENTS; human Gate 3,
+   2026-11-19, Decision `WORK-189`); plan `status: ready-for-implement`; binding row flipped in the
+   same change. *Owner:* `wf-review` → human Gate 3.
 
 ## Preconditions unmet
 
@@ -91,6 +88,34 @@ Exact next step, in order:
 6. `@wf-commit` — task `WORK-LMS-CONTRACT-001`; push flag: **ask the human** (default no push
    without explicit authorization).
 
+## Verification evidence (wf-implement, 2026-11-19)
+
+Document-level; this task produces a specification and its normative rendering, not running code.
+Rendering: `schema/final-academic-record.md` (the sole file `wf-implement` edited) — exactly the
+three Gate-3-authorized attribution-only edits, verified by `git diff` (line 17 provenance
+`1.4` → `1.5`; §9 `(v1.4)` → `(v1.5)`; §8 "has never been approved" sentence → `Approved`). Zero
+requirement change; lines 248/434 (historical v1.4) untouched.
+
+| AC | Evidence (named) | Result |
+|---|---|---|
+| AC-1 | Rendering §4 row R-1 (single-value `Finalized`; no `Superseded`); `record_state` `required`; `parent_transaction_id` absent from `required` (R-2 not encoded; checked at assembly + proof commit per §4); grep `Superseded\|change_status\|change-classification\|change_classification\|appeal_record\|GradeAssessment` returns only §4/§9 prose *denying* the constructs and revision-history accounts of their removal | PASS |
+| AC-2 | Rendering §3 `GoverningRuleSetID` row (string, opaque, ECS-supplied at assembly; GRA-Service records); §4.2/Appendix A type/cardinality `1..1`, nullable No; §5 position 6 of digest | PASS |
+| AC-3 | Rendering §3 schema — `additionalProperties: false` throughout; `canonical_field_list` minItems=maxItems=13; §5 lists exactly the 13 digest fields; `rendered_from_version: 1.5`; post-fix §8 states the contract is `Approved` | PASS |
+| AC-4 | Rendering §3 `schema_version` row — pattern `^[0-9]+\.[0-9]+\.[0-9]+$`, in `required`; §8 records MAJOR/MINOR/PATCH meanings as the contract's own decision and the rejection rule; §8 distinguishes record-type version from canonical-form version | PASS |
+| AC-5 | §7 "The record is encoded as JSON. No second encoding is named anywhere in this contract."; grep for `XML\|yaml\|protobuf\|avro\|msgpack\|TOML\|CBOR` — **no matches**; canonical-form encoding attributed to `CAP-CANONICAL-FORM` property 4 | PASS |
+| AC-6 | Appendix A of the task spec (27 rows) vs rendering §3 field tables — field-by-field match (record 13; entry 10, `required` = 7; `EnrollmentDetail` 4, `required` = 3); type/cardinality/nullability all present; no field permits null (§4); rendering introduces no field absent from the spec (closed field sets, `additionalProperties: false`) | PASS |
+| AC-7 | Task spec Appendix B (3 timestamps: `finalized_at`, `submission_timestamp`, `enrollment_date`) — all strings, `^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z$`; rendering §7 timestamp inventory matches; no numeric epoch representation appears | PASS |
+| AC-8 | Rendering §5 canonical field list in declared order, 13..13, self-inclusive; §6 exclusion record — all five `CAP-CANONICAL-FORM` default-excluded categories recorded absent with per-category reasons; `finalized_at` recorded not-excluded | PASS |
+| AC-9 | Rendering §3 `finalized_at` and `authorized_by` rows (string `CAP-USERID`, in `required`); §5 positions 11 and 12; §4 row R-4 | PASS |
+
+Binding evidence captured: `binding.yaml` parses; rows — SRS `1.2`/`Approved`; SCHEMA `1.0.0`/`Approved`;
+task spec `1.5`/`Approved`; calibration `Confirmed` (reaffirmed 2026-11-18, `WORK-148`); plan
+`ready-for-implement` (Gate 3, `WORK-189`); handoff `Open`; `codebase_dir` determined. No edit
+required (verify-only).
+
+Expected findings (not fixed — faithful mirror of the Approved spec; resolved via `WORK-182`):
+line 108 ("SRS Q-1 is open") and line 362 ("SRS Q-1 and Q-2 remain open").
+
 ## Phase contributions
 
 | Phase | Skill | Date | Outcome |
@@ -101,6 +126,6 @@ Exact next step, in order:
 | Stale-plan regeneration | wf-plan | 2026-11-19 | Plan rewritten from v1.5; worktree recreated; handoff recreated |
 | Independent review | wf-review | 2026-11-19 | Gate 2 pass 1 CHANGES REQUIRED (F-01..F-09) → fixes in a2b7ee1 → pass 2 APPROVED WITH COMMENTS (F-10..F-12, folded into Gate 3 change) |
 | Approval | human Gate 3 | 2026-11-19 | Decision `WORK-189` recorded; plan `status: ready-for-implement`; binding plan row flipped in the same change |
-| Implementation | wf-implement | pending | Binding/provenance/evidence per plan |
+| Implementation | wf-implement | 2026-11-19 | Rendering attribution fixes applied (3 lines, zero requirement change); conformance check 27/27 fields PASS; binding verify-only PASS; evidence pack appended; expected findings (Q-1 wording, faithful mirror of spec) recorded |
 | Convergence | wf-converge | pending | AC-1…AC-9 verdict |
 | Commit | wf-commit | pending | Commit + optional push; SHA recorded in ledger |

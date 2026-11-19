@@ -14,7 +14,7 @@ updated: 2026-11-16T09:26:06Z
 # `final_academic_record` — Canonical Data Contract
 
 > **Provenance and authority.** The authoritative definition of this contract is
-> `tasks/task-LMS-CONTRACT-001-noncode.md` (task ID `WORK-LMS-CONTRACT-001`, **version 1.4**).
+> `tasks/task-LMS-CONTRACT-001-noncode.md` (task ID `WORK-LMS-CONTRACT-001`, **version 1.5**).
 > This file is its **normative rendering**. Where this file and the task specification disagree,
 > **the task specification wins** and this file is the defect. This file must not introduce a
 > requirement the task specification does not authorise (project `AGENTS.md` §3).
@@ -380,12 +380,12 @@ rule; it is not a test this task constructs (task specification §3 item 7, §7)
 canonical-form version as distinct, and SRS §2.8 has the proof commit it together with the digest
 algorithm identifier. Neither is a field of this record.
 
-This contract is at `1.0.0` and has never been approved, so no compatibility obligation exists yet.
-The first approved version establishes the baseline.
+This contract is at `1.0.0` and is `Approved` (see the revision history and the collection
+`binding.yaml`), so a baseline exists and compatibility obligations attach from it.
 
 ## 9. Acceptance criteria
 
-Each criterion mirrors the task specification §5 (v1.4) and is verified by document review. The task
+Each criterion mirrors the task specification §5 (v1.5) and is verified by document review. The task
 specification is authoritative; this table restates it and must not diverge.
 
 | ID | Criterion | Checked against | Evidence |
