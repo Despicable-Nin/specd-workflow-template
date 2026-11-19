@@ -5511,6 +5511,11 @@
           "timestamp": "2026-11-19T09:35:10Z",
           "action": "Gate 3 granted by the human ('Gate 3 granted' at the question prompt; F-10/F-11/F-12 folded into this change). Approval recorded as Decision WORK-189. Plan set to status: ready-for-implement; binding.yaml plan row flipped to cite this Decision; handoff updated (status Open, action items, phase contributions).",
           "actor": "User"
+        },
+        {
+          "timestamp": "2026-11-19T09:36:44Z",
+          "action": "Gate 3 change committed at 2ebb60f (2ebb60fdab8c68ba10c3095a2502f8b40b7cc5de) on main and pushed to origin/main (cf3199f..2ebb60f). Sync verified: 0 ahead, 0 behind. Push authorized by the human ('Gate 3 granted').",
+          "actor": "System"
         }
       ]
     }
