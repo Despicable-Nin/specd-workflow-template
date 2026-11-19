@@ -3832,7 +3832,7 @@
         },
         {
           "timestamp": "2026-11-19T08:34:49Z",
-          "action": "Rewritten by human-directed doc fix ('AGENTS.md drift fixes', 2026-11-19): Sections 2 and 4 updated to current reality; independent verification passed after F-1..F-3 fixes.",
+          "action": "Rewritten by human-directed doc fix ('AGENTS.md drift fixes', 2026-11-19): Sections 2 and 4 updated to current reality; independent verification passed after F-1..F-3 fixes. Committed at 0bf8c63 (0bf8c63b2b35361831936d9b6d367aef938da2c2), push authorized.",
           "actor": "User"
         }
       ]
@@ -4901,7 +4901,7 @@
         },
         {
           "timestamp": "2026-11-19T08:34:49Z",
-          "action": "Rewritten by human-directed doc fix ('AGENTS.md drift fixes', 2026-11-19); verified by independent read-only verification; closed.",
+          "action": "Rewritten by human-directed doc fix ('AGENTS.md drift fixes', 2026-11-19); verified by independent read-only verification; closed. Committed at 0bf8c63 (0bf8c63b2b35361831936d9b6d367aef938da2c2), push authorized.",
           "actor": "User"
         }
       ]
@@ -4936,7 +4936,7 @@
         },
         {
           "timestamp": "2026-11-19T08:34:49Z",
-          "action": "Rewritten by human-directed doc fix ('AGENTS.md drift fixes', 2026-11-19); binding.yaml HANDOFF-LMS-CONTRACT-001 set to status: missing (handoff MISSING verified; disposition decided by human in this change); independent verification F-1..F-3 fixed in the same change; closed.",
+          "action": "Rewritten by human-directed doc fix ('AGENTS.md drift fixes', 2026-11-19); binding.yaml HANDOFF-LMS-CONTRACT-001 set to status: missing (handoff MISSING verified; disposition decided by human in this change); independent verification F-1..F-3 fixed in the same change; closed. Committed at 0bf8c63 (0bf8c63b2b35361831936d9b6d367aef938da2c2), push authorized.",
           "actor": "User"
         }
       ]
