@@ -5846,6 +5846,60 @@
           "actor": "System"
         }
       ]
+    },
+    {
+      "id": "WORK-204",
+      "type": "Decision",
+      "title": "Gate 3 approval - task spec WORK-LMS-GRADERECORD-001 (GradeRecord contract) v1.3 Approved",
+      "status": "done",
+      "priority": "high",
+      "source": {
+        "type": "human-decision",
+        "reference": "user approval at the Gate 3 question prompt 2026-11-19T18:15:32Z | Draft v1.3 | Gate 2 pass 4 verdict APPROVED WITH COMMENTS (no blocking findings; session ses_e0cbb1527ffeW7RRPph0CQYj6u); prior passes: pass 1 CHANGES REQUIRED F-01..F-13, pass 2 CHANGES REQUIRED F-201..F-208, pass 3 CHANGES REQUIRED F-301..F-303 (one-line opacity assignments, applied and re-walked clean)"
+      },
+      "context": "WHAT WAS APPROVED: task spec WORK-LMS-GRADERECORD-001 (GradeRecord contract), version 1.3, at D:/hobby/specd-worktree/lms-formularules-plan/spec-workspace/projects/blockchain-enabled-lms/tasks/task-LMS-GRADERECORD-001-noncode.md - THE GRA-SERVICE `GradeRecord` OPERATIONAL-RECORD CONTRACT (one record per assessed outcome for one student in one assessment; mutable-until-approval then append-only; supersedes only via appended `parent_transaction_id`-linked successors created directly in Finalized; carries GoverningRuleSetID per SRS W-2; never proof-committed; GRA-Service sole writer; attendance never embedded; change_status vocabulary deferred to change control via Section 11 C-1). WHY: Gate 2 converged over four passes; every review finding F-01..F-208/F-303 was applied and verified in-text by independent read-only re-reviews; the spec freezes at approval (changes only via SRS Section 11 CR). WHAT THIS DOES NOT AUTHORIZE: any implementation code (separate coding task via wf-task-code after plan+contracts); edits to SRS, constitution, capabilities, FAR contract/rendering, FormulaRules contract, service-contracts.yaml; creation of the worktree (wf-plan's act, from main, honouring calibration choice 4: sibling D:/hobby/specd-worktree/lms-graderecord-plan, branch task/WORK-LMS-GRADERECORD-001-plan); placement of the two artifacts (F-10) - deferred by the human to the Gate-3/commit prompt; they are UNTRACKED in the FormulaRules worktree at the time of this Decision and must not be swept into task/WORK-LMS-FORMULARULES-001-plan commits. WHO OWNS THE OWED ITEMS: change_status vocabulary (SRS/CAP change control - Section 11 C-1); transaction_id/parent_transaction_id formats (domain owners, SRS Q-2, Section 11 C-2); granularity reading recorded interpretation (Q-OWN-2) accepted by this approval; F-13 note (LGS TransactionID name collision) carried to the LGS task; constitution tension 1 (retention) still owed separately.",
+      "dependencies": [
+        "WORK-196",
+        "WORK-200",
+        "WORK-202",
+        "WORK-203"
+      ],
+      "owner": "User",
+      "next_action": "wf-plan (creates the worktree from main honouring calibration choice 4; produces the plan file; then wf-implement against the approved spec; then wf-converge; commits via wf-commit at the prompt). WORK-196 remains open for the Session/AttendanceRecord contract.",
+      "resolution": "Gate 3 approval granted 2026-11-19T18:15:32Z by the user at the question prompt. Spec status set to Approved (frontmatter) in the same change; this Decision is the approval evidence required by the Approved-requires-evidence rule.",
+      "history": [
+        {
+          "timestamp": "2026-11-19T18:15:32Z",
+          "action": "Gate 3 approval granted; spec v1.3 marked Approved; this Decision appended per the evidence-based approval rule. Handoff emitted as task-LMS-GRADERECORD-001-handoff.md with suggested skill run wf-plan.",
+          "actor": "System"
+        }
+      ]
+    },
+    {
+      "id": "WORK-205",
+      "type": "Task",
+      "title": "WORK-LMS-GRADERECORD-001 task scaffolded - calibrated, spec emitted, reviewed (4 passes), approved at Gate 3, worktree plan recorded for wf-plan",
+      "status": "done",
+      "priority": "medium",
+      "source": {
+        "type": "wf-task-noncode",
+        "reference": "wf-task-noncode run 2026-11-19 | calibration CALIBRATION-LMS-GRADERECORD-001 (Gate 1 final) | artifacts: task-LMS-GRADERECORD-001-noncode.md (Approved v1.3), task-LMS-GRADERECORD-001-noncode-calibration.md, this task's handoff"
+      },
+      "context": "Task created and carried to approval by the wf-task-noncode skill. Delivered: the Approved field-level, technology-agnostic GradeRecord contract (v1.3) with calibration record and handoff. Gate 1 final 2026-11-19T16:2xZ (six choices one at a time, no defaults; registrar-first orientation; review + pre-check-walk verification; sibling-worktree + task-branch worktree preferences recorded for wf-plan, honouring house sibling placement). Gate 2 over four independent read-only passes (ses_e0d178d18ffeCSu7f6Ss73hLom, ses_e0d011164ffe5oZQSiKaloJ3Yr, ses_e0cc5daefffeQnyee8nxCljbkz, ses_e0cbb1527ffeW7RRPph0CQYj6u); findings F-01..F-13, F-201..F-208, F-301..F-303 all applied and verified; pass 4 verdict APPROVED WITH COMMENTS. Gate 3 by human decision WORK-204. Verification evidence: AC-4 tokenizer zero applicable hits (L262 ordinal excluded, class (iii)); AC-10 zero technology markers; AC-12/AC-15 exhaustiveness re-walked at pass 3/4; Walk A OK; Walk B one pre-dispositioned AMBIGUOUS (B3, change_status vocabulary - Section 11 C-1). NO worktree created here (correct: wf-plan creates it from main). Artifact placement (F-10) resolved at the commit prompt 2026-11-19: the artifacts were untracked on task/WORK-LMS-FORMULARULES-001-plan at Gate 3; the human chose to create the designated task worktree/branch (D:/hobby/specd-worktree/lms-graderecord-plan, task/WORK-LMS-GRADERECORD-001-plan, off main) and carry them there; they are committed on that branch with this record. No existing ledger items were modified or closed. Artifacts committed on task/WORK-LMS-GRADERECORD-001-plan (authorized at the commit prompt).",
+      "dependencies": [
+        "WORK-196",
+        "WORK-204"
+      ],
+      "owner": "User",
+      "next_action": "wf-plan (suggested skill run in the handoff, Section 6): creates the worktree from main per calibration choice 4; then wf-implement; then wf-converge; then wf-commit at the prompt. Also: Session/AttendanceRecord contract (WORK-196) to close the last pre-coding gap.",
+      "resolution": "Created, calibrated, reviewed to convergence, approved (WORK-204), handed off for planning.",
+      "history": [
+        {
+          "timestamp": "2026-11-19T18:15:32Z",
+          "action": "Task bookkeeping complete for the non-coding phase; handoff emitted with suggested skill run wf-plan.",
+          "actor": "System"
+        }
+      ]
     }
   ]
 }
