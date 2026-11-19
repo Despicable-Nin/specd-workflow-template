@@ -18,7 +18,7 @@ the source layout; do not improvise one.
 ## 2. Binding
 
 `binding.yaml` in this directory points at the specification collection this codebase implements:
-collection `SPEC-LMS-v1.0` v1.0, root spec `SRS-LMS-v1.0` v1.2 (`Approved`, `WORK-039`; v1.2 refreshes Sections 8.1 and 9 per Decision `WORK-176`),
+collection `SPEC-LMS-v1.0` v1.0, root spec `SRS-LMS-v1.0` v1.3 (`Approved`, `WORK-039`; v1.2 refreshed Sections 8.1 and 9 per Decision `WORK-176`; v1.3 adds per-session attendance, Workflow W-7 / C-8, per Decision `WORK-192`),
 project constitution `CONST-LMS-v1.3` v1.3 (`Approved`; lineage `WORK-159` v1.0, `WORK-168` v1.1, `WORK-174` v1.2, `WORK-178` v1.3). This directory is invalid
 without that pointer. `generated-projects/AGENTS.md` governs this tree.
 

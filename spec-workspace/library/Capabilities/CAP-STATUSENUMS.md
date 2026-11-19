@@ -1,10 +1,10 @@
 ---
 id: CAP-STATUSENUMS
-version: 1.1
+version: 1.2
 status: Approved
 title: Status Enumeration Capability
 created: 2026-11-13T00:00:00Z
-updated: 2026-11-18T10:50:39Z
+updated: 2026-11-19T12:16:04Z
 ---
 
 # CAP-STATUSENUMS: Status Enumeration Capability
@@ -13,16 +13,20 @@ updated: 2026-11-18T10:50:39Z
 
 Normative status vocabulary for the Blockchain-Enabled LMS: the valid status values for
 academic period records, grade records, appeal records, student-period records, enrollment
-records, and level-completion records. This artifact is the LMS's adopted vocabulary, filed in
-the shared library; its values are project-specific. Adopting projects copy or specialize it.
+records, level-completion records, and (as of v1.2) the `Recorded` state of `AttendanceRecord`
+plus the attendance outcome domain (Workflow W-7, SRS Section 2.10). This artifact is the LMS's
+adopted vocabulary, filed in the shared library; its values are project-specific. Adopting
+projects copy or specialize it.
 
 ## Normative Definition
 
 This artifact is the sole normative status-vocabulary authority for this project.
 `SRS_LMS_v1.0.md` Section 9.1 carries a normative reference to it (v1.2, 2026-11-18). The values
-below are identical to the SRS Section 2.9 transition tables; transitions are governed by SRS
+below are identical to the SRS Section 2.9 (v1.3, 2026-11-19) transition tables; the attendance
+outcome domain is defined by Workflow W-7 (SRS Section 2.10). Transitions are governed by SRS
 Section 2.9 and the value vocabulary by this artifact. Where this artifact and the SRS appear to
-differ, that split governs, recorded at this artifact's promotion (2026-11-18).
+differ, that split governs, recorded at this artifact's promotion (2026-11-18) and re-anchored at
+v1.2 (2026-11-19).
 
 | Entity | Status values |
 |---|---|
@@ -32,10 +36,15 @@ differ, that split governs, recorded at this artifact's promotion (2026-11-18).
 | Student-period record | `Finalized` |
 | Enrollment | `Requested`, `Enrolled`, `Completed`, `Refused`, `Withdrawn` |
 | Level-completion record | `InProgress`, `Completed` |
+| AttendanceRecord | `Recorded` |
+
+| Value domain | Values |
+|---|---|
+| Attendance outcome (`AttendanceRecord`) | `Present`, `Absent`, `Late`, `Excused` |
 
 ## Status Transition Rules
 
-Identical to the normative tables in `SRS_LMS_v1.0.md` Section 2.9 (Approved):
+Identical to the normative tables in `SRS_LMS_v1.0.md` Section 2.9 (Approved, v1.3):
 
 ### Academic period
 
@@ -105,6 +114,17 @@ refused request may be submitted again.
 
 `Completed` is terminal and triggers Workflow W-4.
 
+### Attendance record
+
+| From | Event | To |
+|---|---|---|
+| — | Instructor of record marks a session (W-7 step 4) | `Recorded` |
+
+No further transitions. A correction appends a successor linked by a parent reference; originals
+are never altered. There is no `Superseded` state. The attendance outcome values (`Present`,
+`Absent`, `Late`, `Excused`) are governed by this artifact's value-domain table above; marking
+occurs under Workflow W-7 (SRS Section 2.10).
+
 ## Constraints
 
 - Status values must be drawn from the normative table above.
@@ -116,3 +136,18 @@ refused request may be submitted again.
   expresses the relationship by linkage; it does not amend what it corrects.
 - A finalized record's state is terminal and is never written to; supersession is expressed
   only by a successor carrying `parent_transaction_id`.
+- The attendance outcome domain governs W-7 attendance marking (SRS Section 2.10); transitions
+  follow this section and SRS Section 2.9 (v1.3). `AttendanceRecord` carries the governing rule set
+  identifier (SRS Sections 2.2 and 2.10).
+
+## Change record (v1.2)
+
+2026-11-19: Added the `Recorded` value for `AttendanceRecord` and the attendance outcome value
+domain (`Present`, `Absent`, `Late`, `Excused`); added the Attendance record transition table,
+identical to SRS Section 2.9 (v1.3); re-anchored this artifact's SRS references to v1.3; noted the
+identifier obligation. Fulfilled through Section 11 atomically with SRS v1.3: Change Request
+`WORK-191` (two-pass independent review 2026-11-19 — pass 1 CHANGES REQUIRED, pass 2 APPROVED WITH
+COMMENTS; comments N-1 to N-6 discharged at application time; N-4 atomic-application guard executed
+and the byte-identity diff result recorded in Decision `WORK-192`'s history); Gate 2 approval
+recorded as Decision `WORK-192` (2026-11-19). v1.1 remains retrievable at the commit carrying it
+(`b6ce80c`), anchored to approval Decision `WORK-176`.

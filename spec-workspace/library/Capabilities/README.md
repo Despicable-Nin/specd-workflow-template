@@ -25,7 +25,7 @@ artifact is a missing relationship, not an implicit convention.
 **Populated; five of five Approved (2026-11-18).** All five capabilities are `Approved`:
 `CAP-CANONICAL-FORM` (v1.0; `WORK-175`), `CAP-USERID` (v1.1; `WORK-175`),
 `CAP-TIMESTAMPFORMAT` (v1.1; `WORK-175`), `CAP-SCHEMAVERSIONCONSTRAINT` (v1.1; `WORK-175`), and
-`CAP-STATUSENUMS` (v1.1; `WORK-176` - promoted at the same Gate-approved change that retired the
+`CAP-STATUSENUMS` (v1.2; `WORK-192` - attendance outcome domain and AttendanceRecord `Recorded`, applied atomically with SRS v1.3 at the same Gate-approved change that added Workflow W-7 / capability C-8; prior v1.1 promotion at `WORK-176`, at the same Gate-approved change that retired the
 `SRS_LMS_v1.0.md` Section 9.1 interim table, now a normative reference to this capability).
 Approvals were recorded as ledger Decisions per the framework approval hierarchy. See
 `spec-workspace/library/README.md` and ledger `WORK-020` (authoring), `WORK-175`/`WORK-176`

@@ -2,12 +2,12 @@
 spec_id: SRS-LMS-v1.0
 id: SRS-LMS-v1.0
 collection_id: SPEC-LMS-v1.0
-version: 1.2
+version: 1.3
 status: Approved
 title: Software Requirements Specification - Blockchain-Enabled LMS
 project: blockchain-enabled-lms
 created: 2026-11-11T12:00:00Z
-updated: 2026-11-18T10:50:39Z
+updated: 2026-11-19T12:16:04Z
 ---
 
 # Software Requirements Specification - Blockchain-Enabled LMS
@@ -78,11 +78,13 @@ normative rendering `schema/final-academic-record.md` (Section 8).
 | C-5 | Instantiate learning: sections, enrollments, scheduling. | ESS |
 | C-6 | Compute the final grade from assessments under the governing formula, and own the appeal and review history. | GRA-Service |
 | C-7 | Assemble the finalized academic record for a student-period, and commit its proof. | LGS |
+| C-8 | Record and own per-session attendance for a section, and return a student's attendance aggregate for a section and period. | ESS |
 
 ### 2.2 Workflow W-1 — Academic period gatekeeping
 
 **Trigger.** Any creation or update of a student academic record — an enrollment, a grade
-submission, a section allocation, or a course or program definition that takes effect in a period.
+submission, a section allocation, an attendance marking, or a course or program definition that
+takes effect in a period.
 
 **Participants.** AMS, ESS, FRAS, GRA-Service.
 
@@ -114,6 +116,16 @@ student-period record, which Workflow W-6 governs.
    the approving authority is recorded against it.
 
 **Rule.** A finalized grade must carry the rule set identifier under which it was computed.
+
+**Formula ownership.** The governing grading formula — including any attendance component inside a
+composite activities block (for example: activities collectively worth some agreed share of the
+final grade, quizzes and attendance among their components, and an exam worth its own agreed share —
+weights are illustrative only; binds nothing) — is `FormulaRules` content owned by ECS (Section
+3.1). This specification fixes that the formula is deterministic and that the governing rule set
+identifier identifies it (Section 5); it does not author the formula's content, weights, or
+structure. No task may author it either: tasks define the contract for the rules, never the rules.
+Where the formula references attendance, GRA-Service obtains the student's attendance aggregate
+from ESS by the operation defined in Section 3.1 (ESS).
 
 **No proof is committed here.** A proof is committed over a *student-period record*, not over an
 individual grade (Section 2.8).
@@ -343,6 +355,50 @@ may be submitted again.
 
 `Completed` is terminal and triggers Workflow W-4.
 
+#### Attendance record
+
+| From | Event | To |
+|---|---|---|
+| — | Instructor of record marks a session (W-7 step 4) | `Recorded` |
+
+There are no further transitions. A correction appends a successor linked to the record it
+supersedes; the original is never altered, and there is no `Superseded` state (the supersession
+posture of Section 2.4, without any commitment to a field name or format). The `Recorded` value
+and the attendance outcome values are governed by `CAP-STATUSENUMS` (Section 9.1); transitions
+remain governed by this section.
+
+### 2.10 Workflow W-7 — Attendance marking
+
+**Trigger.** A scheduled session of a section concludes, while its academic period is `Active`.
+
+**Participants.** ESS, FRAS, ECS.
+
+**Flow.**
+
+1. ESS requests the governing context for the section's educational level and academic period from
+   ECS. If the period's status is not `Active`, ECS refuses and no attendance record is created
+   (Workflow W-1 applies to this record, as it takes effect in a period). If the status is
+   `Active`, ECS returns the governing rule set identifier, which ESS records against each
+   AttendanceRecord it creates for the session (Workflow W-1 step 4).
+2. ESS validates the marking actor with FRAS: only the instructor of record assigned to the
+   section may mark its attendance. If FRAS does not return that assignment, the marking is
+   refused.
+3. For each enrolled student in the session, the instructor of record records exactly one
+   attendance outcome. The outcome values are governed by `CAP-STATUSENUMS` (Section 9.1); this
+   specification does not restate them.
+4. ESS appends one `AttendanceRecord` per (session, student), carrying the governing rule set
+   identifier from step 1. A correction appends a new record linked to the record it supersedes by
+   a parent reference; the original is never altered.
+5. ESS exposes a student's attendance aggregate (per section, per period) as a derived value for
+   consumers that need it. The aggregate is computed deterministically from the attendance records
+   under the governing rule set in force; it is never stored as a second source of truth. Which
+   outcomes count toward presence, and any attendance policy thresholds, are ECS rule content and
+   are not defined here.
+
+**Rule.** Attendance records are operational. They are never proof-committed and they never enter
+the canonical form of a student-period record (Section 2.8, Section 4.1). Attendance may only be
+referenced by the ECS governing formula as an input (Workflow W-2).
+
 ---
 
 ## 3. Logical architecture boundaries and responsibilities
@@ -354,8 +410,8 @@ may be submitted again.
 | **IAM** | Identify and authorize actors; hold the user profile. | Authenticate an actor and return an access assertion; return the profile of an authenticated actor; resolve the authorities held by an actor. | `User`, `UserGroup`, `Scope`, `Authority` |
 | **ECS** | **The rule authority.** Determine the rules in force for an educational level and academic period. | Given an educational level and academic period, return the governing rule set identifier and the rules it contains; given a period, return its current status; return the approval chain required for a level; return the capacity constraints in force for a level and period. | `EducationalLevel`, `AcademicPeriod`, `CycleType`, `FormulaRules` |
 | **AMS** | Define what is taught: subjects, course definitions, degree structures, prerequisite maps. | Define a course, validated against the prerequisite map; define a program of study; return the prerequisites of a course. | `CourseCatalog`, `ProgramMap` |
-| **FRAS** | Allocate instructional resources to scheduled sections; own instructor load. | Assign an instructor to a section, validated against instructor load; return an instructor's load record. | `Faculty`, `Assignment`, `LoadRecord` |
-| **ESS** | Instantiate learning: sections, enrollments, scheduling; enforce capacity constraints at enrollment. | Enroll a student in a section, validated against prerequisites (AMS) and capacity (ECS); return a student's enrollment instance. | `Section`, `Enrollment` |
+| **FRAS** | Allocate instructional resources to scheduled sections; own instructor load. | Assign an instructor to a section, validated against instructor load; return an instructor's load record; return the instructor of record assigned to a section. | `Faculty`, `Assignment`, `LoadRecord` |
+| **ESS** | Instantiate learning: sections, enrollments, scheduling; enforce capacity constraints at enrollment; own per-session attendance. | Enroll a student in a section, validated against prerequisites (AMS) and capacity (ECS); return a student's enrollment instance; mark attendance for a scheduled session, validated against instructor-of-record assignment (FRAS) and period status (ECS); return a student's attendance aggregate for a section and period (derived, deterministic, under the governing rule set). | `Section`, `Enrollment`, `Session`, `AttendanceRecord` |
 | **GRA-Service** | Compute the final grade under the governing formula; own grade, appeal, review and level-completion records. | Submit an assessment result and receive the computed final grade; raise an appeal against a finalized grade; record an approval step; assemble a student-period record. | `GradeRecord`, `GradeAppealRecord`, `ReviewLog`, `LevelCompletionRecord`, `StudentPeriodRecord` |
 | **LGS** | Commit the immutable proof of a finalized student-period record; maintain the proof sequence. | Commit a proof over a finalized student-period record; return a student's proof sequence for verification. | `BlockHash`, `TransactionID` |
 
@@ -405,7 +461,8 @@ ECS-owned identity.
 
 The operational record store holds the complete, authoritative academic history: finalized grade
 records, appeal records, approval-chain review logs, student-period records, level-completion
-records, and their linkage. GRA-Service does **not** hold this state transiently — its own working
+records, attendance records (ESS-owned, attributable to the marking actor, never proof-visible), and
+their linkage. GRA-Service does **not** hold this state transiently — its own working
 state is transient, but every artifact it produces is committed to the operational record store as
 it is produced.
 
@@ -475,6 +532,11 @@ The following are explicitly **out of scope** for this specification:
   *protocol* by which other systems integrate with the seven domains.
 * **Historical migration of existing records.** The system governs records it creates.
 * **Correction of records finalized before this system existed.**
+* **Attendance and the proof.** Attendance is not part of the proof. No attendance datum is part
+  of the digested payload; attendance is never a canonical field. Attendance may influence the
+  grade only as an ECS `FormulaRules` input. Attendance policy thresholds (for example, a minimum
+  attendance requirement) and formula weights are ECS rule content; this specification does not
+  define them.
 
 ### 4.2 Success criteria
 
@@ -487,6 +549,7 @@ The following are explicitly **out of scope** for this specification:
 | S-5 | A level transition is never automatic. | Every level transition records an explicit approval by a dean or principal authority. |
 | S-6 | Rules in force are consistent across every domain that depends on them. | ECS is the sole source of the rule set for a level and period, and every dependent domain records the identifier it used. |
 | S-7 | A proof is committed for every finalized student-period record, and only for those. | The set of committed proofs corresponds exactly to the set of finalized student-period records. |
+| S-8 | A student's per-session attendance in an `Active` period is recordable by the section's instructor of record, and consumers can obtain the student's attendance aggregate for formula input. | For a section with a scheduled session in an `Active` period: attendance records exist per (session, student), carry the governing rule set identifier, and are marked only by the instructor of record validated via FRAS; the aggregate is derived deterministically from those records under that rule set; a non-`Active` period refuses creation; an actor FRAS does not return as instructor of record is refused; a correction appears as an appended successor with the original unchanged. |
 
 ---
 
@@ -497,7 +560,7 @@ The following are explicitly **out of scope** for this specification:
 | **Immutability** | No field of a finalized grade record, and no field of a finalized student-period record, is ever written. A correction appends a new record and expresses the relationship by linkage; it does not amend what it corrects. |
 | **Verifiability** | The proof of a finalized student-period record must be independently recomputable from the canonical payload published on the verification surface, by a party with no privileged access. |
 | **Auditability** | Every state change to an academic record — creation, appeal, approval step, level transition — must be attributable to an actor and an authorization, and retained. |
-| **Determinism** | Given the same rule set and the same assessed inputs, the computed grade must be identical. The rule set identifier must therefore be sufficient to reproduce a computation. |
+| **Determinism** | Given the same rule set and the same assessed inputs, the computed grade must be identical. The rule set identifier must therefore be sufficient to reproduce a computation. Aggregation of attendance records is likewise deterministic: the same attendance records for a (student, section, period) under the same governing rule set always yield the same aggregate. |
 | **Completeness** | The operational record store must be able to reconstruct a student's complete academic history at any point in time, including superseded records. |
 | **Traceability of authority** | Every record that depends on a rule set must name it; every record that depends on an approval must name the approving authority; and both are inside the digested canonical form. |
 | **Refusal over ambiguity** | When a rule set cannot be resolved, a governing context cannot be established, or an approval is absent, the operation must be refused rather than completed under an assumption. |
@@ -610,6 +673,7 @@ Child artifacts cite this specification by section. The anchors are stable:
 | Composition decision | §6 |
 | Repository topology | §7 |
 | Glossary | §10 |
+| Attendance capability and workflow | §2.1, §2.2, §2.9, §2.10, §3.1 |
 
 ---
 
@@ -667,6 +731,8 @@ statement.
 | **Level transition** | A student's progression from one educational level to the next. Distinct from academic promotion or graduation. |
 | **Superseded** | The relationship a later student-period record has to an earlier one, expressed by the successor's `parent_transaction_id`. **Not a state.** A superseded record is still `Finalized`, with its content and its digest unchanged. |
 | **Appended successor** | A new record created to correct a finalized one, linked to it by `parent_transaction_id`. |
+| **Session** | A scheduled meeting occurrence of a section, against which attendance is recorded. Owned conceptually here; its field-level contract is defined by a task specification, not by this document. Not to be confused with the volatile capture metadata excluded from the canonical form under Section 2.8's "session identifiers" exclusion — that exclusion concerns digest capture, not the attendance Session. |
+| **AttendanceRecord** | An ESS-owned operational record of one student's outcome in one session. Outcome values are governed by `CAP-STATUSENUMS` (Section 9.1); corrections append a linked successor; originals are never altered. Carries the governing rule set identifier. Never proof-committed. Field-level detail (including the parent-reference field name and format) belongs to its task-level contract. |
 
 ---
 
@@ -751,5 +817,37 @@ work ledger history at commit time). The specification collection `SPEC-LMS-v1.0
 SRS `spec_files` entry in both `binding.yaml` files move to 1.2). The id `SRS-LMS-v1.0` and the
 filename are unchanged (three-way filename agreement). **No requirement was added, removed or
 modified beyond the named replacements**; Sections 2.8, 2.9, 3, 5 and 6 are unchanged.
+
+**Change record (v1.3).** 2026-11-19: Workflow W-7 (Section 2.10) and capability C-8 added —
+per-session attendance recording owned by ESS (`Session`, `AttendanceRecord`), marked by the
+instructor of record validated via FRAS (new FRAS operation: return the instructor of record
+assigned to a section), period status enforced via ECS (W-1, whose trigger enumeration now names
+attendance marking), outcome vocabulary and `Recorded` state governed by `CAP-STATUSENUMS`,
+append-only correction, attendance aggregate derived deterministically for formula input and named
+against the governing rule set, attendance never proof-committed nor part of the canonical form,
+and `AttendanceRecord` carries the governing rule set identifier. Section 2.3 annotated: the
+governing grading formula (including any attendance weight in a composite activities block;
+weights illustrative, binding nothing) is ECS `FormulaRules` content; this specification does not
+author it. Sections 2.2, 2.3, 2.9, 3.1, 3.5, 4.1, 4.2 (new S-8; S-4 unchanged — attendance cannot
+exist outside an `Active` period and is covered there), 5, 8.2, 10 updated to match; Section 1.3
+untouched (Primary-emphasis reading risk accepted); Section 9 unchanged. Fulfilled through Section
+11: Change Request `WORK-191`; independent review 2026-11-19, executed in two passes — pass 1
+verdict CHANGES REQUIRED (majors F-01 to F-05, minors F-06 to F-13, informational F-14/F-15, all
+dispositioned in the draft and recorded in the work ledger); pass 2 verdict APPROVED WITH COMMENTS
+on that draft (comments N-1 to N-6; N-2 anchor map gains Section 2.2; N-3 disposition citation
+corrected; N-4 atomic-application guard executed with the byte-identity of the two attendance
+transition tables recorded in the applying Decision's history; N-5 §3.5 enumeration extended in
+place). Atomic Gate 2 approval recorded as Decision `WORK-192` (2026-11-19) covering this SRS v1.3
+change and the paired `CAP-STATUSENUMS` v1.1 → v1.2 revision (new attendance outcome domain and
+AttendanceRecord transition table; capability text re-anchored to SRS §2.9 v1.3). Version
+incremented to 1.3 and `updated` set to the application time (2026-11-19T12:16:04Z), per Section
+11. v1.2 remains retrievable at the commit carrying it (`b6ce80c`), anchored to approval Decision
+`WORK-176`; this v1.3 revision is anchored to Decision `WORK-192` and to the commit carrying this
+change (the commit SHA is recorded in the work ledger history at commit time). The specification
+collection `SPEC-LMS-v1.0` remains version 1.0 by Decision (unchanged; root specification version is
+the change signal; `root_spec.version` and the SRS `spec_files` entry in both `binding.yaml` files
+move to 1.3). The id `SRS-LMS-v1.0` and the filename are unchanged. **No requirement was added,
+removed or modified beyond the named additions and the named §2.2 trigger extension**; Sections
+2.4–2.8 are unchanged in substance.
 
 *End of specification.*

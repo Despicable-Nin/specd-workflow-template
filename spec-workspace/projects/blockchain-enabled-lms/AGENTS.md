@@ -9,19 +9,19 @@ The complete specification collection for a blockchain-enabled Learning Manageme
 of record for student academic achievements across Primary, Secondary, and College education,
 with immutable blockchain proofs of grade finalization.
 
-The parent specification is `SRS_LMS_v1.0.md` (`SRS-LMS-v1.0`, v1.2).
+The parent specification is `SRS_LMS_v1.0.md` (`SRS-LMS-v1.0`, v1.3).
 
 ## 2. Contents
 
 | Path | Role |
 |---|---|
-| `SRS_LMS_v1.0.md` | Parent specification — objectives, stakeholders, capabilities and workflows, domain boundaries, quality expectations, composition and topology decisions. `spec_id: SRS-LMS-v1.0`, version 1.2, `status: Approved` (`WORK-039`; v1.2 refreshed Sections 8.1 and 9 per Section 11 Change Request `WORK-171`, Gate 2 Decision `WORK-176`, commit `b6ce80c`). |
+| `SRS_LMS_v1.0.md` | Parent specification — objectives, stakeholders, capabilities and workflows, domain boundaries, quality expectations, composition and topology decisions. `spec_id: SRS-LMS-v1.0`, version 1.3, `status: Approved` (`WORK-039`; v1.2 refreshed Sections 8.1 and 9 per Section 11 Change Request `WORK-171`, Gate 2 Decision `WORK-176`, commit `b6ce80c`; v1.3 added attendance Workflow W-7 / capability C-8 and the W-2 formula-ownership annotation per Change Request `WORK-191`, Gate 2 Decision `WORK-192`, 2026-11-19). |
 | `schema/final-academic-record.md` | Normative rendering of the `final_academic_record` contract. `status: Approved` (v1.0.0; rendering of task spec v1.5). |
 | `tasks/task-LMS-CONTRACT-001-noncode.md` | Task specification `WORK-LMS-CONTRACT-001`. `status: Approved` (v1.5, `WORK-156`; seventh review; `parent_transaction_id` format opaque, no UUIDv4 mandate). |
 | `tasks/task-LMS-CONTRACT-001-plan.md` | The implementation plan for that task. Regenerated from task spec v1.5 (wf-plan, 2026-11-19); validated at Gate 2 (both passes) and approved at **Gate 3** (Decision `WORK-189`); `ready-for-implement`; the source of truth for `wf-implement`. |
 | `tasks/task-LMS-CONTRACT-001-handoff.md` | The one handoff for that task. **Deleted 2026-11-19** (task converged `CONVERGED`; `Done`; disposed by `wf-commit` — disposable by contract). Not present in the tree. |
 | `binding.yaml` | Pointer from this collection to the codebase. |
-| `spec-workspace/library/Capabilities/CAP-*.md` | All five capability artifacts (`CAP-CANONICAL-FORM` v1.0, `CAP-USERID` v1.1, `CAP-TIMESTAMPFORMAT` v1.1, `CAP-SCHEMAVERSIONCONSTRAINT` v1.1 — Decision `WORK-175`; `CAP-STATUSENUMS` v1.1 — Decision `WORK-176`). `status: Approved` (2026-11-18). |
+| `spec-workspace/library/Capabilities/CAP-*.md` | All five capability artifacts (`CAP-CANONICAL-FORM` v1.0, `CAP-USERID` v1.1, `CAP-TIMESTAMPFORMAT` v1.1, `CAP-SCHEMAVERSIONCONSTRAINT` v1.1 — Decision `WORK-175`; `CAP-STATUSENUMS` v1.2 - v1.1 at `WORK-176`; v1.2 (attendance outcome domain, `Recorded`) atomic with SRS v1.3, Decision `WORK-192`). `status: Approved` (2026-11-18; v1.2 2026-11-19). |
 | `service-contracts.yaml` | Runtime service-to-service dependency manifest. |
 
 ## 3. Authority
@@ -33,17 +33,17 @@ the task specification does not authorize.
 
 ## 4. Status — read this before starting anything
 
-**Every approval-gated artifact in this collection is `Approved` as of 2026-11-18.** The plan was
+**Every approval-gated artifact in this collection is `Approved` as of 2026-11-19 (SRS v1.3 applied 2026-11-19, Decision `WORK-192`).** The plan was
 regenerated from task spec v1.5 and approved at Gate 3 (Decision `WORK-189`, 2026-11-19); the task
 reached convergence `CONVERGED` on 2026-11-19 (`WORK-190`) and the disposable handoff was deleted by
 `wf-commit` in the same change. The parent gates children, and the children are now cleared:
 
 | Artifact | Status | Evidence |
 |---|---|---|
-| Parent SRS `SRS-LMS-v1.0` | v1.2, `Approved` | Gate 2 Decision `WORK-176`; Change Request `WORK-171`; applied at `b6ce80c` |
+| Parent SRS `SRS-LMS-v1.0` | v1.3, `Approved` | Gate 2 Decision `WORK-192`; Change Request `WORK-191`; applied 2026-11-19 (atomic with `CAP-STATUSENUMS` v1.2); v1.2 anchored to `WORK-176` / `b6ce80c` |
 | Schema rendering `SCHEMA-LMS-FAR-v1.0` | v1.0.0, `Approved` | rendering of task spec v1.5 |
 | Task spec `WORK-LMS-CONTRACT-001` | v1.5, `Approved` | Decision `WORK-156` |
-| Five capability artifacts | all `Approved` (2026-11-18) | Decision `WORK-175` (applied at `7a80293`); `CAP-STATUSENUMS` under `WORK-176` |
+| Five capability artifacts | all `Approved` (2026-11-18) | Decision `WORK-175` (applied at `7a80293`); `CAP-STATUSENUMS` under `WORK-176` (v1.1) and `WORK-192` (v1.2, atomic with SRS v1.3) |
 | Project constitution | `CONST-LMS-v1.3`, `Approved` | Gate 2 Decision `WORK-178`; commit `b33e6a6` |
 | Collection binding | `codebase_dir` determined | Decision `WORK-160` (`generated-projects/blockchain-enabled-lms/`) |
 

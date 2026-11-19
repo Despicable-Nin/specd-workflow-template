@@ -5558,6 +5558,65 @@
           "actor": "System"
         }
       ]
+
+    },
+    {
+      "id": "WORK-191",
+      "type": "Decision",
+      "title": "Section 11 Change Request (proposed) - SRS v1.2 -> v1.3: add per-session attendance recording (ESS-owned) and annotate grade-computation configuration as ECS FormulaRules",
+      "status": "done",
+      "priority": "critical",
+      "source": {
+        "type": "human-decision",
+        "reference": "user decisions 2026-11-19 (anchoring: slice of blockchain-enabled-lms; CR route; discovery batch 1: per-student-per-session attendance, ESS ownership, formula input via ECS FormulaRules, all three levels, CR scope = attendance + grade-config annotation; batch 2: Session concept kept, attendance outcome vocabulary governed by CAP-STATUSENUMS, append-only correction, instructor-of-record via FRAS) | SRS Section 11 | precedent WORK-171"
+      },
+      "context": "WHAT (proposed; nothing applied yet): new capability C-8 (record and own per-session attendance; return a student's attendance aggregate) owned by ESS; new Workflow W-7 'Attendance marking' appended as Section 2.10 (no existing section renumbered; anchor stability); Section 2.3 (W-2) annotation stating the governing grading formula - including any attendance weight in a composite activities block, e.g. activities 60% + exam 40% - is ECS FormulaRules content, deterministic and identified by the rule set identifier, whose content THIS specification does not author; Section 2.9 gains an attendance lifecycle note (no lifecycle states; append-only correction linked by parent reference; originals never mutated; attendance outcome values Present|Absent|Late|Excused governed by CAP-STATUSENUMS); Section 3.1 ESS row extended (operations + Session and AttendanceRecord records); Section 4.1 non-goal: attendance is never proof-committed nor part of the canonical form; attendance thresholds and formula weights are ECS rule content; Section 4.2 new S-8; Section 10 glossary additions (Session, AttendanceRecord); Section 8.2 anchor-map row; Section 12 change record at Gate 2; frontmatter version 1.2 -> 1.3 with updated timestamp. WHY: the approved SRS has no attendance capability, workflow, record, or domain operation (attendance appears only as a Section 1.3 Primary School emphasis), and W-2 does not state explicitly that grade-weight configuration is ECS FormulaRules. A grade app recording attendance with configurable computation cannot be specced or built against the current spec. OUT OF SCOPE: field-level contracts (Session, AttendanceRecord, FormulaRules/grade-configuration, GradeRecord) - follow-on wf-task-noncode specs; CAP-STATUSENUMS v1.1 -> v1.2 revision to add the attendance outcome domain - its own governed revision; any change to the proof, the canonical form, or CAP-CANONICAL-FORM; the retention-policy Decision (constitution tension 1); implementation code. NOT AUTHORIZED by this CR: editing the SRS before Gate 2; the Q-2 format decision; authoring ECS rule content; any deployment or technology choice. Section 11 order: this Decision records the CR first; the drafted v1.3 text (srs-v1.3-proposal.md at repository root) goes to independent review; Gate 2 explicit human approval is required before application; version increment and timestamp at application time.",
+      "dependencies": [],
+      "owner": "User",
+      "next_action": "Independent review of srs-v1.3-proposal.md (delegated, read-only). Then Gate 2 explicit human approval, recorded as a Decision; then apply the v1.3 edit (version 1.3) and commit per human authorization at the prompt.",
+      "resolution": "Applied 2026-11-19 under Gate 2 Decision WORK-192 (two-pass independent review; atomic with CAP-STATUSENUMS v1.2). SRS v1.3 is in the tree; the proposal file is srs-v1.3-proposal.md at repository root (committed).",
+      "history": [
+        {
+          "timestamp": "2026-11-19T11:53:00Z",
+          "action": "Section 11 Change Request recorded at the user's direction after the discovery batches. Draft v1.3 proposal written to srs-v1.3-proposal.md at repository root for review. SRS unchanged; version remains 1.2.",
+          "actor": "System"
+        },
+        {
+          "timestamp": "2026-11-19T12:06:44Z",
+          "action": "Independent review 2026-11-19, verdict CHANGES REQUIRED (no critical findings; majors F-01..F-05, minors F-06..F-13, info F-14/F-15). Draft 2 of srs-v1.3-proposal.md written: F-01 FRAS instructor-of-record operation added to the CR (user decision); F-02 AttendanceRecord carries the governing rule set identifier (user decision); F-03 atomic single Gate 2 for SRS v1.3 + CAP-STATUSENUMS v1.2 (user decision); F-05/F-06/F-07 W-1 trigger extended with attendance marking, S-8 extended with identifier + refusal clauses, S-4 unchanged (user decision); F-04 v1.2 anchor corrected to b6ce80c; F-13 weights marked illustrative-only; inline outcome enumerations stripped to CAP-STATUSENUMS references. Awaiting re-review and/or Gate 2.",
+          "actor": "System"
+        },
+        {
+          "timestamp": "2026-11-19T12:16:04Z",
+          "action": "Pass 2 re-review verdict APPROVED WITH COMMENTS (N-1..N-6; all discharged in the applied change; N-2 anchor map gains Section 2.2; N-3 disposition citation corrected; N-4 atomic-application guard executed - transition-table row byte-identical in both artifacts, recorded in WORK-192 history; N-5 Section 3.5 enumeration extended in place; N-6 documented as out of scope). Gate 2 approval granted by the human 2026-11-19 at the question prompt ('Approve - apply and commit (not push)') as Decision WORK-192. Change applied atomically: SRS v1.3 (frontmatter 1.3; updated 2026-11-19T12:16:04Z; H1-H13) + CAP-STATUSENUMS v1.2 (C1-C4; updated same time); binding.yaml and codebase binding.yaml re-pinned root_spec.version 1.3; SRS spec_files entry re-pinned 1.3; project AGENTS.md, codebase AGENTS.md, and both library READMEs re-pinned; commit SHA recorded in WORK-192 history at commit time.",
+          "actor": "System"
+        }
+      ]
+    },
+    {
+      "id": "WORK-192",
+      "type": "Decision",
+      "title": "Gate 2 approval + application - SRS v1.3 + CAP-STATUSENUMS v1.2 (atomic): per-session attendance Workflow W-7 / capability C-8",
+      "status": "done",
+      "priority": "critical",
+      "source": {
+        "type": "human-decision",
+        "reference": "user approval 2026-11-19 at the Gate 2 question prompt ('Approve - apply and commit (not push)') | SRS Section 11 | Change Request WORK-191 | independent review two passes (pass 1 CHANGES REQUIRED, pass 2 APPROVED WITH COMMENTS)"
+      },
+      "context": "WHAT WAS APPROVED AND APPLIED (2026-11-19T12:16:04Z): SRS v1.3 - frontmatter version 1.3/updated bumped; new capability C-8 (ESS owns per-session attendance and the student's attendance aggregate); new Section 2.10 Workflow W-7 'Attendance marking' (no section renumbered); W-1 trigger extended with attendance marking; W-2 gains the Formula-ownership annotation (governing formula incl. any attendance weight in a composite activities block is ECS FormulaRules content; weights illustrative only, binding nothing; GRA-Service obtains the aggregate from ESS); Section 2.9 gains the AttendanceRecord block (no lifecycle states; append-only correction; Recorded); ESS/FRAS Section 3.1 rows extended (FRAS gains 'return the instructor of record assigned to a section'); Section 3.5 enumeration extended (attendance records: ESS-owned, attributable, never proof-visible); new non-goal (attendance never in the digest, never a canonical field); new success criterion S-8 (identifier + refusal clauses; S-4 unchanged per user decision); Determinism extended to the aggregate under the same governing rule set; glossary gains Session and AttendanceRecord; anchor map gains the attendance row (Section 2.1/2.2/2.9/2.10/3.1); change record appended. CAP-STATUSENUMS v1.2 - added AttendanceRecord 'Recorded' value, attendance outcome value domain (Present, Absent, Late, Excused), and the matching transition block; SRS references re-anchored to v1.3. binding.yaml x2 re-pinned root_spec.version 1.3; SRS spec_files entry re-pinned 1.3; project AGENTS.md, codebase AGENTS.md, library READMEs re-pinned. WHY: the approved SRS had no attendance capability/workflow/record/operation and W-2 did not state formula ownership; a grade app recording attendance with configurable computation could not be specced against it. PROTECTED INVARIANTS upheld: technology-agnostic (no stack leaked), no ECS rule content authored (weights/thresholds/aggregation deferred to ECS), proof and canonical form untouched, append-only correction honoured, atomic application guarded (N-4). NOT DONE HERE: push (not authorized); follow-ons WORK-191's downstreams (Session/AttendanceRecord contract, FormulaRules/grade-configuration contract, GradeRecord contract via wf-task-noncode; coding slices via @wf-task-code only after contracts are Approved); the anchor-map row was applied in the map's existing 'Section n' ASCII style variant (house rows use the bare 'section sign' style; cosmetic, noted honestly); spec-workspace/AGENTS.md Known-gaps text still names SRS v1.2 - left untouched per Rule 0 (read-only in skill scope).",
+      "dependencies": [
+        "WORK-191"
+      ],
+      "owner": "User",
+      "next_action": "None in this Decision. Push requires a separate explicit human authorization at the prompt. Downstream: raise the missing contract specs (wf-task-noncode) before any coding slice.",
+      "resolution": "Gate 2 approval recorded and applied 2026-11-19. SRS v1.3 and CAP-STATUSENUMS v1.2 are in the tree; independent review two passes recorded; N-4 guard executed (byte-identical transition-table row). Commit SHA recorded in this item's history at commit time.",
+      "history": [
+        {
+          "timestamp": "2026-11-19T12:16:04Z",
+          "action": "Gate 2 approval granted by the human at the question prompt ('Approve - apply and commit (not push)'). Application executed: SRS H1-H13, capability C1-C4, bindings re-pinned, docs re-pinned. N-4 guard executed during the application step: attendance transition table row ('Instructor of record marks a session (W-7 step 4) | Recorded') is byte-identical in both artifacts. Commit pending at this edit; SHA recorded in history after commit.",
+          "actor": "System"
+        }
+      ]
     }
   ]
 }
