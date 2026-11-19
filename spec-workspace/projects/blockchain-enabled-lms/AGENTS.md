@@ -18,8 +18,8 @@ The parent specification is `SRS_LMS_v1.0.md` (`SRS-LMS-v1.0`, v1.2).
 | `SRS_LMS_v1.0.md` | Parent specification — objectives, stakeholders, capabilities and workflows, domain boundaries, quality expectations, composition and topology decisions. `spec_id: SRS-LMS-v1.0`, version 1.2, `status: Approved` (`WORK-039`; v1.2 refreshed Sections 8.1 and 9 per Section 11 Change Request `WORK-171`, Gate 2 Decision `WORK-176`, commit `b6ce80c`). |
 | `schema/final-academic-record.md` | Normative rendering of the `final_academic_record` contract. `status: Approved` (v1.0.0; rendering of task spec v1.5). |
 | `tasks/task-LMS-CONTRACT-001-noncode.md` | Task specification `WORK-LMS-CONTRACT-001`. `status: Approved` (v1.5, `WORK-156`; seventh review; `parent_transaction_id` format opaque, no UUIDv4 mandate). |
-| `tasks/task-LMS-CONTRACT-001-plan.md` | The implementation plan for that task. Exists but **stale** — written against task spec v1.2; regenerate from v1.5 via `wf-plan` before any `wf-implement` (known defect; frontmatter overstates readiness). |
-| `tasks/task-LMS-CONTRACT-001-handoff.md` | The one handoff for that task. **MISSING as of 2026-11-18** (verified); `binding.yaml` records it as `missing` (previously listed as `In Progress`) — disposition `WORK-170`. Recreated through the `wf-plan`/`wf-implement` flow; disposable: deleted once its status is `Done`. |
+| `tasks/task-LMS-CONTRACT-001-plan.md` | The implementation plan for that task. Regenerated from task spec v1.5 (wf-plan, 2026-11-19); validated at Gate 2 (both passes) and approved at **Gate 3** (Decision `WORK-189`); `ready-for-implement`; the source of truth for `wf-implement`. |
+| `tasks/task-LMS-CONTRACT-001-handoff.md` | The one handoff for that task. **Deleted 2026-11-19** (task converged `CONVERGED`; `Done`; disposed by `wf-commit` — disposable by contract). Not present in the tree. |
 | `binding.yaml` | Pointer from this collection to the codebase. |
 | `spec-workspace/library/Capabilities/CAP-*.md` | All five capability artifacts (`CAP-CANONICAL-FORM` v1.0, `CAP-USERID` v1.1, `CAP-TIMESTAMPFORMAT` v1.1, `CAP-SCHEMAVERSIONCONSTRAINT` v1.1 — Decision `WORK-175`; `CAP-STATUSENUMS` v1.1 — Decision `WORK-176`). `status: Approved` (2026-11-18). |
 | `service-contracts.yaml` | Runtime service-to-service dependency manifest. |
@@ -33,10 +33,10 @@ the task specification does not authorize.
 
 ## 4. Status — read this before starting anything
 
-**Every approval-gated artifact in this collection is `Approved` as of 2026-11-18.** (The plan
-below is stale and the handoff below is missing — neither is an approval artifact; the
-calibration record is `Confirmed`, not `Approved`.) The parent gates children, and the
-children are now cleared:
+**Every approval-gated artifact in this collection is `Approved` as of 2026-11-18.** The plan was
+regenerated from task spec v1.5 and approved at Gate 3 (Decision `WORK-189`, 2026-11-19); the task
+reached convergence `CONVERGED` on 2026-11-19 (`WORK-190`) and the disposable handoff was deleted by
+`wf-commit` in the same change. The parent gates children, and the children are now cleared:
 
 | Artifact | Status | Evidence |
 |---|---|---|
@@ -51,17 +51,19 @@ children are now cleared:
 
 | Item | Detail |
 |---|---|
-| Stale plan | `tasks/task-LMS-CONTRACT-001-plan.md` was written against task spec v1.2 and must be regenerated from v1.5 via `wf-plan` before any `wf-implement` (known defect; its frontmatter overstates readiness). |
-| Missing handoff | `tasks/task-LMS-CONTRACT-001-handoff.md` does not exist; `binding.yaml` records it as `missing` (previously listed as `In Progress`; disposition `WORK-170`). Recreated through the `wf-plan`/`wf-implement` flow. |
-| SRS Q-1 | Authoritative source of the rule-set identifier value (bears on P-3, P-4). Open. |
+| Plan | `tasks/task-LMS-CONTRACT-001-plan.md` — regenerated 2026-11-19 (wf-plan), Gate 2 pass 2 `APPROVED WITH COMMENTS`, Gate 3 approved (Decision `WORK-189`); `ready-for-implement`. | ✅ done |
+| Handoff | Recreated 2026-11-19 by `wf-plan`; driven to `Done`; **deleted by `wf-commit` 2026-11-19**. | ✅ done |
+| SRS Q-1 | **Resolved in substance 2026-11-19 (Decision `WORK-179`): ECS mints and owns `GoverningRuleSetID`; GRA-Service records it (SRS §2.7).** Formal SRS annotation pending `WORK-182` (proposed). |
 | SRS Q-2 | Agreed data format for `parent_transaction_id` (the contract v1.5 dodged it with an opaque type). Open. |
 | Retention policy | Constitution tension 1: P-5/P-6 monotonic retention vs any future hard-deletion/minimisation requirement — an explicit retention-policy Decision is owed before any lifecycle/deletion feature. |
 | SRS Q-3 (residual) | The exploratory `lms-platform/` and `src/identity/` directories were removed 2026-11-17 (Decision `WORK-160`); the question is answered in substance. Annotate via Section 11 if formal closure is wanted. |
 
-**The correct next action is `@wf-plan` against `WORK-LMS-CONTRACT-001` (v1.5), not `@wf-review` of
-the parent** — the parent is `Approved`. Then implementation slices are raised via
-`@wf-task-code` targeting `generated-projects/blockchain-enabled-lms/`; code is written only by
-`wf-implement`.
+**This task is complete:** `WORK-LMS-CONTRACT-001` converged `CONVERGED` on 2026-11-19 (`WORK-190`);
+the disposable handoff was deleted by `wf-commit` in the same change. Implementation slices for the
+system itself are raised via `@wf-task-code` targeting `generated-projects/blockchain-enabled-lms/`
+and are written only by `wf-implement`. The contract's open follow-ons: `WORK-181` (constitution
+v1.4 - strike tensions 1 and 6) and `WORK-182` (SRS Section 11 CR - Q-1/Q-3 annotations, Section 8.1
+handoff row).
 
 ## 5. Domain rules that bind any work here
 

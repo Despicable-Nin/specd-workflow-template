@@ -43,8 +43,8 @@ spec_files:
     role: Implementation plan - regenerated from task spec v1.5 (wf-plan, 2026-11-19); the prior body was stale (v1.2-era) and was replaced in the a2b7ee1 change. Approved at Gate 2 (pass 2) and Gate 3 (Decision WORK-189).
   - path: tasks/task-LMS-CONTRACT-001-handoff.md
     id: HANDOFF-LMS-CONTRACT-001
-    status: Open
-    role: The task's running handoff. Recreated by wf-plan 2026-11-19 (was missing as of 2026-11-18). Disposable - deleted once Done.
+    status: deleted
+    role: The task's running handoff. Recreated by wf-plan 2026-11-19; driven to Done (wf-converge 2026-11-19, CONVERGED); deleted by wf-commit 2026-11-19 (disposable working note, not a bound artifact). Never recreated.
 
 # The authoritative source for the final_academic_record contract is the task
 # specification. The schema file above is a rendering of it and MUST NOT diverge.
