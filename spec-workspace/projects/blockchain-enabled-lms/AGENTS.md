@@ -15,13 +15,13 @@ The parent specification is `SRS_LMS_v1.0.md` (`SRS-LMS-v1.0`, v1.2).
 
 | Path | Role |
 |---|---|
-| `SRS_LMS_v1.0.md` | Parent specification — objectives, stakeholders, capabilities and workflows, domain boundaries, quality expectations, composition and topology decisions. `spec_id: SRS-LMS-v1.0`, version 1.2, `status: Approved` (`WORK-039`; v1.2 refreshes Sections 8.1 and 9 per Decision `WORK-176`). |
-| `schema/final-academic-record.md` | Normative rendering of the `final_academic_record` contract. `status: Draft`. |
-| `tasks/task-LMS-CONTRACT-001-noncode.md` | Task specification `WORK-LMS-CONTRACT-001`. `status: Draft`. |
-| `tasks/task-LMS-CONTRACT-001-plan.md` | The implementation plan for that task. **Does not exist yet** — created by `wf-plan`. |
-| `tasks/task-LMS-CONTRACT-001-handoff.md` | The one handoff for that task. Disposable: deleted once its status is `Done`. |
+| `SRS_LMS_v1.0.md` | Parent specification — objectives, stakeholders, capabilities and workflows, domain boundaries, quality expectations, composition and topology decisions. `spec_id: SRS-LMS-v1.0`, version 1.2, `status: Approved` (`WORK-039`; v1.2 refreshed Sections 8.1 and 9 per Section 11 Change Request `WORK-171`, Gate 2 Decision `WORK-176`, commit `b6ce80c`). |
+| `schema/final-academic-record.md` | Normative rendering of the `final_academic_record` contract. `status: Approved` (v1.0.0; rendering of task spec v1.5). |
+| `tasks/task-LMS-CONTRACT-001-noncode.md` | Task specification `WORK-LMS-CONTRACT-001`. `status: Approved` (v1.5, `WORK-156`; seventh review; `parent_transaction_id` format opaque, no UUIDv4 mandate). |
+| `tasks/task-LMS-CONTRACT-001-plan.md` | The implementation plan for that task. Exists but **stale** — written against task spec v1.2; regenerate from v1.5 via `wf-plan` before any `wf-implement` (known defect; frontmatter overstates readiness). |
+| `tasks/task-LMS-CONTRACT-001-handoff.md` | The one handoff for that task. **MISSING as of 2026-11-18** (verified); `binding.yaml` records it as `missing` (previously listed as `In Progress`) — disposition `WORK-170`. Recreated through the `wf-plan`/`wf-implement` flow; disposable: deleted once its status is `Done`. |
 | `binding.yaml` | Pointer from this collection to the codebase. |
-| `spec-workspace/library/Capabilities/CAP-CANONICAL-FORM.md` | The capability the specification's proof guarantee depends on. |
+| `spec-workspace/library/Capabilities/CAP-*.md` | All five capability artifacts (`CAP-CANONICAL-FORM` v1.0, `CAP-USERID` v1.1, `CAP-TIMESTAMPFORMAT` v1.1, `CAP-SCHEMAVERSIONCONSTRAINT` v1.1 — Decision `WORK-175`; `CAP-STATUSENUMS` v1.1 — Decision `WORK-176`). `status: Approved` (2026-11-18). |
 | `service-contracts.yaml` | Runtime service-to-service dependency manifest. |
 
 ## 3. Authority
@@ -33,20 +33,35 @@ the task specification does not authorize.
 
 ## 4. Status — read this before starting anything
 
-**Nothing in this collection is `Approved`.** The parent specification is `Draft`, and that gates
-everything beneath it: a task specification may not be `Approved` ahead of its parent.
+**Every approval-gated artifact in this collection is `Approved` as of 2026-11-18.** (The plan
+below is stale and the handoff below is missing — neither is an approval artifact; the
+calibration record is `Confirmed`, not `Approved`.) The parent gates children, and the
+children are now cleared:
 
-| Blocker | Detail |
+| Artifact | Status | Evidence |
+|---|---|---|
+| Parent SRS `SRS-LMS-v1.0` | v1.2, `Approved` | Gate 2 Decision `WORK-176`; Change Request `WORK-171`; applied at `b6ce80c` |
+| Schema rendering `SCHEMA-LMS-FAR-v1.0` | v1.0.0, `Approved` | rendering of task spec v1.5 |
+| Task spec `WORK-LMS-CONTRACT-001` | v1.5, `Approved` | Decision `WORK-156` |
+| Five capability artifacts | all `Approved` (2026-11-18) | Decision `WORK-175` (applied at `7a80293`); `CAP-STATUSENUMS` under `WORK-176` |
+| Project constitution | `CONST-LMS-v1.3`, `Approved` | Gate 2 Decision `WORK-178`; commit `b33e6a6` |
+| Collection binding | `codebase_dir` determined | Decision `WORK-160` (`generated-projects/blockchain-enabled-lms/`) |
+
+**Still open — not blockers to new specs, but to the first implementation slice:**
+
+| Item | Detail |
 |---|---|
-| `WORK-016`, `WORK-032`, `WORK-039` | The parent SRS has no approval Decision. It was rewritten on 2026-11-13 to conform to the `wf-bootstrap` specification contract — all 14 blocking review findings against it were addressed (`WORK-040`…`WORK-053`). It is awaiting independent re-review, then explicit approval. |
-| `WORK-009` | The task spec carries no approval Decision in the work ledger. It was once marked `Approved` with no body; the body was restored and the status corrected to `Draft`. |
-| `WORK-020` | The task depends on four capabilities (`UserID`, `TimestampFormat`, `StatusEnums`, `SchemaVersionConstraint`) that have **no defining artifact**. The SRS now defines the status vocabulary normatively for this project (Section 9) as an interim measure; the shared capability artifacts are still owed. |
-| `WORK-130` | The canonical-form rules that `CAP-CANONICAL-FORM` defines have no owning domain. SRS Question Q-5. |
-| `WORK-062`, `WORK-064`…`WORK-069` | Seven blocking findings remain on the task specification. They cannot be closed until the parent is `Approved`. |
+| Stale plan | `tasks/task-LMS-CONTRACT-001-plan.md` was written against task spec v1.2 and must be regenerated from v1.5 via `wf-plan` before any `wf-implement` (known defect; its frontmatter overstates readiness). |
+| Missing handoff | `tasks/task-LMS-CONTRACT-001-handoff.md` does not exist; `binding.yaml` records it as `missing` (previously listed as `In Progress`; disposition `WORK-170`). Recreated through the `wf-plan`/`wf-implement` flow. |
+| SRS Q-1 | Authoritative source of the rule-set identifier value (bears on P-3, P-4). Open. |
+| SRS Q-2 | Agreed data format for `parent_transaction_id` (the contract v1.5 dodged it with an opaque type). Open. |
+| Retention policy | Constitution tension 1: P-5/P-6 monotonic retention vs any future hard-deletion/minimisation requirement — an explicit retention-policy Decision is owed before any lifecycle/deletion feature. |
+| SRS Q-3 (residual) | The exploratory `lms-platform/` and `src/identity/` directories were removed 2026-11-17 (Decision `WORK-160`); the question is answered in substance. Annotate via Section 11 if formal closure is wanted. |
 
-**The correct next action is `@wf-review` against `SRS_LMS_v1.0.md` — the parent, not the task.**
-The order is: review and approve the parent → then close the task spec's blocking findings →
-then review and approve the task. Not `@wf-task-code`, and not implementation.
+**The correct next action is `@wf-plan` against `WORK-LMS-CONTRACT-001` (v1.5), not `@wf-review` of
+the parent** — the parent is `Approved`. Then implementation slices are raised via
+`@wf-task-code` targeting `generated-projects/blockchain-enabled-lms/`; code is written only by
+`wf-implement`.
 
 ## 5. Domain rules that bind any work here
 

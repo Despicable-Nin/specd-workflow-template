@@ -96,8 +96,14 @@ phase contributions — is defined in the root `AGENTS.md` Section 5.
 
 Recorded in the work ledger, not worked around silently:
 
-* `library/Capabilities/` holds `CAP-CANONICAL-FORM`, the canonical-form and digest constraint the
-  LMS proof guarantee depends on. The four capabilities `WORK-LMS-CONTRACT-001` depends on
-  (`UserID`, `TimestampFormat`, `StatusEnums`, `SchemaVersionConstraint`) still have no defining
-  artifact — `WORK-020`.
-* No specification in this tree is `Approved` — `WORK-009`, `WORK-016`.
+* `library/Capabilities/` holds five capability artifacts, all `Approved` (2026-11-18):
+  `CAP-CANONICAL-FORM` v1.0 (the canonical-form and digest constraint the LMS proof guarantee
+  depends on), `CAP-USERID` v1.1, `CAP-TIMESTAMPFORMAT` v1.1 and `CAP-SCHEMAVERSIONCONSTRAINT`
+  v1.1 (Decision `WORK-175`, applied at `7a80293`), and `CAP-STATUSENUMS` v1.1 (Gate 2 Decision
+  `WORK-176`, in the same change that applied SRS v1.2 / `WORK-171`). The former gap recorded as
+  `WORK-020` is closed.
+* Specifications `Approved` in this tree (2026-11-18): parent SRS `SRS-LMS-v1.0` v1.2
+  (Gate 2 `WORK-176`), task spec `WORK-LMS-CONTRACT-001` v1.5 (`WORK-156`), normative rendering
+  `SCHEMA-LMS-FAR-v1.0` v1.0.0, all five capability artifacts listed above, and project
+  constitution `CONST-LMS-v1.3` (Gate 2 `WORK-178`). The former blanket statement recorded as
+  `WORK-009` / `WORK-016` is closed.

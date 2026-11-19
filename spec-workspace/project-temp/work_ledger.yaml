@@ -3811,24 +3811,29 @@
       "id": "WORK-134",
       "type": "Task",
       "title": "Project AGENTS.md still states nothing in the collection is Approved although SRS-LMS-v1.0 is Approved",
-      "status": "proposed",
+      "status": "done",
       "priority": "medium",
       "source": {
         "type": "wf-review",
         "reference": "spec-workspace/projects/blockchain-enabled-lms/AGENTS.md Section 4 versus SRS_LMS_v1.0.md line 6 and WORK-039"
       },
       "context": "The project AGENTS.md says 'Nothing in this collection is Approved' and lists WORK-016, WORK-032 and WORK-039 as open blockers. The SRS frontmatter now reads status: Approved, and WORK-039 records the approval Decision at 167af69 with all blocking and non-blocking findings closed (WORK-103 to WORK-129). The file also instructs the next action as '@wf-review against SRS_LMS_v1.0.md', which has already happened. A reader following the AGENTS.md would re-review an approved specification and skip the task-level findings that actually block progress.",
-      "next_action": "Update the project AGENTS.md status section to reflect the approved parent, the open task-level findings (WORK-070 to WORK-075, WORK-077, WORK-131, WORK-132) and the corrected next action: address the task findings, re-review the task spec, then record the approval Decision.",
+      "next_action": "None. Sections 2 and 4 rewritten 2026-11-19 to current reality (all approval-gated artifacts Approved; stale plan and missing handoff flagged; next action is wf-plan, not wf-review of the parent). Verified by independent read-only verification (2026-11-19); F-1..F-3 fixed in the same change.",
       "dependencies": [
         "WORK-039"
       ],
       "owner": "User",
-      "resolution": null,
+      "resolution": "Done 2026-11-19: project AGENTS.md Section 2 (contents table - schema/task spec/capabilities/constitution all Approved; plan stale; handoff MISSING) and Section 4 (status block - everything approval-gated Approved as of 2026-11-18; still-open items listed; correct next action = @wf-plan against task spec v1.5) rewritten; binding.yaml HANDOFF-LMS-CONTRACT-001 entry set to status: missing. Independent verification (delegated, read-only) found F-1/F-2 (binding 'In Progress' claims) and F-3 (unqualified 'Everything is Approved') - all fixed in the same change.",
       "history": [
         {
           "timestamp": "2026-11-15T09:47:15Z",
           "action": "Proposed by wf-review (fourth independent review)",
           "actor": "System"
+        },
+        {
+          "timestamp": "2026-11-19T08:34:49Z",
+          "action": "Rewritten by human-directed doc fix ('AGENTS.md drift fixes', 2026-11-19): Sections 2 and 4 updated to current reality; independent verification passed after F-1..F-3 fixes.",
+          "actor": "User"
         }
       ]
     },
@@ -4871,7 +4876,7 @@
       "id": "WORK-169",
       "type": "Task",
       "title": "Revise spec-workspace/AGENTS.md stale bullets - 'No specification in this tree is Approved' and the WORK-020 capabilities bullet",
-      "status": "proposed",
+      "status": "done",
       "priority": "high",
       "source": {
         "type": "wf-reconcile",
@@ -4885,14 +4890,19 @@
         "WORK-156",
         "WORK-159"
       ],
-      "next_action": "Human decision on scope, then edit, then independent review; record outcome in the ledger.",
+      "next_action": "None. Two Known-gaps bullets rewritten 2026-11-19 to current reality (five of five capability artifacts Approved; specifications Approved in this tree listed; WORK-009/016/020 closed). Verified by independent read-only verification (2026-11-19).",
       "owner": "User",
-      "resolution": null,
+      "resolution": "Done 2026-11-19: spec-workspace/AGENTS.md Section 6 rewritten - bullet 1 now records the five capability artifacts Approved (WORK-175 applied at 7a80293; CAP-STATUSENUMS under WORK-176) and closes WORK-020; bullet 2 now lists the Approved specifications in this tree (SRS v1.2 WORK-176; task spec v1.5 WORK-156; SCHEMA-LMS-FAR-v1.0 v1.0.0; CONST-LMS-v1.3 WORK-178) and closes WORK-009/WORK-016. Scope kept to the two bullets; historical ids retained as provenance. Independent verification (delegated, read-only, 2026-11-19) passed.",
       "history": [
         {
           "timestamp": "2026-11-18T06:22:03Z",
           "action": "Proposed by wf-reconcile (2026-11-18 pass); recorded per human direction",
           "actor": "System"
+        },
+        {
+          "timestamp": "2026-11-19T08:34:49Z",
+          "action": "Rewritten by human-directed doc fix ('AGENTS.md drift fixes', 2026-11-19); verified by independent read-only verification; closed.",
+          "actor": "User"
         }
       ]
     },
@@ -4900,7 +4910,7 @@
       "id": "WORK-170",
       "type": "Task",
       "title": "Revise project AGENTS.md Section 2 contents table and Section 4 status block to current reality",
-      "status": "proposed",
+      "status": "done",
       "priority": "high",
       "source": {
         "type": "wf-reconcile",
@@ -4915,14 +4925,19 @@
         "WORK-162",
         "WORK-148"
       ],
-      "next_action": "Human decision on exact scope including the handoff disposition, then edit, then independent review; record outcome in the ledger.",
+      "next_action": "None. Sections 2 and 4 rewritten 2026-11-19 to current reality (F-1..F-3 from independent verification fixed in the same change; binding.yaml HANDOFF entry set to missing). SRS Section 8.1 still says binding records the handoff as 'In Progress' - fixing an Approved spec needs a Section 11 change request (tracked as a proposed item).",
       "owner": "User",
-      "resolution": null,
+      "resolution": "Done 2026-11-19: project AGENTS.md Section 2 contents table rewritten (schema Approved v1.0.0; task spec Approved v1.5 (WORK-156); plan exists but stale - regenerate via wf-plan; handoff MISSING, binding.yaml now records 'missing'; all five capability artifacts Approved (WORK-175/WORK-176); SRS row re-anchored to v1.2/WORK-176/b6ce80c) and Section 4 status block rewritten (every approval-gated artifact Approved as of 2026-11-18; plan/handoff/Q-1/Q-2/retention explicitly listed as open-but-not-blockers; correct next action = @wf-plan against task spec v1.5). Handoff disposition decided by the human (binding row edited to 'missing', same change). Independent verification (delegated, read-only, 2026-11-19) found F-1 (binding 'In Progress' claim in Section 2), F-2 (same in Section 4), F-3 (unqualified 'Everything is Approved') - all fixed in the same change. SRS Section 8.1's 'In Progress' sentence is now stale too; dispositioning the Approved SRS requires a Section 11 change request (recorded in this history; not edited here).",
       "history": [
         {
           "timestamp": "2026-11-18T06:22:03Z",
           "action": "Proposed by wf-reconcile (2026-11-18 pass); recorded per human direction",
           "actor": "System"
+        },
+        {
+          "timestamp": "2026-11-19T08:34:49Z",
+          "action": "Rewritten by human-directed doc fix ('AGENTS.md drift fixes', 2026-11-19); binding.yaml HANDOFF-LMS-CONTRACT-001 set to status: missing (handoff MISSING verified; disposition decided by human in this change); independent verification F-1..F-3 fixed in the same change; closed.",
+          "actor": "User"
         }
       ]
     },
@@ -5186,6 +5201,111 @@
         {
           "timestamp": "2026-11-19T07:19:27Z",
           "action": "CONST-LMS-v1.3 committed at b33e6a6 (b33e6a6f67f0dfa9e46d62baa0e9a088c6d83750) on main; push to origin/main authorized by the human.",
+          "actor": "System"
+        },
+        {
+          "timestamp": "2026-11-19T07:19:27Z",
+          "action": "CONST-LMS-v1.3 committed at b33e6a6 (b33e6a6f67f0dfa9e46d62baa0e9a088c6d83750) on main; push to origin/main authorized by the human.",
+          "actor": "System"
+        }
+      ]
+    },
+    {
+      "id": "WORK-179",
+      "type": "Decision",
+      "title": "SRS Q-1 answered - ECS is the authoritative source of the rule-set identifier value (GoverningRuleSetID)",
+      "status": "done",
+      "priority": "high",
+      "source": {
+        "type": "human-decision",
+        "reference": "user decision 2026-11-19 ('Option A - ECS source (rec)' at the framing prompt) | answers SRS Section 9 Question Q-1 in substance; closes the ECS/GRA-Service ownership question the constitution tracks as tension 6"
+      },
+      "context": "Question: which domain is the authoritative source of the value of the rule-set identifier that a finalized record carries? Decision (Option A): ECS mints and owns the GoverningRuleSetID value for a given (EducationalLevel, AcademicPeriod, rule-set version); GRA-Service and every other dependent domain consume it read-only and record the identifier alongside the rule-set reference, per constitution P-3 (ECS sole source of the rule set) and P-4 (records name the rule set they depend on). Alternatives rejected: Option B (identifier scheme under spec-workspace governance, WORK-164-style; heavier ceremony for runtime data - only worth it if the scheme itself needs governance later) and Option C (GRA-Service assigns at finalization; breaks P-3's single-rule-authority and invites two sources of truth). The field stays opaque in WORK-LMS-CONTRACT-001 (no format mandated); this Decision assigns minting authority, not a format. The SRS Section 9 Q-1 row remains verbatim-open in the spec until a Section 11 change request annotates it (tracked separately); the answer is recorded here as the binding project Decision. Constitution tension 6 (rule-set identifier source; bears on P-3 and P-4) is resolved in substance by this Decision; striking it requires a versioned constitution amendment (CONST-LMS-v1.4) with review and Gate 2 - NOT applied here.",
+      "dependencies": [],
+      "next_action": "None in the ledger. ECS and GRA-Service implementation specs cite this Decision for GoverningRuleSetID. Optional: fold an SRS Section 11 CR (Q-1 annotation) into the proposed Section 11 CR item raised 2026-11-19.",
+      "owner": "User",
+      "resolution": "Q-1 answered 2026-11-19 (Option A): ECS is the authoritative source of the rule-set identifier value. Recorded as a project Decision; no spec was edited by this Decision. Constitution tension 6 remains open in the constitution until a v1.4 amendment (review + Gate 2).",
+      "history": [
+        {
+          "timestamp": "2026-11-19T08:34:49Z",
+          "action": "Decision recorded per human answer at the framing prompt ('Option A - ECS source (rec)'). No specification edited; SRS Q-1 annotation (if any) goes through Section 11.",
+          "actor": "User"
+        }
+      ]
+    },
+    {
+      "id": "WORK-180",
+      "type": "Decision",
+      "title": "Retention / erasure posture - retain all (constitution tension 1 resolved in substance; no hard-deletion path)",
+      "status": "done",
+      "priority": "high",
+      "source": {
+        "type": "human-decision",
+        "reference": "user decision 2026-11-19 ('Option A - retain all' at the framing prompt) | resolves constitution tension 1 (P-5/P-6 vs privacy) in substance"
+      },
+      "context": "Question (constitution tension 1): monotonic retention of superseded records (P-6) and full audit attribution (P-5) conflict with any future hard-deletion or minimisation requirement. Decision (Option A - retain all): no hard-deletion path will be built; the append-only design is the answer to erasure requests; the exposure is documented and accepted by the human. Rejected alternatives: Option B (retention window then destroy payloads; blockchain proofs retained as existence proofs - requires choosing a window and an executor, and P-8 surface behavior post-deletion), Option C (crypto-shredding - payloads encrypted, erasure = key destruction; viable but needs key-lifecycle design), Option D (separate PII store - largest architectural change; SRS/constitution implications). Consequences: P-2 (immutability), P-5 (auditability), P-6 (complete history including superseded records) all hold unchanged; no lifecycle/deletion feature may be specced against this project; any future reversal requires a versioned constitution amendment with review and Gate 2. The SRS and constitution are NOT edited by this Decision; constitution tension 1 remains open in the document until a v1.4 amendment (review + Gate 2).",
+      "dependencies": [],
+      "next_action": "None in the ledger. Record any future erasure-related requirement as a new Change Request with this Decision cited; such a proposal weakens P-5/P-6 and is not committable without a constitution amendment (review + Gate 2).",
+      "owner": "User",
+      "resolution": "Retention posture decided 2026-11-19 (Option A): retain everything; no hard-deletion path; risk acceptance documented. No specification edited by this Decision; constitution tension 1 remains open in the document until a v1.4 amendment (review + Gate 2).",
+      "history": [
+        {
+          "timestamp": "2026-11-19T08:34:49Z",
+          "action": "Decision recorded per human answer at the framing prompt ('Option A - retain all'). No specification edited.",
+          "actor": "User"
+        }
+      ]
+    },
+    {
+      "id": "WORK-181",
+      "type": "Task",
+      "title": "Constitution v1.4 amendment - strike tensions 1 and 6 (Decisions WORK-180 / WORK-179)",
+      "status": "proposed",
+      "priority": "medium",
+      "source": {
+        "type": "human-decision",
+        "reference": "follow-on from Decisions WORK-179 and WORK-180 (2026-11-19) per framing prompt; constitution amendment path per constitution Section 'Lifecycle and amendment' (P-15)"
+      },
+      "context": "Const-LMS-v1.3 holds tension 1 (P-5/P-6 vs privacy; 'an explicit retention-policy Decision is owed') and tension 6 (SRS Q-1; 'the authoritative source of the rule-set identifier value is open'). Decisions WORK-180 (retain all) and WORK-179 (ECS is the rule-set identifier source) resolve both in substance. A v1.4 amendment would: strike both items through (never delete), mark them RESOLVED 2026-11-19 citing WORK-179/WORK-180, re-anchor the section heading, extend lineage and Linked artifacts, and carry P-1..P-15 byte-identical. Any amendment is Draft -> wf-review -> Gate 2; never applied silently. Not started until directed.",
+      "dependencies": [
+        "WORK-180",
+        "WORK-179",
+        "WORK-178"
+      ],
+      "next_action": "Human direction to run the v1.4 amendment (draft -> review -> Gate 2); not started.",
+      "owner": "User",
+      "resolution": null,
+      "history": [
+        {
+          "timestamp": "2026-11-19T08:34:49Z",
+          "action": "Proposed as the natural follow-on to Decisions WORK-179/WORK-180; recorded per human approval of the framing prompt options.",
+          "actor": "System"
+        }
+      ]
+    },
+    {
+      "id": "WORK-182",
+      "type": "Task",
+      "title": "SRS Section 11 change request - annotate Q-1 resolved (WORK-179), Q-3 resolved (WORK-160), refresh Section 8.1 handoff row to 'missing'",
+      "status": "proposed",
+      "priority": "medium",
+      "source": {
+        "type": "wf-reconcile",
+        "reference": "2026-11-18/19 verification findings (independent verification 2026-11-19; SRS Section 8.1 handoff row vs collection binding.yaml 'missing') | SRS is Approved (v1.2, WORK-176) - editing it requires a Section 11 Change Request with review and Gate 2"
+      },
+      "context": "Three stale-in-place statements in the Approved SRS would be resolved by one Section 11 Change Request applied at review + Gate 2: (1) Section 9 Q-1 - annotate resolved (Decision WORK-179, ECS mints and owns GoverningRuleSetID; options A/B/C recorded in the Decision); question text retained verbatim for traceability. (2) Section 9 Q-3 - annotate resolved (Decision WORK-160; lms-platform/ and src/identity/ removed 2026-11-17). (3) Section 8.1 handoff row - 'binding.yaml records it as In Progress' is false as of 2026-11-19 (collection binding.yaml and the file's absence set status: missing); the row should record the missing handoff with the WORK-170 reference. Scope limited to these three annotations; no requirement is added or modified. Not started until directed; independent review and Gate 2 required before any SRS edit.",
+      "dependencies": [
+        "WORK-179",
+        "WORK-170",
+        "WORK-176"
+      ],
+      "next_action": "Human direction to draft the Section 11 Change Request, then independent review, then Gate 2; not started.",
+      "owner": "User",
+      "resolution": null,
+      "history": [
+        {
+          "timestamp": "2026-11-19T08:34:49Z",
+          "action": "Proposed to keep the Approved SRS in step with the 2026-11-19 doc fixes and Decisions; recorded per human approval of the framing prompt options.",
           "actor": "System"
         }
       ]

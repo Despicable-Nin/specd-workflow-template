@@ -43,8 +43,11 @@ spec_files:
     role: Implementation plan - written against v1.2; superseded by v1.5. Not a source of truth until regenerated.
   - path: tasks/task-LMS-CONTRACT-001-handoff.md
     id: HANDOFF-LMS-CONTRACT-001
-    status: In Progress
-    role: The task's running handoff. Disposable - deleted once Done.
+    status: missing
+    role: The task's running handoff. MISSING as of 2026-11-18 (verified) though previously
+      listed as In Progress - disposition WORK-170. A handoff is a working note, never an
+      artifact the collection binds; it is recreated through the wf-plan/wf-implement flow and
+      deleted once Done.
 
 # The authoritative source for the final_academic_record contract is the task
 # specification. The schema file above is a rendering of it and MUST NOT diverge.
