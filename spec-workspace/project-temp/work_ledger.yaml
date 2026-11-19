@@ -5742,6 +5742,55 @@
           "actor": "System"
         }
       ]
+    },
+    {
+      "id": "WORK-198",
+      "type": "Decision",
+      "title": "Gate 3 approval - task specification WORK-LMS-FORMULARULES-001 (FormulaRules contract) v1.2 Approved",
+      "status": "done",
+      "priority": "high",
+      "source": {
+        "type": "human-decision",
+        "reference": "user approval 2026-11-19 at the Gate 3 question prompt ('Approve - flip to Approved') | wf-task-noncode Step 14 | parent SRS-LMS-v1.0 v1.3"
+      },
+      "context": "Approved artifact: spec-workspace/projects/blockchain-enabled-lms/tasks/task-LMS-FORMULARULES-001-noncode.md, version 1.2, status Approved, task_type noncode. Independent review trail (2026-11-19, same reviewer session, three passes): pass 1 CHANGES REQUIRED (F-01..F-11); pass 2 CHANGES REQUIRED (C-1 critical - self-refuting opacity clause banning GRA-Service from applying the formula payload; M-1 enum values not verbatim SRS 1.3; M-2 AC-4 self-hit; M-3 13.8/13.9 enforcement-boundary contradiction; M-4 byte-equivalent determinism claim); pass 3 APPROVED WITH COMMENTS (AC-4 executable - standalone numeric literals with cross-reference/table-cell/dotted-ref exclusions; updated-stamp monotonicity restored). AC-8 downstream conformance pre-check executed on v1.2 text: Walk A A1-A4 OK, Walk B B1-B4 OK. Scope honesty verified: zero formula content authored (weights/thresholds/aggregation stay ECS-owned); ECS sole content authority intact; SRS untouched;constitution, CAPs and final_academic_record untouched. Caveats carried in spec Section 11: SRS Q-1 open in parent (resolved in substance WORK-179; formal annotation pending WORK-182), CONST tension 6 open pending WORK-181. This Decision approves the CONTRACT only: no code is authorized by it; coding slices are separate wf-task-code tasks. Also discharges one third of WORK-196 (FormulaRules contract); WORK-196 remains open (Session/AttendanceRecord and GradeRecord contracts outstanding). service-contracts.yaml ECS binding NOT yet flipped - AC-9 decision deferred to wf-plan/apply step by the task's own bookkeeping.",
+      "dependencies": [
+        "WORK-191",
+        "WORK-192"
+      ],
+      "owner": "User",
+      "next_action": "wf-plan: create the task worktree from main (preferences: in-repo .worktrees/<task-slug>, branch task/WORK-LMS-FORMULARULES-001-plan) and produce the plan file. Then decide the service-contracts.yaml ECS binding per AC-9 (named-component rule); record a ledger Decision either way.",
+      "resolution": "Gate 3 approval granted 2026-11-19T13:49:10Z by the user at the question prompt. Spec flipped Draft -> Approved at the same instant; approval evidence is this Decision plus the spec frontmatter.",
+      "history": [
+        {
+          "timestamp": "2026-11-19T13:49:10Z",
+          "action": "Gate 3 approval recorded; spec status flipped to Approved; handoff task-LMS-FORMULARULES-001-handoff.md created with suggested skill run wf-plan; AC-8 pre-check log carried in the review session findings.",
+          "actor": "System"
+        }
+      ]
+    },
+    {
+      "id": "WORK-199",
+      "type": "Task",
+      "title": "WORK-LMS-FORMULARULES-001 task scaffolded - calibrated, spec emitted, reviewed, approved, worktree plan recorded for wf-plan",
+      "status": "done",
+      "priority": "medium",
+      "source": {
+        "type": "wf-task-noncode",
+        "reference": "wf-task-noncode run 2026-11-19 | calibration CALIBRATION-LMS-FORMULARULES-001 (Gate 1 final) | three review passes | Gate 3 WORK-198"
+      },
+      "context": "Task created and carried to approval by the wf-task-noncode skill. Artifacts emitted at canonical paths: spec (Approved v1.2), calibration run file, handoff. Worktree plan (preferences, for wf-plan to honour): in-repo worktree under .worktrees/<task-slug>, branch task/WORK-LMS-FORMULARULES-001-plan, base main. NO worktree was created by this task (correct: wf-plan creates it from main). No existing ledger items were modified. Files are UNCOMMITTED at this edit; commit/push require explicit human authorization at the prompt.",
+      "dependencies": [],
+      "owner": "User",
+      "next_action": "wf-plan (see handoff Section 6). Optionally authorize a commit of the task artifacts via wf-commit or at a commit prompt.",
+      "resolution": "Created, calibrated, reviewed (three passes), approved (WORK-198), handed off.",
+      "history": [
+        {
+          "timestamp": "2026-11-19T13:49:10Z",
+          "action": "Task bookkeeping complete for the non-coding phase; handoff emitted with suggested skill run wf-plan.",
+          "actor": "System"
+        }
+      ]
     }
   ]
 }
