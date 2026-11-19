@@ -5309,6 +5309,180 @@
           "actor": "System"
         }
       ]
+    },
+    {
+      "id": "WORK-183",
+      "type": "ReviewFinding",
+      "title": "F-01 (Gate 2) - Regenerated plan artifacts uncommitted; implementation worktree held the stale plan - critical sequencing defect",
+      "status": "done",
+      "priority": "critical",
+      "source": {
+        "type": "wf-review",
+        "reference": "wf-review of tasks/task-LMS-CONTRACT-001-plan.md (Gate 2), 2026-11-19, session ses_e0e9841c4ffeH625Lhs6BnmAnq, verdict CHANGES REQUIRED | finding F-01"
+      },
+      "context": "The regenerated plan, binding re-points and recreated handoff existed only as uncommitted changes in the main working tree, while the implementation worktree (D:/hobby/specd-worktree/lms-contract-plan, branch task/WORK-LMS-CONTRACT-001-plan, based on main at 9022742) was clean and therefore held the stale v1.2-era plan whose frontmatter declared itself 'status: complete' / ready - so the suggested skill run executed literally would implement from the very defect this regeneration existed to fix. Required: land the regenerated artifacts on the branch/worktree before Gate 3, and verify with git -C <worktree> show HEAD:tasks/task-LMS-CONTRACT-001-plan.md.",
+      "dependencies": [],
+      "next_action": "None. Fixed 2026-11-19 (commit a2b7ee1): artifacts landed on main and the worktree fast-forwarded to a2b7ee1; git -C D:/hobby/specd-worktree/lms-contract-plan show HEAD:...plan.md shows the regenerated body; worktree clean.",
+      "owner": "User",
+      "resolution": "Fixed 2026-11-19: commit a2b7ee1 (authorized by the human, 'Commit and push'); task branch fast-forwarded to a2b7ee1; worktree verified clean holding the regenerated plan; main pushed to origin. F-04 ruling (from the same review) applies to the rendering fixes the plan authorizes: acceptable under P-14 only if conditions (i)-(iv) hold - exactly the three attribution lines, landing after Gate 3, diff shows only those lines, any further divergence becomes a finding.",
+      "history": [
+        {
+          "timestamp": "2026-11-19T09:28:25Z",
+          "action": "Finding raised by independent Gate 2 review (verdict CHANGES REQUIRED).",
+          "actor": "System"
+        },
+        {
+          "timestamp": "2026-11-19T09:44:12Z",
+          "action": "Fixed in commit a2b7ee1 (artifacts landed; worktree fast-forwarded and verified); closed.",
+          "actor": "System"
+        }
+      ]
+    },
+    {
+      "id": "WORK-184",
+      "type": "ReviewFinding",
+      "title": "F-02 (Gate 2) - Plan understated the rendering's stale attribution lines (line 388 '(v1.4)'; Section 8 'has never been approved')",
+      "status": "done",
+      "priority": "warning",
+      "source": {
+        "type": "wf-review",
+        "reference": "wf-review of tasks/task-LMS-CONTRACT-001-plan.md (Gate 2), 2026-11-19, session ses_e0e9841c4ffeH625Lhs6BnmAnq | finding F-02 (evidence: schema/final-academic-record.md lines 17, 388, ~383)"
+      },
+      "context": "The plan authorized exactly one rendering line (provenance 1.4 -> 1.5) but the rendering carries two further stale attribution-only statements: Section 9 acceptance-criteria reference '(v1.4)' and Section 8's 'This contract ... has never been approved' (false - frontmatter status: Approved). Leaving either in place leaves known-false statements in an Approved artifact; silently fixing them violates the fence.",
+      "dependencies": [
+        "WORK-183"
+      ],
+      "next_action": "None. Plan and handoff now enumerate the three attribution-only lines authorized for wf-implement; the rendering is NOT edited in this change; F-04 conditions apply.",
+      "owner": "User",
+      "resolution": "Fixed 2026-11-19: plan objective 2 / layer 1 / files-touched now authorize exactly three attribution-only lines (rendering line 17, Section 9 '(v1.4)' -> '(v1.5)', Section 8 'has never been approved'); handoff item 2 mirrors this. The F-04 ruling (info, same review): acceptable under P-14/AGENTS.md Section 3 ONLY if the edit stays attribution-only, lands after Gate 3, the diff shows only those lines, and any further divergence is recorded as a finding.",
+      "history": [
+        {
+          "timestamp": "2026-11-19T09:28:25Z",
+          "action": "Finding raised by independent Gate 2 review.",
+          "actor": "System"
+        },
+        {
+          "timestamp": "2026-11-19T09:44:12Z",
+          "action": "Fixed in commit a2b7ee1 (plan/handoff edited to enumerate the three authorized lines); closed.",
+          "actor": "System"
+        }
+      ]
+    },
+    {
+      "id": "WORK-185",
+      "type": "ReviewFinding",
+      "title": "F-03/F-05 (Gate 2) - In Progress vs Open token drift; stale handoff action item 1 (binding re-points already applied)",
+      "status": "done",
+      "priority": "warning",
+      "source": {
+        "type": "wf-review",
+        "reference": "wf-review of tasks/task-LMS-CONTRACT-001-plan.md (Gate 2), 2026-11-19, session ses_e0e9841c4ffeH625Lhs6BnmAnq | findings F-03, F-05"
+      },
+      "context": "Handoff said In Progress while binding.yaml recorded Open; the binding plan-row text in the plan differed from the landed text; handoff action item 1 duplicated work already applied in this change.",
+      "dependencies": [
+        "WORK-183"
+      ],
+      "next_action": "None. Handoff status harmonized to Open; binding rows state one text per row (pre-Gate-3); handoff item 1 rewritten as verify-only; post-Gate-3 plan-row flip pre-authorized by the plan (cite Gate 3 Decision id).",
+      "owner": "User",
+      "resolution": "Fixed 2026-11-19 in commit a2b7ee1: handoff status set to Open (matches binding.yaml); layer 2 and handoff item 1 now state the pre-Gate-3 text and the post-Gate-3 flip rule instead of two conflicting targets; handoff item 1 is verify-only.",
+      "history": [
+        {
+          "timestamp": "2026-11-19T09:28:25Z",
+          "action": "Finding raised by independent Gate 2 review.",
+          "actor": "System"
+        },
+        {
+          "timestamp": "2026-11-19T09:44:12Z",
+          "action": "Fixed in commit a2b7ee1; closed.",
+          "actor": "System"
+        }
+      ]
+    },
+    {
+      "id": "WORK-186",
+      "type": "ReviewFinding",
+      "title": "F-06 (Gate 2) - Handoff action item 5 lacked Artifact:/Verified by: fields",
+      "status": "done",
+      "priority": "info",
+      "source": {
+        "type": "wf-review",
+        "reference": "wf-review of tasks/task-LMS-CONTRACT-001-plan.md (Gate 2), 2026-11-19, session ses_e0e9841c4ffeH625Lhs6BnmAnq | finding F-06"
+      },
+      "context": "Action item 5 (Plan review and approval) was the only item missing the Artifact: and Verified by: fields required by the handoff contract.",
+      "dependencies": [],
+      "next_action": "None. Item 5 now carries Artifact: (plan, binding.yaml, ledger) and Verified by: (ledger Decision; frontmatter status: ready-for-implement; binding row matches).",
+      "owner": "User",
+      "resolution": "Fixed 2026-11-19 in commit a2b7ee1.",
+      "history": [
+        {
+          "timestamp": "2026-11-19T09:28:25Z",
+          "action": "Finding raised by independent Gate 2 review.",
+          "actor": "System"
+        },
+        {
+          "timestamp": "2026-11-19T09:44:12Z",
+          "action": "Fixed in commit a2b7ee1; closed.",
+          "actor": "System"
+        }
+      ]
+    },
+    {
+      "id": "WORK-187",
+      "type": "ReviewFinding",
+      "title": "F-08 (Gate 2) - Missing decision-relevant risks: post-Gate-3 rendering divergence path; sequencing divergence (F-01)",
+      "status": "done",
+      "priority": "warning",
+      "source": {
+        "type": "wf-review",
+        "reference": "wf-review of tasks/task-LMS-CONTRACT-001-plan.md (Gate 2), 2026-11-19, session ses_e0e9841c4ffeH625Lhs6BnmAnq | finding F-08"
+      },
+      "context": "The plan's risks covered drift, binding re-drift, scope confusion and review false-economy, but not (a) a rendering divergence discovered after Gate 3/converge (no loop-back defined; P-9/P-14 require it to be decided, not improvised) and (b) the sequencing divergence that F-01 exposed.",
+      "dependencies": [
+        "WORK-183"
+      ],
+      "next_action": "None. Both risks added to the plan with owners and outcomes: post-Gate-3 divergence => stop, return to Gate 2/Gate 3; sequencing => land artifacts first and verify via git -C <worktree> show HEAD.",
+      "owner": "User",
+      "resolution": "Fixed 2026-11-19 in commit a2b7ee1.",
+      "history": [
+        {
+          "timestamp": "2026-11-19T09:28:25Z",
+          "action": "Finding raised by independent Gate 2 review.",
+          "actor": "System"
+        },
+        {
+          "timestamp": "2026-11-19T09:44:12Z",
+          "action": "Fixed in commit a2b7ee1; closed.",
+          "actor": "System"
+        }
+      ]
+    },
+    {
+      "id": "WORK-188",
+      "type": "ReviewFinding",
+      "title": "F-09 (Gate 2) - Verification table tightened: expected grep outcomes for AC-1/AC-5; attribution fix must land before wf-converge",
+      "status": "done",
+      "priority": "info",
+      "source": {
+        "type": "wf-review",
+        "reference": "wf-review of tasks/task-LMS-CONTRACT-001-plan.md (Gate 2), 2026-11-19, session ses_e0e9841c4ffeH625Lhs6BnmAnq | finding F-09"
+      },
+      "context": "wf-converge needed checkable outcomes, not method: record the expected grep results (AC-1: no Superseded state field / change-classification field in the rendering; AC-5: no competing encoding name; AC-3: attribution fix lands before converge).",
+      "dependencies": [],
+      "next_action": "None. Verification table updated in the plan with expected grep outcomes and the fix-before-converge ordering.",
+      "owner": "User",
+      "resolution": "Fixed 2026-11-19 in commit a2b7ee1.",
+      "history": [
+        {
+          "timestamp": "2026-11-19T09:28:25Z",
+          "action": "Finding raised by independent Gate 2 review.",
+          "actor": "System"
+        },
+        {
+          "timestamp": "2026-11-19T09:44:12Z",
+          "action": "Fixed in commit a2b7ee1; closed.",
+          "actor": "System"
+        }
+      ]
     }
   ]
 }
