@@ -14,12 +14,15 @@ tracks (`WORK-181`, `WORK-182`).
 
 ## Status
 
-`Open` — contract and rendering are `Approved`; the plan was regenerated from task spec v1.5 on
+`Done` — contract and rendering are `Approved`; the plan was regenerated from task spec v1.5 on
 2026-11-19 and is **`ready-for-implement`** (Gate 2 pass 2 APPROVED WITH COMMENTS; human Gate 3
 approved 2026-11-19, Decision `WORK-189`). **Implementation is complete** (2026-11-19,
 `wf-implement`: three attribution-only rendering edits; conformance check PASS; binding verify-only;
-evidence pack appended in this file). Awaiting `wf-converge`. The previous handoff file was missing
-as of 2026-11-18 (verified); this file was recreated by `wf-plan` 2026-11-19.
+evidence pack appended in this file). **Convergence verdict: CONVERGED** (2026-11-19,
+`wf-converge`, independent read-only verification session `ses_e0e675a3dffeh2pgfqT8Zi4il3`; all nine
+ACs PASS, no blocking gaps). Per the handoff contract this file is disposable: `Done` handoffs are
+deleted by `wf-commit`. The previous handoff file was missing as of 2026-11-18 (verified); this
+file was recreated by `wf-plan` 2026-11-19.
 
 | Skill | Date | Outcome |
 |---|---|---|
@@ -127,5 +130,5 @@ line 108 ("SRS Q-1 is open") and line 362 ("SRS Q-1 and Q-2 remain open").
 | Independent review | wf-review | 2026-11-19 | Gate 2 pass 1 CHANGES REQUIRED (F-01..F-09) → fixes in a2b7ee1 → pass 2 APPROVED WITH COMMENTS (F-10..F-12, folded into Gate 3 change) |
 | Approval | human Gate 3 | 2026-11-19 | Decision `WORK-189` recorded; plan `status: ready-for-implement`; binding plan row flipped in the same change |
 | Implementation | wf-implement | 2026-11-19 | Rendering attribution fixes applied (3 lines, zero requirement change); conformance check 27/27 fields PASS; binding verify-only PASS; evidence pack appended; expected findings (Q-1 wording, faithful mirror of spec) recorded |
-| Convergence | wf-converge | pending | AC-1…AC-9 verdict |
+| Convergence | wf-converge | 2026-11-19 | **CONVERGED** — independent read-only verification (session `ses_e0e675a3dffeh2pgfqT8Zi4il3`); AC-1…AC-9 all PASS; efe1f85 within scope (three attribution lines); zero blocking gaps |
 | Commit | wf-commit | pending | Commit + optional push; SHA recorded in ledger |
