@@ -7,8 +7,8 @@ repo: D:\hobby\specd-workflow-template
 base_branch: main
 calibration: {1: A, 2: E, 3: B, 4: A, 5: A, 6: C}
 workflow: A
-decision: 'Human confirmed the regenerated plan is done at the plan-done gate (2026-11-19). Workflow A: PLAN -> APPROVE -> IMPLEMENT. Next: independent review (Gate 2, wf-review), then human Gate 3 approval; status moves to ready-for-implement only after Gate 3 and only with a ledger Decision.'
-status: in-progress
+decision: 'Human approved the plan at Gate 3 on 2026-11-19 (Decision WORK-189), after independent re-review (Gate 2 pass 2, session ses_e0e91730affeKFJ3oJccFUVvQJ; verdict APPROVED WITH COMMENTS; findings F-10 warning and F-11/F-12 info - F-10 path fix, F-11 stale skill-run wording and F-12 three-line fix applied in the same change). Workflow A complete: PLAN -> APPROVE. Source of truth for wf-implement.'
+status: ready-for-implement
 pending: ''
 worktree: D:/hobby/specd-worktree/lms-contract-plan
 branch: task/WORK-LMS-CONTRACT-001-plan
@@ -177,7 +177,7 @@ Every item above is document-level evidence; `wf-converge` re-verifies.
 
 ### Risks
 
-- Rendering drifts beyond the one-line fix → becomes review findings, not silent edits (project
+- Rendering drifts beyond the three-line fix → becomes review findings, not silent edits (project
   `AGENTS.md` §3: rendering defects are fixed against the spec).
 - `binding.yaml` re-drifts on the next `wf-implement`/`wf-commit` change → each row touched must be
   re-checked in the same change.
@@ -191,7 +191,7 @@ Every item above is document-level evidence; `wf-converge` re-verifies.
   `wf-converge`.
 - Sequencing divergence — implementing from a stale plan because the implementation worktree holds
   the pre-regeneration file → the regenerated plan/`binding.yaml`/handoff must land on the task
-  branch/worktree (verified by `git -C <worktree> show HEAD:tasks/task-LMS-CONTRACT-001-plan.md`
+  branch/worktree (verified by `git -C <worktree> show HEAD:spec-workspace/projects/blockchain-enabled-lms/tasks/task-LMS-CONTRACT-001-plan.md`
   showing the regenerated body) **before** `wf-implement` begins; the handoff names this
   verification explicitly. Owner: `wf-commit` flow at Gate 3 time.
 

@@ -14,10 +14,10 @@ tracks (`WORK-181`, `WORK-182`).
 
 ## Status
 
-`Open` — contract and rendering are `Approved`; the task is at the planning stage. The plan
-(`tasks/task-LMS-CONTRACT-001-plan.md`) was regenerated from task spec v1.5 on 2026-11-19 and is
-`in-progress` pending independent review completion and Gate 3 approval. The previous handoff file was missing
-as of 2026-11-18 (verified); this file was recreated by `wf-plan` 2026-11-19.
+`Open` — contract and rendering are `Approved`; the plan (`tasks/task-LMS-CONTRACT-001-plan.md`) was
+regenerated from task spec v1.5 on 2026-11-19 and is **`ready-for-implement`** (Gate 2 pass 2
+APPROVED WITH COMMENTS; human Gate 3 approved 2026-11-19, Decision `WORK-189`). The previous handoff
+file was missing as of 2026-11-18 (verified); this file was recreated by `wf-plan` 2026-11-19.
 
 | Skill | Date | Outcome |
 |---|---|---|
@@ -71,21 +71,21 @@ as of 2026-11-18 (verified); this file was recreated by `wf-plan` 2026-11-19.
 
 Exact next step, in order:
 
-1. Land this change (commit; human authorization): `spec-workspace/projects/blockchain-enabled-lms/
-   tasks/task-LMS-CONTRACT-001-plan.md`, `.../tasks/task-LMS-CONTRACT-001-handoff.md`,
-   `.../binding.yaml`. Verify the implementation worktree holds the regenerated plan:
-   `git -C D:/hobby/specd-worktree/lms-contract-plan show HEAD:tasks/task-LMS-CONTRACT-001-plan.md`
-   must show the regenerated (2026-11-19) body. Branch `task/WORK-LMS-CONTRACT-001-plan` fast-forwards
-   to the landed commit. Why: without this, `wf-implement` reads the stale plan — the exact defect
-   this regeneration exists to fix.
-2. `@wf-review` — re-review after the Gate 2 findings are applied; artifact
-   `tasks/task-LMS-CONTRACT-001-plan.md`; review type: implementation/architecture planning
-   artifact. Why: expected to converge to Approved with comments; required before Gate 3.
-3. (human decision) Gate 3 — approve the plan; record the approval Decision in the ledger; set the
-   plan file `status: ready-for-implement` (and flip the `binding.yaml` plan row in the same change).
+1. **Land the regenerated artifacts** — DONE (2026-11-19): committed `a2b7ee1` and pushed to
+   `origin/main`; the branch `task/WORK-LMS-CONTRACT-001-plan` was fast-forwarded to `a2b7ee1`
+   (then to `cf3199f` with the ledger bookkeeping). Verified:
+   `git -C D:/hobby/specd-worktree/lms-contract-plan show HEAD:spec-workspace/projects/blockchain-enabled-lms/tasks/task-LMS-CONTRACT-001-plan.md`
+   shows the regenerated body.
+2. `@wf-review` — re-review after the Gate 2 findings were applied: DONE 2026-11-19 (pass 2,
+   session `ses_e0e91730affeKFJ3oJccFUVvQJ`), verdict **Approved with comments** (F-10 warning;
+   F-11/F-12 info; all folded into this Gate 3 change).
+3. (human decision) **Gate 3** — DONE 2026-11-19: plan approved; approval recorded as Decision
+   `WORK-189`; the plan file is set to `status: ready-for-implement` and the `binding.yaml` plan
+   row flips to match in the same change.
 4. `@wf-implement` — worktree `D:/hobby/specd-worktree/lms-contract-plan`, branch
    `task/WORK-LMS-CONTRACT-001-plan`, task spec `WORK-LMS-CONTRACT-001`; source of truth is the
-   regenerated plan file. Why: executes the plan; never re-derives intent.
+   regenerated plan file. Why: executes the plan (three attribution-only rendering lines; binding
+   verify-only; conformance check; evidence pack); never re-derives intent.
 5. `@wf-converge` — verify AC-1…AC-9 against the collected evidence (expected grep outcomes for
    AC-1/AC-5 are pre-recorded in the plan).
 6. `@wf-commit` — task `WORK-LMS-CONTRACT-001`; push flag: **ask the human** (default no push
@@ -99,8 +99,8 @@ Exact next step, in order:
 | Review (×7) | wf-review (delegated, independent) | 2026-11-13..16 | All findings closed in-spec; spec `Approved` (`WORK-156`); contract + rendering Approved |
 | Traceability fixups (SRS v1.2, capabilities, constitution v1.2/v1.3) | assorted | 2026-11-18 | Collection consistent; see `WORK-171/175/176/177/178` |
 | Stale-plan regeneration | wf-plan | 2026-11-19 | Plan rewritten from v1.5; worktree recreated; handoff recreated |
-| Independent review | wf-review | pending | Gate 2 on this plan |
-| Approval | human Gate 3 | pending | Gate 3; Decision recorded in ledger |
+| Independent review | wf-review | 2026-11-19 | Gate 2 pass 1 CHANGES REQUIRED (F-01..F-09) → fixes in a2b7ee1 → pass 2 APPROVED WITH COMMENTS (F-10..F-12, folded into Gate 3 change) |
+| Approval | human Gate 3 | 2026-11-19 | Decision `WORK-189` recorded; plan `status: ready-for-implement`; binding plan row flipped in the same change |
 | Implementation | wf-implement | pending | Binding/provenance/evidence per plan |
 | Convergence | wf-converge | pending | AC-1…AC-9 verdict |
 | Commit | wf-commit | pending | Commit + optional push; SHA recorded in ledger |

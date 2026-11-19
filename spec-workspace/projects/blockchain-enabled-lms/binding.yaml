@@ -39,8 +39,8 @@ spec_files:
   - path: tasks/task-LMS-CONTRACT-001-plan.md
     id: PLAN-LMS-CONTRACT-001
     version: 1.0
-    status: exists - regenerated from task spec v1.5 (wf-plan, 2026-11-19); in-progress pending wf-review and Gate 3 approval
-    role: Implementation plan - the source of truth for wf-implement once Gate 3 approves it. Regenerated 2026-11-19 from the v1.5 contract; the prior body was stale (v1.2-era) and was replaced in the same change as this row.
+    status: ready-for-implement - Gate 3 approved 2026-11-19 (Decision WORK-189); source of truth for wf-implement
+    role: Implementation plan - regenerated from task spec v1.5 (wf-plan, 2026-11-19); the prior body was stale (v1.2-era) and was replaced in the a2b7ee1 change. Approved at Gate 2 (pass 2) and Gate 3 (Decision WORK-189).
   - path: tasks/task-LMS-CONTRACT-001-handoff.md
     id: HANDOFF-LMS-CONTRACT-001
     status: Open

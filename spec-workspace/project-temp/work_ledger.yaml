@@ -5483,6 +5483,36 @@
           "actor": "System"
         }
       ]
+    },
+    {
+      "id": "WORK-189",
+      "type": "Decision",
+      "title": "Gate 3 approval - Implementation plan PLAN-LMS-CONTRACT-001 (regenerated from task spec v1.5) is ready-for-implement",
+      "status": "done",
+      "priority": "critical",
+      "source": {
+        "type": "human-decision",
+        "reference": "user decision 2026-11-19 ('Gate 3 granted' at the question prompt) | satisfies wf-plan Step 10 / the plan's Gate 3; closes the PLAN -> APPROVE half of Workflow A; precedes wf-implement"
+      },
+      "context": "WHAT WAS APPROVED: the regeneration of tasks/task-LMS-CONTRACT-001-plan.md from task spec WORK-LMS-CONTRACT-001 v1.5 (status Approved, WORK-156). The stale v1.2-era body and the materially false frontmatter ('status: complete', 'ready-for-implement', a fictitious WORK-028 approval Decision) are replaced. The plan authorizes: (1) a field-by-field conformance check of the normative rendering against the task spec v1.5 (AC-3, AC-6, AC-8, AC-9); (2) exactly three attribution-only rendering edits, zero requirement change - schema/final-academic-record.md line 17 provenance 1.4 -> 1.5, Section 9 '(v1.4)' -> '(v1.5)', Section 8 'has never been approved' sentence (the rendering is NOT edited before Gate 3; it lands via wf-implement after this approval); (3) binding.yaml plan-row flip to ready-for-implement citing this Decision and verify-only handoff row maintenance; (4) the verification evidence pack mapping AC-1..AC-9 to named evidence, with expected grep outcomes for AC-1/AC-5 and the fix-before-converge ordering. WHY: the artifacts of this task are largely Approved; the remaining work is verification and bookkeeping, and it must be governed, not improvised. Independent review trail: Gate 2 pass 1 (delegated, read-only; session ses_e0e9841c4ffeH625Lhs6BnmAnq; verdict CHANGES REQUIRED; F-01..F-09, recorded as WORK-183..WORK-188, all fixed in commit a2b7ee1 and the worktree fast-forwarded; a2b7ee1 landed the plan/binding/handoff; main pushed cf3199f); Gate 2 pass 2 (delegated, read-only; session ses_e0e91730affeKFJ3oJccFUVvQJ; verdict APPROVED WITH COMMENTS; findings F-10 (wrong HEAD: path in the F-01 guard, fixed in this change), F-11 (stale handoff step 1, fixed in this change), F-12 ('one-line' -> 'three-line' in the Risks bullet, fixed in this change)). Blast radius: tasks/task-LMS-CONTRACT-001-plan.md, tasks/task-LMS-CONTRACT-001-handoff.md, binding.yaml, work_ledger.yaml - nothing else. No specification was edited; no principle added, changed or weakened; protected invariants I/II/III upheld. NOT authorized by this Decision: editing the Approved task spec (the 'SRS Q-1 remains open' wording, stale since WORK-179), the SRS (v1.2 Approved; WORK-182), the constitution (WORK-181), any capability artifact, or any implementation code.",
+      "dependencies": [
+        "WORK-183",
+        "WORK-184",
+        "WORK-185",
+        "WORK-186",
+        "WORK-187",
+        "WORK-188"
+      ],
+      "next_action": "None in this Decision. Next step is @wf-implement (worktree D:/hobby/specd-worktree/lms-contract-plan; branch task/WORK-LMS-CONTRACT-001-plan; task WORK-LMS-CONTRACT-001; the plan file is the source of truth), then @wf-converge, then @wf-commit (push flag: ask the human). Record the commit SHA in this item's history at commit time.",
+      "owner": "User",
+      "resolution": "Gate 3 approval recorded 2026-11-19. The plan is ready-for-implement; the binding.yaml plan row and the handoff file are flipped/updated in the same change as this Decision. Protected Invariant III is satisfied by this recorded Decision plus the plan's gate-2/3 evidence.",
+      "history": [
+        {
+          "timestamp": "2026-11-19T09:35:10Z",
+          "action": "Gate 3 granted by the human ('Gate 3 granted' at the question prompt; F-10/F-11/F-12 folded into this change). Approval recorded as Decision WORK-189. Plan set to status: ready-for-implement; binding.yaml plan row flipped to cite this Decision; handoff updated (status Open, action items, phase contributions).",
+          "actor": "User"
+        }
+      ]
     }
   ]
 }
