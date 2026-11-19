@@ -5872,6 +5872,11 @@
           "timestamp": "2026-11-19T18:15:32Z",
           "action": "Gate 3 approval granted; spec v1.3 marked Approved; this Decision appended per the evidence-based approval rule. Handoff emitted as task-LMS-GRADERECORD-001-handoff.md with suggested skill run wf-plan.",
           "actor": "System"
+        },
+        {
+          "timestamp": "2026-11-19T18:24:30Z",
+          "action": "Task artifacts committed as e69901e36e217cd68505db9c3253e043af6a4754 on task/WORK-LMS-GRADERECORD-001-plan (worktree D:/hobby/specd-worktree/lms-graderecord-plan; base main @ c68389d). Push authorized by the human ('Push the new task branch' at the commit prompt); branch pushed, upstream set, sync verified 0 ahead / 0 behind. PR not requested; main untouched and in sync with origin/main @ c68389d. Spec spec/task-LMS-GRADERECORD-001 artifacts + handoff + this ledger item carried; no FormulaRules content duplicated (WORK-202/203 remain only on task/WORK-LMS-FORMULARULES-001-plan).",
+          "actor": "System"
         }
       ]
     },
@@ -5897,6 +5902,11 @@
         {
           "timestamp": "2026-11-19T18:15:32Z",
           "action": "Task bookkeeping complete for the non-coding phase; handoff emitted with suggested skill run wf-plan.",
+          "actor": "System"
+        },
+        {
+          "timestamp": "2026-11-19T18:24:30Z",
+          "action": "Artifacts + handoff + ledger committed as e69901e36e217cd68505db9c3253e043af6a4754 on task/WORK-LMS-GRADERECORD-001-plan and pushed to origin (upstream set); sync 0 ahead / 0 behind; PR not requested.",
           "actor": "System"
         }
       ]
