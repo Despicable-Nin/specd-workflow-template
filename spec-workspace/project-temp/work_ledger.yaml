@@ -5791,6 +5791,61 @@
           "actor": "System"
         }
       ]
+    },
+    {
+      "id": "WORK-200",
+      "type": "ReviewFinding",
+      "title": "Gate 2 review of WORK-LMS-FORMULARULES-001 plan (2026-11-19) - verdict CHANGES REQUIRED; findings F-01..F-07 all resolved",
+      "status": "done",
+      "priority": "high",
+      "source": {
+        "type": "wf-review",
+        "reference": "independent delegated review, session ses_e0d7c6358ffezZj3NpW1CgOT4a, read-only | plan task-LMS-FORMULARULES-001-plan.md | artifacts: plan, task spec v1.2, handoff, SRS v1.3, service-contracts.yaml, binding.yaml"
+      },
+      "context": "Findings with resolutions: F-01 (high) approval evidenced only by prompt, no ledger Decision - RESOLVED by Gate 3 Decision at approval; F-02 (high) plan/handoff uncommitted while the worktree expected them - resolution = human-authorized commit on main (or instruction for branch variant) + ff-only sync of task/WORK-LMS-FORMULARULES-001-plan; F-03 (medium) handoff stale - RESOLVED (this refresh, status/action items aligned to reality); F-04 (medium) verification index and AC-9 rationale location undefined - RESOLVED (index inline in plan; rationale = on-task ledger Decision cited in the plan); F-05 (low) glued '## Plan' heading - RESOLVED; F-06 (low) vestigial .gitignore mention - RESOLVED; F-07 (low) path-separator drift - RESOLVED (forward slashes). Checks with no exception recorded by the reviewer: B (AC-9 encoding sound), A (traceability), C (mapping honest), D (off-limits), E (risks/out-of-scope, no smuggled work), F (worktree/branch/base geometry correct; plan uncommitted = the discrepancy, F-02), G (calibration matches human answers; contradictions = F-03/F-05/F-06/F-01), H (unsafe for wf-implement until F-01..F-04 land - they now have), I (executable without code or Approved-spec edits: Yes). The review was read-only; no files were modified by the reviewer.",
+      "dependencies": [],
+      "owner": "User",
+      "next_action": "None - all findings resolved and verified: F-03..F-07 applied 2026-11-19; F-01 resolved by Gate 3 Decision WORK-201; F-02 resolved by the commit carrying this file + ff-only sync of task/WORK-LMS-FORMULARULES-001-plan.",
+      "resolution": "F-01..F-07 resolved 2026-11-19T14:40:58Z. Handoff refreshed; plan file filled with verified structure (heading F-05 fixed, .gitignore mention removed F-06, evidence index F-04 pinned inline, separators F-07). See history.",
+      "history": [
+        {
+          "timestamp": "2026-11-19T14:38:57Z",
+          "action": "Findings recorded; F-03..F-07 fixes applied to the plan and handoff. F-01/F-02 pending the human's commit authorization and Gate 3 decision.",
+          "actor": "System"
+        },
+        {
+          "timestamp": "2026-11-19T14:40:58Z",
+          "action": "F-01 resolved: human approved the plan at the Gate 3 prompt; Decision WORK-201 recorded. F-02 resolved: plan/handoff/fixes committed on main; task branch fast-forwarded. Item closed.",
+          "actor": "System"
+        }
+      ]
+    },
+    {
+      "id": "WORK-201",
+      "type": "Decision",
+      "title": "Gate 3 approval - plan PLAN-LMS-FORMULARULES-001 (task-LMS-FORMULARULES-001-plan.md) ready-for-implement",
+      "status": "done",
+      "priority": "high",
+      "source": {
+        "type": "human-decision",
+        "reference": "user approval 2026-11-19 at the Gate 3 question prompt ('Approve - record Decision') | wf-plan Step 10 | plan task-LMS-FORMULARULES-001-plan.md | Gate 2 review ses_e0d7c6358ffezZj3NpW1CgOT4a, verdict CHANGES REQUIRED, findings F-01..F-07 (WORK-200)"
+      },
+      "context": "WHAT WAS APPROVED: plan for task WORK-LMS-FORMULARULES-001 (FormulaRules contract, non-code slice), version as written at the approval instant (file status ready-for-implement; calibration 1C 2E 3C 4A 5C 6C; worktree D:/hobby/specd-worktree/lms-formularules-plan; branch task/WORK-LMS-FORMULARULES-001-plan; base main @ ecad899). Plan traces every element to task spec ACs; off-limits list excludes SRS/constitution/CAP/final-academic-record specs and any binding flip without a named component. The slice implements: Layer 1 (AC-9 binding decision - default keep not-yet-specified + ledger-Decision rationale) and Layer 3 (evidence index citation). No code is authorized. WHY: the task is Gate-3-approved (WORK-198) and converged-ready; the plan is its governing source of truth for wf-implement/wf-converge. NOTHING authorized beyond the plan's own scope; pushes require separate explicit authorization at the prompt; the service-contracts.yaml ECS row is NOT flipped by this Decision.",
+      "dependencies": [
+        "WORK-198",
+        "WORK-199",
+        "WORK-200"
+      ],
+      "owner": "User",
+      "next_action": "wf-implement with the plan file, task spec, worktree and branch (handoff Section 6), or records-only converge directly per the plan. Commits at the prompt.",
+      "resolution": "Gate 3 approval recorded 2026-11-19T14:40:58Z by the user at the question prompt. Plan status ready-for-implement and decision recorded in the plan frontmatter.",
+      "history": [
+        {
+          "timestamp": "2026-11-19T14:40:58Z",
+          "action": "Gate 3 approval granted; plan ready-for-implement; review findings WORK-200 marked resolved in the same change; commit carries this item plus WORK-200 closure, the plan and the refreshed handoff.",
+          "actor": "System"
+        }
+      ]
     }
   ]
 }
