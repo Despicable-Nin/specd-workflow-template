@@ -5841,8 +5841,66 @@
       "resolution": "Gate 3 approval recorded 2026-11-19T14:40:58Z by the user at the question prompt. Plan status ready-for-implement and decision recorded in the plan frontmatter.",
       "history": [
         {
-          "timestamp": "2026-11-19T14:40:58Z",
+          "timestamp": "2026-11-19T15:06:16Z",
           "action": "Gate 3 approval granted; plan ready-for-implement; review findings WORK-200 marked resolved in the same change; commit carries this item plus WORK-200 closure, the plan and the refreshed handoff.",
+          "actor": "System"
+        }
+      ]
+    },
+    {
+      "id": "WORK-202",
+      "type": "Decision",
+      "title": "AC-9 disposition - ECS binding stays not-yet-specified (no named component); written rationale recorded",
+      "status": "done",
+      "priority": "high",
+      "source": {
+        "type": "human-decision",
+        "reference": "user answer at the wf-implement AC-9 question prompt 2026-11-19 ('Keep not-yet-specified (default)') | plan task-LMS-FORMULARULES-001-plan.md Layer 1 | task spec WORK-LMS-FORMULARULES-001 AC-9 (named-component rule)"
+      },
+      "context": "WHAT WAS DECIDED: the service-contracts.yaml ECS `domains` row remains binding_status not-yet-specified; the manifest file is NOT edited by this Decision. WHY (written rationale): (1) No named ECS component exists anywhere in the repository - the codebase (generated-projects/blockchain-enabled-lms/) is a scaffold with zero implementation code, and SRS_LMS_v1.0.md Section 6 explicitly defers runtime service topology to implementation time. (2) The SRS defines ECS as a domain (Sections 3.1-3.3) and as the rule authority; it does not name a deployable ECS component, service, or host, and specifying one would invent an architecture the Approved SRS has not decided (SRS Sections 2.x/6). (3) The named-component rule (task spec AC-9 / plan Layer 1) permits a flip to declared ONLY against a named component with provides/requires recorded in the manifest, consistent with how the existing declared rows read; no such component was named by the human at the AC-9 prompt, so the default, honest disposition applies. (4) The manifest's purpose is to record bindings that exist; an aspirational or placeholder binding would violate AC-9's no-invented-binding clause and would misrepresent the runtime topology. WHAT WAS NOT AUTHORIZED: no edit to service-contracts.yaml; no binding of ECS (or any other not-yet-specified domain); no topology decision. WHEN/WHAT NEXT: revisit only when an ECS implementation plan names a deployable component with provides/requires - at that point a new Decision records the flip (or an explicit CR amends SRS Section 6 first if topology is to be decided at the spec level).",
+      "dependencies": [
+        "WORK-198",
+        "WORK-201"
+      ],
+      "owner": "User",
+      "next_action": "wf-converge (AC-1..AC-13 vs the plan's inline evidence index); commits at the prompt.",
+      "resolution": "Default no-flip path taken per the human's explicit choice at the wf-implement prompt 2026-11-19. Manifest unchanged; rationale recorded here as required by AC-9. Plan cited this Decision (Layer 1 / F-04 note).",
+      "history": [
+        {
+          "timestamp": "2026-11-19T15:06:16Z",
+          "action": "AC-9 disposition recorded: human chose Keep not-yet-specified (default) at the wf-implement question prompt; written rationale captured in context; manifest untouched.",
+          "actor": "System"
+        },
+        {
+          "timestamp": "2026-11-19T15:17:58Z",
+          "action": "Restored after an errant edit in the wf-converge ledger append removed this item; re-inserted verbatim ahead of WORK-203. Ledger integrity re-verified (parse OK; WORK-198..WORK-203 present exactly once).",
+          "actor": "System"
+        }
+      ]
+    },
+    {
+      "id": "WORK-203",
+      "type": "Task",
+      "title": "Convergence verdict - WORK-LMS-FORMULARULES-001 CONVERGED (AC-1..AC-13, verification per plan inline index + fresh mechanical checks)",
+      "status": "done",
+      "priority": "critical",
+      "source": {
+        "type": "wf-converge",
+        "reference": "wf-converge 2026-11-19 | verification executed in the wf-implement/wf-converge session (not delegated) | task spec task-LMS-FORMULARULES-001-noncode.md v1.2 | plan task-LMS-FORMULARULES-001-plan.md (inline evidence index, F-04) | worktree D:/hobby/specd-worktree/lms-formularules-plan, branch task/WORK-LMS-FORMULARULES-001-plan"
+      },
+      "context": "Verdict CONVERGED on 2026-11-19. Evidence per AC: AC-1 PASS (path exists; frontmatter status Approved, task_type noncode, v1.2, parent SRS v1.3). AC-2 PASS (13.2/13.3: 13 record fields + 3 component-descriptor fields, all typed/cardinality/nullability/semantics; rule_set_id carries opacity/uniqueness/stability rules). AC-3 PASS (13.4 stability clause: globally unique never re-minted identifier, immutable post-mint, deterministic resolution for (level, period) + unchanged in-force set, SRS anchored). AC-4 PASS (word-tokenizer scan of S13-S15 for standalone digit-only tokens within 10 word-tokens of weight/weights/percentage/threshold/cutoff: 1 raw hit - L261, a bare '1' cardinality cell in the 13.2 table, excluded per exclusion (iii) between pipes; zero applicable hits). AC-5 PASS (Section 14 matrix present; every field row cites SRS anchors; no field cites nothing). AC-6 PASS (13.1 ownership clause: ECS sole authority; consumers read via ECS operations only; no ECS-owned contract/task/code may author weights/thresholds; SRS citations present). AC-7 PASS (Section 7 adoption table versions match library/Capabilities frontmatter exactly: TIMESTAMPFORMAT 1.1 / SCHEMAVERSIONCONSTRAINT 1.1 / USERID 1.1 ADOPT; STATUSENUMS 1.2 / CANONICAL-FORM 1.0 DECLINE). AC-8 PASS (pre-check log: Walk A + Walk B, all steps OK - review session ses_e0db7dd7bffeyWSfzGVM7qPART; recorded in plan/handoff; GradeRecord identifier-carry path checked inside Walk A3 per spec Section 15). AC-9 PASS (manifest service-contracts.yaml untouched - empty diff on the implement slice; ECS row kept not-yet-specified; written rationale recorded as Decision WORK-202 per the human's explicit choice at the AC-9 prompt; named-component rule unsatisfied, no binding invented). AC-10 PASS (Section 0 plain-language summary present; registrar-audience readable; terms glossed - 'Educational Context Service (ECS)', rule-book/binder analogy). AC-11 PASS (zero technology markers: languages/DBMS/cloud/frameworks; extended protocol sweep (http/json/xml/yaml/rest/grpc/websocket/sql) hits only on the artifact filename service-contracts.yaml - not a technology selection; no HTTP/DBMS/vendor names anywhere in the contract). AC-12 PASS (13.8: legible reason codes - rule_set_request_malformed / rule_set_not_found / schema_version_unsupported / rule_set_in_force_ambiguous; scoped to in-force resolution; historical superseded identifiers MUST resolve for reproduction - refusal there is a contract violation; rule_set_not_found never applies to existing superseded identifiers). AC-13 PASS WITH OBSERVATION (13.9 boundary table present; every guarantee labelled contract-level or ECS runtime; cross-check vs 13.2 constraints: rule_set_id opacity/uniqueness/immutability [row 2], presence/emptiness + schema_version [row 1], timestamps + approved_at >= minted_at [row 3], attribution UserID [row 4], components 1..n + component_id uniqueness + kinds in enum [row 5], in-force/gating/refusal/supersession [row 6], calculation_body opacity [row 7]; OBSERVATION - the table does not name the educational_level literal-enum membership check, nor opaque-reference resolution of academic_period_ref, as enforcement rows; strictly read, the 'exhaustive over AC-2 field constraints' clause is satisfied only under a reading that folds literal-enum and reference-resolution under existing rows. Non-blocking: no guarantee is unlabelled; no consumer obligation is created or changed; the contract is Approved (v1.2, Gate 3 WORK-198) and changes require change control. Reviewers validated AC-10..13 across three passes (terminal APPROVED WITH COMMENTS). NO blocking findings; no ReviewFinding item raised by convergence. The observation is recorded here for the record - disposition deferred to the human (accept-as-designed, or bundle into a future Section 11 CR).",
+      "dependencies": [
+        "WORK-198",
+        "WORK-201",
+        "WORK-202"
+      ],
+      "owner": "User",
+      "next_action": "None - CONVERGED. Task proceeds to @wf-commit (worktree D:/hobby/specd-worktree/lms-formularules-plan; branch task/WORK-LMS-FORMULARULES-001-plan). Commits/push only at explicit human authorization; the Done handoff is deleted by wf-commit. AC-13 observation: disposition at the human's option (accept-as-designed or future CR).",
+      "resolution": "CONVERGED 2026-11-19: AC-1..AC-13 all mapped to evidence; 12 PASS clean; AC-13 PASS with one non-blocking observation (educational_level literal-enum not named in the 13.9 table; strictly-read exhaustiveness nuance). Implementation stayed within the approved records-only scope; service-contracts.yaml untouched; no unapproved artifacts created or edited; nothing loops back to wf-implement.",
+      "history": [
+        {
+          "timestamp": "2026-11-19T15:17:58Z",
+          "action": "Convergence verdict issued: CONVERGED. Mechanical checks re-derived in-session (tokenizer scan for AC-4, technology-marker sweep for AC-11, capability-version comparison for AC-7, frontmatter/path for AC-1, section reads for AC-2/3/6/10/12/13); AC-8 cited from the reviewing session log; AC-9 = WORK-202 + empty manifest diff. Handoff marked Done. Record added per this item.",
           "actor": "System"
         }
       ]
