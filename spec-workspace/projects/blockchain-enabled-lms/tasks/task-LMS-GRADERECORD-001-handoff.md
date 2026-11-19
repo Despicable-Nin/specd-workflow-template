@@ -1,6 +1,6 @@
 # Handoff — WORK-LMS-GRADERECORD-001 (GradeRecord contract)
 
-`status: Approved` — Gate 3 approval recorded 2026-11-19T18:15:32Z (Decision `WORK-204`). Gate 2 converged over four independent passes (pass 4: APPROVED WITH COMMENTS, no blocking findings). Worktree does **not** exist yet; `wf-plan` creates it from `main` per calibration choice 4.
+`status: In Progress` — Gate 2 plan review done (APPROVED WITH COMMENTS, `WORK-206`); Gate 3 plan approval recorded 2026-11-19 (Decision `WORK-207`); plan `status: ready-for-implement`. `wf-implement` is next (records-only). Worktree: `D:/hobby/specd-worktree/lms-graderecord-plan` on branch `task/WORK-LMS-GRADERECORD-001-plan` (base `main` @ `c68389d`; reused — one worktree per task). Commit of plan + this refresh + ledger at the human's prompt.
 
 ## 1. Purpose
 
@@ -12,18 +12,18 @@ Implements: `SRS-LMS-v1.0` **v1.3** (§1.3; §2.2 W-1; §2.3 W-2; §2.4 W-3; §2
 
 ## 2. Status
 
-`Approved` — spec **v1.3**, Gate 3 Decision `WORK-204` (2026-11-19T18:15:32Z). `task_type: noncode`; `parent_spec: SRS-LMS-v1.0` v1.3; calibration final (`CALIBRATION-LMS-GRADERECORD-001`, Gate 1 final). Review record: four delegated read-only passes — F-01..F-13, F-201..F-208, F-301..F-303 all resolved and re-verified in-text; walks clean; exactly one AMBIGUOUS (B3, Section 11 C-1, pre-dispositioned, not a failure). Contributing skills: `wf-task-noncode` (this file); next: `wf-plan`.
+`In Progress` — spec **v1.3** Approved (Gate 3, Decision `WORK-204`; four independent Gate 2 spec passes). Plan run file `task-LMS-GRADERECORD-001-plan.md` reviewed 2026-11-19 (verdict APPROVED WITH COMMENTS; `WORK-206`, findings F-1..F-9 not folded — human disposed **approve as-is**) and approved at Gate 3 (Decision `WORK-207`); `status: ready-for-implement`. Work is records-only: nothing remains to be designed or built. Contributing skills: `wf-task-noncode`, `wf-plan`, `wf-review`; next: `wf-implement` (Step 1..5), then `wf-converge`, then `wf-commit` (handoff disposed there).
 
 **Artifact placement (F-10) — RESOLVED 2026-11-19 at the commit prompt:** the artifacts were untracked on `task/WORK-LMS-FORMULARULES-001-plan` at Gate 3; the human chose to create the designated task worktree/branch (`D:/hobby/specd-worktree/lms-graderecord-plan`, `task/WORK-LMS-GRADERECORD-001-plan`, off `main`) and carry them there. They are committed on that branch; the FormulaRules worktree/branch is clean and untouched.
 
 ## 3. Action items
 
-1. **`wf-plan`** — create the plan file for this task (creates worktree from `main`): worktree preference `D:/hobby/specd-worktree/lms-graderecord-plan`, branch `task/WORK-LMS-GRADERECORD-001-plan`, base `main` (calibration choice 4; `wf-plan` creates it, not this skill). Plan is the source of truth for `wf-implement`.
-2. **`wf-implement`** (after plan approval) — records-only slice: re-run AC-4/AC-10 regressions, confirm artifacts, and hand to `wf-converge`. No code is authorized by this task.
-3. **Commit** — DONE 2026-11-19: artifacts committed on `task/WORK-LMS-GRADERECORD-001-plan` in `D:/hobby/specd-worktree/lms-graderecord-plan` (commit at the commit prompt; message `[WORK-204] …`). Push to `origin` authorized by the human (`git push -u origin task/WORK-LMS-GRADERECORD-001-plan`).
-4. **Handoff disposal** — when converged and committed, this handoff is marked `Done` and deleted by `wf-commit` (disposable contract).
-5. **`WORK-196`** — remains open for the Session/AttendanceRecord contract (the third missing contract). Raise via `@wf-task-noncode` after this task's planning, or in parallel.
-6. **Change requests (owed, not started)** — `SRS §11 CR` or `CAP-STATUSENUMS` v1.3 for the `change_status` vocabulary (Section 11 C-1); SRS Q-2 resolution (`transaction_id`/`parent_transaction_id` formats); `WORK-181`/`WORK-182`; retention-policy Decision (constitution tension 1); F-13 (LGS `TransactionID` name-collision note) carried to the LGS task spec.
+1. **DONE** — `wf-review` ran (verdict APPROVED WITH COMMENTS; `WORK-206`); human disposed **approve as-is**; Gate 3 plan approval recorded (`WORK-207`); plan `status: ready-for-implement`.
+2. **`wf-implement`** — records-only per the plan (calibration 5A chrome: numbered step lines, slice waits): re-run **AC-1 / AC-4 / AC-7 / AC-10** on the committed v1.3; cite the other eleven ACs to the pass-3/4 evidence; refresh records; hand off to `wf-converge`. No code is authorized.
+3. **`wf-converge`** — verify AC-1..AC-15 against the plan's inline index; then **`wf-commit`** disposes of this handoff (deleted, not archived) and commits at the prompt.
+4. **Commits** — `e69901e`/`747bde0` DONE 2026-11-19. Plan + this refresh + ledger committed at the human's prompt (this commit); pushes only with explicit authorization.
+5. **`WORK-196`** — remains open for the Session/AttendanceRecord contract (the last gap before any coding slice).
+6. **Change requests (owed, not started)** — `SRS §11 CR`/`CAP-STATUSENUMS` v1.3 for the `change_status` vocabulary (Section 11 C-1); SRS Q-2 resolutions (C-2); `WORK-181`/`WORK-182`; retention-policy Decision (constitution tension 1); F-13 (LGS `TransactionID` name-collision note) carried to the LGS task spec.
 
 ## 4. Preconditions unmet
 
@@ -40,16 +40,19 @@ None for `wf-plan`. Downstream of this task: the `GradeRecord` contract is Appro
 
 ## 6. Suggested skill run
 
-**`wf-plan`** — parameters:
+**`wf-implement`** — parameters:
 
 - Project: `blockchain-enabled-lms`
-- Task spec: `spec-workspace/projects/blockchain-enabled-lms/tasks/task-LMS-GRADERECORD-001-noncode.md` (Approved v1.3; Gate 3 `WORK-204`)
-- Calibration: `spec-workspace/projects/blockchain-enabled-lms/tasks/task-LMS-GRADERECORD-001-noncode-calibration.md` (Gate 1 final)
-- Worktree preference: `D:/hobby/specd-worktree/lms-graderecord-plan`; branch `task/WORK-LMS-GRADERECORD-001-plan`; base `main`
-- Rationale: the plan file is the source of truth for `wf-implement` and creates the worktree from `main` honouring calibration choice 4. Implementation of this task is records-only (no code); convergence will verify AC-1..AC-15 (AC-4/AC-10 re-run, AC-7 capability versions, §13.9 exhaustiveness, walk logs) against the plan's inline evidence index. Commits at the prompt via `wf-commit`.
+- Plan: `spec-workspace/projects/blockchain-enabled-lms/tasks/task-LMS-GRADERECORD-001-plan.md` (`status: ready-for-implement`; Gate 3 `WORK-207`)
+- Task spec: `spec-workspace/projects/blockchain-enabled-lms/tasks/task-LMS-GRADERECORD-001-noncode.md` (Approved v1.3; `WORK-204`)
+- Worktree: `D:/hobby/specd-worktree/lms-graderecord-plan`; branch `task/WORK-LMS-GRADERECORD-001-plan`
+- Rationale: the plan is the source of truth; this records-only slice re-checks AC-1/AC-4/AC-7/AC-10 on the committed file and cites the rest; `wf-converge` then verifies AC-1..AC-15; `wf-commit` disposes of this handoff (deletes it) and commits at the prompt.
 
 ## 7. Phase contributions
 
 | Skill | When | Produced |
 |---|---|---|
 | `wf-task-noncode` | 2026-11-19 | Six-choice calibration (Gate 1 final; bindings recorded); scan of SRS v1.3 + sibling contracts + FAR rendering + capabilities; spec v1.0 drafted; v1.1 after Gate 2 pass 1 (F-01..F-13); v1.2 after pass 2 (F-201..F-208); v1.3 after pass 3 (F-301..F-303 + N-1); pass 4 APPROVED WITH COMMENTS; Gate 3 approval `WORK-204`; handoff (this file); ledger `WORK-204`, `WORK-205` |
+| `wf-plan` | 2026-11-19 | Plan run file `task-LMS-GRADERECORD-001-plan.md` drafted (calibration 1C 2E 3D 4C 5A 6B; workflow C); worktree REUSED (created at the commit prompt from `main` @ `c68389d`; branch `task/WORK-LMS-GRADERECORD-001-plan`); Plan drafted and confirmed Done by the human; handoff refreshed; baseline table; evidence index inline |
+| `wf-review` | 2026-11-19 | Gate 2 review of the plan (session `ses_e0c99b327ffea9IfBhaeJNB48n`, read-only): verdict APPROVED WITH COMMENTS; findings F-1..F-9 recorded as ledger item `WORK-206` (`proposed`; none auto-closed); human disposed approve-as-is at the Gate 3 prompt |
+| `wf-plan` (Gate 3) | 2026-11-19 | Plan approval Decision `WORK-207` recorded; plan `status: ready-for-implement`; this file refreshed; plan/handoff/ledger committed on this branch at the human's prompt |

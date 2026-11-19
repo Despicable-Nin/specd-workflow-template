@@ -5910,6 +5910,59 @@
           "actor": "System"
         }
       ]
+    },
+    {
+      "id": "WORK-206",
+      "type": "ReviewFinding",
+      "title": "Gate 2 review of WORK-LMS-GRADERECORD-001 plan (2026-11-19) - verdict APPROVED WITH COMMENTS; findings F-1..F-9 (warnings/info; none blocking)",
+      "status": "proposed",
+      "priority": "medium",
+      "source": {
+        "type": "wf-review",
+        "reference": "independent delegated review, session ses_e0c99b327ffea9IfBhaeJNB48n, read-only | plan task-LMS-GRADERECORD-001-plan.md (status in-progress at review) | artifacts: plan, contract spec v1.3, handoff, SRS v1.3, FAR rendering, service-contracts.yaml, git state"
+      },
+      "context": "Findings with the author to disposition (REVISE step, workflow C). F-1 (warning) plan miscounts implement-time re-checks as 'three' (plan :122) - actual four: AC-1/AC-4/AC-7/AC-10 (verification table :106,109,112,115). F-2 (warning) Baseline Git cell claims 'tree clean' (:63) and handoff row 'Committed' (:59) - false at review time: tree carries untracked plan + modified handoff. F-3 (warning) handoff header status token 'ready-for-review' and Section 2 'next: wf-plan'/'Approved' - outside allowed Open|In Progress|Blocked|Done set and stale (wf-plan has run). F-4 (warning) no commit-before-implement precondition: plan+handoff must be committed on task/WORK-LMS-GRADERECORD-001-plan (human authorization) before wf-implement starts; source-of-truth-by-file requires the source to be at a committed SHA. F-5 (info) frontmatter repo points at the worktree not the canonical clone; house style is repo=canonical clone. F-6 (info) 'N-clean' citation (AC-9 row :114) unlocatable - cite the pass-4 reviewer read-through / comment log instead. F-7 (info) plan-done human confirmation not recorded in the file (Decisions) - one dated line. F-8 (info) ledger drift noted for the record, NOT to be hand-edited (WORK-205 says AC-4 L262; weight row is line 263; WORK-204 source path points at the old worktree). F-9 (info) verification rows imply executor by house style; name it (wf-implement/converge/Gate-2 reviewers) or accept. Verdict disposition: APPROVED WITH COMMENTS; nothing forbids proceeding; F-1..F-4 fold into REVISE before Gate 3.",
+      "dependencies": [
+        "WORK-204",
+        "WORK-205"
+      ],
+      "owner": "User",
+      "next_action": "REVISE the plan per F-1..F-7 at the human's word (plan + handoff edits); then Gate 3 plan approval Decision (human); then commit plan+handoff+ledger at the prompt; then wf-implement.",
+      "resolution": null,
+      "history": [
+        {
+          "timestamp": "2026-11-19T18:40:00Z",
+          "action": "Findings recorded as proposed per wf-review Step 6; none auto-closed; none blocking; F-8 noted as ledger-drift for the record (no edit authorized).",
+          "actor": "System"
+        }
+      ]
+    },
+    {
+      "id": "WORK-207",
+      "type": "Decision",
+      "title": "Gate 3 approval - plan task-LMS-GRADERECORD-001-plan.md approved as-is (ready-for-implement)",
+      "status": "done",
+      "priority": "high",
+      "source": {
+        "type": "human-decision",
+        "reference": "user decision at the commit prompt 2026-11-19T18:54:42Z ('Approve as-is') | Gate 2 review ses_e0c99b327ffea9IfBhaeJNB48n, verdict APPROVED WITH COMMENTS (WORK-206)"
+      },
+      "context": "WHAT WAS APPROVED: plan task-LMS-GRADERECORD-001-plan.md for task WORK-LMS-GRADERECORD-001 (GradeRecord contract, non-code records-only slice), as drafted at approval - version as written at the approval instant; calibration 1C 2E 3D 4C 5A 6B; workflow C; worktree D:/hobby/specd-worktree/lms-graderecord-plan; branch task/WORK-LMS-GRADERECORD-001-plan; base main @ c68389d. Gate 2 verdict APPROVED WITH COMMENTS; findings F-1..F-9 accepted as-is (not folded into the plan) per the human at the question prompt; recorded in WORK-206 (proposed; nothing auto-closed). WHY: the plan is the source of truth for wf-implement; records-only scope; no code is authorized; the Approved spec (v1.3, WORK-204) is frozen; edits to it only via SRS Section 11 CR. WHAT THIS DOES NOT AUTHORIZE: implementation code; edits to SRS, constitution, capabilities, FAR contract/rendering, FormulaRules contract, service-contracts.yaml; merging or PR (no authorization); pushes need explicit per-prompt authorization; the commit carrying plan+handoff+ledger proceeds at this prompt. F-4 review precondition (source-of-truth at a committed SHA before wf-implement) is satisfied by that commit. F-2/F-3 (stale claims) and F-1 (four vs three re-checks) stand as recorded in WORK-206 - implement and converge read the four-check reality (AC-1/AC-4/AC-7/AC-10) regardless of the plan's miscount.",
+      "dependencies": [
+        "WORK-204",
+        "WORK-205",
+        "WORK-206"
+      ],
+      "owner": "User",
+      "next_action": "wf-implement (records-only; AC-1/AC-4/AC-7/AC-10 re-checks; cite the rest); then wf-converge; then wf-commit (disposal of the handoff). WORK-196 (Session/AttendanceRecord) remains open for the pre-coding gap.",
+      "resolution": "Gate 3 approval granted 2026-11-19T18:54:42Z by the user at the question prompt ('Approve as-is'). Plan status ready-for-implement; decision recorded in the plan frontmatter and this item.",
+      "history": [
+        {
+          "timestamp": "2026-11-19T18:54:42Z",
+          "action": "Gate 3 approval granted; plan ready-for-implement; findings WORK-206 dispositioned approve-as-is by the human at the same prompt.",
+          "actor": "System"
+        }
+      ]
     }
   ]
 }
