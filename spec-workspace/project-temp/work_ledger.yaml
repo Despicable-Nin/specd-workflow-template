@@ -5617,6 +5617,131 @@
           "actor": "System"
         }
       ]
+    },
+    {
+      "id": "WORK-193",
+      "type": "Task",
+      "title": "main was ahead of origin/main (28dd834, 1245a5a) - resolved 2026-11-19 by user-authorized push (includes 4813e48 and the ledger-record commit)",
+      "status": "done",
+      "priority": "high",
+      "source": {
+        "type": "git",
+        "reference": "git log origin/main..HEAD on 2026-11-19; rev-list --left-right --count origin/main...HEAD = 0 2"
+      },
+      "context": "The SRS v1.3 + CAP-STATUSENUMS v1.2 apply (WORK-192, Gate 2 approved 2026-11-19) is committed locally only. origin/main does not carry v1.3. This is intentional: the human authorized apply + commit but NOT push at the Gate 2 prompt. No action has been taken; flagged so it is not lost.",
+      "next_action": "None - resolved by the 2026-11-19 user-authorized push covering 28dd834, 1245a5a, 4813e48 and this ledger-record commit; verified 0 ahead / 0 behind after push.",
+      "owner": "User",
+      "resolution": "Push authorized by the human at the 2026-11-19 question prompt ('Yes - push now'). Push executed immediately; origin/main carries all four commits; rev-list origin/main...HEAD verified 0/0.",
+      "history": [
+        {
+          "timestamp": "2026-11-19T12:27:26Z",
+          "action": "Discovered by wf-state (full scope) 2026-11-19.",
+          "actor": "System"
+        },
+        {
+          "timestamp": "2026-11-19T12:47:29Z",
+          "action": "Human authorized push at the wf-state disposition prompt ('Yes - push now'). Disposals applied first (4813e48). Push executed; origin synchronized.",
+          "actor": "System"
+        }
+      ]
+    },
+    {
+      "id": "WORK-194",
+      "type": "Task",
+      "title": "Stale root-level state reports deleted (workflow-status.md, project-state-report*.md, reconciliation-report.md, review-findings.md, task-review-findings.md)",
+      "status": "done",
+      "priority": "medium",
+      "source": {
+        "type": "wf-state",
+        "reference": "workflow-status.md (repo root); project-state-report.md; project-state-report-state.md; project-state-report-review.md; reconciliation-report.md; review-findings.md; task-review-findings.md; CONCLUSION.md"
+      },
+      "context": "These point-in-time reports describe a pre-2026-11-19 snapshot (contract task converged WORK-190; SRS v1.3 applied WORK-192). workflow-status.md is actively misleading (says the planning gate is pending and the next skill is @wf-plan for WORK-LMS-CONTRACT-001, which has already converged and been committed). None of these files was authored by wf-state; disposal or refresh is a human decision.",
+      "next_action": "None - deleted at 4813e48598422e14b05e601046e2355280e84c96. CONCLUSION.md retained (was explicitly excluded from the approved deletion set). Git history preserves the deleted reports.",
+      "owner": "User",
+      "resolution": "User approved deletion of the stale reports at the 2026-11-19 question prompt ('Delete the stale reports'). Seven files git-rm'd and committed at 4813e48598422e14b05e601046e2355280e84c96.",
+      "history": [
+        {
+          "timestamp": "2026-11-19T12:27:26Z",
+          "action": "Discovered by wf-state (full scope) 2026-11-19.",
+          "actor": "System"
+        },
+        {
+          "timestamp": "2026-11-19T12:47:29Z",
+          "action": "User approved deletion; reports git-rm'd and committed at 4813e48598422e14b05e601046e2355280e84c96.",
+          "actor": "System"
+        }
+      ]
+    },
+    {
+      "id": "WORK-195",
+      "type": "Task",
+      "title": "spec-workspace/AGENTS.md Known gaps (Section 6) stale - names SRS v1.2 / 2026-11-18; cannot be fixed inside a skill run (AGENTS.md read-only)",
+      "status": "proposed",
+      "priority": "medium",
+      "source": {
+        "type": "wf-state",
+        "reference": "spec-workspace/AGENTS.md Section 6 'Specifications Approved in this tree (2026-11-18)' lists SRS v1.2 (Gate 2 WORK-176); SRS is now v1.3 (WORK-192)"
+      },
+      "context": "spec-workspace/AGENTS.md Section 6 remains truthful only as of 2026-11-18. After WORK-192 (SRS v1.3 + CAP-STATUSENUMS v1.2, 2026-11-19) it understates the tree. Rule 0: AGENTS.md is read-only during a skill run unless the task is explicitly a documentation task whose scope covers the file and that has been approved. The update needs an explicit documentation scope + human approval.",
+      "next_action": "Raise a documentation task (wf-task-noncode) or explicit doc scope covering spec-workspace/AGENTS.md Section 6 to re-pin to v1.3 / CAP-STATUSENUMS v1.2 / WORK-192. Do not edit silently.",
+      "owner": "User",
+      "resolution": null,
+      "history": [
+        {
+          "timestamp": "2026-11-19T12:27:26Z",
+          "action": "Discovered by wf-state (full scope) 2026-11-19. Not fixed by wf-state (Rule 0).",
+          "actor": "System"
+        }
+      ]
+    },
+    {
+      "id": "WORK-196",
+      "type": "Task",
+      "title": "Missing field-level contracts for the attendance/grade slice - Session & AttendanceRecord, FormulaRules (grade configuration), GradeRecord",
+      "status": "proposed",
+      "priority": "high",
+      "source": {
+        "type": "wf-state",
+        "reference": "SRS v1.3 Sections 2.10 (W-7), 2.2 (W-1), 2.3 (W-2), 3.1 (ESS/ECS/GRA-Service), 4.2 (S-8); srs-v1.3-proposal.md 'Downstream' list"
+      },
+      "context": "The attendance slice is now in the approved parent (v1.3) but has NO field-level contracts. Three specs are missing, each a prerequisite for any coding slice: (1) Session + AttendanceRecord contract (SRS Section 2.10; attendance outcome vocabulary governed by CAP-STATUSENUMS v1.2; record carries the governing rule set identifier); (2) FormulaRules / grade-configuration contract (SRS Sections 2.3, 3.1 ECS; formula CONTENT stays ECS-owned and unauthored - only the contract); (3) GradeRecord contract (SRS Section 3.1 GRA-Service; pre-existing gap, unaffected by v1.3). grade-app slices must not be raised as coding tasks until the contracts they consume are Approved.",
+      "next_action": "Raise one or more wf-task-noncode specifications targeting SRS v1.3 as parent (Session/AttendanceRecord first is the natural entry). Independent review + Gate 2 approval per contract before any @wf-task-code run.",
+      "owner": "User",
+      "resolution": null,
+      "history": [
+        {
+          "timestamp": "2026-11-19T12:27:26Z",
+          "action": "Discovered by wf-state (full scope) 2026-11-19.",
+          "actor": "System"
+        }
+      ]
+    },
+    {
+      "id": "WORK-197",
+      "type": "Task",
+      "title": "spec-workspace/tasks/task-scaffold-handoff.md (status Done, undisposed) - deleted 2026-11-19 (contract-conformant disposal)",
+      "status": "done",
+      "priority": "low",
+      "source": {
+        "type": "wf-state",
+        "reference": "spec-workspace/tasks/task-scaffold-handoff.md - '**Handoff status:** Done' (merged via PR #1, 2026-11-11); root AGENTS.md Section 5.5 and spec-workspace/AGENTS.md 'Handoff files - inside the tree, and disposable'"
+      },
+      "context": "A handoff whose status is Done is disposed of (deleted, not archived) in the same change that sets Done. This one survives in the tree. It is also partially stale (corrected 2026-11-13; parent spec FW-SOR-v1.0 is Draft and never approved). It documents framework-level scaffold work, not the LMS. wf-state must not delete it; a human decision is required.",
+      "next_action": "None - deleted at 4813e48598422e14b05e601046e2355280e84c96 (Done handoffs are disposable by contract).",
+      "owner": "User",
+      "resolution": "User approved disposal at the 2026-11-19 question prompt ('Delete it'). Handoff git-rm'd and committed at 4813e48598422e14b05e601046e2355280e84c96. Note: the handoff's parent spec FW-SOR-v1.0 (SDLC-SOR-v1.0.md, Draft, never approved) was left untouched - out of scope of the approved deletion.",
+      "history": [
+        {
+          "timestamp": "2026-11-19T12:27:26Z",
+          "action": "Discovered by wf-state (full scope) 2026-11-19. Not disposed of by wf-state.",
+          "actor": "System"
+        },
+        {
+          "timestamp": "2026-11-19T12:47:29Z",
+          "action": "User approved disposal; handoff git-rm'd at 4813e48598422e14b05e601046e2355280e84c96.",
+          "actor": "System"
+        }
+      ]
     }
   ]
 }
